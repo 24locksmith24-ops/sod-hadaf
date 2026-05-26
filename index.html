@@ -220,6 +220,16 @@
   .codes-out .hit{background:var(--parch-deep);border-radius:9px;padding:8px 12px;margin-bottom:6px}
   .codes-out .hit b{color:var(--crimson)}
   .codes-out .note{font-size:.82rem;color:var(--ink-soft);margin-top:8px}
+  /* code context strip + matrix */
+  .strip{font-family:'Frank Ruhl Libre',serif;font-size:1.15rem;line-height:2;direction:rtl;
+    background:#fffdf7;border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin:6px 0;word-break:break-all}
+  .strip .lit{background:var(--gold);color:#fff;border-radius:4px;padding:0 3px;font-weight:900}
+  .strip .dim{color:var(--ink-soft);opacity:.55}
+  .matrix{display:inline-grid;gap:2px;direction:rtl;margin:8px 0;padding:8px;
+    background:#fffdf7;border:1px solid var(--line);border-radius:8px;overflow-x:auto;max-width:100%}
+  .matrix .cell{width:22px;height:26px;display:grid;place-items:center;font-family:'Frank Ruhl Libre',serif;
+    font-size:1rem;color:var(--ink);border-radius:3px}
+  .matrix .cell.lit{background:var(--crimson);color:#fff;font-weight:900}
 
   /* monthly calendar */
   .cal-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -1043,9 +1053,30 @@ document.getElementById("calNext").addEventListener("click",()=>{calOffset++;ren
 renderCalendar();
 
 /* ===== Daily codes feed (reads codes.json from the agent) ===== */
-function elsLine(h){
-  return `<div class="hit">המילה <b>${h.word}</b> — דילוג <b>${h.skip}</b> ${h.dir} · מאות ${(h.start+1).toLocaleString()}</div>`;
+function renderStrip(strip, marks){
+  if(!strip) return "";
+  const set = new Set(marks||[]);
+  let s = "";
+  for(let i=0;i<strip.length;i++){
+    s += set.has(i) ? `<span class="lit">${strip[i]}</span>` : `<span class="dim">${strip[i]}</span>`;
+  }
+  return `<div class="strip">${s}</div>`;
 }
+function renderMatrix(strip, marks, width){
+  if(!strip || width<2 || width>30) return "";
+  const set = new Set(marks||[]);
+  let cells = "";
+  for(let i=0;i<strip.length;i++){
+    cells += `<div class="cell ${set.has(i)?"lit":""}">${strip[i]}</div>`;
+  }
+  return `<div class="matrix" style="grid-template-columns:repeat(${width},22px)">${cells}</div>`;
+}
+function renderHit(h){
+  let html = `<div class="hit">המילה <b>${h.word}</b> — דילוג <b>${h.skip}</b> ${h.dir} · מאות ${(h.start+1).toLocaleString()}</div>`;
+  if(h.strip) html += renderStrip(h.strip, h.marks);
+  return html;
+}
+function elsLine(h){ return renderHit(h); }
 async function loadCodes(){
   reveal(document.getElementById("codesFeedCard"));
   const st = document.getElementById("codesFeedStatus");
@@ -1167,6 +1198,16 @@ async function loadTorahScope(){
   }
   btn.disabled = false;
 }
+function hitContext(letters, word, skip, dir, start, maxStrip){
+  const m = toCons(word).length;
+  if((m-1)*skip+1 > (maxStrip||200)) return null;
+  let lo, hi;
+  if(dir==="→"){ lo=start; hi=start+(m-1)*skip; } else { hi=start; lo=start-(m-1)*skip; }
+  if(lo<0 || hi>=letters.length) return null;
+  const strip = letters.slice(lo, hi+1);
+  const marks = []; for(let k=0;k<m;k++) marks.push(k*skip);
+  return {strip, marks};
+}
 async function runEls(){
   const word = document.getElementById("elsWord").value.trim();
   const maxSkip = Math.min(500, Math.max(2, parseInt(document.getElementById("elsMax").value,10)||100));
@@ -1177,17 +1218,23 @@ async function runEls(){
     await loadTorahScope();
     if(!TORAH_LETTERS){ out.innerHTML = '<div class="note">לא הצלחתי לטעון את התורה. נסה שוב.</div>'; return; }
   }
-  out.innerHTML = '<div class="status"><span class="spinner"></span> מחפש דילוגים בכל התורה…</div>';
-  setTimeout(()=>{   // let the spinner paint before the heavy search
+  out.innerHTML = '<div class="status"><span class="spinner"></span> מחפש דילוגים…</div>';
+  setTimeout(()=>{
     const hits = elsSearch(TORAH_LETTERS, word, maxSkip, 8);
     if(!hits.length){
-      out.innerHTML = `<div class="note">לא נמצאו דילוגים של "${word}" עד מרווח ${maxSkip} בחמשת החומשים (${TORAH_LETTERS.length.toLocaleString()} אותיות).</div>`;
+      out.innerHTML = `<div class="note">לא נמצאו דילוגים של "${word}" עד מרווח ${maxSkip} ב${TORAH_LABEL} (${TORAH_LETTERS.length.toLocaleString()} אותיות).</div>`;
       return;
     }
-    out.innerHTML = hits.map(h=>
-      `<div class="hit">המילה <b>${word}</b> — דילוג <b>${h.skip}</b> ${h.dir} · החל מאות ${(h.start+1).toLocaleString()}</div>`
-    ).join("") +
-    `<div class="note">נסרקו ${TORAH_LETTERS.length.toLocaleString()} אותיות (${TORAH_LABEL}). הערה: דילוגים כאלה מופיעים גם במקרה בכל טקסט ארוך — זה ללימוד והתבוננות, לא הוכחה.</div>`;
+    let html = "";
+    hits.forEach((h,idx)=>{
+      const ctx = hitContext(TORAH_LETTERS, word, h.skip, h.dir, h.start, 200);
+      html += `<div class="hit">המילה <b>${word}</b> — דילוג <b>${h.skip}</b> ${h.dir} · מאות ${(h.start+1).toLocaleString()}</div>`;
+      if(ctx) html += renderStrip(ctx.strip, ctx.marks);
+      // visual matrix for the first hit (when the skip width is displayable)
+      if(idx===0 && ctx && h.skip>=2 && h.skip<=30) html += renderMatrix(ctx.strip, ctx.marks, h.skip);
+    });
+    html += `<div class="note">נסרקו ${TORAH_LETTERS.length.toLocaleString()} אותיות (${TORAH_LABEL}). דילוגים מופיעים גם במקרה בכל טקסט ארוך — ללימוד והתבוננות, לא הוכחה.</div>`;
+    out.innerHTML = html;
   }, 30);
 }
 document.getElementById("codeInput").addEventListener("input", calcCodes);
