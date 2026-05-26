@@ -570,6 +570,14 @@
     <div class="pray-list" id="prayList"></div>
   </section>
 
+  <!-- Prayer-source completion (from the prayers-audit agent) -->
+  <section class="card" id="prayerSrcCard">
+    <h2><span class="glyph">🕯️</span> השלמת תפילות מהמקור</h2>
+    <div class="sub">מקורות מדויקים מנחלת הכלל (תורה ותהילים) להשלמת החלקים החסרים</div>
+    <div id="prayerSrcStatus" class="status"><span class="spinner"></span> טוען מקורות…</div>
+    <div id="prayerSrcBody" style="display:none"></div>
+  </section>
+
   <footer>
     אב-טיפוס · נתוני תורה ומפרשים מ-<a href="https://www.sefaria.org" target="_blank">Sefaria</a> · לוח שנה מ-<a href="https://www.hebcal.com" target="_blank">Hebcal</a> · השיעורים נוצרים על-ידי מנוע בינה מלאכותית ואינם תחליף ללימוד עם רב.
   </footer>
@@ -690,6 +698,8 @@ function renderLesson(L){
   if(L.title)     h += `<div class="ls-title">${L.title}</div>`;
   if(L.intro)     h += `<p>${L.intro}</p>`;
   if(L.opening)   h += `<p>${L.opening}</p>`;   // backward compatible
+  if(L.method)    h += `<div class="ls-h">🧭 דרך הלימוד</div><p>${L.method}</p>`;
+  if(L.aramaic)   h += `<div class="ls-h">📘 מארמית לעברית</div><p class="ls-quote">${L.aramaic}</p>`;
 
   // Daf section
   if(L.daf){
@@ -720,7 +730,8 @@ function renderLesson(L){
   if(Array.isArray(L.connections) && L.connections.length){
     h += `<div class="ls-h">🔗 קשרים מכל המקורות</div>`;
     L.connections.forEach(c=>{
-      h += `<p><span class="ls-src">${c.source||""}</span> ${c.point||""}</p>`;
+      const from = c.from ? ` <span class="lib-meta">(מתוך ${c.from})</span>` : "";
+      h += `<p><span class="ls-src">${c.source||""}</span>${from} ${c.point||""}</p>`;
     });
   }
 
@@ -1235,6 +1246,38 @@ async function loadLibrary(){
 }
 
 /* ===== Source library (reads library.json) — end ===== */
+/* ===== Prayer-source completion (reads prayers_audit.json) ===== */
+async function loadPrayersAudit(){
+  reveal(document.getElementById("prayerSrcCard"));
+  const st = document.getElementById("prayerSrcStatus");
+  const body = document.getElementById("prayerSrcBody");
+  try{
+    const r = await fetch("./prayers_audit.json", {cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const rec = await r.json();
+    const prayers = rec.prayers || {};
+    const names = Object.keys(prayers);
+    if(!names.length) throw new Error("empty");
+    let h = "";
+    names.forEach(name=>{
+      const parts = prayers[name] || [];
+      let inner = "";
+      parts.forEach(p=>{
+        inner += `<div class="lib-meta" style="margin-top:6px">${p.he_ref||p.ref}</div>`;
+        inner += `<p class="ls-quote">${p.text}</p>`;
+      });
+      h += `<details class="arch-item"><summary>${name}</summary><div class="arch-body">${inner}</div></details>`;
+    });
+    if(rec.note) h += `<div class="codes-out"><div class="note">${rec.note}</div></div>`;
+    st.style.display="none";
+    body.innerHTML = h;
+    body.style.display="block";
+  }catch(e){
+    st.style.display="none";
+    body.style.display="block";
+    body.innerHTML = '<div class="codes-out"><div class="note">המקורות יתמלאו אחרי הרצת הסוכן (Run workflow) — הוא אוסף את מקורות התפילה מנחלת הכלל.</div></div>';
+  }
+}
 /* ===== Codes calculator (live): gematria, atbash, notarikon, ELS ===== */
 const ALEFBET = "אבגדהוזחטיכלמנסעפצקרשת";
 const FINALS_J = {ך:"כ",ם:"מ",ן:"נ",ף:"פ",ץ:"צ"};
@@ -1442,12 +1485,13 @@ buildPrayers();
 /* ===== init ===== */
 (async function init(){
   // make the always-on cards visible (they have no async loader to reveal them)
-  ["monthCard","gemCard","codesCard","codesFeedCard","libraryCard","tehillimCard","prayCard"].forEach(id=>{
+  ["monthCard","gemCard","codesCard","codesFeedCard","libraryCard","tehillimCard","prayCard","prayerSrcCard"].forEach(id=>{
     const e=document.getElementById(id); if(e) reveal(e);
   });
   loadCalendar();                          // calendar info is fine to show
   loadCodes();                             // daily codes feed (reads codes.json)
   loadLibrary();                           // accumulated source library
+  loadPrayersAudit();                      // canonical prayer sources
   loadZmanim();                            // sun & prayer times
   loadCompass();                           // direction to Jerusalem
   const rest = await restStatus();
