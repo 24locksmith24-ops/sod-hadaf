@@ -2,7 +2,8 @@ name: שיעור יומי אוטומטי
 
 on:
   schedule:
-    - cron: "0 4 * * *"        # כל יום ב-04:00 UTC (אפשר לשנות)
+    - cron: "0 4 * * *"        # 04:00 UTC — ריצת בוקר
+    - cron: "0 14 * * *"       # 14:00 UTC — ריצת אחר הצהריים
   workflow_dispatch: {}          # כפתור Run workflow להרצה ידנית
 
 permissions:
