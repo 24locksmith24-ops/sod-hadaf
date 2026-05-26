@@ -438,16 +438,15 @@
       <div class="gem-box"><div class="gem-num" id="cNotar" style="font-size:1.1rem">—</div><div class="gem-lbl">ראשי תיבות</div></div>
     </div>
     <div class="codes-els">
-      <div class="ls-h" style="font-size:1.06rem">🔎 דילוגי אותיות (ELS)</div>
-      <div class="sub">טען טקסט תורה (או הדבק משלך), הקלד מילה — והכלי יחפש אותה במרווחים שווים</div>
+      <div class="ls-h" style="font-size:1.06rem">🔎 דילוגי אותיות (ELS) — על כל חמשת החומשים</div>
+      <div class="sub">החיפוש מבוסס על הטקסט המלא של בראשית · שמות · ויקרא · במדבר · דברים</div>
       <div class="mini-row">
-        <button class="mini-btn" id="loadGen">טען בראשית א׳</button>
-        <button class="mini-btn" id="loadExo">טען עשרת הדיברות</button>
+        <button class="mini-btn" id="loadTorah">📜 טען את כל התורה</button>
+        <span id="torahStatus" class="sub" style="margin:0"></span>
       </div>
-      <textarea id="elsText" class="gem-input" style="height:84px;font-size:1rem;font-family:'Frank Ruhl Libre',serif" placeholder="טקסט התורה לחיפוש…" dir="rtl"></textarea>
-      <div class="mini-row" style="margin-top:8px">
+      <div class="mini-row" style="margin-top:10px">
         <input type="text" id="elsWord" class="gem-input" style="flex:1;min-width:130px" placeholder="מילה לחיפוש (למשל: תורה)" dir="rtl">
-        <label class="els-skip">דילוג עד <input type="number" id="elsMax" value="50" min="2" max="500"></label>
+        <label class="els-skip">דילוג עד <input type="number" id="elsMax" value="100" min="2" max="500"></label>
         <button class="regen" id="elsBtn" style="margin:0">חפש דילוגים</button>
       </div>
       <div id="elsOut" class="codes-out"></div>
@@ -1040,16 +1039,16 @@ function notar(s){
   return { ini: ws.map(w=>w[0]).join(""), fin: ws.map(w=>w[w.length-1]).join("") };
 }
 function elsSearch(letters, target, maxSkip, maxHits){
-  const t=toCons(target), n=letters.length, m=t.length, hits=[];
+  const t=toCons(target), tr=[...t].reverse().join(""), n=letters.length, m=t.length, hits=[];
   if(m<2 || n<m) return hits;
-  for(let skip=1; skip<=maxSkip; skip++){
-    for(const dir of [1,-1]){
-      const step=dir*skip;
-      for(let start=0; start<n; start++){
-        let ok=true;
-        for(let k=0;k<m;k++){ const pos=start+step*k; if(pos<0||pos>=n||letters[pos]!==t[k]){ok=false;break;} }
-        if(ok){ hits.push({skip, dir:dir>0?"→":"←", start}); if(hits.length>=maxHits) return hits; }
-      }
+  for(let skip=2; skip<=maxSkip; skip++){
+    for(let r=0; r<skip; r++){
+      // build residue-class subsequence: letters[r], letters[r+skip], ...
+      let sub=""; for(let p=r; p<n; p+=skip) sub+=letters[p];
+      let i=sub.indexOf(t);
+      while(i!==-1){ hits.push({skip,dir:"→",start:r+i*skip}); if(hits.length>=maxHits) return hits; i=sub.indexOf(t,i+1); }
+      i=sub.indexOf(tr);
+      while(i!==-1){ hits.push({skip,dir:"←",start:r+(i+m-1)*skip}); if(hits.length>=maxHits) return hits; i=sub.indexOf(tr,i+1); }
     }
   }
   return hits;
@@ -1062,38 +1061,57 @@ function calcCodes(){
   const nt = notar(v);
   document.getElementById("cNotar").textContent = nt.ini || "—";
 }
-async function loadTorahInto(ref){
-  const out = document.getElementById("elsText");
-  out.value = "טוען…";
+
+// the full Five Books, loaded once and cached as a consonant stream
+let TORAH_LETTERS = "";
+const TORAH_BOOKS = ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy"];
+async function loadFullTorah(){
+  const st = document.getElementById("torahStatus");
+  const btn = document.getElementById("loadTorah");
+  if(TORAH_LETTERS){ st.textContent = `נטענו ${TORAH_LETTERS.length.toLocaleString()} אותיות ✓`; return; }
+  btn.disabled = true; st.innerHTML = '<span class="spinner" style="width:14px;height:14px;border-width:2px"></span> טוען את חמשת החומשים…';
   try{
-    const r = await fetch(`${SEFARIA}/api/texts/${ref}`);
-    const d = await r.json();
-    const v = (Array.isArray(d.he)?d.he.flat(Infinity):[d.he]).map(stripHtml).filter(Boolean);
-    out.value = v.join(" ");
-  }catch(e){ out.value = ""; out.placeholder = "לא הצלחתי לטעון — הדבק טקסט ידנית."; }
+    let all = "";
+    for(const b of TORAH_BOOKS){
+      st.textContent = `טוען ${b}…`;
+      const r = await fetch(`${SEFARIA}/api/texts/${b}`);
+      const d = await r.json();
+      const v = (Array.isArray(d.he)?d.he.flat(Infinity):[d.he]).map(stripHtml).filter(Boolean);
+      all += toCons(v.join(" "));
+    }
+    TORAH_LETTERS = all;
+    st.textContent = `נטענו ${TORAH_LETTERS.length.toLocaleString()} אותיות מחמשת החומשים ✓`;
+  }catch(e){
+    st.textContent = "⚠️ טעינה נכשלה — נסה שוב.";
+  }
+  btn.disabled = false;
 }
-function runEls(){
-  const text = document.getElementById("elsText").value;
+async function runEls(){
   const word = document.getElementById("elsWord").value.trim();
-  const maxSkip = Math.min(500, Math.max(2, parseInt(document.getElementById("elsMax").value,10)||50));
+  const maxSkip = Math.min(500, Math.max(2, parseInt(document.getElementById("elsMax").value,10)||100));
   const out = document.getElementById("elsOut");
   if(!word || toCons(word).length<2){ out.innerHTML = '<div class="note">הקלד מילה באורך 2 אותיות לפחות.</div>'; return; }
-  const letters = toCons(text);
-  if(letters.length < 2){ out.innerHTML = '<div class="note">טען או הדבק טקסט תורה לחיפוש.</div>'; return; }
-  const hits = elsSearch(letters, word, maxSkip, 8);
-  if(!hits.length){
-    out.innerHTML = `<div class="note">לא נמצאו דילוגים של "${word}" עד מרווח ${maxSkip} בטקסט שנסרק (${letters.length} אותיות).</div>`;
-    return;
+  if(!TORAH_LETTERS){
+    out.innerHTML = '<div class="note">טוען את התורה… רגע אחד.</div>';
+    await loadFullTorah();
+    if(!TORAH_LETTERS){ out.innerHTML = '<div class="note">לא הצלחתי לטעון את התורה. נסה שוב.</div>'; return; }
   }
-  out.innerHTML = hits.map(h=>
-    `<div class="hit">המילה <b>${word}</b> — דילוג <b>${h.skip}</b> ${h.dir} · החל מאות ${h.start+1}</div>`
-  ).join("") +
-  `<div class="note">נסרקו ${letters.length} אותיות. הערה: דילוגים כאלה מופיעים גם במקרה בכל טקסט ארוך — זה ללימוד והתבוננות, לא הוכחה.</div>`;
+  out.innerHTML = '<div class="status"><span class="spinner"></span> מחפש דילוגים בכל התורה…</div>';
+  setTimeout(()=>{   // let the spinner paint before the heavy search
+    const hits = elsSearch(TORAH_LETTERS, word, maxSkip, 8);
+    if(!hits.length){
+      out.innerHTML = `<div class="note">לא נמצאו דילוגים של "${word}" עד מרווח ${maxSkip} בחמשת החומשים (${TORAH_LETTERS.length.toLocaleString()} אותיות).</div>`;
+      return;
+    }
+    out.innerHTML = hits.map(h=>
+      `<div class="hit">המילה <b>${word}</b> — דילוג <b>${h.skip}</b> ${h.dir} · החל מאות ${(h.start+1).toLocaleString()}</div>`
+    ).join("") +
+    `<div class="note">נסרקו ${TORAH_LETTERS.length.toLocaleString()} אותיות מחמשת החומשים. הערה: דילוגים כאלה מופיעים גם במקרה בכל טקסט ארוך — זה ללימוד והתבוננות, לא הוכחה.</div>`;
+  }, 30);
 }
 document.getElementById("codeInput").addEventListener("input", calcCodes);
 document.getElementById("elsBtn").addEventListener("click", runEls);
-document.getElementById("loadGen").addEventListener("click", ()=>loadTorahInto("Genesis.1"));
-document.getElementById("loadExo").addEventListener("click", ()=>loadTorahInto("Exodus.20"));
+document.getElementById("loadTorah").addEventListener("click", loadFullTorah);
 
 /* ===== Tehillim Yomi — monthly division, shown inline ===== */
 // classic division of Psalms across the days of the Hebrew month
