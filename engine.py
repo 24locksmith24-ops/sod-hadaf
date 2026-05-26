@@ -237,12 +237,94 @@ def get_commentaries(ref, cap=10):
         if forbidden_hit(txt) or forbidden_hit(name): continue
         if cat not in APPROVED: continue
         if name in seen: continue
-        seen.add(name); out.append({"name":name,"text":txt})
+        seen.add(name)
+        out.append({"name":name, "text":txt, "cat":cat,
+                    "ref":(ln.get("sourceRef") or ln.get("ref") or ref), "from":ref})
         if len(out) >= cap: break
     return out
 
-# ---------- כתיבת השיעור (Claude) ----------
-def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes):
+# ---------- ספריית המקורות (סוכן ספרן): צובר מקורות וממאיפה הובאו ----------
+LIB_OUT = "library.json"
+def update_library(items, today_iso):
+    lib = []
+    if os.path.exists(LIB_OUT):
+        try: lib = json.load(open(LIB_OUT, encoding="utf-8"))
+        except Exception: lib = []
+    by_name = {e["name"]: e for e in lib}
+    for it in items:
+        nm = it.get("name"); 
+        if not nm: continue
+        e = by_name.get(nm)
+        if e:
+            e["count"] = e.get("count",1) + 1
+            e["last_seen"] = today_iso
+            froms = set(e.get("from", [])); froms.add(it.get("from",""))
+            e["from"] = [f for f in froms if f][:8]
+        else:
+            e = {"name":nm, "category":it.get("cat",""), "ref":it.get("ref",""),
+                 "first_seen":today_iso, "last_seen":today_iso, "count":1,
+                 "from":[it.get("from","")] if it.get("from") else []}
+            by_name[nm] = e; lib.append(e)
+    lib.sort(key=lambda e:(-e.get("count",1), e["name"]))
+    json.dump(lib[:500], open(LIB_OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    return lib
+
+# ---------- זיכרון משותף (insights.json): הסוכנים לומדים ומשתפים ----------
+INS_OUT = "insights.json"
+def load_insights(n=8):
+    if os.path.exists(INS_OUT):
+        try: return json.load(open(INS_OUT, encoding="utf-8"))[:n]
+        except Exception: return []
+    return []
+def save_insight(record):
+    data = load_insights(400)
+    data = [r for r in data if r.get("ts") != record.get("ts")]
+    data.insert(0, record)
+    json.dump(data[:400], open(INS_OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+
+# ---------- מילים משותפות בין כל המקורות (חיבורים אמיתיים, בקוד) ----------
+_STOP = {"אשר","אשר","את","של","על","כל","הוא","היא","אם","כי","לא","אל","עם","הזה",
+         "אלה","אלו","ואת","וכל","וגם","אבל","או","גם","יש","אין","הם","הן","זה","זאת"}
+def shared_words(sources, minlen=4, top=12):
+    from collections import defaultdict
+    where = defaultdict(set)
+    for label, text in sources:
+        for w in set(re.findall(r"[\u05D0-\u05EA]{%d,}"%minlen, _NIK.sub("", text or ""))):
+            if w not in _STOP: where[w].add(label)
+    shared = [(w, sorted(ls)) for w, ls in where.items() if len(ls) >= 2]
+    shared.sort(key=lambda x:(-len(x[1]), -len(x[0])))
+    return shared[:top]
+
+# ---------- סוכן מקשר (Claude): מוצא קשרים בין כל המקורות ----------
+def connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior):
+    client = anthropic.Anthropic()
+    pool = [f"דף: {daf['hebrew'][:700]}"]
+    for m in mishnayot: pool.append(f"משנה: {m['hebrew'][:500]}")
+    if parasha: pool.append(f"פרשה: {parasha['hebrew'][:700]}")
+    for e in extras: pool.append(f"{e['he_ref']}: {e['hebrew'][:500]}")
+    for c in comms[:8]: pool.append(f"{c['name']}: {c['text'][:300]}")
+    sw = "; ".join(f"{w} ({'/'.join(ls)})" for w, ls in shared) or "אין"
+    pr = "; ".join(p.get("theme","") for p in prior if p.get("theme")) or "אין"
+    sysmsg = ("אתה חוקר תורני שתפקידו למצוא קשרים אמיתיים ומפתיעים בין מקורות. "
+              "בעברית בלבד. אל תמציא ציטוטים. התבסס על הטקסטים והמילים המשותפות שסופקו.")
+    user = ("המקורות של היום:\n" + "\n".join(pool) +
+            f"\n\nמילים משותפות שחושבו בקוד בין המקורות: {sw}\n"
+            f"נושאים שכבר נלמדו בעבר (להמשיך ולהעמיק, לא לחזור): {pr}\n\n"
+            "מצא את החוט המקשר. החזר JSON בלבד: {"
+            '"theme":"נושא מרכזי אחד במשפט",'
+            '"links":[{"a":"מקור","b":"מקור","point":"הקשר ביניהם במשפט"}],'
+            '"thread":"פסקה קצרה שמסבירה איך הכל מתחבר"}')
+    try:
+        msg = client.messages.create(model=MODEL, max_tokens=1500, temperature=0.6,
+                system=sysmsg, messages=[{"role":"user","content":user}])
+        raw = "".join(b.text for b in msg.content if b.type=="text").strip()
+        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+        return json.loads(raw)
+    except Exception:
+        return {"theme":"", "links":[], "thread":""}
+
+# ---------- סוכן מגיד (Claude): כותב את השיעור ----------
+def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior):
     client = anthropic.Anthropic()
     mish = "\n".join(f"[משנה {i+1} · {m['he_ref']}] {m['hebrew'][:900]}"
                      for i, m in enumerate(mishnayot)) or "(אין)"
@@ -261,16 +343,22 @@ def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes):
               "אל תמציא מספרים, דילוגים או צפנים בעצמך. "
               "בקטע הצפנים הצג את הממצאים בענווה וביושר: כדבר ללימוד והתבוננות, "
               "תוך ציון מפורש שדפוסי דילוג מופיעים גם במקרה ובכל טקסט ארוך, ושאין בכך הוכחה.")
-    user = (f"הדף היומי: {daf['he_ref']}\nטקסט הדף:\n{daf['hebrew'][:2800]}\n\n"
+    user = (f"הדף היומי: {daf['he_ref']}\nטקסט הדף:\n{daf['hebrew'][:3200]}\n\n"
             f"שתי המשניות היומיות:\n{mish}\n\n"
             f"מפרשים מאושרים (לבסס עליהם את דברי המפרשים):\n{src}\n\n"
             f"{par}\n\n"
             f"מקורות נוספים מכל הספרים (תהילים ועוד):\n{ext}\n\n"
+            f"חוט מקשר שמצא סוכן המקשר — בנה עליו את השיעור:\n"
+            f"נושא: {conn.get('theme','')}\nחיבור: {conn.get('thread','')}\n"
+            f"קשרים: {'; '.join(l.get('point','') for l in conn.get('links',[]))}\n\n"
+            f"נושאים מימים קודמים (להמשכיות — אפשר להתייחס): "
+            f"{'; '.join(p.get('theme','') for p in prior if p.get('theme')) or 'אין'}\n\n"
             f"גימטריה מחושבת (ודאית — רק אלה מותר לצטט): {'; '.join(gem_lines) or 'אין'}\n\n"
             f"צפנים שחושבו בקוד מתוך טקסט התורה (רק אלה מותר להזכיר):\n"
             f"דילוגי אותיות: {els_txt}\nאתב\"ש: {atb_txt}\nנוטריקון: {not_txt}\n"
-            f"(נסרקו {codes.get('letters_scanned',0)} אותיות מן הפרשה)\n\n"
-            "כתוב שיעור עמוד מלא ועשיר. החזר JSON תקין בלבד, ללא טקסט נוסף: {"
+            f"(נסרקו {codes.get('letters_scanned',0)} אותיות)\n\n"
+            "כתוב שיעור עמוד מלא ועשיר שמחבר בין כל המקורות סביב החוט המקשר. "
+            "החזר JSON תקין בלבד, ללא טקסט נוסף: {"
             '"title":"כותרת",'
             '"intro":"פתיחה של 2-3 משפטים עם החוט המקשר",'
             '"daf":{"ref":"מקור הדף","teaching":"ביאור עשיר של 4-6 משפטים"},'
@@ -372,13 +460,42 @@ def main():
     except Exception as ex:
         print("⚠️ לא נשמרו צפנים:", ex)
 
-    print("📖 כותב שיעור עבור", daf["he_ref"], "…")
-    lesson = write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes)
+    # סוכן ספרן: עוקב אחר הציטוטים גם מפרשת השבוע, ומאחד לספרייה
+    if parasha and par.get("ref"):
+        try:
+            for c in get_commentaries(par["ref"], cap=8):
+                if c["name"] not in {x["name"] for x in comms}:
+                    comms.append(c)
+        except Exception:
+            pass
+    update_library(comms, today.isoformat())
+
+    # מילים משותפות בין כל המקורות (חיבורים אמיתיים)
+    pool = [("הדף", daf["hebrew"])]
+    for m in mishnayot: pool.append(("משנה", m["hebrew"]))
+    if parasha: pool.append(("פרשה", parasha["hebrew"]))
+    for e in extras: pool.append((e["he_ref"], e["hebrew"]))
+    for c in comms[:10]: pool.append((c["name"], c["text"]))
+    shared = shared_words(pool)
+    prior = load_insights()
+
+    print("🔗 סוכן מקשר מחפש קשרים…")
+    conn = connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior)
+
+    print("📖 סוכן מגיד כותב שיעור עבור", daf["he_ref"], "…")
+    lesson = write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior)
+
+    # זיכרון משותף: שומרים את החוט שנמצא, כדי שמחר יבנו עליו
+    save_insight({"ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+                  "date": today.isoformat(), "ref": daf["he_ref"],
+                  "theme": conn.get("theme",""), "thread": conn.get("thread","")})
 
     save({
         "date": today.isoformat(),
         "ref": daf["ref"], "he_ref": daf["he_ref"],
         "lesson": lesson,
+        "theme": conn.get("theme",""),
+        "shared_words": [w for w, _ in shared],
         "codes_raw": codes,
         "sources_used": [c["name"] for c in comms],
         "policy": {"strict": True, "hebrew_only": True},
