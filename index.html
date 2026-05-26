@@ -234,10 +234,16 @@
     background:var(--parch-deep);border-radius:99px;padding:4px 12px;margin:14px 0 4px}
   .arch-par{font-family:'Frank Ruhl Libre',serif;font-weight:900;color:var(--crimson);
     font-size:1.05rem;margin:14px 0 4px;border-bottom:1px solid var(--line);padding-bottom:3px}
+  .arch-date{font-family:'Frank Ruhl Libre',serif;font-weight:700;color:var(--gold);
+    font-size:.92rem;margin:8px 0 3px}
   .arch-item{background:#fffdf7;border:1px solid var(--line);border-radius:9px;padding:6px 12px;margin:5px 0}
   .arch-item summary{cursor:pointer;font-weight:600;color:var(--ink);font-size:.95rem}
   .arch-item summary:hover{color:var(--crimson)}
   .arch-body{margin-top:8px}
+  .lib-item{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    padding:8px 4px;border-bottom:1px solid var(--line)}
+  .lib-name{font-family:'Frank Ruhl Libre',serif;font-weight:700;color:var(--ink);font-size:1.05rem}
+  .lib-meta{font-size:.8rem;color:var(--ink-soft)}
 
   /* monthly calendar */
   .cal-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -547,6 +553,14 @@
     <button class="regen" id="tehillimBtn" style="margin-top:0">הצג את תהילים של היום ↓</button>
     <div id="tehillimStatus" class="status" style="display:none"><span class="spinner"></span> טוען תהילים…</div>
     <div id="tehillimBody" class="pray-text" style="display:none;border-radius:12px;margin-top:14px"></div>
+  </section>
+
+  <!-- Source library (accumulated by the librarian agent) -->
+  <section class="card" id="libraryCard">
+    <h2><span class="glyph">📚</span> ספריית המקורות</h2>
+    <div class="sub">המקורות שהסוכן אסף ועקב אחרי מאיפה כל אחד הובא — מתעדכן והולך</div>
+    <div id="libraryStatus" class="status"><span class="spinner"></span> טוען ספרייה…</div>
+    <div id="libraryBody" style="display:none"></div>
   </section>
 
   <!-- Prayers & blessings -->
@@ -1118,6 +1132,17 @@ function renderRecord(rec){
   return h;
 }
 let CODES_DATA = [];
+// Hebrew date per record (cached), fetched from Hebcal by the record's Gregorian date
+const HEBDATE_CACHE = {};
+async function hebDateFor(iso){
+  if(HEBDATE_CACHE[iso]) return HEBDATE_CACHE[iso];
+  try{
+    const r = await fetch(`https://www.hebcal.com/converter?cfg=json&date=${iso}&g2h=1&strict=1`);
+    const j = await r.json();
+    HEBDATE_CACHE[iso] = j.hebrew || iso;
+  }catch(e){ HEBDATE_CACHE[iso] = iso; }
+  return HEBDATE_CACHE[iso];
+}
 async function loadCodes(){
   reveal(document.getElementById("codesFeedCard"));
   const st = document.getElementById("codesFeedStatus");
@@ -1129,26 +1154,36 @@ async function loadCodes(){
     if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
     CODES_DATA = arr;
 
+    // resolve Hebrew dates for all records (unique Gregorian dates)
+    const dates = [...new Set(arr.map(x=>x.date))];
+    await Promise.all(dates.map(hebDateFor));
+
     // ----- today's findings (both runs of the latest date) -----
     const latestDate = arr[0].date;
     const todays = arr.filter(x=>x.date===latestDate);
     let h = "";
-    if(arr[0].parasha) h += `<div class="ls-h" style="font-size:1.15rem">פרשת ${arr[0].parasha}</div>`;
+    if(arr[0].parasha) h += `<div class="ls-h" style="font-size:1.15rem">פרשת ${arr[0].parasha} · ${HEBDATE_CACHE[latestDate]||""}</div>`;
     todays.forEach(rec=>{
       h += `<div class="run-tag">🔯 ממצאי ${rec.run||"היום"} · ${rec.ts||rec.date}</div>`;
       h += renderRecord(rec);
     });
     h += `<div class="codes-out"><div class="note">${arr[0].note||""}</div></div>`;
 
-    // ----- permanent archive, grouped by parasha -----
+    // ----- permanent archive, grouped by parasha, then by Hebrew date -----
     const groups = {};
     arr.forEach((rec,idx)=>{ const k=rec.parasha||"—"; (groups[k]=groups[k]||[]).push(idx); });
-    let arch = `<div class="ls-h" style="font-size:1.1rem;margin-top:22px">🗂️ ארכיון הצפנים — לפי פרשה</div>`;
+    let arch = `<div class="ls-h" style="font-size:1.1rem;margin-top:22px">🗂️ ארכיון הצפנים — לפי פרשה ותאריך עברי</div>`;
     Object.keys(groups).forEach(par=>{
       arch += `<div class="arch-par">פרשת ${par}</div>`;
-      groups[par].forEach(idx=>{
-        const rec = arr[idx];
-        arch += `<details class="arch-item" data-idx="${idx}"><summary>${rec.run||""} · ${rec.ts||rec.date}</summary><div class="arch-body" id="arch${idx}"></div></details>`;
+      // group this parasha's records by Hebrew date
+      const byHeb = {};
+      groups[par].forEach(idx=>{ const hd=HEBDATE_CACHE[arr[idx].date]||arr[idx].date; (byHeb[hd]=byHeb[hd]||[]).push(idx); });
+      Object.keys(byHeb).forEach(hd=>{
+        arch += `<div class="arch-date">🕯️ ${hd}</div>`;
+        byHeb[hd].forEach(idx=>{
+          const rec = arr[idx];
+          arch += `<details class="arch-item" data-idx="${idx}"><summary>${rec.run||""} · ${rec.ts||rec.date}</summary><div class="arch-body" id="arch${idx}"></div></details>`;
+        });
       });
     });
 
@@ -1173,6 +1208,33 @@ async function loadCodes(){
   }
 }
 
+/* ===== Source library (reads library.json) ===== */
+async function loadLibrary(){
+  reveal(document.getElementById("libraryCard"));
+  const st = document.getElementById("libraryStatus");
+  const body = document.getElementById("libraryBody");
+  try{
+    const r = await fetch("./library.json", {cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const lib = await r.json();
+    if(!Array.isArray(lib) || !lib.length) throw new Error("empty");
+    let h = `<div class="sub" style="margin-bottom:8px">סך הכול ${lib.length.toLocaleString()} מקורות בספרייה</div>`;
+    h += lib.slice(0,60).map(e=>{
+      const from = (e.from&&e.from.length) ? ` · מתוך: ${e.from.slice(0,2).join(", ")}` : "";
+      const cnt = e.count>1 ? ` · נראה ${e.count}×` : "";
+      return `<div class="lib-item"><span class="lib-name">${e.name}</span><span class="lib-meta">${e.category||""}${cnt}${from}</span></div>`;
+    }).join("");
+    st.style.display="none";
+    body.innerHTML = h;
+    body.style.display="block";
+  }catch(e){
+    st.style.display="none";
+    body.style.display="block";
+    body.innerHTML = '<div class="codes-out"><div class="note">הספרייה תתמלא אחרי הרצת הסוכן (Run workflow) — הוא אוסף את המקורות ועוקב מאיפה כל אחד הובא.</div></div>';
+  }
+}
+
+/* ===== Source library (reads library.json) — end ===== */
 /* ===== Codes calculator (live): gematria, atbash, notarikon, ELS ===== */
 const ALEFBET = "אבגדהוזחטיכלמנסעפצקרשת";
 const FINALS_J = {ך:"כ",ם:"מ",ן:"נ",ף:"פ",ץ:"צ"};
@@ -1380,11 +1442,12 @@ buildPrayers();
 /* ===== init ===== */
 (async function init(){
   // make the always-on cards visible (they have no async loader to reveal them)
-  ["monthCard","gemCard","codesCard","codesFeedCard","tehillimCard","prayCard"].forEach(id=>{
+  ["monthCard","gemCard","codesCard","codesFeedCard","libraryCard","tehillimCard","prayCard"].forEach(id=>{
     const e=document.getElementById(id); if(e) reveal(e);
   });
   loadCalendar();                          // calendar info is fine to show
   loadCodes();                             // daily codes feed (reads codes.json)
+  loadLibrary();                           // accumulated source library
   loadZmanim();                            // sun & prayer times
   loadCompass();                           // direction to Jerusalem
   const rest = await restStatus();
