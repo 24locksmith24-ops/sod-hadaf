@@ -230,6 +230,14 @@
   .matrix .cell{width:22px;height:26px;display:grid;place-items:center;font-family:'Frank Ruhl Libre',serif;
     font-size:1rem;color:var(--ink);border-radius:3px}
   .matrix .cell.lit{background:var(--crimson);color:#fff;font-weight:900}
+  .run-tag{display:inline-block;font-size:.82rem;font-weight:700;color:var(--gold);
+    background:var(--parch-deep);border-radius:99px;padding:4px 12px;margin:14px 0 4px}
+  .arch-par{font-family:'Frank Ruhl Libre',serif;font-weight:900;color:var(--crimson);
+    font-size:1.05rem;margin:14px 0 4px;border-bottom:1px solid var(--line);padding-bottom:3px}
+  .arch-item{background:#fffdf7;border:1px solid var(--line);border-radius:9px;padding:6px 12px;margin:5px 0}
+  .arch-item summary{cursor:pointer;font-weight:600;color:var(--ink);font-size:.95rem}
+  .arch-item summary:hover{color:var(--crimson)}
+  .arch-body{margin-top:8px}
 
   /* monthly calendar */
   .cal-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
@@ -1076,7 +1084,40 @@ function renderHit(h){
   if(h.strip) html += renderStrip(h.strip, h.marks);
   return html;
 }
-function elsLine(h){ return renderHit(h); }
+// full hit: text + strip + a visual matrix table (when the skip width is displayable)
+function renderHitFull(h){
+  let html = renderHit(h);
+  if(h.strip && h.skip>=2 && h.skip<=26) html += renderMatrix(h.strip, h.marks, h.skip);
+  return html;
+}
+function renderRecord(rec){
+  let h = "";
+  if(rec.week_codes && rec.week_codes.els && rec.week_codes.els.length){
+    h += `<div class="ls-h">📅 צפנים לשם הפרשה (בכל התורה)</div>`;
+    h += rec.week_codes.els.map(renderHitFull).join("");
+  }
+  if(rec.full_torah && rec.full_torah.els && rec.full_torah.els.length){
+    h += `<div class="ls-h">📜 דילוגים בכל חמשת החומשים</div>`;
+    h += rec.full_torah.els.slice(0,6).map(renderHitFull).join("");
+  }
+  if(rec.parasha_codes){
+    const pc = rec.parasha_codes;
+    if(pc.els && pc.els.length){
+      h += `<div class="ls-h">🔎 דילוגים בתוך הפרשה</div>`;
+      h += pc.els.slice(0,5).map(renderHitFull).join("");
+    }
+    if(pc.gematria && pc.gematria.length){
+      h += `<div class="ls-h">🔢 גימטריאות שוות בפרשה</div>`;
+      h += pc.gematria.map(g=>`<div class="hit">ערך <b>${g.value}</b>: ${g.words.join(" = ")}</div>`).join("");
+    }
+    if(pc.notarikon && pc.notarikon.initials){
+      h += `<div class="ls-h">🔤 נוטריקון (ראשי תיבות פתיחת הפרשה)</div>`;
+      h += `<div class="hit">${pc.notarikon.initials}</div>`;
+    }
+  }
+  return h;
+}
+let CODES_DATA = [];
 async function loadCodes(){
   reveal(document.getElementById("codesFeedCard"));
   const st = document.getElementById("codesFeedStatus");
@@ -1085,40 +1126,46 @@ async function loadCodes(){
     const r = await fetch("./codes.json", {cache:"no-store"});
     if(!r.ok) throw new Error("no file");
     const arr = await r.json();
-    const rec = Array.isArray(arr) ? arr[0] : null;
-    if(!rec) throw new Error("empty");
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    CODES_DATA = arr;
+
+    // ----- today's findings (both runs of the latest date) -----
+    const latestDate = arr[0].date;
+    const todays = arr.filter(x=>x.date===latestDate);
     let h = "";
-    if(rec.parasha) h += `<div class="ls-h" style="font-size:1.1rem">פרשת ${rec.parasha}</div>`;
-    // codes for the week (parasha name encoded in the whole Torah)
-    if(rec.week_codes && rec.week_codes.els && rec.week_codes.els.length){
-      h += `<div class="ls-h">📅 צפנים לשם הפרשה (בכל התורה)</div>`;
-      h += rec.week_codes.els.map(elsLine).join("");
-    }
-    // codes across the full Five Books
-    if(rec.full_torah && rec.full_torah.els && rec.full_torah.els.length){
-      h += `<div class="ls-h">📜 דילוגים בכל חמשת החומשים</div>`;
-      h += rec.full_torah.els.slice(0,6).map(elsLine).join("");
-    }
-    // codes inside the weekly parasha
-    if(rec.parasha_codes){
-      const pc = rec.parasha_codes;
-      if(pc.els && pc.els.length){
-        h += `<div class="ls-h">🔎 דילוגים בתוך הפרשה</div>`;
-        h += pc.els.slice(0,5).map(elsLine).join("");
-      }
-      if(pc.gematria && pc.gematria.length){
-        h += `<div class="ls-h">🔢 גימטריאות שוות בפרשה</div>`;
-        h += pc.gematria.map(g=>`<div class="hit">ערך <b>${g.value}</b>: ${g.words.join(" = ")}</div>`).join("");
-      }
-      if(pc.notarikon && pc.notarikon.initials){
-        h += `<div class="ls-h">🔤 נוטריקון (ראשי תיבות פתיחת הפרשה)</div>`;
-        h += `<div class="hit">${pc.notarikon.initials}</div>`;
-      }
-    }
-    h += `<div class="codes-out"><div class="note">${rec.note||""}</div></div>`;
+    if(arr[0].parasha) h += `<div class="ls-h" style="font-size:1.15rem">פרשת ${arr[0].parasha}</div>`;
+    todays.forEach(rec=>{
+      h += `<div class="run-tag">🔯 ממצאי ${rec.run||"היום"} · ${rec.ts||rec.date}</div>`;
+      h += renderRecord(rec);
+    });
+    h += `<div class="codes-out"><div class="note">${arr[0].note||""}</div></div>`;
+
+    // ----- permanent archive, grouped by parasha -----
+    const groups = {};
+    arr.forEach((rec,idx)=>{ const k=rec.parasha||"—"; (groups[k]=groups[k]||[]).push(idx); });
+    let arch = `<div class="ls-h" style="font-size:1.1rem;margin-top:22px">🗂️ ארכיון הצפנים — לפי פרשה</div>`;
+    Object.keys(groups).forEach(par=>{
+      arch += `<div class="arch-par">פרשת ${par}</div>`;
+      groups[par].forEach(idx=>{
+        const rec = arr[idx];
+        arch += `<details class="arch-item" data-idx="${idx}"><summary>${rec.run||""} · ${rec.ts||rec.date}</summary><div class="arch-body" id="arch${idx}"></div></details>`;
+      });
+    });
+
     st.style.display="none";
-    body.innerHTML = h;
+    body.innerHTML = h + arch;
     body.style.display="block";
+
+    // lazy-render each archive item when opened
+    body.querySelectorAll(".arch-item").forEach(d=>{
+      d.addEventListener("toggle", ()=>{
+        if(d.open){
+          const idx = +d.dataset.idx;
+          const cell = document.getElementById("arch"+idx);
+          if(cell && !cell.dataset.done){ cell.innerHTML = renderRecord(CODES_DATA[idx]); cell.dataset.done="1"; }
+        }
+      });
+    });
   }catch(e){
     st.style.display="none";
     body.style.display="block";
