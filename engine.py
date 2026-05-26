@@ -295,33 +295,81 @@ def shared_words(sources, minlen=4, top=12):
     shared.sort(key=lambda x:(-len(x[1]), -len(x[0])))
     return shared[:top]
 
+# ---------- סוכן בודק התפילות: אוסף מקורות נחלת-הכלל להשלמת החסר ----------
+# כל מקור הוא טקסט מדויק נחלת הכלל (תורה/תהילים) — לא ממציאים נוסח תפילה
+PRAYER_SOURCES = {
+    "קריאת שמע (שלוש פרשיות)": ["Deuteronomy 6:4-9", "Deuteronomy 11:13-21", "Numbers 15:37-41"],
+    "אשרי — תהילה לדוד": ["Psalms 145"],
+    "יושב בסתר (למנצח)": ["Psalms 91"],
+    "מזמור שיר ליום השבת": ["Psalms 92"],
+    "ה' מלך (לכבוד שבת)": ["Psalms 93"],
+    "הללויה הללו אל בקדשו": ["Psalms 150"],
+    "ברכי נפשי": ["Psalms 104"],
+    "שיר המעלות (לפני ברכת המזון)": ["Psalms 126"],
+    "פרשת העקדה": ["Genesis 22:1-19"],
+    "עשרת הדברות": ["Exodus 20:1-14"],
+    "פרשת הקרבנות (פתיחה)": ["Numbers 28:1-8"],
+    "וידוי / י\"ג מידות": ["Exodus 34:6-7"],
+}
+PRAYERS_OUT = "prayers_audit.json"
+def prayers_audit():
+    out = {}
+    for name, refs in PRAYER_SOURCES.items():
+        parts = []
+        for rf in refs:
+            try:
+                t = get_text(rf)
+                if t["hebrew"] and not forbidden_hit(t["hebrew"]):
+                    parts.append({"ref": rf, "he_ref": t["he_ref"], "text": t["hebrew"]})
+            except Exception:
+                pass
+        if parts:
+            out[name] = parts
+    rec = {"generated": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+           "prayers": out,
+           "note": ("מקורות מדויקים מנחלת הכלל (תורה/תהילים) להשלמת החלקים החסרים. "
+                    "נוסח התפילה משתנה בין עדות — יש לבדוק מול סידור הקהילה.")}
+    json.dump(rec, open(PRAYERS_OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    return rec
+
 # ---------- סוכן מקשר (Claude): מוצא קשרים בין כל המקורות ----------
 def connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior):
     client = anthropic.Anthropic()
-    pool = [f"דף: {daf['hebrew'][:700]}"]
+    pool = [f"דף: {daf['hebrew'][:900]}"]
     for m in mishnayot: pool.append(f"משנה: {m['hebrew'][:500]}")
-    if parasha: pool.append(f"פרשה: {parasha['hebrew'][:700]}")
+    if parasha: pool.append(f"פרשה: {parasha['hebrew'][:800]}")
     for e in extras: pool.append(f"{e['he_ref']}: {e['hebrew'][:500]}")
     for c in comms[:8]: pool.append(f"{c['name']}: {c['text'][:300]}")
     sw = "; ".join(f"{w} ({'/'.join(ls)})" for w, ls in shared) or "אין"
     pr = "; ".join(p.get("theme","") for p in prior if p.get("theme")) or "אין"
-    sysmsg = ("אתה חוקר תורני שתפקידו למצוא קשרים אמיתיים ומפתיעים בין מקורות. "
-              "בעברית בלבד. אל תמציא ציטוטים. התבסס על הטקסטים והמילים המשותפות שסופקו.")
-    user = ("המקורות של היום:\n" + "\n".join(pool) +
-            f"\n\nמילים משותפות שחושבו בקוד בין המקורות: {sw}\n"
-            f"נושאים שכבר נלמדו בעבר (להמשיך ולהעמיק, לא לחזור): {pr}\n\n"
-            "מצא את החוט המקשר. החזר JSON בלבד: {"
+    prl = "; ".join(l for p in prior for l in p.get("links_pts", [])[:2]) or "אין"
+    sysmsg = (
+        "אתה לומד תורני שמקשר בין מקורות בדרך הלימוד של הגמרא. בעברית בלבד.\n"
+        "הטקסט עשוי להיות בארמית — הָבֵן אותו ותרגם לעברית לפני שתקשר.\n"
+        "למד לקשר כדרך הגמרא, שמוציאה מכל פסוק, מילה ואות את הקשרהּ, באמצעות "
+        "מידות הדרש וההיגיון התלמודי: גְּזֵרָה שָׁוָה (מילה זהה בשני מקומות מלמדת זה על זה), "
+        "קַל וָחֹמֶר, בִּנְיַן אָב, הֶקֵּשׁ, סְמוּכִים, ייתור או חיסור לשון, כלל ופרט, "
+        "ומשמעות שמות וגימטריה. חפש חוט אחד אמיתי שמחבר את המקורות.\n"
+        "אל תמציא ציטוטים — התבסס רק על הטקסטים והמילים המשותפות שסופקו."
+    )
+    user = ("המקורות של היום (יתכן ארמית — תרגם והבן):\n" + "\n".join(pool) +
+            f"\n\nמילים משותפות שחושבו בקוד בין המקורות (רמז לגזרה שווה): {sw}\n"
+            f"נושאים מימים קודמים (זיכרון משותף — להמשיך ולהעמיק): {pr}\n"
+            f"קשרים מימים קודמים: {prl}\n\n"
+            "מצא את החוט המקשר בדרך הגמרא. החזר JSON בלבד: {"
             '"theme":"נושא מרכזי אחד במשפט",'
-            '"links":[{"a":"מקור","b":"מקור","point":"הקשר ביניהם במשפט"}],'
-            '"thread":"פסקה קצרה שמסבירה איך הכל מתחבר"}')
+            '"method":"באיזו מידה/דרך גמרא קישרת (למשל: גזרה שווה על המילה X)",'
+            '"aramaic":"אם היה ארמית — תרגום קצר לעברית של הביטוי המרכזי, אחרת ריק",'
+            '"links":[{"a":"מקור","b":"מקור","point":"הקשר ביניהם, בסגנון לימוד"}],'
+            '"thread":"פסקה שמסבירה איך הכל מתחבר, כדרך הסוגיה"}')
     try:
-        msg = client.messages.create(model=MODEL, max_tokens=1500, temperature=0.6,
+        msg = client.messages.create(model=MODEL, max_tokens=1800, temperature=0.6,
                 system=sysmsg, messages=[{"role":"user","content":user}])
         raw = "".join(b.text for b in msg.content if b.type=="text").strip()
         raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
         return json.loads(raw)
     except Exception:
-        return {"theme":"", "links":[], "thread":""}
+        return {"theme":"", "method":"", "aramaic":"", "links":[], "thread":""}
 
 # ---------- סוכן מגיד (Claude): כותב את השיעור ----------
 def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior):
@@ -338,18 +386,24 @@ def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn,
     sysmsg = ("אתה רב שכותב שיעור יומי עשיר ומעמיק באורך עמוד מלא, בעברית בלבד, "
               "בטון חם, ברור ומאיר. אתה מלקט מן הדף, משתי המשניות היומיות, ממפרשים, "
               "מפרשת השבוע, ומכל מרחב המקורות (תנ\"ך, תהילים, נביאים, מדרש, זוהר). "
-              "כתוב תוכן עשיר ומפורט. אל תמציא ציטוטים מדויקים. "
+              "אם יש ארמית — תרגם לעברית. קשר בין המקורות בדרך לימוד הגמרא, "
+              "שמוציאה מכל מילה ואות את משמעותהּ, וציין מאיפה כל מקור הובא. "
+              "כתוב תוכן עשיר ומפורט ומקורי. אל תמציא ציטוטים מדויקים. "
               "לגבי גימטריה וצפנים: השתמש אך ורק בנתונים שסופקו לך (מחושבים בקוד) — "
               "אל תמציא מספרים, דילוגים או צפנים בעצמך. "
               "בקטע הצפנים הצג את הממצאים בענווה וביושר: כדבר ללימוד והתבוננות, "
               "תוך ציון מפורש שדפוסי דילוג מופיעים גם במקרה ובכל טקסט ארוך, ושאין בכך הוכחה.")
-    user = (f"הדף היומי: {daf['he_ref']}\nטקסט הדף:\n{daf['hebrew'][:3200]}\n\n"
+    chain = "; ".join(f"{c['name']} (מתוך {c.get('from','')})" for c in comms[:10]) or "אין"
+    user = (f"הדף היומי: {daf['he_ref']}\nטקסט הדף (יתכן ארמית — תרגם והבן):\n{daf['hebrew'][:3200]}\n\n"
             f"שתי המשניות היומיות:\n{mish}\n\n"
             f"מפרשים מאושרים (לבסס עליהם את דברי המפרשים):\n{src}\n\n"
             f"{par}\n\n"
             f"מקורות נוספים מכל הספרים (תהילים ועוד):\n{ext}\n\n"
-            f"חוט מקשר שמצא סוכן המקשר — בנה עליו את השיעור:\n"
-            f"נושא: {conn.get('theme','')}\nחיבור: {conn.get('thread','')}\n"
+            f"שרשרת המקורות — מאיפה כל מקור הובא:\n{chain}\n\n"
+            f"חוט מקשר שמצא סוכן המקשר (בדרך הגמרא) — בנה עליו את השיעור:\n"
+            f"נושא: {conn.get('theme','')}\nדרך הלימוד: {conn.get('method','')}\n"
+            f"תרגום מארמית: {conn.get('aramaic','')}\n"
+            f"חיבור: {conn.get('thread','')}\n"
             f"קשרים: {'; '.join(l.get('point','') for l in conn.get('links',[]))}\n\n"
             f"נושאים מימים קודמים (להמשכיות — אפשר להתייחס): "
             f"{'; '.join(p.get('theme','') for p in prior if p.get('theme')) or 'אין'}\n\n"
@@ -357,14 +411,17 @@ def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn,
             f"צפנים שחושבו בקוד מתוך טקסט התורה (רק אלה מותר להזכיר):\n"
             f"דילוגי אותיות: {els_txt}\nאתב\"ש: {atb_txt}\nנוטריקון: {not_txt}\n"
             f"(נסרקו {codes.get('letters_scanned',0)} אותיות)\n\n"
-            "כתוב שיעור עמוד מלא ועשיר שמחבר בין כל המקורות סביב החוט המקשר. "
+            "כתוב שיעור עמוד מלא ועשיר שמחבר בין כל המקורות סביב החוט המקשר, בדרך לימוד הגמרא "
+            "(הוצאת משמעות מכל מילה ואות), עם תרגום כל ביטוי ארמי לעברית. "
             "החזר JSON תקין בלבד, ללא טקסט נוסף: {"
             '"title":"כותרת",'
             '"intro":"פתיחה של 2-3 משפטים עם החוט המקשר",'
+            '"method":"דרך הלימוד שבה חוברו המקורות (מידת הדרש/היגיון הסוגיה), במשפט",'
+            '"aramaic":"תרגום קצר לעברית של הביטוי הארמי המרכזי בדף, אם יש; אחרת ריק",'
             '"daf":{"ref":"מקור הדף","teaching":"ביאור עשיר של 4-6 משפטים"},'
             '"mishnayot":[{"ref":"מקור המשנה","text_summary":"תקציר במילים שלך","insight":"תובנה"}],'
             '"commentators":[{"name":"שם המפרש","point":"מה הוא אומר, במילים שלך"}],'
-            '"connections":[{"source":"שם המקור","point":"הקשר"}],'
+            '"connections":[{"source":"שם המקור","from":"מאיפה הובא","point":"הקשר"}],'
             '"deep_dive":"פסקת עיון לעומק (4-6 משפטים) שמחברת את הכל לרעיון אחד",'
             '"halacha":"נקודה הלכתית מעשית אחת היוצאת מן הסוגיה",'
             '"gematria_note":"רק מהמספרים שסופקו, אחרת ריק",'
@@ -460,6 +517,13 @@ def main():
     except Exception as ex:
         print("⚠️ לא נשמרו צפנים:", ex)
 
+    # סוכן בודק התפילות — אוסף מקורות נחלת-הכלל להשלמת החסר
+    try:
+        prayers_audit()
+        print("🕯️ נשמרו מקורות תפילה ל-prayers_audit.json")
+    except Exception as ex:
+        print("⚠️ לא נשמרו מקורות תפילה:", ex)
+
     # סוכן ספרן: עוקב אחר הציטוטים גם מפרשת השבוע, ומאחד לספרייה
     if parasha and par.get("ref"):
         try:
@@ -485,10 +549,12 @@ def main():
     print("📖 סוכן מגיד כותב שיעור עבור", daf["he_ref"], "…")
     lesson = write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior)
 
-    # זיכרון משותף: שומרים את החוט שנמצא, כדי שמחר יבנו עליו
+    # זיכרון משותף: שומרים את החוט, הקשרים, דרך הלימוד והתרגום — כדי שמחר יבנו עליו
     save_insight({"ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
                   "date": today.isoformat(), "ref": daf["he_ref"],
-                  "theme": conn.get("theme",""), "thread": conn.get("thread","")})
+                  "theme": conn.get("theme",""), "thread": conn.get("thread",""),
+                  "method": conn.get("method",""), "aramaic": conn.get("aramaic",""),
+                  "links_pts": [l.get("point","") for l in conn.get("links",[])]})
 
     save({
         "date": today.isoformat(),
