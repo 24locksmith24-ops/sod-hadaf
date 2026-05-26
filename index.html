@@ -441,9 +441,17 @@
       <div class="ls-h" style="font-size:1.06rem">🔎 דילוגי אותיות (ELS) — על כל חמשת החומשים</div>
       <div class="sub">החיפוש מבוסס על הטקסט המלא של בראשית · שמות · ויקרא · במדבר · דברים</div>
       <div class="mini-row">
-        <button class="mini-btn" id="loadTorah">📜 טען את כל התורה</button>
-        <span id="torahStatus" class="sub" style="margin:0"></span>
+        <select id="torahScope" class="gem-input" style="flex:1;min-width:160px;font-size:1rem">
+          <option value="ALL">כל התורה — חמישה חומשים</option>
+          <option value="Genesis">בְּרֵאשִׁית</option>
+          <option value="Exodus">שְׁמוֹת</option>
+          <option value="Leviticus">וַיִּקְרָא</option>
+          <option value="Numbers">בְּמִדְבָּר</option>
+          <option value="Deuteronomy">דְּבָרִים</option>
+        </select>
+        <button class="mini-btn" id="loadTorah">📜 טען</button>
       </div>
+      <div class="mini-row" style="margin-top:4px"><span id="torahStatus" class="sub" style="margin:0"></span></div>
       <div class="mini-row" style="margin-top:10px">
         <input type="text" id="elsWord" class="gem-input" style="flex:1;min-width:130px" placeholder="מילה לחיפוש (למשל: תורה)" dir="rtl">
         <label class="els-skip">דילוג עד <input type="number" id="elsMax" value="100" min="2" max="500"></label>
@@ -451,6 +459,15 @@
       </div>
       <div id="elsOut" class="codes-out"></div>
     </div>
+  </section>
+
+  <!-- Daily codes feed (from the agent, separate from the lesson) -->
+  <section class="card" id="codesFeedCard">
+    <span class="pill"><span class="live"></span> צפנים יומיים · נוצר על-ידי הסוכן</span>
+    <h2><span class="glyph">🔯</span> צפני השבוע</h2>
+    <div class="sub">חיפוש בכל חמשת החומשים ובפרשת השבוע — מתעדכן אוטומטית</div>
+    <div id="codesFeedStatus" class="status"><span class="spinner"></span> טוען צפנים…</div>
+    <div id="codesFeedBody" style="display:none"></div>
   </section>
 
   <!-- Daf banner -->
@@ -1025,6 +1042,59 @@ document.getElementById("calPrev").addEventListener("click",()=>{calOffset--;ren
 document.getElementById("calNext").addEventListener("click",()=>{calOffset++;renderCalendar();});
 renderCalendar();
 
+/* ===== Daily codes feed (reads codes.json from the agent) ===== */
+function elsLine(h){
+  return `<div class="hit">המילה <b>${h.word}</b> — דילוג <b>${h.skip}</b> ${h.dir} · מאות ${(h.start+1).toLocaleString()}</div>`;
+}
+async function loadCodes(){
+  reveal(document.getElementById("codesFeedCard"));
+  const st = document.getElementById("codesFeedStatus");
+  const body = document.getElementById("codesFeedBody");
+  try{
+    const r = await fetch("./codes.json", {cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    const rec = Array.isArray(arr) ? arr[0] : null;
+    if(!rec) throw new Error("empty");
+    let h = "";
+    if(rec.parasha) h += `<div class="ls-h" style="font-size:1.1rem">פרשת ${rec.parasha}</div>`;
+    // codes for the week (parasha name encoded in the whole Torah)
+    if(rec.week_codes && rec.week_codes.els && rec.week_codes.els.length){
+      h += `<div class="ls-h">📅 צפנים לשם הפרשה (בכל התורה)</div>`;
+      h += rec.week_codes.els.map(elsLine).join("");
+    }
+    // codes across the full Five Books
+    if(rec.full_torah && rec.full_torah.els && rec.full_torah.els.length){
+      h += `<div class="ls-h">📜 דילוגים בכל חמשת החומשים</div>`;
+      h += rec.full_torah.els.slice(0,6).map(elsLine).join("");
+    }
+    // codes inside the weekly parasha
+    if(rec.parasha_codes){
+      const pc = rec.parasha_codes;
+      if(pc.els && pc.els.length){
+        h += `<div class="ls-h">🔎 דילוגים בתוך הפרשה</div>`;
+        h += pc.els.slice(0,5).map(elsLine).join("");
+      }
+      if(pc.gematria && pc.gematria.length){
+        h += `<div class="ls-h">🔢 גימטריאות שוות בפרשה</div>`;
+        h += pc.gematria.map(g=>`<div class="hit">ערך <b>${g.value}</b>: ${g.words.join(" = ")}</div>`).join("");
+      }
+      if(pc.notarikon && pc.notarikon.initials){
+        h += `<div class="ls-h">🔤 נוטריקון (ראשי תיבות פתיחת הפרשה)</div>`;
+        h += `<div class="hit">${pc.notarikon.initials}</div>`;
+      }
+    }
+    h += `<div class="codes-out"><div class="note">${rec.note||""}</div></div>`;
+    st.style.display="none";
+    body.innerHTML = h;
+    body.style.display="block";
+  }catch(e){
+    st.style.display="none";
+    body.style.display="block";
+    body.innerHTML = '<div class="codes-out"><div class="note">עדיין אין צפנים שמורים. הם ייווצרו בהרצת הסוכן הבאה (Run workflow), וייטענו לכאן אוטומטית.</div></div>';
+  }
+}
+
 /* ===== Codes calculator (live): gematria, atbash, notarikon, ELS ===== */
 const ALEFBET = "אבגדהוזחטיכלמנסעפצקרשת";
 const FINALS_J = {ך:"כ",ם:"מ",ן:"נ",ף:"פ",ץ:"צ"};
@@ -1062,25 +1132,36 @@ function calcCodes(){
   document.getElementById("cNotar").textContent = nt.ini || "—";
 }
 
-// the full Five Books, loaded once and cached as a consonant stream
-let TORAH_LETTERS = "";
+// the Five Books, loaded on demand and cached as consonant streams
+let TORAH_LETTERS = "";          // currently-loaded corpus
+let TORAH_LABEL = "";
+const TORAH_CACHE = {};          // per-book consonant cache
 const TORAH_BOOKS = ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy"];
-async function loadFullTorah(){
+const BOOK_HE = {ALL:"חמישה חומשים", Genesis:"בראשית", Exodus:"שמות", Leviticus:"ויקרא", Numbers:"במדבר", Deuteronomy:"דברים"};
+async function fetchBook(b){
+  if(TORAH_CACHE[b]) return TORAH_CACHE[b];
+  const r = await fetch(`${SEFARIA}/api/texts/${b}`);
+  const d = await r.json();
+  const v = (Array.isArray(d.he)?d.he.flat(Infinity):[d.he]).map(stripHtml).filter(Boolean);
+  TORAH_CACHE[b] = toCons(v.join(" "));
+  return TORAH_CACHE[b];
+}
+async function loadTorahScope(){
+  const scope = document.getElementById("torahScope").value;
   const st = document.getElementById("torahStatus");
   const btn = document.getElementById("loadTorah");
-  if(TORAH_LETTERS){ st.textContent = `נטענו ${TORAH_LETTERS.length.toLocaleString()} אותיות ✓`; return; }
-  btn.disabled = true; st.innerHTML = '<span class="spinner" style="width:14px;height:14px;border-width:2px"></span> טוען את חמשת החומשים…';
+  btn.disabled = true;
+  st.innerHTML = '<span class="spinner" style="width:14px;height:14px;border-width:2px"></span> טוען…';
   try{
-    let all = "";
-    for(const b of TORAH_BOOKS){
-      st.textContent = `טוען ${b}…`;
-      const r = await fetch(`${SEFARIA}/api/texts/${b}`);
-      const d = await r.json();
-      const v = (Array.isArray(d.he)?d.he.flat(Infinity):[d.he]).map(stripHtml).filter(Boolean);
-      all += toCons(v.join(" "));
+    if(scope === "ALL"){
+      let all = "";
+      for(const b of TORAH_BOOKS){ st.textContent = `טוען ${BOOK_HE[b]}…`; all += await fetchBook(b); }
+      TORAH_LETTERS = all; TORAH_LABEL = BOOK_HE.ALL;
+    } else {
+      st.textContent = `טוען ${BOOK_HE[scope]}…`;
+      TORAH_LETTERS = await fetchBook(scope); TORAH_LABEL = BOOK_HE[scope];
     }
-    TORAH_LETTERS = all;
-    st.textContent = `נטענו ${TORAH_LETTERS.length.toLocaleString()} אותיות מחמשת החומשים ✓`;
+    st.textContent = `${TORAH_LABEL}: נטענו ${TORAH_LETTERS.length.toLocaleString()} אותיות ✓`;
   }catch(e){
     st.textContent = "⚠️ טעינה נכשלה — נסה שוב.";
   }
@@ -1093,7 +1174,7 @@ async function runEls(){
   if(!word || toCons(word).length<2){ out.innerHTML = '<div class="note">הקלד מילה באורך 2 אותיות לפחות.</div>'; return; }
   if(!TORAH_LETTERS){
     out.innerHTML = '<div class="note">טוען את התורה… רגע אחד.</div>';
-    await loadFullTorah();
+    await loadTorahScope();
     if(!TORAH_LETTERS){ out.innerHTML = '<div class="note">לא הצלחתי לטעון את התורה. נסה שוב.</div>'; return; }
   }
   out.innerHTML = '<div class="status"><span class="spinner"></span> מחפש דילוגים בכל התורה…</div>';
@@ -1106,12 +1187,12 @@ async function runEls(){
     out.innerHTML = hits.map(h=>
       `<div class="hit">המילה <b>${word}</b> — דילוג <b>${h.skip}</b> ${h.dir} · החל מאות ${(h.start+1).toLocaleString()}</div>`
     ).join("") +
-    `<div class="note">נסרקו ${TORAH_LETTERS.length.toLocaleString()} אותיות מחמשת החומשים. הערה: דילוגים כאלה מופיעים גם במקרה בכל טקסט ארוך — זה ללימוד והתבוננות, לא הוכחה.</div>`;
+    `<div class="note">נסרקו ${TORAH_LETTERS.length.toLocaleString()} אותיות (${TORAH_LABEL}). הערה: דילוגים כאלה מופיעים גם במקרה בכל טקסט ארוך — זה ללימוד והתבוננות, לא הוכחה.</div>`;
   }, 30);
 }
 document.getElementById("codeInput").addEventListener("input", calcCodes);
 document.getElementById("elsBtn").addEventListener("click", runEls);
-document.getElementById("loadTorah").addEventListener("click", loadFullTorah);
+document.getElementById("loadTorah").addEventListener("click", loadTorahScope);
 
 /* ===== Tehillim Yomi — monthly division, shown inline ===== */
 // classic division of Psalms across the days of the Hebrew month
@@ -1205,10 +1286,11 @@ buildPrayers();
 /* ===== init ===== */
 (async function init(){
   // make the always-on cards visible (they have no async loader to reveal them)
-  ["monthCard","gemCard","codesCard","tehillimCard","prayCard"].forEach(id=>{
+  ["monthCard","gemCard","codesCard","codesFeedCard","tehillimCard","prayCard"].forEach(id=>{
     const e=document.getElementById(id); if(e) reveal(e);
   });
   loadCalendar();                          // calendar info is fine to show
+  loadCodes();                             // daily codes feed (reads codes.json)
   loadZmanim();                            // sun & prayer times
   loadCompass();                           // direction to Jerusalem
   const rest = await restStatus();
