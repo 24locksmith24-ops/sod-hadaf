@@ -159,8 +159,11 @@ def save_codes(record):
     if os.path.exists(CODES_OUT):
         try: data = json.load(open(CODES_OUT, encoding="utf-8"))
         except Exception: data = []
-    data = [r for r in data if r.get("date") != record["date"]]
+    # ארכיון מצטבר: שומרים הכול, מאפשרים כמה ריצות ביום (לפי חותמת זמן)
+    ts = record.get("ts")
+    data = [r for r in data if r.get("ts") != ts]
     data.insert(0, record)
+    data = data[:400]                       # שמירת ארכיון ארוך, בגבול סביר לגודל הקובץ
     json.dump(data, open(CODES_OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 
 # ---------- שומר מקורות ----------
@@ -361,6 +364,9 @@ def main():
     try:
         rec = build_codes_record(today, torah_text or codes_src,
                                  parasha["hebrew"] if parasha else "", parasha_name)
+        now = datetime.datetime.now()
+        rec["ts"] = now.strftime("%Y-%m-%d %H:%M")
+        rec["run"] = "בוקר" if now.hour < 12 else "אחר הצהריים"
         save_codes(rec)
         print("🔯 נשמרו צפנים ל-codes.json")
     except Exception as ex:
