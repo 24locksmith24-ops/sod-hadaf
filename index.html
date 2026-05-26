@@ -207,6 +207,20 @@
   .compass-info{margin-top:12px;font-family:'Frank Ruhl Libre',serif;font-size:1.1rem;color:var(--ink)}
   .compass-info b{color:var(--crimson)}
 
+  /* codes calculator */
+  .codes-els{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+  .mini-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .mini-btn{background:var(--parch-deep);border:1px solid var(--line);border-radius:9px;
+    padding:7px 13px;cursor:pointer;font-family:'Assistant';font-weight:700;font-size:.85rem;
+    color:var(--ink);transition:.18s}
+  .mini-btn:hover{background:var(--gold);color:#fff}
+  .els-skip{font-size:.8rem;color:var(--ink-soft);display:flex;align-items:center;gap:5px}
+  .els-skip input{width:62px;padding:6px;border:1.5px solid var(--line);border-radius:8px;font-family:inherit}
+  .codes-out{margin-top:12px;font-family:'Frank Ruhl Libre',serif;font-size:1.02rem;color:var(--ink)}
+  .codes-out .hit{background:var(--parch-deep);border-radius:9px;padding:8px 12px;margin-bottom:6px}
+  .codes-out .hit b{color:var(--crimson)}
+  .codes-out .note{font-size:.82rem;color:var(--ink-soft);margin-top:8px}
+
   /* monthly calendar */
   .cal-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
   .cal-nav{background:var(--parch-deep);border:1px solid var(--line);border-radius:9px;
@@ -411,6 +425,33 @@
       <div class="gem-box"><div class="gem-num" id="gemSml">0</div><div class="gem-lbl">קטן (מספר קטן)</div></div>
     </div>
     <div class="gem-note" id="gemNote"></div>
+  </section>
+
+  <!-- Codes calculator (live) -->
+  <section class="card" id="codesCard">
+    <h2><span class="glyph">🔯</span> מחשבון צפנים</h2>
+    <div class="sub">גימטריה · אתב״ש · נוטריקון · דילוגי אותיות — חישוב חי</div>
+    <input type="text" id="codeInput" class="gem-input" placeholder="הקלד מילה או ביטוי…" dir="rtl" autocomplete="off">
+    <div class="gem-results">
+      <div class="gem-box"><div class="gem-num" id="cGem">0</div><div class="gem-lbl">גימטריה</div></div>
+      <div class="gem-box"><div class="gem-num" id="cAtbash" style="font-size:1.3rem">—</div><div class="gem-lbl">אתב״ש</div></div>
+      <div class="gem-box"><div class="gem-num" id="cNotar" style="font-size:1.1rem">—</div><div class="gem-lbl">ראשי תיבות</div></div>
+    </div>
+    <div class="codes-els">
+      <div class="ls-h" style="font-size:1.06rem">🔎 דילוגי אותיות (ELS)</div>
+      <div class="sub">טען טקסט תורה (או הדבק משלך), הקלד מילה — והכלי יחפש אותה במרווחים שווים</div>
+      <div class="mini-row">
+        <button class="mini-btn" id="loadGen">טען בראשית א׳</button>
+        <button class="mini-btn" id="loadExo">טען עשרת הדיברות</button>
+      </div>
+      <textarea id="elsText" class="gem-input" style="height:84px;font-size:1rem;font-family:'Frank Ruhl Libre',serif" placeholder="טקסט התורה לחיפוש…" dir="rtl"></textarea>
+      <div class="mini-row" style="margin-top:8px">
+        <input type="text" id="elsWord" class="gem-input" style="flex:1;min-width:130px" placeholder="מילה לחיפוש (למשל: תורה)" dir="rtl">
+        <label class="els-skip">דילוג עד <input type="number" id="elsMax" value="50" min="2" max="500"></label>
+        <button class="regen" id="elsBtn" style="margin:0">חפש דילוגים</button>
+      </div>
+      <div id="elsOut" class="codes-out"></div>
+    </div>
   </section>
 
   <!-- Daf banner -->
@@ -638,6 +679,8 @@ function renderLesson(L){
   if(L.deep_dive)     h += `<div class="ls-h">🔬 עיון לעומק</div><p>${L.deep_dive}</p>`;
   if(L.halacha)       h += `<div class="ls-h">⚖️ הלכה למעשה</div><p>${L.halacha}</p>`;
   if(L.gematria_note) h += `<div class="ls-h">🔢 גימטריה</div><p>${L.gematria_note}</p>`;
+  if(L.codes)         h += `<div class="ls-h">🔯 צפנים בתורה</div><p>${L.codes}</p>` +
+                           `<p style="font-size:.85rem;color:var(--ink-soft)">הצפנים מחושבים בקוד מתוך טקסט התורה, ומובאים ללימוד והתבוננות בלבד — לא כהוכחה. דפוסים כאלה מופיעים גם במקרה בכל טקסט ארוך.</p>`;
   if(L.question)      h += `<div class="ls-h">🤔 שאלה למחשבה</div><p>${L.question}</p>`;
   if(L.takeaway)      h += `<div class="ls-h">✨ לקח ליום</div><p>${L.takeaway}</p>`;
 
@@ -983,6 +1026,75 @@ document.getElementById("calPrev").addEventListener("click",()=>{calOffset--;ren
 document.getElementById("calNext").addEventListener("click",()=>{calOffset++;renderCalendar();});
 renderCalendar();
 
+/* ===== Codes calculator (live): gematria, atbash, notarikon, ELS ===== */
+const ALEFBET = "אבגדהוזחטיכלמנסעפצקרשת";
+const FINALS_J = {ך:"כ",ם:"מ",ן:"נ",ף:"פ",ץ:"צ"};
+const ATBASH_J = {}; for(let i=0;i<22;i++) ATBASH_J[ALEFBET[i]] = ALEFBET[21-i];
+function toCons(s){
+  s = (s||"").replace(/[\u0591-\u05C7]/g,"");
+  let o=""; for(const c of s){ const b=FINALS_J[c]||c; if(b>="א"&&b<="ת") o+=b; } return o;
+}
+function atbashWord(w){ return [...toCons(w)].map(c=>ATBASH_J[c]||c).join(""); }
+function notar(s){
+  const ws=(s||"").split(/\s+/).map(w=>w.replace(/[^\u05D0-\u05EA]/g,"")).filter(Boolean);
+  return { ini: ws.map(w=>w[0]).join(""), fin: ws.map(w=>w[w.length-1]).join("") };
+}
+function elsSearch(letters, target, maxSkip, maxHits){
+  const t=toCons(target), n=letters.length, m=t.length, hits=[];
+  if(m<2 || n<m) return hits;
+  for(let skip=1; skip<=maxSkip; skip++){
+    for(const dir of [1,-1]){
+      const step=dir*skip;
+      for(let start=0; start<n; start++){
+        let ok=true;
+        for(let k=0;k<m;k++){ const pos=start+step*k; if(pos<0||pos>=n||letters[pos]!==t[k]){ok=false;break;} }
+        if(ok){ hits.push({skip, dir:dir>0?"→":"←", start}); if(hits.length>=maxHits) return hits; }
+      }
+    }
+  }
+  return hits;
+}
+function calcCodes(){
+  const v = document.getElementById("codeInput").value;
+  let std=0; for(const ch of v){ if(GEM[ch]) std+=GEM[ch]; }
+  document.getElementById("cGem").textContent = std;
+  document.getElementById("cAtbash").textContent = atbashWord(v) || "—";
+  const nt = notar(v);
+  document.getElementById("cNotar").textContent = nt.ini || "—";
+}
+async function loadTorahInto(ref){
+  const out = document.getElementById("elsText");
+  out.value = "טוען…";
+  try{
+    const r = await fetch(`${SEFARIA}/api/texts/${ref}`);
+    const d = await r.json();
+    const v = (Array.isArray(d.he)?d.he.flat(Infinity):[d.he]).map(stripHtml).filter(Boolean);
+    out.value = v.join(" ");
+  }catch(e){ out.value = ""; out.placeholder = "לא הצלחתי לטעון — הדבק טקסט ידנית."; }
+}
+function runEls(){
+  const text = document.getElementById("elsText").value;
+  const word = document.getElementById("elsWord").value.trim();
+  const maxSkip = Math.min(500, Math.max(2, parseInt(document.getElementById("elsMax").value,10)||50));
+  const out = document.getElementById("elsOut");
+  if(!word || toCons(word).length<2){ out.innerHTML = '<div class="note">הקלד מילה באורך 2 אותיות לפחות.</div>'; return; }
+  const letters = toCons(text);
+  if(letters.length < 2){ out.innerHTML = '<div class="note">טען או הדבק טקסט תורה לחיפוש.</div>'; return; }
+  const hits = elsSearch(letters, word, maxSkip, 8);
+  if(!hits.length){
+    out.innerHTML = `<div class="note">לא נמצאו דילוגים של "${word}" עד מרווח ${maxSkip} בטקסט שנסרק (${letters.length} אותיות).</div>`;
+    return;
+  }
+  out.innerHTML = hits.map(h=>
+    `<div class="hit">המילה <b>${word}</b> — דילוג <b>${h.skip}</b> ${h.dir} · החל מאות ${h.start+1}</div>`
+  ).join("") +
+  `<div class="note">נסרקו ${letters.length} אותיות. הערה: דילוגים כאלה מופיעים גם במקרה בכל טקסט ארוך — זה ללימוד והתבוננות, לא הוכחה.</div>`;
+}
+document.getElementById("codeInput").addEventListener("input", calcCodes);
+document.getElementById("elsBtn").addEventListener("click", runEls);
+document.getElementById("loadGen").addEventListener("click", ()=>loadTorahInto("Genesis.1"));
+document.getElementById("loadExo").addEventListener("click", ()=>loadTorahInto("Exodus.20"));
+
 /* ===== Tehillim Yomi — monthly division, shown inline ===== */
 // classic division of Psalms across the days of the Hebrew month
 const TEHILLIM_DAYS = {
@@ -1075,7 +1187,7 @@ buildPrayers();
 /* ===== init ===== */
 (async function init(){
   // make the always-on cards visible (they have no async loader to reveal them)
-  ["monthCard","gemCard","prayCard"].forEach(id=>{
+  ["monthCard","gemCard","codesCard","tehillimCard","prayCard"].forEach(id=>{
     const e=document.getElementById(id); if(e) reveal(e);
   });
   loadCalendar();                          // calendar info is fine to show
