@@ -93,6 +93,53 @@ def build_codes(text):
     atb = [{"word": w, "atbash": atbash_word(w)} for w in ["תורה","ישראל","שבת"]]
     return {"els": els, "notarikon": not_, "atbash": atb, "letters_scanned": len(letters)}
 
+def parasha_targets(name):
+    """מילים עבריות מתוך שם הפרשה, כמטרות חיפוש דילוגים לאותו שבוע."""
+    clean = _NIK.sub("", name or "")
+    return [w for w in re.findall(r"[\u05D0-\u05EA]{3,}", clean) if w not in ("פרשת",)]
+
+def build_codes_record(today, torah_text, parasha_text, parasha_name):
+    """רשומת צפנים נפרדת: חיפוש בכל חמשת החומשים + בפרשת השבוע."""
+    tl = to_consonants(torah_text)
+    full = {"scope": "חמישה חומשים", "letters": len(tl), "els": []}
+    for tgt in CODE_TARGETS:
+        for h in els_search(tl, tgt, max_skip=80, max_hits=2):
+            full["els"].append(h)
+        if len(full["els"]) >= 10: break
+    # צפנים "לאותו שבוע" — שם הפרשה כדילוג בתוך כל התורה
+    week = {"name": parasha_name, "els": []}
+    for tgt in parasha_targets(parasha_name):
+        for h in els_search(tl, tgt, max_skip=150, max_hits=2):
+            week["els"].append(h)
+    # צפנים בתוך טקסט הפרשה עצמה
+    pl = to_consonants(parasha_text or "")
+    par = {"letters": len(pl), "els": [], "gematria": [], "notarikon": notarikon(parasha_text or "")}
+    for tgt in CODE_TARGETS:
+        for h in els_search(pl, tgt, max_skip=60, max_hits=2):
+            par["els"].append(h)
+        if len(par["els"]) >= 8: break
+    for v, words in list(equal_pairs(parasha_text or "").items())[:6]:
+        par["gematria"].append({"value": v, "words": words})
+    return {
+        "date": today.isoformat(),
+        "parasha": parasha_name,
+        "full_torah": full,
+        "week_codes": week,
+        "parasha_codes": par,
+        "note": ("הצפנים מחושבים בקוד מן הטקסט המלא של חמישה חומשי תורה ומפרשת השבוע. "
+                 "דפוסי דילוג מופיעים גם במקרה בכל טקסט ארוך — ללימוד והתבוננות, לא הוכחה."),
+    }
+
+CODES_OUT = "codes.json"
+def save_codes(record):
+    data = []
+    if os.path.exists(CODES_OUT):
+        try: data = json.load(open(CODES_OUT, encoding="utf-8"))
+        except Exception: data = []
+    data = [r for r in data if r.get("date") != record["date"]]
+    data.insert(0, record)
+    json.dump(data, open(CODES_OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+
 # ---------- שומר מקורות ----------
 APPROVED = {"Tanakh","Targum","Mishnah","Talmud","Tosefta","Midrash","Halakhah",
             "Kabbalah","Liturgy","Jewish Thought","Chasidut","Musar","Responsa",
@@ -256,8 +303,10 @@ def main():
 
     # פרשת השבוע — מקור נוסף לליקוט
     parasha = None
+    parasha_name = ""
     par = items.get("Parashat Hashavua")
     if par and par.get("ref"):
+        parasha_name = (par.get("displayValue") or {}).get("he") or ""
         try:
             pt = get_text(par["ref"])
             if not forbidden_hit(pt["hebrew"]):
@@ -279,12 +328,20 @@ def main():
     for v, words in list(equal_pairs(daf["hebrew"]).items())[:5]:
         gem_lines.append(f"{v}={'='.join(words)}")
 
-    # צפנים בתורה — מחושב מטקסט הפרשה (תורה בלבד)
     # צפנים — מבוססים על הטקסט המלא של חמישה חומשי תורה (לפי שבוע הפרשה)
     print("🔯 טוען את חמישה חומשי תורה לחיפוש צפנים…")
     torah_text = fetch_full_torah()
     codes_src = torah_text if torah_text else (parasha["hebrew"] if parasha else daf["hebrew"])
     codes = build_codes(codes_src)
+
+    # פיד צפנים נפרד (codes.json): כל חמשת החומשים + פרשת השבוע
+    try:
+        rec = build_codes_record(today, torah_text or codes_src,
+                                 parasha["hebrew"] if parasha else "", parasha_name)
+        save_codes(rec)
+        print("🔯 נשמרו צפנים ל-codes.json")
+    except Exception as ex:
+        print("⚠️ לא נשמרו צפנים:", ex)
 
     print("📖 כותב שיעור עבור", daf["he_ref"], "…")
     lesson = write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes)
