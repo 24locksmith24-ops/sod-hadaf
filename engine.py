@@ -80,7 +80,8 @@ def get_text(ref):
     d = requests.get(f"{SEF}/texts/{requests.utils.quote(ref)}", timeout=25,
                      params={"context":0,"pad":0}).json()
     segs = _clean(d.get("he", []))
-    return {"ref": d.get("ref", ref), "he_ref": d.get("heRef", ref), "hebrew": " ".join(segs)}
+    return {"ref": d.get("ref", ref), "he_ref": d.get("heRef", ref),
+            "hebrew": " ".join(segs), "segments": segs}
 
 def get_commentaries(ref, cap=10):
     links = requests.get(f"{SEF}/links/{requests.utils.quote(ref)}", timeout=25,
@@ -99,22 +100,39 @@ def get_commentaries(ref, cap=10):
     return out
 
 # ---------- כתיבת השיעור (Claude) ----------
-def write_lesson(daf, mishnayot, comms, gem_lines):
+def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines):
     client = anthropic.Anthropic()
-    mish = "\n".join(f"[{m['he_ref']}] {m['hebrew'][:700]}" for m in mishnayot) or "(אין)"
-    src  = "\n".join(f"[{c['name']}] {c['text'][:300]}" for c in comms[:6]) or "(אין)"
-    sysmsg = ("אתה רב שכותב שיעור יומי עשיר באורך עמוד, בעברית בלבד, בטון חם וברור. "
-              "אתה מלקט מן הדף, משתי המשניות היומיות, וממקורות נוספים. אל תמציא ציטוטים.")
-    user = (f"הדף היומי: {daf['he_ref']}\nטקסט הדף:\n{daf['hebrew'][:2500]}\n\n"
-            f"שתי המשניות היומיות:\n{mish}\n\nמפרשים מאושרים:\n{src}\n\n"
-            f"גימטריה מחושבת: {'; '.join(gem_lines) or 'אין'}\n\n"
-            "החזר JSON תקין בלבד, ללא טקסט נוסף: {"
-            '"title":"כותרת","intro":"פתיחה עם החוט המקשר",'
-            '"daf":{"ref":"מקור הדף","teaching":"3-4 משפטים"},'
-            '"mishnayot":[{"ref":"מקור","text_summary":"תקציר במילים שלך","insight":"תובנה"}],'
-            '"connections":[{"source":"מקור","point":"קשר"}],'
-            '"gematria_note":"הערה אם רלוונטי","question":"שאלה למחשבה","takeaway":"לקח ליום"}')
-    msg = client.messages.create(model=MODEL, max_tokens=2200, temperature=0.5,
+    mish = "\n".join(f"[משנה {i+1} · {m['he_ref']}] {m['hebrew'][:900]}"
+                     for i, m in enumerate(mishnayot)) or "(אין)"
+    src  = "\n".join(f"[{c['name']}] {c['text'][:400]}" for c in comms[:10]) or "(אין)"
+    par  = (f"פרשת השבוע ({parasha['he_ref']}):\n{parasha['hebrew'][:1400]}"
+            if parasha else "(אין)")
+    ext  = "\n".join(f"[{e['he_ref']}] {e['hebrew'][:900]}" for e in extras) or "(אין)"
+    sysmsg = ("אתה רב שכותב שיעור יומי עשיר ומעמיק באורך עמוד מלא, בעברית בלבד, "
+              "בטון חם, ברור ומאיר. אתה מלקט מן הדף, משתי המשניות היומיות, ממפרשים, "
+              "מפרשת השבוע, ומכל מרחב המקורות (תנ\"ך, תהילים, נביאים, מדרש, זוהר). "
+              "כתוב תוכן עשיר ומפורט. אל תמציא ציטוטים מדויקים. "
+              "לגבי גימטריה: השתמש אך ורק במספרים שסופקו לך כ'גימטריה מחושבת' — "
+              "אל תחשב מספרים בעצמך. אם לא סופקו, השאר את gematria_note ריק.")
+    user = (f"הדף היומי: {daf['he_ref']}\nטקסט הדף:\n{daf['hebrew'][:2800]}\n\n"
+            f"שתי המשניות היומיות:\n{mish}\n\n"
+            f"מפרשים מאושרים (לבסס עליהם את דברי המפרשים):\n{src}\n\n"
+            f"{par}\n\n"
+            f"מקורות נוספים מכל הספרים (תהילים ועוד):\n{ext}\n\n"
+            f"גימטריה מחושבת (ודאית — רק אלה מותר לצטט): {'; '.join(gem_lines) or 'אין'}\n\n"
+            "כתוב שיעור עמוד מלא ועשיר. החזר JSON תקין בלבד, ללא טקסט נוסף: {"
+            '"title":"כותרת",'
+            '"intro":"פתיחה של 2-3 משפטים עם החוט המקשר",'
+            '"daf":{"ref":"מקור הדף","teaching":"ביאור עשיר של 4-6 משפטים"},'
+            '"mishnayot":[{"ref":"מקור המשנה","text_summary":"תקציר במילים שלך","insight":"תובנה"}],'
+            '"commentators":[{"name":"שם המפרש","point":"מה הוא אומר, במילים שלך"}],'
+            '"connections":[{"source":"שם המקור","point":"הקשר"}],'
+            '"deep_dive":"פסקת עיון לעומק (4-6 משפטים) שמחברת את הכל לרעיון אחד",'
+            '"halacha":"נקודה הלכתית מעשית אחת היוצאת מן הסוגיה",'
+            '"gematria_note":"רק מהמספרים שסופקו, אחרת ריק",'
+            '"question":"שאלה למחשבה","takeaway":"לקח ליום"}\n'
+            "חשוב: כלול פסקה לכל אחת משתי המשניות, 3-5 מפרשים, ו-4-6 קשרים.")
+    msg = client.messages.create(model=MODEL, max_tokens=4000, temperature=0.5,
             system=sysmsg, messages=[{"role":"user","content":user}])
     raw = "".join(b.text for b in msg.content if b.type=="text").strip()
     raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
@@ -146,21 +164,45 @@ def main():
     if forbidden_hit(daf["hebrew"]):
         print("🛑 עמוד הדף הכיל שם חסום — המחקר הופסק, לא נשמר דבר."); return
 
-    comms = get_commentaries(daf_item["ref"])
+    comms = get_commentaries(daf_item["ref"], cap=12)
 
+    # שתי המשניות היומיות — בנפרד
     mishnayot = []
     my = items.get("Mishnah Yomi")
     if my and my.get("ref"):
         mt = get_text(my["ref"])
         if not forbidden_hit(mt["hebrew"]):
-            mishnayot.append(mt)
+            segs = mt["segments"] or [mt["hebrew"]]
+            for seg in segs[:2]:
+                mishnayot.append({"he_ref": mt["he_ref"], "hebrew": seg})
+
+    # פרשת השבוע — מקור נוסף לליקוט
+    parasha = None
+    par = items.get("Parashat Hashavua")
+    if par and par.get("ref"):
+        try:
+            pt = get_text(par["ref"])
+            if not forbidden_hit(pt["hebrew"]):
+                parasha = pt
+        except Exception:
+            parasha = None
+
+    # מקורות נוספים מכל הספרים — תהילים של היום (מתחלף לפי התאריך)
+    extras = []
+    try:
+        psalm_no = (today.day % 150) or 150
+        ps = get_text(f"Psalms {psalm_no}")
+        if ps["hebrew"] and not forbidden_hit(ps["hebrew"]):
+            extras.append({"he_ref": ps["he_ref"], "hebrew": ps["hebrew"]})
+    except Exception:
+        pass
 
     gem_lines = []
-    for v, words in list(equal_pairs(daf["hebrew"]).items())[:4]:
+    for v, words in list(equal_pairs(daf["hebrew"]).items())[:5]:
         gem_lines.append(f"{v}={'='.join(words)}")
 
     print("📖 כותב שיעור עבור", daf["he_ref"], "…")
-    lesson = write_lesson(daf, mishnayot, comms, gem_lines)
+    lesson = write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines)
 
     save({
         "date": today.isoformat(),
