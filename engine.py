@@ -93,6 +93,26 @@ def build_codes(text):
     atb = [{"word": w, "atbash": atbash_word(w)} for w in ["תורה","ישראל","שבת"]]
     return {"els": els, "notarikon": not_, "atbash": atb, "letters_scanned": len(letters)}
 
+def hit_context(letters, h, max_strip=160):
+    """מחזיר את רצף האותיות הרציף שחוצה את הדילוג, עם מיקומי אותיות-המילה לסימון."""
+    skip = h["skip"]; m = len(to_consonants(h["word"])); start = h["start"]
+    if (m-1)*skip + 1 > max_strip:
+        return None
+    if h["dir"] == "→":
+        lo, hi = start, start + (m-1)*skip
+    else:
+        hi, lo = start, start - (m-1)*skip
+    if lo < 0 or hi >= len(letters): return None
+    strip = letters[lo:hi+1]
+    marks = sorted(set(k*skip for k in range(m)))
+    return {"strip": strip, "marks": marks}
+
+def enrich(letters, hits):
+    for h in hits:
+        ctx = hit_context(letters, h)
+        if ctx: h.update(ctx)
+    return hits
+
 def parasha_targets(name):
     """מילים עבריות מתוך שם הפרשה, כמטרות חיפוש דילוגים לאותו שבוע."""
     clean = _NIK.sub("", name or "")
@@ -106,11 +126,13 @@ def build_codes_record(today, torah_text, parasha_text, parasha_name):
         for h in els_search(tl, tgt, max_skip=80, max_hits=2):
             full["els"].append(h)
         if len(full["els"]) >= 10: break
+    enrich(tl, full["els"])
     # צפנים "לאותו שבוע" — שם הפרשה כדילוג בתוך כל התורה
     week = {"name": parasha_name, "els": []}
     for tgt in parasha_targets(parasha_name):
         for h in els_search(tl, tgt, max_skip=150, max_hits=2):
             week["els"].append(h)
+    enrich(tl, week["els"])
     # צפנים בתוך טקסט הפרשה עצמה
     pl = to_consonants(parasha_text or "")
     par = {"letters": len(pl), "els": [], "gematria": [], "notarikon": notarikon(parasha_text or "")}
@@ -118,6 +140,7 @@ def build_codes_record(today, torah_text, parasha_text, parasha_name):
         for h in els_search(pl, tgt, max_skip=60, max_hits=2):
             par["els"].append(h)
         if len(par["els"]) >= 8: break
+    enrich(pl, par["els"])
     for v, words in list(equal_pairs(parasha_text or "").items())[:6]:
         par["gematria"].append({"value": v, "words": words})
     return {
