@@ -1,0 +1,33 @@
+name: שיעור יומי אוטומטי
+
+on:
+  schedule:
+    - cron: "0 4 * * *"        # כל יום ב-04:00 UTC (אפשר לשנות)
+  workflow_dispatch: {}          # כפתור Run workflow להרצה ידנית
+
+permissions:
+  contents: write
+
+jobs:
+  lesson:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Jerusalem
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install anthropic requests
+      - run: python engine.py
+      - run: |
+          git config user.name  "Sod HaDaf Bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add discoveries.json codes.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "אין שינוי (שבת/חג או שכבר קיים) — לא שומר."
+          else
+            git commit -m "שיעור יומי אוטומטי"
+            git push
+          fi
