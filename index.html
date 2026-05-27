@@ -1412,7 +1412,7 @@ async function askWorker(mode){
       hint.innerHTML = `⚠️ ${msg} ${det?("· "+det):""}`;
       renderQAList(); return;
     }
-    // read the streamed lesson text to completion (keeps the connection alive — no 524)
+    // read the streamed sectioned text to completion
     const reader = r.body.getReader();
     const dec = new TextDecoder();
     let full = "";
@@ -1423,25 +1423,52 @@ async function askWorker(mode){
         full += dec.decode(value, {stream:true});
       }
     }catch(_streamErr){ /* keep whatever we received */ }
-    let raw = (full||"").trim().replace(/^```json/,"").replace(/^```/,"").replace(/```$/,"").trim();
-    let lesson = null;
-    try{ lesson = JSON.parse(raw); }
-    catch(e1){
-      const i=raw.indexOf("{"), j=raw.lastIndexOf("}");
-      if(i>=0 && j>i){
-        try{ lesson = JSON.parse(raw.slice(i, j+1)); }catch(e2){ lesson = null; }
-      }
-    }
-    if(!lesson){
-      lesson = { title:q, intro:(raw||"לא התקבל טקסט מספיק — נסה שוב."),
-                 disclaimer:"חומר לימוד בלבד, אינו פסק הלכה." };
-    }
+    const lesson = parseSectionedLesson(full, q);
     document.getElementById("qaInput").value = "";
     QA_ARCHIVE.unshift({ ts:new Date().toISOString(), question:q, mode, lesson });
     renderQAList();
   }catch(e){
     hint.textContent = "⚠️ לא הצלחתי לקרוא את התשובה מה-Worker. נסה שוב.";
   }
+}
+
+// פענוח טקסט מסומן ===NAME=== לאובייקט שיעור (אותו פענוח כמו ב-Worker)
+function parseSectionedLesson(text, q){
+  const lesson = { title:"", intro:"", sources:[], discussion:"",
+                   deep_dive:"", chiddushim:[], conclusion:"",
+                   practical:"", disclaimer:"" };
+  if(!text) return Object.assign(lesson, { title:q||"שיעור", intro:"לא התקבל תוכן — נסה שוב." });
+  const parts = text.split(/===\s*([^=\n]+?)\s*===/);
+  for(let i=1; i<parts.length; i+=2){
+    const name = (parts[i]||"").trim();
+    const content = (parts[i+1]||"").trim();
+    if(!name || !content) continue;
+    if(name==="כותרת") lesson.title = content;
+    else if(name==="פתיחה" || name==="תמצית") lesson.intro = content;
+    else if(name==="מקורות"){
+      lesson.sources = content.split(/\r?\n/)
+        .map(l=>l.trim()).filter(l=>/^[-•*]/.test(l))
+        .map(l=>l.replace(/^[-•*]\s*/,""))
+        .map(l=>{
+          const idx = l.indexOf(":");
+          if(idx>0) return {name:l.slice(0,idx).trim(), point:l.slice(idx+1).trim()};
+          return {name:l, point:""};
+        }).filter(s=>s.name);
+    }
+    else if(name==="דיון") lesson.discussion = content;
+    else if(name==="עיון לעומק" || name==="עיון") lesson.deep_dive = content;
+    else if(name==="חידושים"){
+      lesson.chiddushim = content.split(/\r?\n/)
+        .map(l=>l.trim()).filter(l=>/^[-•*]/.test(l))
+        .map(l=>l.replace(/^[-•*]\s*/,"").trim()).filter(Boolean);
+    }
+    else if(name==="סיכום") lesson.conclusion = content;
+    else if(name==="למעשה" || name==="שורה תחתונה") lesson.practical = content;
+    else if(name==="הסתייגות") lesson.disclaimer = content;
+  }
+  if(!lesson.title) lesson.title = q || "שיעור";
+  if(!lesson.disclaimer) lesson.disclaimer = "חומר לימוד בלבד, אינו פסק הלכה; להוראה למעשה יש לפנות לרב מוסמך.";
+  return lesson;
 }
 function printQA(idx){
   const rec = QA_ARCHIVE[idx]; if(!rec) return;
