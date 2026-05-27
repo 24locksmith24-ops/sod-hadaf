@@ -1,0 +1,46 @@
+name: שו"ת לפי שאלה
+
+on:
+  issues:
+    types: [opened, labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  answer:
+    # רץ רק על בקשות עם התווית "question", ורק כשהבעלים פתח אותן (הגנה מפני שימוש לרעה).
+    # כדי לאפשר לכל אחד לשאול — מחק את השורה השנייה בתנאי שלמטה.
+    if: >-
+      contains(github.event.issue.labels.*.name, 'question') &&
+      github.event.issue.user.login == github.repository_owner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: התקנת תלויות
+        run: pip install anthropic requests
+      - name: הסוכן עונה על השאלה
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          QA_QUESTION: ${{ github.event.issue.title }}
+          QA_BODY: ${{ github.event.issue.body }}
+        run: python engine.py
+      - name: שמירת התשובה
+        run: |
+          git config user.name  "Sod HaDaf Bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add qa.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "אין שינוי."
+          else
+            git commit -m "שות: תשובה חדשה"
+            git push
+          fi
+      - name: סגירת הבקשה עם הודעה
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh issue close ${{ github.event.issue.number }} --comment "✅ התשובה נוצרה ומופיעה באתר בכרטיס \"שו\"ת\". תודה ששאלת!" || true
