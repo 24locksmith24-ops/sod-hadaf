@@ -516,7 +516,6 @@
     <div class="sub">הסוכן לומד את הדף ואת מפרשיו המאושרים, ומגיש שיעור קצר</div>
     <div id="insightStatus" class="status"><span class="spinner"></span> ממתין לטקסט…</div>
     <div class="insight-body" id="insightBody" style="display:none"></div>
-    <button class="regen" id="speakBtn" style="display:none">🔊 הקראת השיעור</button>
     <button class="regen" id="regenBtn" style="display:none">✦ שיעור נוסף על אותו דף</button>
   </section>
 
@@ -778,37 +777,9 @@ function renderLesson(L){
   body.innerHTML = h;
   body.style.display="block";
   document.getElementById("regenBtn").style.display="none";
-  const sb=document.getElementById("speakBtn"); if(sb){ sb.style.display="inline-block"; }
 }
 
-/* ===== Read the lesson aloud (Hebrew text-to-speech) ===== */
-let _speaking=false;
-function setSpeakBtn(on){
-  const b=document.getElementById("speakBtn"); if(!b) return;
-  b.textContent = on ? "⏹️ עצור הקראה" : "🔊 הקראת השיעור";
-}
-function pickHebrewVoice(){
-  const vs = window.speechSynthesis ? speechSynthesis.getVoices() : [];
-  const he = vs.filter(v=>/he|iw/i.test(v.lang));
-  // prefer a male-sounding Hebrew voice if one exists, else any Hebrew voice
-  const male = he.find(v=>/male|זכר|asaf|david|amir|udi/i.test(v.name));
-  return male || he[0] || null;
-}
-function speakLesson(){
-  if(!("speechSynthesis" in window)){ alert("הדפדפן הזה לא תומך בהקראה קולית."); return; }
-  if(_speaking){ speechSynthesis.cancel(); _speaking=false; setSpeakBtn(false); return; }
-  const body=document.getElementById("insightBody");
-  const text=(body? body.innerText : "").replace(/\s+/g," ").trim();
-  if(!text){ return; }
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang="he-IL"; u.rate=0.95; u.pitch=1;
-  const v=pickHebrewVoice(); if(v) u.voice=v;
-  u.onend=()=>{ _speaking=false; setSpeakBtn(false); };
-  u.onerror=()=>{ _speaking=false; setSpeakBtn(false); };
-  speechSynthesis.cancel();
-  speechSynthesis.speak(u); _speaking=true; setSpeakBtn(true);
-}
-if("speechSynthesis" in window){ speechSynthesis.onvoiceschanged=()=>{}; }
+/* ===== Read the lesson aloud — removed by request ===== */
 
 // 3) The "brain": ask Claude to compose today's daily lesson from the daf
 async function generateInsight(){
@@ -1602,7 +1573,6 @@ async function runEls(){
 document.getElementById("codeInput").addEventListener("input", calcCodes);
 document.getElementById("elsBtn").addEventListener("click", runEls);
 document.getElementById("loadTorah").addEventListener("click", loadTorahScope);
-(function(){ const b=document.getElementById("speakBtn"); if(b) b.addEventListener("click", speakLesson); })();
 (function(){ const b=document.getElementById("qaFullBtn"); if(b) b.addEventListener("click", ()=>askWorker("full")); })();
 (function(){ const b=document.getElementById("qaShortBtn"); if(b) b.addEventListener("click", ()=>askWorker("short")); })();
 
