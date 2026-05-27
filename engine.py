@@ -438,11 +438,17 @@ def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn,
             '"codes":"פסקת צפנים בתורה: תאר ביושר את הממצאים שסופקו (דילוגים/אתב\\"ש/נוטריקון), עם הסתייגות מפורשת שאינם הוכחה. אם לא נמצא דבר, כתוב זאת.",'
             '"question":"שאלה למחשבה","takeaway":"לקח ליום"}\n'
             "חשוב: כלול פסקה לכל אחת משתי המשניות, 3-5 מפרשים, ו-4-6 קשרים.")
-    msg = client.messages.create(model=MODEL, max_tokens=4200, temperature=0.5,
+    msg = client.messages.create(model=MODEL, max_tokens=8000, temperature=0.5,
             system=sysmsg, messages=[{"role":"user","content":user}])
     raw = "".join(b.text for b in msg.content if b.type=="text").strip()
     raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-    return json.loads(raw)
+    try:
+        return json.loads(raw)
+    except Exception:
+        i, j = raw.find("{"), raw.rfind("}")    # חילוץ גוש ה-JSON אם נוסף טקסט מסביב
+        if i != -1 and j != -1 and j > i:
+            return json.loads(raw[i:j+1])
+        raise
 
 # ---------- שמירה ----------
 def save(record):
@@ -560,7 +566,19 @@ def main():
     conn = connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior)
 
     print("📖 סוכן מגיד כותב שיעור עבור", daf["he_ref"], "…")
-    lesson = write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior)
+    try:
+        lesson = write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior)
+    except Exception as ex:
+        print("⚠️ המגיד נכשל (כנראה API/JSON) — נשמרים שאר הקבצים:", ex)
+        lesson = {
+            "title": f"שיעור {daf['he_ref']}",
+            "intro": ("השיעור המלא ייכתב בריצה הבאה. בינתיים נאספו המקורות, "
+                      "הצפנים, התפילות והקשרים."),
+            "theme": conn.get("theme",""),
+            "codes": "ראה כרטיס הצפנים.",
+            "takeaway": conn.get("thread",""),
+            "_error": str(ex)[:200],
+        }
 
     # זיכרון משותף: שומרים את החוט, הקשרים, דרך הלימוד והתרגום — כדי שמחר יבנו עליו
     save_insight({"ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
