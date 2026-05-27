@@ -453,8 +453,8 @@
     <div class="gem-note" id="gemNote"></div>
   </section>
 
-  <!-- Codes calculator (live) -->
-  <section class="card" id="codesCard">
+  <!-- Codes calculator (live) — hidden from front; kept in code, can be restored -->
+  <section class="card" id="codesCard" data-keep-hidden="1" style="display:none">
     <h2><span class="glyph">🔯</span> מחשבון צפנים</h2>
     <div class="sub">גימטריה · אתב״ש · נוטריקון · דילוגי אותיות — חישוב חי</div>
     <input type="text" id="codeInput" class="gem-input" placeholder="הקלד מילה או ביטוי…" dir="rtl" autocomplete="off">
@@ -487,14 +487,8 @@
     </div>
   </section>
 
-  <!-- Daily codes feed (from the agent, separate from the lesson) -->
-  <section class="card" id="codesFeedCard">
-    <span class="pill"><span class="live"></span> צפנים יומיים · נוצר על-ידי הסוכן</span>
-    <h2><span class="glyph">🔯</span> צפני השבוע</h2>
-    <div class="sub">חיפוש בכל חמשת החומשים ובפרשת השבוע — מתעדכן אוטומטית</div>
-    <div id="codesFeedStatus" class="status"><span class="spinner"></span> טוען צפנים…</div>
-    <div id="codesFeedBody" style="display:none"></div>
-  </section>
+  <!-- (codes archive moved to the bottom of the page) -->
+
 
   <!-- Daf banner -->
   <div class="daf-banner" id="dafBanner">
@@ -529,15 +523,17 @@
   <!-- שו"ת: ask a halachic question -->
   <section class="card" id="qaCard">
     <h2><span class="glyph">📨</span> שו״ת — שאל שאלה</h2>
-    <div class="sub">כתוב שאלה הלכתית, והסוכן יחבר תשובה לימודית עם מקורות (1–2 דקות)</div>
+    <div class="sub">כתוב שאלה הלכתית או נושא, בחר פורמט, והתשובה תופיע כאן תוך שניות</div>
+    <input id="qaPass" type="password" placeholder="🔐 קוד גישה"
+      style="width:100%;box-sizing:border-box;font-family:inherit;font-size:1rem;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#fffdf7;color:var(--ink);margin-bottom:8px" autocomplete="off">
     <textarea id="qaInput" rows="3" placeholder="לדוגמה: כמה שיעור מים צריך לנטילת ידיים בשחרית? או נושא לשיעור: דיני בורר בשבת"
       style="width:100%;box-sizing:border-box;font-family:inherit;font-size:1rem;padding:10px;border:1px solid var(--line);border-radius:9px;background:#fffdf7;color:var(--ink);resize:vertical"></textarea>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
       <button class="regen" id="qaFullBtn" style="margin:0">📖 שיעור מלא</button>
       <button class="regen" id="qaShortBtn" style="margin:0">⚡ תמצית</button>
     </div>
-    <div class="note" id="qaHint" style="margin-top:6px">בחר פורמט — השאלה תיפתח כ\"בקשה\" ב-GitHub, לחץ שם \"Submit new issue\". אחרי 1–2 דקות רענן והתשובה תופיע למטה.</div>
-    <div id="qaStatus" class="status" style="margin-top:10px"><span class="spinner"></span> טוען שו״ת…</div>
+    <div class="note" id="qaHint" style="margin-top:6px">התשובה נוצרת מיד באתר (דרוש קוד גישה). חומר לימוד בלבד — לא פסק הלכה.</div>
+    <div id="qaStatus" class="status" style="margin-top:10px;display:none"><span class="spinner"></span> טוען…</div>
     <div id="qaBody" style="display:none;margin-top:10px"></div>
   </section>
 
@@ -602,6 +598,16 @@
     <div class="sub">מקורות מדויקים מנחלת הכלל (תורה ותהילים) להשלמת החלקים החסרים</div>
     <div id="prayerSrcStatus" class="status"><span class="spinner"></span> טוען מקורות…</div>
     <div id="prayerSrcBody" style="display:none"></div>
+  </section>
+
+  <!-- Codes archive (collapsed, at the bottom — not shown on the front) -->
+  <section class="card" id="codesFeedCard">
+    <h2><span class="glyph">🔯</span> ארכיון הצפנים</h2>
+    <div class="sub">נשמר אוטומטית · מוצג רק כאן (פתח לצפייה) — ללימוד והתבוננות, לא הוכחה</div>
+    <div id="codesFeedStatus" class="status" style="display:none"></div>
+    <details id="codesArchiveWrap"><summary style="cursor:pointer;font-weight:700;color:var(--crimson)">📂 פתח את ארכיון הצפנים</summary>
+      <div id="codesFeedBody" style="display:none;margin-top:10px"></div>
+    </details>
   </section>
 
   <footer>
@@ -1225,21 +1231,11 @@ async function loadCodes(){
     const dates = [...new Set(arr.map(x=>x.date))];
     await Promise.all(dates.map(hebDateFor));
 
-    // ----- today's findings (both runs of the latest date) -----
-    const latestDate = arr[0].date;
-    const todays = arr.filter(x=>x.date===latestDate);
-    let h = "";
-    if(arr[0].parasha) h += `<div class="ls-h" style="font-size:1.15rem">פרשת ${arr[0].parasha} · ${HEBDATE_CACHE[latestDate]||""}</div>`;
-    todays.forEach(rec=>{
-      h += `<div class="run-tag">🔯 ממצאי ${rec.run||"היום"} · ${rec.ts||rec.date}</div>`;
-      h += renderRecord(rec);
-    });
-    h += `<div class="codes-out"><div class="note">${arr[0].note||""}</div></div>`;
-
-    // ----- permanent archive, grouped by parasha, then by Hebrew date -----
+    // archive only — nothing shown up front; everything lives under the collapsed wrapper
+    let h = `<div class="note">הצפנים נשמרים אוטומטית בכל ריצה ושמורים כאן בארכיון בלבד — ללימוד והתבוננות, לא הוכחה.</div>`;
     const groups = {};
     arr.forEach((rec,idx)=>{ const k=rec.parasha||"—"; (groups[k]=groups[k]||[]).push(idx); });
-    let arch = `<div class="ls-h" style="font-size:1.1rem;margin-top:22px">🗂️ ארכיון הצפנים — לפי פרשה ותאריך עברי</div>`;
+    let arch = `<div class="ls-h" style="font-size:1.1rem;margin-top:14px">🗂️ ארכיון הצפנים — לפי פרשה ותאריך עברי</div>`;
     Object.keys(groups).forEach(par=>{
       arch += `<div class="arch-par">פרשת ${par}</div>`;
       // group this parasha's records by Hebrew date
@@ -1365,17 +1361,44 @@ async function loadLog(){
   }
 }
 /* ===== Agent activity log (reads log.json) — end ===== */
-/* ===== שו"ת — ask a question (opens a GitHub issue) + show answers (qa.json) ===== */
-const QA_OWNER = "24locksmith24-ops", QA_REPO = "sod-hadaf";
-function askQuestion(mode){
+/* ===== שו"ת — ask the Worker (password-gated) and show answers in-page ===== */
+// אחרי שתקים את ה-Worker ב-Cloudflare, הדבק כאן את כתובת ה-Worker שלך:
+const QA_WORKER_URL = "https://sod-hadaf-qa.24locksmith24.workers.dev";
+let QA_SESSION = [];
+async function askWorker(mode){
   const q = (document.getElementById("qaInput").value || "").trim();
-  if(!q){ document.getElementById("qaHint").textContent = "כתוב שאלה או נושא קודם 🙂"; return; }
-  const token = (mode==="short") ? "[[short]]" : "[[full]]";
-  const label = (mode==="short") ? "תמצית" : "שיעור מלא";
-  const body = encodeURIComponent(`בקשה מהאתר (${label}). ${token}\nהסוכן יענה אוטומטית והתשובה תופיע בכרטיס שו"ת.`);
-  const url = `https://github.com/${QA_OWNER}/${QA_REPO}/issues/new?title=${encodeURIComponent(q)}&labels=question&body=${body}`;
-  window.open(url, "_blank");
-  document.getElementById("qaHint").innerHTML = "נפתח GitHub — לחץ שם <b>Submit new issue</b>. אחרי 1–2 דקות רענן כאן והתשובה תופיע למטה.";
+  const pass = (document.getElementById("qaPass").value || "").trim();
+  const hint = document.getElementById("qaHint");
+  if(!q){ hint.textContent = "כתוב שאלה או נושא קודם 🙂"; return; }
+  if(!pass){ hint.textContent = "הקלד את קוד הגישה (הסיסמה) 🔐"; return; }
+  if(QA_WORKER_URL.includes("REPLACE-WITH-YOUR-WORKER")){
+    hint.innerHTML = "⚠️ עדיין לא חובר ה-Worker. הדבק את כתובת ה-Worker שלך במשתנה <b>QA_WORKER_URL</b> בקובץ index.html.";
+    return;
+  }
+  const body = document.getElementById("qaBody");
+  body.style.display="block";
+  body.innerHTML = '<div class="status"><span class="spinner"></span> הסוכן לומד ומחבר תשובה…</div>' + (body.dataset.prev||"");
+  hint.textContent = "";
+  try{
+    const r = await fetch(QA_WORKER_URL, {
+      method:"POST",
+      headers:{ "content-type":"application/json" },
+      body: JSON.stringify({ question:q, mode, password:pass })
+    });
+    const data = await r.json();
+    if(!r.ok || data.error){
+      body.innerHTML = `<div class="note">⚠️ ${data.error||"שגיאה"} ${data.detail?("· "+data.detail):""}</div>` + (body.dataset.prev||"");
+      return;
+    }
+    const rec = { ts:new Date().toLocaleString("he-IL"), question:q, mode:data.mode, lesson:data.lesson };
+    QA_SESSION.unshift(rec);
+    const title = (rec.lesson&&rec.lesson.title)? rec.lesson.title : rec.question;
+    const block = `<details class="arch-item" open><summary>${title} · ${rec.ts}</summary><div class="arch-body">${renderQAItem(rec)}</div></details>`;
+    body.dataset.prev = block + (body.dataset.prev||"");
+    body.innerHTML = `<div class="ls-h" style="font-size:1.05rem">תשובות (במכשיר זה)</div>` + body.dataset.prev;
+  }catch(e){
+    body.innerHTML = '<div class="note">⚠️ לא הצלחתי להתחבר ל-Worker. בדוק את הכתובת והחיבור.</div>' + (body.dataset.prev||"");
+  }
 }
 function renderQAItem(rec){
   const L = rec.lesson || {};
@@ -1540,8 +1563,8 @@ document.getElementById("codeInput").addEventListener("input", calcCodes);
 document.getElementById("elsBtn").addEventListener("click", runEls);
 document.getElementById("loadTorah").addEventListener("click", loadTorahScope);
 (function(){ const b=document.getElementById("speakBtn"); if(b) b.addEventListener("click", speakLesson); })();
-(function(){ const b=document.getElementById("qaFullBtn"); if(b) b.addEventListener("click", ()=>askQuestion("full")); })();
-(function(){ const b=document.getElementById("qaShortBtn"); if(b) b.addEventListener("click", ()=>askQuestion("short")); })();
+(function(){ const b=document.getElementById("qaFullBtn"); if(b) b.addEventListener("click", ()=>askWorker("full")); })();
+(function(){ const b=document.getElementById("qaShortBtn"); if(b) b.addEventListener("click", ()=>askWorker("short")); })();
 
 /* ===== Tehillim Yomi — monthly division, shown inline ===== */
 // classic division of Psalms across the days of the Hebrew month
@@ -1635,14 +1658,13 @@ buildPrayers();
 /* ===== init ===== */
 (async function init(){
   // make the always-on cards visible (they have no async loader to reveal them)
-  ["monthCard","gemCard","codesCard","codesFeedCard","libraryCard","logCard","qaCard","tehillimCard","prayCard","prayerSrcCard"].forEach(id=>{
+  ["monthCard","gemCard","codesFeedCard","libraryCard","logCard","qaCard","tehillimCard","prayCard","prayerSrcCard"].forEach(id=>{
     const e=document.getElementById(id); if(e) reveal(e);
   });
   loadCalendar();                          // calendar info is fine to show
   loadCodes();                             // daily codes feed (reads codes.json)
   loadLibrary();                           // accumulated source library
   loadLog();                               // agent activity log
-  loadQA();                                // שו"ת answers
   loadPrayersAudit();                      // canonical prayer sources
   loadZmanim();                            // sun & prayer times
   loadCompass();                           // direction to Jerusalem
@@ -1654,8 +1676,11 @@ buildPrayers();
   loadDaf();
 })();
 
-// safety net: reveal any card still hidden a moment after load
-setTimeout(()=>document.querySelectorAll(".card,.daf-banner").forEach(reveal), 900);
+// safety net: reveal any card still hidden a moment after load (skip intentionally-hidden ones)
+setTimeout(()=>document.querySelectorAll(".card,.daf-banner").forEach(el=>{
+  if(el.dataset.keepHidden==="1") return;
+  reveal(el);
+}), 900);
 </script>
 </body>
 </html>
