@@ -635,7 +635,36 @@ def main():
                     comms.append(c)
         except Exception:
             pass
-    lib = update_library(comms, today.isoformat())
+
+    # סוכן ספרן מורחב: אוסף את **כל** המקורות שנלמדו היום — לא רק פירושים
+    # אלא גם הדף עצמו, המשניות, פרשת השבוע, התוספות, ומקורות התפילה.
+    daf_label = daf.get("he_ref", daf.get("ref",""))
+    sources_for_lib = []
+    if daf_label:
+        sources_for_lib.append({"name": daf_label, "ref": daf.get("ref",""), "cat": "דף יומי", "from": daf_label})
+    for m in mishnayot:
+        nm = m.get("he_ref") or m.get("ref","")
+        if nm: sources_for_lib.append({"name": nm, "ref": m.get("ref",""), "cat": "משנה", "from": daf_label})
+    if parasha:
+        nm = par.get("he_ref") or par.get("ref","")
+        if nm: sources_for_lib.append({"name": nm, "ref": par.get("ref",""), "cat": "פרשת השבוע", "from": daf_label})
+    for e in extras:
+        nm = e.get("he_ref") or e.get("ref","")
+        if nm: sources_for_lib.append({"name": nm, "ref": e.get("ref",""), "cat": "תוספת לימוד", "from": daf_label})
+    for c in comms:
+        sources_for_lib.append({"name": c.get("name",""), "ref": c.get("ref",""),
+                                "cat": c.get("cat","פירוש"), "from": daf_label})
+    try:
+        if pr_rec and isinstance(pr_rec.get("prayers"), dict):
+            for prayer_name, src_list in pr_rec["prayers"].items():
+                if not isinstance(src_list, list): continue
+                for src in src_list:
+                    if isinstance(src, dict) and src.get("ref"):
+                        nm = f"{prayer_name} — {src.get('he_ref') or src['ref']}"
+                        sources_for_lib.append({"name": nm, "ref": src["ref"], "cat": "תפילה (מקור)", "from": "תפילות"})
+    except Exception:
+        pass
+    lib = update_library(sources_for_lib, today.isoformat())
     library_total = len(lib)
 
     # מילים משותפות בין כל המקורות (חיבורים אמיתיים)
