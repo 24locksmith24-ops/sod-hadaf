@@ -1416,15 +1416,26 @@ async function askWorker(mode){
     const reader = r.body.getReader();
     const dec = new TextDecoder();
     let full = "";
-    while(true){
-      const {done, value} = await reader.read();
-      if(done) break;
-      full += dec.decode(value, {stream:true});
-    }
-    let raw = full.trim().replace(/^```json/,"").replace(/^```/,"").replace(/```$/,"").trim();
-    let lesson;
+    try{
+      while(true){
+        const {done, value} = await reader.read();
+        if(done) break;
+        full += dec.decode(value, {stream:true});
+      }
+    }catch(_streamErr){ /* keep whatever we received */ }
+    let raw = (full||"").trim().replace(/^```json/,"").replace(/^```/,"").replace(/```$/,"").trim();
+    let lesson = null;
     try{ lesson = JSON.parse(raw); }
-    catch{ const i=raw.indexOf("{"), j=raw.lastIndexOf("}"); lesson = (i>=0&&j>i)? JSON.parse(raw.slice(i,j+1)) : {title:q, intro:(raw||"").slice(0,800), disclaimer:"חומר לימוד בלבד, אינו פסק הלכה."}; }
+    catch(e1){
+      const i=raw.indexOf("{"), j=raw.lastIndexOf("}");
+      if(i>=0 && j>i){
+        try{ lesson = JSON.parse(raw.slice(i, j+1)); }catch(e2){ lesson = null; }
+      }
+    }
+    if(!lesson){
+      lesson = { title:q, intro:(raw||"לא התקבל טקסט מספיק — נסה שוב."),
+                 disclaimer:"חומר לימוד בלבד, אינו פסק הלכה." };
+    }
     document.getElementById("qaInput").value = "";
     QA_ARCHIVE.unshift({ ts:new Date().toISOString(), question:q, mode, lesson });
     renderQAList();
