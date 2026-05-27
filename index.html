@@ -1381,7 +1381,11 @@ function qaLessonHTML(L){
     L.sources.forEach(s=> h += `<p><span class="ls-src">${s.name||""}</span> ${s.point||""}</p>`);
   }
   if(L.discussion) h += `<div class="ls-h">🗣️ דיון</div><p>${L.discussion}</p>`;
-  if(L.deep_dive)  h += `<div class="ls-h">🔬 עיון לעומק</div><p>${L.deep_dive}</p>`;
+  if(L.deep_dive)  h += `<div class="ls-h">🔬 עיון לעומק וחידושים</div><p>${L.deep_dive}</p>`;
+  if(Array.isArray(L.chiddushim) && L.chiddushim.length){
+    h += `<div class="ls-h">💡 חידושים</div>`;
+    L.chiddushim.forEach(c=> h += `<p>• ${c}</p>`);
+  }
   if(L.conclusion) h += `<div class="ls-h">📝 סיכום</div><p>${L.conclusion}</p>`;
   if(L.practical)  h += `<div class="ls-h">✅ למעשה</div><p>${L.practical}</p>`;
   if(L.disclaimer) h += `<p style="font-size:.85rem;color:var(--ink-soft);margin-top:8px">⚠️ ${L.disclaimer}</p>`;
@@ -1423,22 +1427,38 @@ async function askWorker(mode){
   }
   const body = document.getElementById("qaBody");
   body.style.display="block";
-  body.innerHTML = '<div class="status"><span class="spinner"></span> הסוכן לומד ומחבר תשובה…</div>';
+  const wait = (mode==="short") ? "הסוכן מחבר תמצית…" : "הסוכן צולל לעומק ומחבר חידושים… (עד דקה)";
+  body.innerHTML = '<div class="status"><span class="spinner"></span> '+wait+'</div>';
   hint.textContent = "";
   try{
     const r = await fetch(QA_WORKER_URL, {
       method:"POST", headers:{ "content-type":"application/json" },
       body: JSON.stringify({ question:q, mode, password:pass })
     });
-    const data = await r.json();
-    if(!r.ok || data.error){
-      hint.innerHTML = `⚠️ ${data.error||"שגיאה"} ${data.detail?("· "+data.detail):""}`;
+    if(!r.ok){
+      let msg="שגיאה", det="";
+      try{ const e=await r.json(); msg=e.error||msg; det=e.detail||""; }catch(_){}
+      hint.innerHTML = `⚠️ ${msg} ${det?("· "+det):""}`;
       renderQAList(); return;
     }
+    // read the streamed lesson text to completion (keeps the connection alive — no 524)
+    const reader = r.body.getReader();
+    const dec = new TextDecoder();
+    let full = "";
+    while(true){
+      const {done, value} = await reader.read();
+      if(done) break;
+      full += dec.decode(value, {stream:true});
+    }
+    let raw = full.trim().replace(/^```json/,"").replace(/^```/,"").replace(/```$/,"").trim();
+    let lesson;
+    try{ lesson = JSON.parse(raw); }
+    catch{ const i=raw.indexOf("{"), j=raw.lastIndexOf("}"); lesson = (i>=0&&j>i)? JSON.parse(raw.slice(i,j+1)) : {title:q, intro:(raw||"").slice(0,800), disclaimer:"חומר לימוד בלבד, אינו פסק הלכה."}; }
     document.getElementById("qaInput").value = "";
-    await loadQAArchive();        // refresh from the permanent archive (includes the new answer)
+    QA_ARCHIVE.unshift({ ts:new Date().toISOString(), question:q, mode, lesson });
+    renderQAList();
   }catch(e){
-    hint.textContent = "⚠️ לא הצלחתי להתחבר ל-Worker. בדוק את הכתובת והחיבור.";
+    hint.textContent = "⚠️ לא הצלחתי לקרוא את התשובה מה-Worker. נסה שוב.";
   }
 }
 function printQA(idx){
