@@ -1361,49 +1361,12 @@ async function loadLog(){
   }
 }
 /* ===== Agent activity log (reads log.json) — end ===== */
-/* ===== שו"ת — ask the Worker (password-gated) and show answers in-page ===== */
-// אחרי שתקים את ה-Worker ב-Cloudflare, הדבק כאן את כתובת ה-Worker שלך:
+/* ===== שו"ת — ask the Worker (password-gated) + permanent archive ===== */
 const QA_WORKER_URL = "https://sod-hadaf-qa.24locksmith24.workers.dev";
-let QA_SESSION = [];
-async function askWorker(mode){
-  const q = (document.getElementById("qaInput").value || "").trim();
-  const pass = (document.getElementById("qaPass").value || "").trim();
-  const hint = document.getElementById("qaHint");
-  if(!q){ hint.textContent = "כתוב שאלה או נושא קודם 🙂"; return; }
-  if(!pass){ hint.textContent = "הקלד את קוד הגישה (הסיסמה) 🔐"; return; }
-  if(QA_WORKER_URL.includes("REPLACE-WITH-YOUR-WORKER")){
-    hint.innerHTML = "⚠️ עדיין לא חובר ה-Worker. הדבק את כתובת ה-Worker שלך במשתנה <b>QA_WORKER_URL</b> בקובץ index.html.";
-    return;
-  }
-  const body = document.getElementById("qaBody");
-  body.style.display="block";
-  body.innerHTML = '<div class="status"><span class="spinner"></span> הסוכן לומד ומחבר תשובה…</div>' + (body.dataset.prev||"");
-  hint.textContent = "";
-  try{
-    const r = await fetch(QA_WORKER_URL, {
-      method:"POST",
-      headers:{ "content-type":"application/json" },
-      body: JSON.stringify({ question:q, mode, password:pass })
-    });
-    const data = await r.json();
-    if(!r.ok || data.error){
-      body.innerHTML = `<div class="note">⚠️ ${data.error||"שגיאה"} ${data.detail?("· "+data.detail):""}</div>` + (body.dataset.prev||"");
-      return;
-    }
-    const rec = { ts:new Date().toLocaleString("he-IL"), question:q, mode:data.mode, lesson:data.lesson };
-    QA_SESSION.unshift(rec);
-    const title = (rec.lesson&&rec.lesson.title)? rec.lesson.title : rec.question;
-    const block = `<details class="arch-item" open><summary>${title} · ${rec.ts}</summary><div class="arch-body">${renderQAItem(rec)}</div></details>`;
-    body.dataset.prev = block + (body.dataset.prev||"");
-    body.innerHTML = `<div class="ls-h" style="font-size:1.05rem">תשובות (במכשיר זה)</div>` + body.dataset.prev;
-  }catch(e){
-    body.innerHTML = '<div class="note">⚠️ לא הצלחתי להתחבר ל-Worker. בדוק את הכתובת והחיבור.</div>' + (body.dataset.prev||"");
-  }
-}
-function renderQAItem(rec){
-  const L = rec.lesson || {};
+let QA_ARCHIVE = [];
+function qaLessonHTML(L){
+  L = L || {};
   let h = "";
-  // concise mode
   if(L.summary){
     h += `<p>${L.summary}</p>`;
     if(Array.isArray(L.key_sources) && L.key_sources.length)
@@ -1412,7 +1375,6 @@ function renderQAItem(rec){
     if(L.disclaimer) h += `<p style="font-size:.85rem;color:var(--ink-soft);margin-top:8px">⚠️ ${L.disclaimer}</p>`;
     return h;
   }
-  // full mode
   if(L.intro)      h += `<p>${L.intro}</p>`;
   if(Array.isArray(L.sources) && L.sources.length){
     h += `<div class="ls-h">📚 מקורות</div>`;
@@ -1425,28 +1387,86 @@ function renderQAItem(rec){
   if(L.disclaimer) h += `<p style="font-size:.85rem;color:var(--ink-soft);margin-top:8px">⚠️ ${L.disclaimer}</p>`;
   return h;
 }
-async function loadQA(){
-  reveal(document.getElementById("qaCard"));
-  const st = document.getElementById("qaStatus");
+function fmtTs(ts){ try{ return new Date(ts).toLocaleString("he-IL"); }catch(e){ return ts||""; } }
+function renderQAList(){
   const body = document.getElementById("qaBody");
+  if(!QA_ARCHIVE.length){ body.style.display="none"; return; }
+  let h = `<div class="ls-h" style="font-size:1.05rem">🗂️ ארכיון השו״ת</div>`;
+  QA_ARCHIVE.forEach((rec,idx)=>{
+    const title = (rec.lesson&&rec.lesson.title)? rec.lesson.title : rec.question;
+    h += `<details class="arch-item" ${idx===0?"open":""}><summary>${title} · ${fmtTs(rec.ts)}</summary>`+
+         `<div class="arch-body">${qaLessonHTML(rec.lesson)}`+
+         `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">`+
+         `<button class="regen" style="margin:0" onclick="printQA(${idx})">🖨️ שמור כ-PDF</button>`+
+         `<button class="regen" style="margin:0" onclick="downloadQA(${idx})">📥 הורד</button>`+
+         `</div></div></details>`;
+  });
+  body.innerHTML = h;
+  body.style.display="block";
+}
+async function loadQAArchive(){
   try{
-    const r = await fetch("./qa.json", {cache:"no-store"});
-    if(!r.ok) throw new Error("no file");
-    const arr = await r.json();
-    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
-    let h = `<div class="ls-h" style="font-size:1.05rem">תשובות אחרונות</div>`;
-    arr.slice(0,30).forEach(rec=>{
-      const t = (rec.lesson&&rec.lesson.title) ? rec.lesson.title : rec.question;
-      h += `<details class="arch-item"><summary>${t} · ${rec.ts||""}</summary><div class="arch-body">${renderQAItem(rec)}</div></details>`;
-    });
-    st.style.display="none";
-    body.innerHTML = h;
-    body.style.display="block";
-  }catch(e){
-    st.style.display="none";
-    body.style.display="block";
-    body.innerHTML = '<div class="note">עדיין אין תשובות. שלח שאלה ראשונה למעלה ☝️</div>';
+    const r = await fetch(QA_WORKER_URL, {cache:"no-store"});
+    if(!r.ok) return;
+    const data = await r.json();
+    if(Array.isArray(data.archive)){ QA_ARCHIVE = data.archive; renderQAList(); }
+  }catch(e){}
+}
+async function askWorker(mode){
+  const q = (document.getElementById("qaInput").value || "").trim();
+  const pass = (document.getElementById("qaPass").value || "").trim();
+  const hint = document.getElementById("qaHint");
+  if(!q){ hint.textContent = "כתוב שאלה או נושא קודם 🙂"; return; }
+  if(!pass){ hint.textContent = "הקלד את קוד הגישה (הסיסמה) 🔐"; return; }
+  if(QA_WORKER_URL.includes("REPLACE-WITH-YOUR-WORKER")){
+    hint.innerHTML = "⚠️ עדיין לא חובר ה-Worker (QA_WORKER_URL)."; return;
   }
+  const body = document.getElementById("qaBody");
+  body.style.display="block";
+  body.innerHTML = '<div class="status"><span class="spinner"></span> הסוכן לומד ומחבר תשובה…</div>';
+  hint.textContent = "";
+  try{
+    const r = await fetch(QA_WORKER_URL, {
+      method:"POST", headers:{ "content-type":"application/json" },
+      body: JSON.stringify({ question:q, mode, password:pass })
+    });
+    const data = await r.json();
+    if(!r.ok || data.error){
+      hint.innerHTML = `⚠️ ${data.error||"שגיאה"} ${data.detail?("· "+data.detail):""}`;
+      renderQAList(); return;
+    }
+    document.getElementById("qaInput").value = "";
+    await loadQAArchive();        // refresh from the permanent archive (includes the new answer)
+  }catch(e){
+    hint.textContent = "⚠️ לא הצלחתי להתחבר ל-Worker. בדוק את הכתובת והחיבור.";
+  }
+}
+function printQA(idx){
+  const rec = QA_ARCHIVE[idx]; if(!rec) return;
+  const title = (rec.lesson&&rec.lesson.title)? rec.lesson.title : rec.question;
+  const w = window.open("", "_blank");
+  w.document.write(`<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>${title}</title>`+
+    `<style>body{font-family:'Frank Ruhl Libre',Georgia,serif;direction:rtl;max-width:720px;margin:30px auto;padding:0 20px;line-height:1.7;color:#1a1410}`+
+    `h1{font-size:1.5rem}h2{font-size:1.05rem;color:#7a1f1f;margin-top:18px;border-bottom:1px solid #ddd;padding-bottom:3px}`+
+    `.src{font-weight:700;color:#7a1f1f}.note{font-size:.85rem;color:#666}</style></head><body>`+
+    `<h1>${title}</h1><p class="note">שאלה: ${rec.question} · ${fmtTs(rec.ts)}</p>`+
+    qaLessonHTML(rec.lesson).replace(/class="ls-h"/g,'').replace(/<div >/g,'<h2>').replace(/ls-src/g,'src')+
+    `<hr><p class="note">סוֹד הַדַּף · חומר לימוד בלבד, אינו פסק הלכה</p></body></html>`);
+  w.document.close();
+  setTimeout(()=>{ w.focus(); w.print(); }, 400);
+}
+function downloadQA(idx){
+  const rec = QA_ARCHIVE[idx]; if(!rec) return;
+  const title = (rec.lesson&&rec.lesson.title)? rec.lesson.title : rec.question;
+  const html = `<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>${title}</title>`+
+    `<style>body{font-family:Georgia,serif;direction:rtl;max-width:720px;margin:30px auto;padding:0 20px;line-height:1.7}`+
+    `h2{color:#7a1f1f}</style></head><body><h1>${title}</h1><p>שאלה: ${rec.question} · ${fmtTs(rec.ts)}</p>`+
+    qaLessonHTML(rec.lesson)+`<hr><p>סוֹד הַדַּף · חומר לימוד בלבד</p></body></html>`;
+  const blob = new Blob([html], {type:"text/html;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = (title.replace(/[^\u05D0-\u05EAa-zA-Z0-9 ]/g,"").slice(0,40)||"shut") + ".html";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
 }
 /* ===== Codes calculator (live): gematria, atbash, notarikon, ELS ===== */
 const ALEFBET = "אבגדהוזחטיכלמנסעפצקרשת";
@@ -1665,6 +1685,7 @@ buildPrayers();
   loadCodes();                             // daily codes feed (reads codes.json)
   loadLibrary();                           // accumulated source library
   loadLog();                               // agent activity log
+  loadQAArchive();                         // permanent שו"ת archive (from the Worker)
   loadPrayersAudit();                      // canonical prayer sources
   loadZmanim();                            // sun & prayer times
   loadCompass();                           // direction to Jerusalem
