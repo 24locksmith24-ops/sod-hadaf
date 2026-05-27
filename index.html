@@ -526,6 +526,21 @@
     <button class="regen" id="regenBtn" style="display:none">✦ שיעור נוסף על אותו דף</button>
   </section>
 
+  <!-- שו"ת: ask a halachic question -->
+  <section class="card" id="qaCard">
+    <h2><span class="glyph">📨</span> שו״ת — שאל שאלה</h2>
+    <div class="sub">כתוב שאלה הלכתית, והסוכן יחבר תשובה לימודית עם מקורות (1–2 דקות)</div>
+    <textarea id="qaInput" rows="3" placeholder="לדוגמה: כמה שיעור מים צריך לנטילת ידיים בשחרית? או נושא לשיעור: דיני בורר בשבת"
+      style="width:100%;box-sizing:border-box;font-family:inherit;font-size:1rem;padding:10px;border:1px solid var(--line);border-radius:9px;background:#fffdf7;color:var(--ink);resize:vertical"></textarea>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <button class="regen" id="qaFullBtn" style="margin:0">📖 שיעור מלא</button>
+      <button class="regen" id="qaShortBtn" style="margin:0">⚡ תמצית</button>
+    </div>
+    <div class="note" id="qaHint" style="margin-top:6px">בחר פורמט — השאלה תיפתח כ\"בקשה\" ב-GitHub, לחץ שם \"Submit new issue\". אחרי 1–2 דקות רענן והתשובה תופיע למטה.</div>
+    <div id="qaStatus" class="status" style="margin-top:10px"><span class="spinner"></span> טוען שו״ת…</div>
+    <div id="qaBody" style="display:none;margin-top:10px"></div>
+  </section>
+
   <!-- Agent activity log -->
   <section class="card" id="logCard">
     <h2><span class="glyph">📋</span> יומן הסוכנים</h2>
@@ -1349,6 +1364,67 @@ async function loadLog(){
     body.innerHTML = '<div class="codes-out"><div class="note">היומן יתמלא אחרי הרצת הסוכן (Run workflow) — כל ריצה תתעד מה כל סוכן עשה.</div></div>';
   }
 }
+/* ===== Agent activity log (reads log.json) — end ===== */
+/* ===== שו"ת — ask a question (opens a GitHub issue) + show answers (qa.json) ===== */
+const QA_OWNER = "24locksmith24-ops", QA_REPO = "sod-hadaf";
+function askQuestion(mode){
+  const q = (document.getElementById("qaInput").value || "").trim();
+  if(!q){ document.getElementById("qaHint").textContent = "כתוב שאלה או נושא קודם 🙂"; return; }
+  const token = (mode==="short") ? "[[short]]" : "[[full]]";
+  const label = (mode==="short") ? "תמצית" : "שיעור מלא";
+  const body = encodeURIComponent(`בקשה מהאתר (${label}). ${token}\nהסוכן יענה אוטומטית והתשובה תופיע בכרטיס שו"ת.`);
+  const url = `https://github.com/${QA_OWNER}/${QA_REPO}/issues/new?title=${encodeURIComponent(q)}&labels=question&body=${body}`;
+  window.open(url, "_blank");
+  document.getElementById("qaHint").innerHTML = "נפתח GitHub — לחץ שם <b>Submit new issue</b>. אחרי 1–2 דקות רענן כאן והתשובה תופיע למטה.";
+}
+function renderQAItem(rec){
+  const L = rec.lesson || {};
+  let h = "";
+  // concise mode
+  if(L.summary){
+    h += `<p>${L.summary}</p>`;
+    if(Array.isArray(L.key_sources) && L.key_sources.length)
+      h += `<div class="ls-h">📚 מקורות עיקריים</div><p>${L.key_sources.join(" · ")}</p>`;
+    if(L.bottom_line) h += `<div class="ls-h">✨ שורה תחתונה</div><p>${L.bottom_line}</p>`;
+    if(L.disclaimer) h += `<p style="font-size:.85rem;color:var(--ink-soft);margin-top:8px">⚠️ ${L.disclaimer}</p>`;
+    return h;
+  }
+  // full mode
+  if(L.intro)      h += `<p>${L.intro}</p>`;
+  if(Array.isArray(L.sources) && L.sources.length){
+    h += `<div class="ls-h">📚 מקורות</div>`;
+    L.sources.forEach(s=> h += `<p><span class="ls-src">${s.name||""}</span> ${s.point||""}</p>`);
+  }
+  if(L.discussion) h += `<div class="ls-h">🗣️ דיון</div><p>${L.discussion}</p>`;
+  if(L.deep_dive)  h += `<div class="ls-h">🔬 עיון לעומק</div><p>${L.deep_dive}</p>`;
+  if(L.conclusion) h += `<div class="ls-h">📝 סיכום</div><p>${L.conclusion}</p>`;
+  if(L.practical)  h += `<div class="ls-h">✅ למעשה</div><p>${L.practical}</p>`;
+  if(L.disclaimer) h += `<p style="font-size:.85rem;color:var(--ink-soft);margin-top:8px">⚠️ ${L.disclaimer}</p>`;
+  return h;
+}
+async function loadQA(){
+  reveal(document.getElementById("qaCard"));
+  const st = document.getElementById("qaStatus");
+  const body = document.getElementById("qaBody");
+  try{
+    const r = await fetch("./qa.json", {cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    let h = `<div class="ls-h" style="font-size:1.05rem">תשובות אחרונות</div>`;
+    arr.slice(0,30).forEach(rec=>{
+      const t = (rec.lesson&&rec.lesson.title) ? rec.lesson.title : rec.question;
+      h += `<details class="arch-item"><summary>${t} · ${rec.ts||""}</summary><div class="arch-body">${renderQAItem(rec)}</div></details>`;
+    });
+    st.style.display="none";
+    body.innerHTML = h;
+    body.style.display="block";
+  }catch(e){
+    st.style.display="none";
+    body.style.display="block";
+    body.innerHTML = '<div class="note">עדיין אין תשובות. שלח שאלה ראשונה למעלה ☝️</div>';
+  }
+}
 /* ===== Codes calculator (live): gematria, atbash, notarikon, ELS ===== */
 const ALEFBET = "אבגדהוזחטיכלמנסעפצקרשת";
 const FINALS_J = {ך:"כ",ם:"מ",ן:"נ",ף:"פ",ץ:"צ"};
@@ -1464,6 +1540,8 @@ document.getElementById("codeInput").addEventListener("input", calcCodes);
 document.getElementById("elsBtn").addEventListener("click", runEls);
 document.getElementById("loadTorah").addEventListener("click", loadTorahScope);
 (function(){ const b=document.getElementById("speakBtn"); if(b) b.addEventListener("click", speakLesson); })();
+(function(){ const b=document.getElementById("qaFullBtn"); if(b) b.addEventListener("click", ()=>askQuestion("full")); })();
+(function(){ const b=document.getElementById("qaShortBtn"); if(b) b.addEventListener("click", ()=>askQuestion("short")); })();
 
 /* ===== Tehillim Yomi — monthly division, shown inline ===== */
 // classic division of Psalms across the days of the Hebrew month
@@ -1557,13 +1635,14 @@ buildPrayers();
 /* ===== init ===== */
 (async function init(){
   // make the always-on cards visible (they have no async loader to reveal them)
-  ["monthCard","gemCard","codesCard","codesFeedCard","libraryCard","logCard","tehillimCard","prayCard","prayerSrcCard"].forEach(id=>{
+  ["monthCard","gemCard","codesCard","codesFeedCard","libraryCard","logCard","qaCard","tehillimCard","prayCard","prayerSrcCard"].forEach(id=>{
     const e=document.getElementById(id); if(e) reveal(e);
   });
   loadCalendar();                          // calendar info is fine to show
   loadCodes();                             // daily codes feed (reads codes.json)
   loadLibrary();                           // accumulated source library
   loadLog();                               // agent activity log
+  loadQA();                                // שו"ת answers
   loadPrayersAudit();                      // canonical prayer sources
   loadZmanim();                            // sun & prayer times
   loadCompass();                           // direction to Jerusalem

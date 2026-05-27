@@ -460,6 +460,91 @@ def save(record):
     data.insert(0, record)
     json.dump(data, open(OUT,"w",encoding="utf-8"), ensure_ascii=False, indent=2)
 
+# ---------- שו"ת: שיעור לפי שאלה (סוכן על-פי שאילתא) ----------
+QA_OUT = "qa.json"
+def save_qa(record):
+    data = []
+    if os.path.exists(QA_OUT):
+        try: data = json.load(open(QA_OUT, encoding="utf-8"))
+        except Exception: data = []
+    data.insert(0, record)
+    json.dump(data[:300], open(QA_OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+
+def answer_question(question, mode="full"):
+    question = (question or "").strip()
+    if not question:
+        print("אין שאלה."); return
+    if forbidden_hit(question):
+        print("שאלה נחסמה (תוכן לא מתאים)."); return
+    if not has_hebrew(question):
+        print("נא לשאול בעברית."); return
+    mode = "short" if str(mode).strip() in ("short", "תמצית", "קצר") else "full"
+    client = anthropic.Anthropic()
+    prior = load_insights(10)
+    learned = "; ".join(p.get("theme","") for p in prior if p.get("theme")) or "אין"
+    lib = []
+    if os.path.exists(LIB_OUT):
+        try: lib = [e["name"] for e in json.load(open(LIB_OUT, encoding="utf-8"))[:30]]
+        except Exception: lib = []
+    libs = ", ".join(lib) or "—"
+    base = (
+        "אתה רב ותלמיד חכם הכותב בעברית בלבד, בטון בהיר ומכבד, בדרך הלימוד של הסוגיה "
+        "(גמרא, ראשונים, שולחן ערוך ונושאי כליו). כתוב תוכן מקורי במילים שלך — "
+        "אל תמציא ציטוטים מדויקים או מראי-מקום שאינך בטוח בהם. "
+        "חובה לסיים בהבהרה שזהו חומר לימוד בלבד ואינו פסק הלכה, ולהוראה למעשה יש לפנות לרב מוסמך."
+    )
+    if mode == "short":
+        sysmsg = base + " כתוב תמצית קצרה וברורה."
+        user = (f"השאלה/הנושא: {question}\n"
+                f"נושאים שכבר נלמדו (אם רלוונטי): {learned}\n\n"
+                "כתוב תמצית. החזר JSON תקין בלבד: {"
+                '"title":"כותרת קצרה",'
+                '"summary":"תמצית בהירה של 3-5 משפטים",'
+                '"key_sources":["שמות 2-4 מקורות עיקריים"],'
+                '"bottom_line":"שורה תחתונה לימודית במשפט",'
+                '"disclaimer":"חומר לימוד בלבד, אינו פסק הלכה; להוראה למעשה יש לפנות לרב מוסמך"}')
+        max_tok = 1800
+    else:
+        sysmsg = base + " כתוב שיעור שלם, עשיר ומסודר באורך עמוד."
+        user = (f"השאלה/הנושא: {question}\n"
+                f"נושאים שכבר נלמדו (זיכרון משותף — נצל אם רלוונטי): {learned}\n"
+                f"מקורות בספרייה: {libs}\n\n"
+                "כתוב שיעור שלם ועשיר. החזר JSON תקין בלבד: {"
+                '"title":"כותרת",'
+                '"question":"ניסוח השאלה/הנושא בבהירות",'
+                '"intro":"פתיחה והגדרת הנושא",'
+                '"sources":[{"name":"שם המקור (גמרא/רמב\\"ם/שו\\"ע וכו׳)","point":"מה עולה ממנו, במילים שלך"}],'
+                '"discussion":"גוף הדיון ההלכתי — הדעות, הסברות, דרך הסוגיה (פסקה מפורטת)",'
+                '"deep_dive":"עיון לעומק שמחבר את הרעיונות",'
+                '"conclusion":"סיכום לימודי של העולה מן הדברים",'
+                '"practical":"נקודות מעשיות עיקריות (כלליות)",'
+                '"disclaimer":"חומר לימוד בלבד, אינו פסק הלכה; להוראה למעשה יש לפנות לרב מוסמך"}\n'
+                "כלול 3-6 מקורות.")
+        max_tok = 6000
+    lesson = {}
+    try:
+        msg = client.messages.create(model=MODEL, max_tokens=max_tok, temperature=0.5,
+                system=sysmsg, messages=[{"role":"user","content":user}])
+        raw = "".join(b.text for b in msg.content if b.type=="text").strip()
+        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+        try:
+            lesson = json.loads(raw)
+        except Exception:
+            i, j = raw.find("{"), raw.rfind("}")
+            lesson = json.loads(raw[i:j+1]) if (i!=-1 and j>i) else {}
+    except Exception as ex:
+        print("⚠️ יצירת התשובה נכשלה:", ex)
+        lesson = {"title": question[:60], "question": question,
+                  "intro": "התשובה תיווצר שוב בקרוב.",
+                  "disclaimer": "חומר לימוד בלבד, אינו פסק הלכה; יש לפנות לרב מוסמך.",
+                  "_error": str(ex)[:200]}
+    if forbidden_hit(json.dumps(lesson, ensure_ascii=False)):
+        print("התשובה נחסמה."); return
+    rec = {"ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+           "question": question, "mode": mode, "lesson": lesson}
+    save_qa(rec)
+    print("✅ נשמרה תשובה לשו\"ת:", lesson.get("title",""))
+
 # ---------- main ----------
 def main():
     today = datetime.date.today()
@@ -625,4 +710,10 @@ def main():
     print("✅ נשמר השיעור:", lesson.get("title",""))
 
 if __name__ == "__main__":
-    main()
+    _q = os.environ.get("QA_QUESTION", "").strip()
+    if _q:
+        _body = os.environ.get("QA_BODY", "")
+        _mode = "short" if ("[[short]]" in _body or "תמצית" in _body) else "full"
+        answer_question(_q, _mode)
+    else:
+        main()
