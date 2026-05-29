@@ -25,7 +25,12 @@ jobs:
       - run: |
           git config user.name  "Sod HaDaf Bot"
           git config user.email "bot@users.noreply.github.com"
+          # מקורות מקוריים
           git add discoveries.json codes.json library.json insights.json prayers_audit.json log.json 2>/dev/null || true
+          # סוכנים יומיים: ברסלב, בן איש חי, דוד, שלמה
+          git add breslov.json benishchai.json david.json shlomo.json 2>/dev/null || true
+          # סוכנים נוספים: שניים מקרא, ירושלמי, הילולות, חוק לישראל
+          git add shnayim.json yerushalmi.json hilulot.json chok.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "אין שינוי (שבת/חג או שכבר קיים) — לא שומר."
           else
