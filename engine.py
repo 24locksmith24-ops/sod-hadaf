@@ -450,6 +450,252 @@ def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn,
             return json.loads(raw[i:j+1])
         raise
 
+# ============================================================
+# סוכני לימוד יומי נפרדים — כל אחד שומר לקובץ JSON משלו
+# רבי נחמן מברסלב · הבן איש חי · דוד המלך · שלמה המלך
+# ============================================================
+
+def _save_archive(path, record, cap=400):
+    """שמירה לארכיון מצטבר עם dedup לפי תאריך (יום)."""
+    data = []
+    if os.path.exists(path):
+        try: data = json.load(open(path, encoding="utf-8"))
+        except Exception: data = []
+    today_key = record.get("date")
+    data = [r for r in data if r.get("date") != today_key]
+    data.insert(0, record)
+    json.dump(data[:cap], open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+
+# ---------- סוכן ליקוטי מוהר"ן + עצות (רבי נחמן מברסלב) ----------
+BRESLOV_OUT = "breslov.json"
+def breslov_agent(today):
+    """מביא תורה יומית מליקוטי מוהר"ן + עצה יומית מליקוטי עצות.
+    נשמר ל-breslov.json עם ארכיון."""
+    # תור יומי: כל יום בשנה — תורה אחרת מ-Part I (כ-286 תורות)
+    day_of_year = today.timetuple().tm_yday
+    torah_no = (day_of_year % 286) + 1
+    # מביאים את תחילת התורה (Sefaria מחזיר פסקאות)
+    torah_text = ""
+    torah_ref = f"Likutei Moharan, Part I.{torah_no}.1"
+    try:
+        d = requests.get(f"{SEF}/texts/{requests.utils.quote(torah_ref)}", timeout=25,
+                         params={"context":0,"pad":0}).json()
+        segs = _clean(d.get("he", []))
+        torah_text = " ".join(segs)[:2500]
+    except Exception:
+        pass
+    # עצה יומית מליקוטי עצות — נושאים שונים
+    advice_topics = ["Emet", "Tefilah", "Hitbodedut", "Simcha", "Bitachon",
+                     "Teshuvah", "Tzaddik", "Emunah", "Torah", "Yirat Shamayim"]
+    topic = advice_topics[day_of_year % len(advice_topics)]
+    advice_text = ""
+    try:
+        d = requests.get(f"{SEF}/texts/Likutei%20Etzot,%20{topic}.1", timeout=25,
+                         params={"context":0,"pad":0}).json()
+        segs = _clean(d.get("he", []))
+        advice_text = " ".join(segs)[:1500]
+    except Exception:
+        pass
+    if not torah_text and not advice_text:
+        return None
+    sysmsg = ("אתה תלמיד חכם מקרב חסידי ברסלב, כותב בעברית עם רוח של רבי נחמן. "
+              "מן הטקסטים שהוגשו, הוצא תורה מתוקה ועצה מעשית. "
+              "כתוב במילים שלך — אל תמציא ציטוטים. "
+              "אם הטקסט בארמית או בקושי בלשון — תרגם ופרש בעדינות. הטון: חם, מעורר, אופטימי.")
+    user = (f"תורה יומית — ליקוטי מוהר\"ן, חלק א, תורה {torah_no}:\n{torah_text or '(לא נמצא)'}\n\n"
+            f"עצה יומית — ליקוטי עצות, נושא: {topic}:\n{advice_text or '(לא נמצא)'}\n\n"
+            "החזר JSON תקין בלבד: {"
+            '"title":"כותרת קצרה",'
+            '"torah_summary":"תקציר התורה במילים שלך, 3-5 משפטים",'
+            '"chiddush":"החידוש המרכזי או הנקודה העמוקה של התורה",'
+            '"advice":"עצה מעשית קצרה הנובעת מן התורה (משפט-שניים)",'
+            '"hitbodedut":"שאלה לדמיין בהתבודדות / שיחה עם הקב\\"ה"}')
+    try:
+        client = anthropic.Anthropic()
+        msg = client.messages.create(model=MODEL, max_tokens=2000, temperature=0.6,
+                system=sysmsg, messages=[{"role":"user","content":user}])
+        raw = "".join(b.text for b in msg.content if b.type=="text").strip()
+        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+        try:
+            content = json.loads(raw)
+        except Exception:
+            i, j = raw.find("{"), raw.rfind("}")
+            content = json.loads(raw[i:j+1]) if (i!=-1 and j>i) else {}
+    except Exception as ex:
+        content = {"title": f"ליקוטי מוהר\"ן ח\"א, תורה {torah_no}",
+                   "torah_summary": "השיעור ייכתב בריצה הבאה.", "_error": str(ex)[:200]}
+    rec = {"date": today.isoformat(),
+           "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+           "torah_no": torah_no, "torah_ref": torah_ref,
+           "advice_topic": topic, "content": content}
+    _save_archive(BRESLOV_OUT, rec)
+    return rec
+
+# ---------- סוכן הלכות הבן איש חי ----------
+BIC_OUT = "benishchai.json"
+def benishchai_agent(today, parasha_name):
+    """מביא 2 הלכות יומיות מספר בן איש חי לפי הפרשה השבועית.
+    הספר מסודר לפי 52 הפרשיות (שנה ראשונה) + שנה שניה."""
+    # מיפוי פרשה לאנגלית עבור Sefaria
+    parsha_map = {
+        "בראשית":"Bereshit","נח":"Noach","לך לך":"Lech Lecha","וירא":"Vayera",
+        "חיי שרה":"Chayei Sarah","תולדות":"Toldot","ויצא":"Vayetzei","וישלח":"Vayishlach",
+        "וישב":"Vayeshev","מקץ":"Miketz","ויגש":"Vayigash","ויחי":"Vayechi",
+        "שמות":"Shemot","וארא":"Vaera","בא":"Bo","בשלח":"Beshalach","יתרו":"Yitro",
+        "משפטים":"Mishpatim","תרומה":"Terumah","תצוה":"Tetzaveh","כי תשא":"Ki Tisa",
+        "ויקהל":"Vayakhel","פקודי":"Pekudei","ויקרא":"Vayikra","צו":"Tzav",
+        "שמיני":"Shemini","תזריע":"Tazria","מצורע":"Metzora","אחרי מות":"Achrei Mot",
+        "קדושים":"Kedoshim","אמור":"Emor","בהר":"Behar","בחקתי":"Bechukotai",
+        "במדבר":"Bamidbar","נשא":"Nasso","בהעלתך":"Behaalotcha","שלח":"Shlach",
+        "קרח":"Korach","חקת":"Chukat","בלק":"Balak","פינחס":"Pinchas",
+        "מטות":"Matot","מסעי":"Masei","דברים":"Devarim","ואתחנן":"Vaetchanan",
+        "עקב":"Eikev","ראה":"Reeh","שופטים":"Shoftim","כי תצא":"Ki Teitzei",
+        "כי תבוא":"Ki Tavo","נצבים":"Nitzavim","וילך":"Vayelech","האזינו":"Haazinu",
+        "וזאת הברכה":"Vezot Haberachah",
+    }
+    pn = _NIK.sub("", parasha_name or "").strip()
+    pn = pn.replace("פרשת ", "")
+    en = parsha_map.get(pn, "Bereshit")
+    text = ""
+    ref = f"Ben Ish Hai, Halachot 1st Year, {en}"
+    try:
+        d = requests.get(f"{SEF}/texts/{requests.utils.quote(ref)}", timeout=25,
+                         params={"context":0,"pad":0}).json()
+        segs = _clean(d.get("he", []))
+        text = " ".join(segs)[:4000]
+    except Exception:
+        pass
+    if not text:
+        return None
+    sysmsg = ("אתה תלמיד חכם בעדות־המזרח, כותב בעברית. "
+              "ספר 'בן איש חי' לרבי יוסף חיים מבגדאד זצ\"ל — מסודר לפי הפרשיות. "
+              "מן הטקסט שהוגש, הוצא **שתי הלכות מעשיות** הברורות והחשובות ביותר ללימוד יומי. "
+              "כתוב במילים שלך, בלשון בהירה ומסודרת. סיים בהבהרה שזה לימוד ולא פסק.")
+    user = (f"בן איש חי, פרשת {parasha_name} ({en}):\n{text}\n\n"
+            "החזר JSON תקין בלבד: {"
+            '"title":"בן איש חי — פרשת [שם]",'
+            '"halacha1":{"title":"כותרת ההלכה הראשונה","explanation":"ביאור 3-4 משפטים"},'
+            '"halacha2":{"title":"כותרת ההלכה השנייה","explanation":"ביאור 3-4 משפטים"},'
+            '"connection":"כיצד שתי ההלכות משתלבות זו עם זו או עם הפרשה",'
+            '"disclaimer":"לימוד בלבד; להוראה למעשה — פנו לרב מוסמך"}')
+    try:
+        client = anthropic.Anthropic()
+        msg = client.messages.create(model=MODEL, max_tokens=2000, temperature=0.4,
+                system=sysmsg, messages=[{"role":"user","content":user}])
+        raw = "".join(b.text for b in msg.content if b.type=="text").strip()
+        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+        try:
+            content = json.loads(raw)
+        except Exception:
+            i, j = raw.find("{"), raw.rfind("}")
+            content = json.loads(raw[i:j+1]) if (i!=-1 and j>i) else {}
+    except Exception as ex:
+        content = {"title": f"בן איש חי — פרשת {parasha_name}",
+                   "halacha1": {"title": "בריצה הבאה", "explanation": "השיעור ייכתב בריצה הבאה."},
+                   "_error": str(ex)[:200]}
+    rec = {"date": today.isoformat(),
+           "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+           "parasha": parasha_name, "ref": ref, "content": content}
+    _save_archive(BIC_OUT, rec)
+    return rec
+
+# ---------- סוכן דוד המלך — תהילים, ברכה ועצה יומית ----------
+DAVID_OUT = "david.json"
+def david_agent(today):
+    """ברכה ועצה יומית מתהילים, בהשראת דוד המלך."""
+    psalm_no = (today.timetuple().tm_yday % 150) or 150
+    text = ""
+    try:
+        t = get_text(f"Psalms {psalm_no}")
+        text = t.get("hebrew", "")[:3500]
+    except Exception:
+        pass
+    if not text:
+        return None
+    sysmsg = ("אתה לומד תורני המביא מ**דוד המלך עליו השלום** את חכמתו, את מבטיו האנושיים, "
+              "ואת תפילותיו. בעברית בלבד, בטון של חיבה והשראה. "
+              "מתוך פרק התהילים שהוגש, הוצא ברכה ועצה ליום זה — "
+              "כיצד דוד עצמו, עם רגשותיו הסוערים בכאב ובשמחה, מלמד אותנו לחיות.")
+    user = (f"תהילים פרק {psalm_no} (לימוד יומי של היום):\n{text}\n\n"
+            "החזר JSON תקין בלבד: {"
+            '"title":"תהילים — פרק [N]: [כותרת קצרה]",'
+            '"key_verse":"הפסוק הנוקב ביותר בפרק (מובאה קצרה)",'
+            '"david_voice":"מה דוד המלך מרגיש או מבקש בפרק זה — בקצרה ובחום",'
+            '"blessing":"ברכה ליום — נביא רעיון מהפרק כברכה אישית",'
+            '"advice":"עצה מעשית להיום הנובעת מן הפרק"}')
+    try:
+        client = anthropic.Anthropic()
+        msg = client.messages.create(model=MODEL, max_tokens=1500, temperature=0.7,
+                system=sysmsg, messages=[{"role":"user","content":user}])
+        raw = "".join(b.text for b in msg.content if b.type=="text").strip()
+        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+        try:
+            content = json.loads(raw)
+        except Exception:
+            i, j = raw.find("{"), raw.rfind("}")
+            content = json.loads(raw[i:j+1]) if (i!=-1 and j>i) else {}
+    except Exception as ex:
+        content = {"title": f"תהילים פרק {psalm_no}", "_error": str(ex)[:200]}
+    rec = {"date": today.isoformat(),
+           "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+           "psalm_no": psalm_no, "content": content}
+    _save_archive(DAVID_OUT, rec)
+    return rec
+
+# ---------- סוכן שלמה המלך — חכמה ועצה מן משלי/קהלת/שיר השירים ----------
+SHLOMO_OUT = "shlomo.json"
+def shlomo_agent(today):
+    """עצה יומית מספרי שלמה המלך — חכם מכל אדם."""
+    # רוטציה: 4 ימים משלי, 2 ימים קהלת, יום אחד שיר השירים (חודש מתאזן)
+    day_of_year = today.timetuple().tm_yday
+    book_choice = day_of_year % 7
+    if book_choice < 4:
+        book, ch_count = "Proverbs", 31
+    elif book_choice < 6:
+        book, ch_count = "Ecclesiastes", 12
+    else:
+        book, ch_count = "Song of Songs", 8
+    chapter = (day_of_year % ch_count) + 1
+    text = ""
+    ref = f"{book} {chapter}"
+    try:
+        t = get_text(ref)
+        text = t.get("hebrew","")[:3000]
+    except Exception:
+        pass
+    if not text:
+        return None
+    book_he = {"Proverbs":"משלי", "Ecclesiastes":"קֹהֶלֶת", "Song of Songs":"שיר השירים"}[book]
+    sysmsg = ("אתה לומד תורני המביא מ**שלמה המלך — חכם מכל אדם** את חכמתו. "
+              "מתוך הפרק שהוגש, הוצא עצה מעשית עמוקה לחיים. "
+              "בעברית בלבד, בטון מלכותי-חכם. כתוב במילים שלך, בקיצור ובחדות. "
+              "אם זה שיר השירים — פרש על דרך המשל (אהבת הקב\"ה לעם ישראל).")
+    user = (f"{book_he} פרק {chapter}:\n{text}\n\n"
+            "החזר JSON תקין בלבד: {"
+            f'"title":"{book_he} פרק {chapter}: [כותרת קצרה]",'
+            '"key_verse":"הפסוק החשוב או היפה ביותר (מובאה קצרה)",'
+            '"wisdom":"החכמה המרכזית של הפרק במשפט-שניים",'
+            '"advice":"עצה מעשית להיום מתוך החכמה הזו",'
+            '"reflection":"שאלה למחשבה לעצמך"}')
+    try:
+        client = anthropic.Anthropic()
+        msg = client.messages.create(model=MODEL, max_tokens=1500, temperature=0.5,
+                system=sysmsg, messages=[{"role":"user","content":user}])
+        raw = "".join(b.text for b in msg.content if b.type=="text").strip()
+        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+        try:
+            content = json.loads(raw)
+        except Exception:
+            i, j = raw.find("{"), raw.rfind("}")
+            content = json.loads(raw[i:j+1]) if (i!=-1 and j>i) else {}
+    except Exception as ex:
+        content = {"title": f"{book_he} פרק {chapter}", "_error": str(ex)[:200]}
+    rec = {"date": today.isoformat(),
+           "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+           "book": book_he, "book_en": book, "chapter": chapter, "content": content}
+    _save_archive(SHLOMO_OUT, rec)
+    return rec
+
 # ---------- שמירה ----------
 def save(record):
     data = []
@@ -711,6 +957,33 @@ def main():
         "sources_used": [c["name"] for c in comms],
         "policy": {"strict": True, "hebrew_only": True},
     })
+    # ====== ארבעת הסוכנים החדשים — כל אחד שיעור יומי בכרטיס נפרד ======
+    breslov_rec = None; bic_rec = None; david_rec = None; shlomo_rec = None
+    try:
+        print("📖 סוכן ברסלב כותב תורה ועצה יומית…")
+        breslov_rec = breslov_agent(today)
+        if breslov_rec: print("   ✅ נשמר ל-breslov.json")
+    except Exception as ex:
+        print("   ⚠️ סוכן ברסלב נכשל:", ex)
+    try:
+        print("📖 סוכן בן איש חי מביא 2 הלכות יומיות…")
+        bic_rec = benishchai_agent(today, parasha_name)
+        if bic_rec: print("   ✅ נשמר ל-benishchai.json")
+    except Exception as ex:
+        print("   ⚠️ סוכן בן איש חי נכשל:", ex)
+    try:
+        print("🎵 סוכן דוד המלך כותב ברכה ועצה מתהילים…")
+        david_rec = david_agent(today)
+        if david_rec: print("   ✅ נשמר ל-david.json")
+    except Exception as ex:
+        print("   ⚠️ סוכן דוד המלך נכשל:", ex)
+    try:
+        print("👑 סוכן שלמה המלך מביא חכמה ועצה…")
+        shlomo_rec = shlomo_agent(today)
+        if shlomo_rec: print("   ✅ נשמר ל-shlomo.json")
+    except Exception as ex:
+        print("   ⚠️ סוכן שלמה המלך נכשל:", ex)
+
     # יומן הסוכנים — תיעוד מלא של מה שכל סוכן עשה בריצה הזו
     try:
         now = datetime.datetime.now()
@@ -728,8 +1001,17 @@ def main():
                           "aramaic": conn.get("aramaic",""),
                           "links": len(conn.get("links",[]))},
             "teacher": {"title": lesson.get("title","")},
-            "codes": {"found": codes_n},
-            "prayers": {"audited": prayers_n},
+            "codes": {"found": codes_n, "words": [h["word"] for h in (codes or {}).get("els", [])][:6]},
+            "prayers": {"audited": prayers_n,
+                        "names": list((pr_rec or {}).get("prayers", {}).keys())[:8] if pr_rec else []},
+            "breslov": {"torah_no": breslov_rec.get("torah_no") if breslov_rec else None,
+                        "title": (breslov_rec.get("content") or {}).get("title","") if breslov_rec else ""},
+            "benishchai": {"parasha": parasha_name,
+                           "title": (bic_rec.get("content") or {}).get("title","") if bic_rec else ""},
+            "david": {"psalm": david_rec.get("psalm_no") if david_rec else None,
+                      "title": (david_rec.get("content") or {}).get("title","") if david_rec else ""},
+            "shlomo": {"book": shlomo_rec.get("book") if shlomo_rec else "",
+                       "title": (shlomo_rec.get("content") or {}).get("title","") if shlomo_rec else ""},
             "shared_words": [w for w, _ in shared][:10],
         })
         print("📋 נשמר יומן הסוכנים ל-log.json")

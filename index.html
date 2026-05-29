@@ -18,7 +18,42 @@
     --crimson:#7a2e2e;
     --line:rgba(22,32,47,.14);
     --shadow:0 18px 50px -22px rgba(22,32,47,.55);
+    --card-bg:#fbf6e9;
+    --bg-grad-a:rgba(176,136,51,.08);
+    --bg-grad-b:rgba(122,46,46,.05);
   }
+  html.dark{
+    --ink:#e6dfc8;
+    --ink-soft:#bdb59a;
+    --parch:#1a1813;
+    --parch-deep:#23201a;
+    --gold:#d4a84a;
+    --gold-bright:#e8c466;
+    --crimson:#d68c8c;
+    --line:rgba(230,223,200,.16);
+    --shadow:0 18px 50px -22px rgba(0,0,0,.7);
+    --card-bg:#23201a;
+    --bg-grad-a:rgba(212,168,74,.06);
+    --bg-grad-b:rgba(214,140,140,.04);
+  }
+  html.dark .card{background:var(--card-bg)}
+  html.dark .pray-text,html.dark .pray-attr{background:#1f1c16}
+  html.dark .pray-attr{color:var(--crimson);background:#2a2520;border-color:#3a3528}
+  html.dark .agent-block{background:rgba(0,0,0,.25);border-color:rgba(230,223,200,.08)}
+  html.dark .breslov-card,html.dark .bic-card,html.dark .david-card,html.dark .shlomo-card{
+    background:linear-gradient(135deg,#1f1c16 0%,#26221a 100%)
+  }
+  html.dark .tachanun-ind.no{background:#1a2a1d;color:#7ec48a;border-color:#2a4030}
+  html.dark .tachanun-ind.yes{background:#2a1f15;color:#d4a06a;border-color:#403020}
+  html.dark .tachanun-ind.partial{background:#2a2515;color:#d4c46a;border-color:#403820}
+  .theme-toggle{
+    position:absolute;top:18px;left:18px;background:var(--card-bg);
+    border:1px solid var(--line);border-radius:50%;width:44px;height:44px;
+    cursor:pointer;font-size:1.3rem;display:grid;place-items:center;
+    box-shadow:var(--shadow);transition:.3s;z-index:50;
+  }
+  .theme-toggle:hover{transform:scale(1.08);border-color:var(--gold)}
+  header{position:relative}
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
@@ -101,6 +136,27 @@
     background:var(--parch-deep);display:grid;place-items:center;color:var(--gold);
   }
   .card .sub{font-size:.86rem;color:var(--ink-soft);opacity:.8;margin-bottom:18px}
+
+  /* Distinctive accents for the four daily agent cards */
+  .breslov-card{background:linear-gradient(135deg,#f9f3e3 0%,#fef5e6 100%);border-left:5px solid #c89b3c}
+  .breslov-card h2 .glyph{background:#c89b3c;color:#fff}
+  .bic-card{background:linear-gradient(135deg,#f3ebe0 0%,#faf2e6 100%);border-left:5px solid #8b4513}
+  .bic-card h2 .glyph{background:#8b4513;color:#fff}
+  .david-card{background:linear-gradient(135deg,#e9eef5 0%,#f4f7fb 100%);border-left:5px solid #4a6fa5}
+  .david-card h2 .glyph{background:#4a6fa5;color:#fff}
+  .shlomo-card{background:linear-gradient(135deg,#f0e8d8 0%,#faf4e6 100%);border-left:5px solid #b8860b}
+  .shlomo-card h2 .glyph{background:#b8860b;color:#fff}
+
+  /* Daily agent content styling */
+  .agent-block{background:rgba(255,255,255,.55);border-radius:12px;padding:14px 18px;margin:10px 0;border:1px solid rgba(0,0,0,.06)}
+  .agent-label{font-family:'Assistant',sans-serif;font-size:.82rem;font-weight:700;color:var(--crimson);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+  .agent-text{font-family:'Frank Ruhl Libre',serif;font-size:1.08rem;line-height:1.85;color:var(--ink)}
+  .agent-verse{font-family:'Frank Ruhl Libre',serif;font-size:1.18rem;line-height:1.8;color:var(--crimson);text-align:center;font-weight:600;padding:10px 0;border-top:1px dashed rgba(0,0,0,.15);border-bottom:1px dashed rgba(0,0,0,.15);margin:10px 0}
+  .arch-summary{cursor:pointer;font-family:'Assistant',sans-serif;font-size:.92rem;color:var(--ink-soft);padding:8px 0;font-weight:600}
+  .arch-summary:hover{color:var(--crimson)}
+  .arch-item{margin:8px 0;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.6);padding:0 14px}
+  .arch-item summary{font-family:'Assistant',sans-serif;font-weight:600;cursor:pointer;padding:10px 0;color:var(--ink)}
+  .arch-item .arch-body{padding:6px 0 14px;border-top:1px solid var(--line);margin-top:6px}
 
   /* daf text */
   .daf-text{
@@ -254,6 +310,16 @@
   .cal-nav:hover{background:var(--gold);color:#fff}
   .cal-title{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:1.3rem;text-align:center;flex:1;color:var(--ink)}
   .cal-sub{text-align:center;font-family:'Frank Ruhl Libre',serif;color:var(--crimson);font-weight:700;font-size:1rem;margin-top:2px}
+  .tachanun-ind{text-align:center;font-family:'Assistant',sans-serif;font-size:.92rem;font-weight:700;
+    margin:10px auto 6px;padding:6px 14px;border-radius:20px;display:inline-block;width:fit-content}
+  .tachanun-ind.no{background:#e6f4ea;color:#1b6e2b;border:1px solid #b8dbc0}
+  .tachanun-ind.yes{background:#fcf0e6;color:#7a4a1a;border:1px solid #e6c89a}
+  .tachanun-ind.partial{background:#fef5e0;color:#7a5e1a;border:1px solid #ead8a0}
+  /* center the indicator via wrapper */
+  #tachanunStatus{display:inline-block;margin-inline:auto}
+  #monthCard{text-align:center}
+  #monthCard .cal-grid{text-align:initial}
+  #monthCard > div:not(.cal-head):not(.cal-sub):not(.cal-grid):not(.tachanun-ind){display:block}
   .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;direction:ltr;margin-top:12px}
   .cal-dow{text-align:center;font-weight:700;font-size:.74rem;color:var(--gold);padding:3px 0}
   .cal-day{min-height:46px;border:1px solid var(--line);border-radius:8px;padding:4px 5px;
@@ -281,6 +347,13 @@
     padding:6px 14px 16px;border-bottom:1px solid var(--line);
     background:var(--parch-deep);border-radius:0 0 10px 10px;
   }
+  .pray-attr{
+    font-family:'Assistant',sans-serif;font-size:.85rem;font-weight:600;
+    color:var(--crimson);background:#f5e8d8;padding:6px 12px;border-radius:8px;
+    margin-bottom:10px;text-align:center;border:1px solid #e0d0b0;
+    font-style:italic;
+  }
+  .pray-body{font-family:'Frank Ruhl Libre',serif}
 
   /* sources / yeshiva panel */
   .src-card{background:#f7f1e0}
@@ -367,6 +440,7 @@
     <h1 class="brand">סוֹד הַדַּף<span class="dot">.</span></h1>
     <p class="tagline">מנוע שלומד את הדף יומי בכל בוקר, צולל למקורות וחושׂף תובנה אחת עמוקה — ישירות מן הטקסט.</p>
     <div class="rule"></div>
+    <button id="themeToggle" class="theme-toggle" aria-label="החלף מצב יום/לילה" title="מצב לילה">🌙</button>
   </header>
 
   <!-- Jewish calendar bar -->
@@ -393,6 +467,7 @@
       <button class="cal-nav" id="calNext" aria-label="חודש הבא">›</button>
     </div>
     <div class="cal-sub" id="calHebTitle"></div>
+    <div id="tachanunStatus" class="tachanun-ind" style="display:none"></div>
     <div class="cal-grid" id="calGrid"></div>
   </section>
 
@@ -517,6 +592,44 @@
     <div id="insightStatus" class="status"><span class="spinner"></span> ממתין לטקסט…</div>
     <div class="insight-body" id="insightBody" style="display:none"></div>
     <button class="regen" id="regenBtn" style="display:none">✦ שיעור נוסף על אותו דף</button>
+  </section>
+
+  <!-- ארבעת הסוכנים החדשים - כל אחד שיעור יומי בכרטיס נפרד -->
+
+  <!-- 📖 ליקוטי מוהר"ן + עצות (רבי נחמן מברסלב) -->
+  <section class="card breslov-card" id="breslovCard">
+    <h2><span class="glyph">📖</span> רבי נחמן מברסלב — תורה ועצה יומית</h2>
+    <div class="sub">ליקוטי מוהר"ן וליקוטי עצות · מתחדש כל יום</div>
+    <div id="breslovStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="breslovBody" style="display:none;margin-top:8px"></div>
+    <details style="margin-top:12px"><summary class="arch-summary">📚 ארכיון תורות קודמות</summary><div id="breslovArch"></div></details>
+  </section>
+
+  <!-- 📖 הלכות הבן איש חי -->
+  <section class="card bic-card" id="bicCard">
+    <h2><span class="glyph">📖</span> הבן איש חי — 2 הלכות יומיות</h2>
+    <div class="sub">לרבי יוסף חיים מבגדאד זצ"ל · ע"פ פרשת השבוע</div>
+    <div id="bicStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="bicBody" style="display:none;margin-top:8px"></div>
+    <details style="margin-top:12px"><summary class="arch-summary">📚 ארכיון הלכות קודמות</summary><div id="bicArch"></div></details>
+  </section>
+
+  <!-- 🎵 דוד המלך - תהילים יומי -->
+  <section class="card david-card" id="davidCard">
+    <h2><span class="glyph">🎵</span> דוד המלך — ברכה ועצה מתהילים</h2>
+    <div class="sub">בהשראת מזמורי דוד · מתחדש כל יום</div>
+    <div id="davidStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="davidBody" style="display:none;margin-top:8px"></div>
+    <details style="margin-top:12px"><summary class="arch-summary">📚 ארכיון ברכות קודמות</summary><div id="davidArch"></div></details>
+  </section>
+
+  <!-- 👑 שלמה המלך - חכמה ועצה -->
+  <section class="card shlomo-card" id="shlomoCard">
+    <h2><span class="glyph">👑</span> שלמה המלך — חכמה ועצה</h2>
+    <div class="sub">משלי · קהלת · שיר השירים · מתחדש כל יום</div>
+    <div id="shlomoStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="shlomoBody" style="display:none;margin-top:8px"></div>
+    <details style="margin-top:12px"><summary class="arch-summary">📚 ארכיון חכמה קודמת</summary><div id="shlomoArch"></div></details>
   </section>
 
   <!-- ארכיון שיעורים יומיים קודמים -->
@@ -876,6 +989,54 @@ async function loadCalendar(){
     const r = await fetch(`https://www.hebcal.com/converter?cfg=json&date=${iso}&g2h=1&strict=1`);
     const j = await r.json();
     document.getElementById("calHeDate").textContent = j.hebrew || "—";
+    // ====== מצב תחנון ======
+    try{
+      const events = (j.events||[]).map(e=>String(e).toLowerCase());
+      const evJoined = events.join(" | ");
+      // Hebcal-style event names that suppress tachanun
+      const noTachReasons = [];
+      const isShabbat = d.getDay() === 6;
+      const isErevShabbat = d.getDay() === 5;
+      if(isShabbat) noTachReasons.push("שבת קודש");
+      // Holidays / RH / Chol HaMoed / Chanukah / Purim
+      const noTachKeywords = ["rosh chodesh","rosh hashana","yom kippur","sukkot","shmini atzeret","simchat torah",
+        "pesach","shavuot","chol hamoed","chanukah","purim","tu bishvat","tu b'av","tu beav","pesach sheni",
+        "lag baomer","lag b'omer","yom ha'atzmaut","yom haatzmaut","yom yerushalayim"];
+      for(const kw of noTachKeywords){
+        if(evJoined.includes(kw)){
+          const found = events.find(e=>e.includes(kw));
+          noTachReasons.push(found);
+        }
+      }
+      // Hebrew month context — Nisan/early Sivan/Tishrei suppression
+      const heDateStr = j.hebrew || "";
+      if(heDateStr.includes("נִיסָן") || heDateStr.includes("ניסן")) noTachReasons.push("חודש ניסן");
+      // Sivan 1-12
+      const heDay = j.hd || 0;
+      if((heDateStr.includes("סִיוָן") || heDateStr.includes("סיון")) && heDay >= 1 && heDay <= 12)
+        noTachReasons.push("א-יב סיון");
+      // Tishrei 11 onwards (after Yom Kippur)
+      if((heDateStr.includes("תִּשְׁרֵי") || heDateStr.includes("תשרי")) && heDay >= 11)
+        noTachReasons.push("י״א בתשרי ואילך");
+      // Erev Yom Kippur (9 Tishrei)
+      if((heDateStr.includes("תִּשְׁרֵי") || heDateStr.includes("תשרי")) && heDay === 9)
+        noTachReasons.push("ערב יום כיפור");
+      // Display
+      const ind = document.getElementById("tachanunStatus");
+      ind.style.display = "inline-block";
+      if(noTachReasons.length){
+        ind.className = "tachanun-ind no";
+        ind.innerHTML = `🕊️ אין תחנון היום · ${noTachReasons[0]}`;
+      } else if(isErevShabbat){
+        ind.className = "tachanun-ind partial";
+        ind.innerHTML = `🕯️ תחנון בוקר בלבד · ערב שבת`;
+      } else {
+        ind.className = "tachanun-ind yes";
+        ind.innerHTML = `📿 אומרים תחנון`;
+      }
+    }catch(e){
+      document.getElementById("tachanunStatus").style.display = "none";
+    }
   }catch(e){ document.getElementById("calHeDate").textContent = "—"; }
   // Next major holiday
   try{
@@ -983,7 +1144,7 @@ function showRest(reason){
   });
 }
 
-/* ===== Zmanim — sun & prayer times (Hebcal) ===== */
+/* ===== Zmanim — sun & prayer times (Hebcal — full halachic list) ===== */
 async function fetchZmanim(lat, lon, label){
   const d = new Date().toISOString().slice(0,10);
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Jerusalem";
@@ -991,21 +1152,45 @@ async function fetchZmanim(lat, lon, label){
   const j = await (await fetch(url)).json();
   const t = j.times || {};
   const fmt = s => s ? new Date(s).toLocaleTimeString("he-IL",{hour:"2-digit",minute:"2-digit"}) : "—";
+  // שעה זמנית: הגר"א = (שקיעה - הנץ)/12; מג"א = (צאת ר"ת - עלות)/12
+  let shaaZmanitGra = "—", shaaZmanitMGA = "—";
+  try{
+    if(t.sunrise && t.sunset){
+      const ms = new Date(t.sunset) - new Date(t.sunrise);
+      const sec = Math.round(ms/12/1000);
+      shaaZmanitGra = `${Math.floor(sec/3600)}:${String(Math.floor((sec%3600)/60)).padStart(2,"0")}`;
+    }
+    if(t.alotHaShachar && (t.tzeit72min || t.tzeit7083deg)){
+      const end = t.tzeit72min || t.tzeit7083deg;
+      const ms = new Date(end) - new Date(t.alotHaShachar);
+      const sec = Math.round(ms/12/1000);
+      shaaZmanitMGA = `${Math.floor(sec/3600)}:${String(Math.floor((sec%3600)/60)).padStart(2,"0")}`;
+    }
+  }catch(_){}
   const rows = [
-    ["🌅","הנץ החמה (זריחה)", t.sunrise],
-    ["📖","סוף זמן ק״ש", t.sofZmanShma],
-    ["🙏","סוף זמן תפילה", t.sofZmanTfilla],
-    ["☀️","חצות היום", t.chatzot],
-    ["🕯️","מנחה גדולה", t.minchaGedola],
-    ["🌇","פלג המנחה", t.plagHaMincha],
-    ["🌆","שקיעת החמה", t.sunset],
-    ["🌃","צאת הכוכבים", t.tzeit7083deg || t.tzeit85deg],
+    ["🌌","עלות השחר", fmt(t.alotHaShachar)],
+    ["📿","תפילין ושמע (משיכיר)", fmt(t.misheyakir||t.misheyakirMachmir)],
+    ["🌅","הנץ החמה", fmt(t.sunrise)],
+    ["📖","סוף זמן ק״ש (מג״א)", fmt(t.sofZmanShmaMGA)],
+    ["📖","סוף זמן ק״ש (הגר״א)", fmt(t.sofZmanShma)],
+    ["🙏","סוף זמן תפילה (מג״א)", fmt(t.sofZmanTfillaMGA)],
+    ["🙏","סוף זמן תפילה (הגר״א)", fmt(t.sofZmanTfilla)],
+    ["☀️","חצות היום", fmt(t.chatzot)],
+    ["🕯️","מנחה גדולה", fmt(t.minchaGedola)],
+    ["🕯️","מנחה קטנה", fmt(t.minchaKetana)],
+    ["🌇","פלג המנחה", fmt(t.plagHaMincha)],
+    ["🌆","שקיעת החמה", fmt(t.sunset)],
+    ["🌃","צאת הכוכבים", fmt(t.tzeit7083deg||t.tzeit85deg)],
+    ["🌙","לילה דר״ת (72 דק׳)", fmt(t.tzeit72min)],
+    ["🕛","חצות הלילה", fmt(t.chatzotNight)],
+    ["⏱️","שעה זמנית (הגר״א)", shaaZmanitGra],
+    ["⏱️","שעה זמנית (מג״א)", shaaZmanitMGA],
   ];
   document.getElementById("zmanimPlace").textContent = "זמני היום · " + label;
   document.getElementById("zmanimStatus").style.display="none";
   const g = document.getElementById("zmanimGrid");
   g.style.display="grid";
-  g.innerHTML = rows.map(r=>`<div class="zman"><span class="zman-name"><span class="zman-ico">${r[0]}</span> ${r[1]}</span><span class="zman-time">${fmt(r[2])}</span></div>`).join("");
+  g.innerHTML = rows.map(r=>`<div class="zman"><span class="zman-name"><span class="zman-ico">${r[0]}</span> ${r[1]}</span><span class="zman-time">${r[2]}</span></div>`).join("");
 }
 
 function loadZmanim(){
@@ -1311,6 +1496,93 @@ async function loadPrayersAudit(){
 }
 /* ===== Agent activity log (reads log.json) ===== */
 /* ===== Lesson archive (reads discoveries.json — all daily lessons) ===== */
+/* ===== ארבעת הסוכנים החדשים — טעינה והצגה ===== */
+
+// פונקציית עזר: ממיר אובייקט תוכן לתצוגה (לפי מבנה הסוכן)
+function renderBreslov(content){
+  if(!content) return "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+  let h = "";
+  if(content.torah_summary) h += `<div class="agent-block"><div class="agent-label">תורה</div><div class="agent-text">${content.torah_summary}</div></div>`;
+  if(content.chiddush) h += `<div class="agent-block"><div class="agent-label">חידוש</div><div class="agent-text">${content.chiddush}</div></div>`;
+  if(content.advice) h += `<div class="agent-block"><div class="agent-label">עצה מעשית</div><div class="agent-text">${content.advice}</div></div>`;
+  if(content.hitbodedut) h += `<div class="agent-block"><div class="agent-label">להתבודדות</div><div class="agent-text">${content.hitbodedut}</div></div>`;
+  return h || "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+}
+function renderBIC(content){
+  if(!content) return "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+  let h = "";
+  if(content.halacha1){
+    h += `<div class="agent-block"><div class="agent-label">הלכה א׳ · ${content.halacha1.title||""}</div><div class="agent-text">${content.halacha1.explanation||""}</div></div>`;
+  }
+  if(content.halacha2){
+    h += `<div class="agent-block"><div class="agent-label">הלכה ב׳ · ${content.halacha2.title||""}</div><div class="agent-text">${content.halacha2.explanation||""}</div></div>`;
+  }
+  if(content.connection) h += `<div class="agent-block"><div class="agent-label">חיבור</div><div class="agent-text">${content.connection}</div></div>`;
+  if(content.disclaimer) h += `<div style="font-size:.85rem;color:var(--ink-soft);margin-top:10px;font-style:italic">⚠️ ${content.disclaimer}</div>`;
+  return h || "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+}
+function renderDavid(content){
+  if(!content) return "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+  let h = "";
+  if(content.key_verse) h += `<div class="agent-verse">${content.key_verse}</div>`;
+  if(content.david_voice) h += `<div class="agent-block"><div class="agent-label">קולו של דוד</div><div class="agent-text">${content.david_voice}</div></div>`;
+  if(content.blessing) h += `<div class="agent-block"><div class="agent-label">ברכה ליום</div><div class="agent-text">${content.blessing}</div></div>`;
+  if(content.advice) h += `<div class="agent-block"><div class="agent-label">עצה</div><div class="agent-text">${content.advice}</div></div>`;
+  return h || "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+}
+function renderShlomo(content){
+  if(!content) return "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+  let h = "";
+  if(content.key_verse) h += `<div class="agent-verse">${content.key_verse}</div>`;
+  if(content.wisdom) h += `<div class="agent-block"><div class="agent-label">חכמת שלמה</div><div class="agent-text">${content.wisdom}</div></div>`;
+  if(content.advice) h += `<div class="agent-block"><div class="agent-label">עצה למעשה</div><div class="agent-text">${content.advice}</div></div>`;
+  if(content.reflection) h += `<div class="agent-block"><div class="agent-label">להרהר</div><div class="agent-text">${content.reflection}</div></div>`;
+  return h || "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+}
+
+// טוען גנרי לסוכן יומי
+async function loadDailyAgent(jsonPath, cardId, statusId, bodyId, archId, titleField, contentRenderer){
+  const card = document.getElementById(cardId);
+  const st = document.getElementById(statusId);
+  const body = document.getElementById(bodyId);
+  const arch = document.getElementById(archId);
+  reveal(card);
+  try{
+    const r = await fetch("./"+jsonPath, {cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    const today = arr[0];
+    const c = today.content || {};
+    let h = "";
+    if(c.title) h += `<h3 style="font-family:'Frank Ruhl Libre',serif;font-size:1.3rem;color:var(--crimson);margin-bottom:10px">${c.title}</h3>`;
+    h += contentRenderer(c);
+    st.style.display = "none";
+    body.innerHTML = h;
+    body.style.display = "block";
+    // ארכיון
+    if(arr.length > 1){
+      const archH = arr.slice(1, 30).map(rec=>{
+        const cc = rec.content || {};
+        const title = cc.title || rec.date || "";
+        return `<details class="arch-item"><summary>${title} · ${rec.date||""}</summary><div class="arch-body">${contentRenderer(cc)}</div></details>`;
+      }).join("");
+      arch.innerHTML = archH;
+    } else {
+      arch.innerHTML = "<div class='note'>הארכיון יצטבר עם כל ריצה.</div>";
+    }
+  }catch(e){
+    st.style.display = "none";
+    body.style.display = "block";
+    body.innerHTML = "<div class='note'>שיעור היום ייצור בריצה הקרובה של הסוכן (אוטומטית פעמיים ביום, או ידנית מ-Actions → שיעור יומי אוטומטי → Run workflow).</div>";
+  }
+}
+async function loadBreslov(){ return loadDailyAgent("breslov.json", "breslovCard", "breslovStatus", "breslovBody", "breslovArch", "title", renderBreslov); }
+async function loadBIC(){ return loadDailyAgent("benishchai.json", "bicCard", "bicStatus", "bicBody", "bicArch", "title", renderBIC); }
+async function loadDavid(){ return loadDailyAgent("david.json", "davidCard", "davidStatus", "davidBody", "davidArch", "title", renderDavid); }
+async function loadShlomo(){ return loadDailyAgent("shlomo.json", "shlomoCard", "shlomoStatus", "shlomoBody", "shlomoArch", "title", renderShlomo); }
+/* ===== Daily agents loaders — end ===== */
+
 async function loadLessonArchive(){
   reveal(document.getElementById("lessonArchCard"));
   const st = document.getElementById("lessonArchStatus");
@@ -1494,10 +1766,12 @@ function parseSectionedLesson(text, q){
                    practical:"", disclaimer:"" };
   if(!text) return Object.assign(lesson, { title:q||"שיעור", intro:"לא התקבל תוכן — נסה שוב." });
   const parts = text.split(/===\s*([^=\n]+?)\s*===/);
+  let foundAnySection = false;
   for(let i=1; i<parts.length; i+=2){
     const name = (parts[i]||"").trim();
     const content = (parts[i+1]||"").trim();
     if(!name || !content) continue;
+    foundAnySection = true;
     if(name==="כותרת") lesson.title = content;
     else if(name==="פתיחה" || name==="תמצית") lesson.intro = content;
     else if(name==="מקורות"){
@@ -1520,6 +1794,10 @@ function parseSectionedLesson(text, q){
     else if(name==="סיכום") lesson.conclusion = content;
     else if(name==="למעשה" || name==="שורה תחתונה") lesson.practical = content;
     else if(name==="הסתייגות") lesson.disclaimer = content;
+  }
+  // אם לא נמצא אף סעיף — או שכל הסעיפים ריקים — נשתמש בטקסט הגולמי כתוכן
+  if(!foundAnySection || (!lesson.intro && !lesson.discussion && !lesson.deep_dive && !lesson.conclusion)){
+    if(!lesson.intro) lesson.intro = (text||"").trim();
   }
   if(!lesson.title) lesson.title = q || "שיעור";
   if(!lesson.disclaimer) lesson.disclaimer = "חומר לימוד בלבד, אינו פסק הלכה; להוראה למעשה יש לפנות לרב מוסמך.";
@@ -1730,23 +2008,286 @@ document.getElementById("tehillimBtn").addEventListener("click", loadTehillim);
 
 /* ===== Prayers & blessings — Sephardic nusach (Edot HaMizrach), inline ===== */
 const PRAYERS = [
-  {n:"מוֹדֶה אֲנִי", t:"מוֹדֶה אֲנִי לְפָנֶיךָ מֶלֶךְ חַי וְקַיָּם, שֶׁהֶחֱזַרְתָּ בִּי נִשְׁמָתִי בְּחֶמְלָה, רַבָּה אֱמוּנָתֶךָ."},
-  {n:"נְטִילַת יָדַיִם", t:"בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר קִדְּשָׁנוּ בְּמִצְוֹתָיו וְצִוָּנוּ עַל נְטִילַת יָדָיִם."},
-  {n:"קְרִיאַת שְׁמַע (שָׁלֹשׁ פָּרָשִׁיּוֹת)", t:"שְׁמַע יִשְׂרָאֵל, יְיָ אֱלֹהֵינוּ, יְיָ אֶחָד.\n(בְּלַחַשׁ:) בָּרוּךְ שֵׁם כְּבוֹד מַלְכוּתוֹ לְעוֹלָם וָעֶד.\n\nוְאָהַבְתָּ אֵת יְיָ אֱלֹהֶיךָ בְּכָל לְבָבְךָ וּבְכָל נַפְשְׁךָ וּבְכָל מְאֹדֶךָ. וְהָיוּ הַדְּבָרִים הָאֵלֶּה אֲשֶׁר אָנֹכִי מְצַוְּךָ הַיּוֹם עַל לְבָבֶךָ. וְשִׁנַּנְתָּם לְבָנֶיךָ וְדִבַּרְתָּ בָּם, בְּשִׁבְתְּךָ בְּבֵיתֶךָ וּבְלֶכְתְּךָ בַדֶּרֶךְ וּבְשָׁכְבְּךָ וּבְקוּמֶךָ. וּקְשַׁרְתָּם לְאוֹת עַל יָדֶךָ וְהָיוּ לְטֹטָפֹת בֵּין עֵינֶיךָ. וּכְתַבְתָּם עַל מְזֻזוֹת בֵּיתֶךָ וּבִשְׁעָרֶיךָ.\n\nוְהָיָה אִם שָׁמֹעַ תִּשְׁמְעוּ אֶל מִצְוֹתַי אֲשֶׁר אָנֹכִי מְצַוֶּה אֶתְכֶם הַיּוֹם, לְאַהֲבָה אֶת יְיָ אֱלֹהֵיכֶם וּלְעָבְדוֹ בְּכָל לְבַבְכֶם וּבְכָל נַפְשְׁכֶם. וְנָתַתִּי מְטַר אַרְצְכֶם בְּעִתּוֹ יוֹרֶה וּמַלְקוֹשׁ, וְאָסַפְתָּ דְגָנֶךָ וְתִירֹשְׁךָ וְיִצְהָרֶךָ. וְנָתַתִּי עֵשֶׂב בְּשָׂדְךָ לִבְהֶמְתֶּךָ, וְאָכַלְתָּ וְשָׂבָעְתָּ. הִשָּׁמְרוּ לָכֶם פֶּן יִפְתֶּה לְבַבְכֶם, וְסַרְתֶּם וַעֲבַדְתֶּם אֱלֹהִים אֲחֵרִים וְהִשְׁתַּחֲוִיתֶם לָהֶם. וְחָרָה אַף יְיָ בָּכֶם וְעָצַר אֶת הַשָּׁמַיִם וְלֹא יִהְיֶה מָטָר, וְהָאֲדָמָה לֹא תִתֵּן אֶת יְבוּלָהּ, וַאֲבַדְתֶּם מְהֵרָה מֵעַל הָאָרֶץ הַטֹּבָה אֲשֶׁר יְיָ נֹתֵן לָכֶם. וְשַׂמְתֶּם אֶת דְּבָרַי אֵלֶּה עַל לְבַבְכֶם וְעַל נַפְשְׁכֶם, וּקְשַׁרְתֶּם אֹתָם לְאוֹת עַל יֶדְכֶם וְהָיוּ לְטוֹטָפֹת בֵּין עֵינֵיכֶם. וְלִמַּדְתֶּם אֹתָם אֶת בְּנֵיכֶם לְדַבֵּר בָּם, בְּשִׁבְתְּךָ בְּבֵיתֶךָ וּבְלֶכְתְּךָ בַדֶּרֶךְ וּבְשָׁכְבְּךָ וּבְקוּמֶךָ. וּכְתַבְתָּם עַל מְזוּזוֹת בֵּיתֶךָ וּבִשְׁעָרֶיךָ. לְמַעַן יִרְבּוּ יְמֵיכֶם וִימֵי בְנֵיכֶם עַל הָאֲדָמָה אֲשֶׁר נִשְׁבַּע יְיָ לַאֲבֹתֵיכֶם לָתֵת לָהֶם, כִּימֵי הַשָּׁמַיִם עַל הָאָרֶץ.\n\nוַיֹּאמֶר יְיָ אֶל מֹשֶׁה לֵּאמֹר. דַּבֵּר אֶל בְּנֵי יִשְׂרָאֵל וְאָמַרְתָּ אֲלֵהֶם, וְעָשׂוּ לָהֶם צִיצִת עַל כַּנְפֵי בִגְדֵיהֶם לְדֹרֹתָם, וְנָתְנוּ עַל צִיצִת הַכָּנָף פְּתִיל תְּכֵלֶת. וְהָיָה לָכֶם לְצִיצִת, וּרְאִיתֶם אֹתוֹ וּזְכַרְתֶּם אֶת כָּל מִצְוֹת יְיָ וַעֲשִׂיתֶם אֹתָם, וְלֹא תָתוּרוּ אַחֲרֵי לְבַבְכֶם וְאַחֲרֵי עֵינֵיכֶם אֲשֶׁר אַתֶּם זֹנִים אַחֲרֵיהֶם. לְמַעַן תִּזְכְּרוּ וַעֲשִׂיתֶם אֶת כָּל מִצְוֹתָי, וִהְיִיתֶם קְדֹשִׁים לֵאלֹהֵיכֶם. אֲנִי יְיָ אֱלֹהֵיכֶם אֲשֶׁר הוֹצֵאתִי אֶתְכֶם מֵאֶרֶץ מִצְרַיִם לִהְיוֹת לָכֶם לֵאלֹהִים, אֲנִי יְיָ אֱלֹהֵיכֶם. אֱמֶת."},
-  {n:"אֲשֶׁר יָצַר", t:"בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר יָצַר אֶת הָאָדָם בְּחָכְמָה, וּבָרָא בוֹ נְקָבִים נְקָבִים, חֲלוּלִים חֲלוּלִים. גָּלוּי וְיָדוּעַ לִפְנֵי כִסֵּא כְבוֹדֶךָ, שֶׁאִם יִפָּתֵחַ אֶחָד מֵהֶם, אוֹ אִם יִסָּתֵם אֶחָד מֵהֶם, אִי אֶפְשָׁר לְהִתְקַיֵּם וְלַעֲמוֹד לְפָנֶיךָ אֲפִילּוּ שָׁעָה אֶחָת. בָּרוּךְ אַתָּה יְיָ, רוֹפֵא כָל בָּשָׂר וּמַפְלִיא לַעֲשׂוֹת."},
-  {n:"בִּרְכוֹת הַנֶּהֱנִין (מלא)", t:"הַמּוֹצִיא (לֶחֶם):\nבָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַמּוֹצִיא לֶחֶם מִן הָאָרֶץ.\n\nמְזוֹנוֹת (תַּבְשִׁילֵי דָּגָן וְכַיּוֹצֵא):\nבָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא מִינֵי מְזוֹנוֹת.\n\nהַגֶּפֶן (יַיִן):\nבָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הַגֶּפֶן.\n\nהָעֵץ (פֵּרוֹת אִילָן):\nבָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הָעֵץ.\n\nהָאֲדָמָה (יְרָקוֹת וּפֵרוֹת אֲדָמָה):\nבָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הָאֲדָמָה.\n\nשֶׁהַכֹּל (שְׁאָר מַאֲכָלִים וּמַשְׁקִים):\nבָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁהַכֹּל נִהְיָה בִּדְבָרוֹ."},
-  {n:"בּוֹרֵא נְפָשׁוֹת", t:"בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא נְפָשׁוֹת רַבּוֹת וְחֶסְרוֹנָן, עַל כֹּל מַה שֶּׁבָּרָאתָ לְהַחֲיוֹת בָּהֶם נֶפֶשׁ כָּל חָי. בָּרוּךְ חֵי הָעוֹלָמִים."},
-  {n:"שֶׁהֶחֱיָנוּ", t:"בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁהֶחֱיָנוּ וְקִיְּמָנוּ וְהִגִּיעָנוּ לַזְּמַן הַזֶּה."},
-  {n:"הַגּוֹמֵל", t:"בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַגּוֹמֵל לְחַיָּבִים טוֹבוֹת שֶׁגְּמָלַנִי כָּל טוֹב.\n(הַקָּהָל עוֹנֶה:) אָמֵן. מִי שֶׁגְּמָלְךָ כָּל טוֹב, הוּא יִגְמָלְךָ כָּל טוֹב סֶלָה."},
-  {n:"הַדְלָקַת נֵרוֹת שַׁבָּת", t:"בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר קִדְּשָׁנוּ בְּמִצְוֹתָיו וְצִוָּנוּ לְהַדְלִיק נֵר שֶׁל שַׁבָּת קֹדֶשׁ."},
-  {n:"תְּפִלַּת הַדֶּרֶךְ", t:"יְהִי רָצוֹן מִלְּפָנֶיךָ יְיָ אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ, שֶׁתּוֹלִיכֵנוּ לְשָׁלוֹם וְתַצְעִידֵנוּ לְשָׁלוֹם וְתַדְרִיכֵנוּ לְשָׁלוֹם, וְתַגִּיעֵנוּ לִמְחוֹז חֶפְצֵנוּ לְחַיִּים וּלְשִׂמְחָה וּלְשָׁלוֹם. וְתַצִּילֵנוּ מִכַּף כָּל אוֹיֵב וְאוֹרֵב וְלִסְטִים וְחַיּוֹת רָעוֹת בַּדֶּרֶךְ, וּמִכָּל מִינֵי פֻּרְעָנֻיּוֹת הַמִּתְרַגְּשׁוֹת לָבוֹא לָעוֹלָם. וְתִשְׁלַח בְּרָכָה בְּכָל מַעֲשֵׂה יָדֵינוּ, וְתִשְׁמַע קוֹל תַּחֲנוּנֵינוּ, כִּי אֵל שׁוֹמֵעַ תְּפִלָּה וְתַחֲנוּן אַתָּה. בָּרוּךְ אַתָּה יְיָ, שׁוֹמֵעַ תְּפִלָּה."},
-  {n:"בִּרְכַּת הַמָּזוֹן (נוסח עדות המזרח, מלא)", t:"זִמּוּן (כְּשֶׁאוֹכְלִים שְׁלוֹשָׁה):\nהַמְזַמֵּן: הַב לָן וְנִבְרִיךְ לְמַלְכָּא עִלָּאָה קַדִּישָׁא. (עוֹנִים: שָׁמַיִם.)\nהַמְזַמֵּן: בִּרְשׁוּת מַלְכָּא עִלָּאָה קַדִּישָׁא, וּבִרְשׁוּת מוֹרַי וְרַבּוֹתַי וּבִרְשׁוּתְכֶם, נְבָרֵךְ (בַּעֲשָׂרָה: אֱלֹהֵינוּ) שֶׁאָכַלְנוּ מִשֶּׁלּוֹ.\nעוֹנִים: בָּרוּךְ (בַּעֲשָׂרָה: אֱלֹהֵינוּ) שֶׁאָכַלְנוּ מִשֶּׁלּוֹ וּבְטוּבוֹ חָיִינוּ.\nהַמְזַמֵּן: בָּרוּךְ (אֱלֹהֵינוּ) שֶׁאָכַלְנוּ מִשֶּׁלּוֹ וּבְטוּבוֹ הַגָּדוֹל תָּמִיד חָיִינוּ.\n\nא׳ — בִּרְכַּת הַזָּן:\nבָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הָאֵל הַזָּן אוֹתָנוּ וְאֶת הָעוֹלָם כֻּלּוֹ בְּטוּבוֹ, בְּחֵן בְּחֶסֶד בְּרֶוַח וּבְרַחֲמִים רַבִּים, נֹתֵן לֶחֶם לְכָל בָּשָׂר כִּי לְעוֹלָם חַסְדּוֹ. וּבְטוּבוֹ הַגָּדוֹל תָּמִיד לֹא חָסַר לָנוּ, וְאַל יֶחְסַר לָנוּ מָזוֹן לְעוֹלָם וָעֶד, כִּי הוּא אֵל זָן וּמְפַרְנֵס לַכֹּל, וְשֻׁלְחָנוֹ עָרוּךְ לַכֹּל, וְהִתְקִין מִחְיָה וּמָזוֹן לְכָל בְּרִיּוֹתָיו אֲשֶׁר בָּרָא בְּרַחֲמָיו וּבְרֹב חֲסָדָיו, כָּאָמוּר: פּוֹתֵחַ אֶת יָדֶךָ וּמַשְׂבִּיעַ לְכָל חַי רָצוֹן. בָּרוּךְ אַתָּה יְיָ, הַזָּן אֶת הַכֹּל.\n\nב׳ — בִּרְכַּת הָאָרֶץ:\nנוֹדֶה לְּךָ יְיָ אֱלֹהֵינוּ עַל שֶׁהִנְחַלְתָּ לַאֲבוֹתֵינוּ אֶרֶץ חֶמְדָּה טוֹבָה וּרְחָבָה, בְּרִית וְתוֹרָה חַיִּים וּמָזוֹן, עַל שֶׁהוֹצֵאתָנוּ מֵאֶרֶץ מִצְרַיִם וּפְדִיתָנוּ מִבֵּית עֲבָדִים, וְעַל בְּרִיתְךָ שֶׁחָתַמְתָּ בִּבְשָׂרֵנוּ, וְעַל תּוֹרָתְךָ שֶׁלִּמַּדְתָּנוּ, וְעַל חֻקֵּי רְצוֹנָךְ שֶׁהוֹדַעְתָּנוּ, וְעַל חַיִּים וּמָזוֹן שָׁאַתָּה זָן וּמְפַרְנֵס אוֹתָנוּ. עַל הַכֹּל יְיָ אֱלֹהֵינוּ אֲנַחְנוּ מוֹדִים לָךְ וּמְבָרְכִים אֶת שְׁמָךְ, כָּאָמוּר: וְאָכַלְתָּ וְשָׂבָעְתָּ וּבֵרַכְתָּ אֶת יְיָ אֱלֹהֶיךָ עַל הָאָרֶץ הַטֹּבָה אֲשֶׁר נָתַן לָךְ. בָּרוּךְ אַתָּה יְיָ, עַל הָאָרֶץ וְעַל הַמָּזוֹן.\n\nג׳ — רַחֵם (בּוֹנֵה יְרוּשָׁלַיִם):\nרַחֵם יְיָ אֱלֹהֵינוּ עָלֵינוּ וְעַל יִשְׂרָאֵל עַמָּךְ, וְעַל יְרוּשָׁלַיִם עִירָךְ, וְעַל הַר צִיּוֹן מִשְׁכַּן כְּבוֹדָךְ, וְעַל הֵיכָלָךְ וְעַל מְעוֹנָךְ וְעַל דְּבִירָךְ, וְעַל הַבַּיִת הַגָּדוֹל וְהַקָּדוֹשׁ שֶׁנִּקְרָא שִׁמְךָ עָלָיו. אָבִינוּ, רְעֵנוּ זוּנֵנוּ פַּרְנְסֵנוּ כַּלְכְּלֵנוּ הַרְוִיחֵנוּ, וְהַרְוַח לָנוּ מְהֵרָה מִכָּל צָרוֹתֵינוּ. וְנָא אַל תַּצְרִיכֵנוּ יְיָ אֱלֹהֵינוּ לִידֵי מַתְּנוֹת בָּשָׂר וָדָם וְלֹא לִידֵי הַלְוָאָתָם, אֶלָּא לְיָדְךָ הַמְּלֵאָה וְהָרְחָבָה הָעֲשִׁירָה וְהַפְּתוּחָה. יְהִי רָצוֹן שֶׁלֹּא נֵבוֹשׁ בָּעוֹלָם הַזֶּה וְלֹא נִכָּלֵם לְעוֹלָם הַבָּא. וּמַלְכוּת בֵּית דָּוִד מְשִׁיחָךְ תַּחֲזִירֶנָּה לִמְקוֹמָהּ בִּמְהֵרָה בְיָמֵינוּ. וְתִבְנֶה יְרוּשָׁלַיִם עִירָךְ בִּמְהֵרָה בְיָמֵינוּ. בָּרוּךְ אַתָּה יְיָ, בּוֹנֵה יְרוּשָׁלָיִם. (אָמֵן)\n\nד׳ — הַטּוֹב וְהַמֵּטִיב:\nבָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, לָעַד הָאֵל אָבִינוּ מַלְכֵּנוּ אַדִּירֵנוּ בּוֹרְאֵנוּ גּוֹאֲלֵנוּ קְדוֹשֵׁנוּ קְדוֹשׁ יַעֲקֹב, רוֹעֵנוּ רוֹעֵה יִשְׂרָאֵל, הַמֶּלֶךְ הַטּוֹב וְהַמֵּטִיב לַכֹּל, שֶׁבְּכָל יוֹם וָיוֹם הוּא הֵיטִיב לָנוּ, הוּא מֵיטִיב לָנוּ, הוּא יֵיטִיב לָנוּ, הוּא גְמָלָנוּ הוּא גוֹמְלֵנוּ הוּא יִגְמְלֵנוּ לָעַד, חֵן וָחֶסֶד וְרַחֲמִים וְרֶוַח וְהַצָּלָה וְכָל טוֹב.\n\nהָרַחֲמָן:\nהָרַחֲמָן הוּא יִשְׁתַּבַּח עַל כִּסֵּא כְבוֹדוֹ. הָרַחֲמָן הוּא יִשְׁתַּבַּח בַּשָּׁמַיִם וּבָאָרֶץ. הָרַחֲמָן הוּא יְפַרְנְסֵנוּ בְּכָבוֹד וְלֹא בְבִזּוּי, בְּהֶתֵּר וְלֹא בְאִסּוּר, בְּנַחַת וְלֹא בְצָעַר. הָרַחֲמָן הוּא יִתֵּן שָׁלוֹם בֵּינֵינוּ. הָרַחֲמָן הוּא יִשְׁלַח בְּרָכָה רְוָחָה וְהַצְלָחָה בְּכָל מַעֲשֵׂה יָדֵינוּ. הָרַחֲמָן הוּא יִרְפָּאֵנוּ רְפוּאָה שְׁלֵמָה. הָרַחֲמָן הוּא יִטַּע תּוֹרָתוֹ וְאַהֲבָתוֹ בְּלִבֵּנוּ, וְיִהְיוּ כָל מַעֲשֵׂינוּ לְשֵׁם שָׁמָיִם.\n\nעוֹשֶׂה שָׁלוֹם בִּמְרוֹמָיו, הוּא בְרַחֲמָיו יַעֲשֶׂה שָׁלוֹם עָלֵינוּ וְעַל כָּל עַמּוֹ יִשְׂרָאֵל, וְאִמְרוּ אָמֵן."},
+  {n:"מוֹדֶה אֲנִי", a:"מהר\"ם די לונזאנו (ע\"פ קבלת האר\"י)", t:`מוֹדֶה אֲנִי לְפָנֶיךָ מֶלֶךְ חַי וְקַיָּם, שֶׁהֶחֱזַרְתָּ בִּי נִשְׁמָתִי בְּחֶמְלָה, רַבָּה אֱמוּנָתֶךָ.`},
+  {n:"נְטִילַת יָדַיִם", a:"תיקנו אנשי כנסת הגדולה (שו\"ע או\"ח ד)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר קִדְּשָׁנוּ בְּמִצְוֹתָיו וְצִוָּנוּ עַל נְטִילַת יָדָיִם.`},
+  {n:"בִּרְכוֹת הַשַּׁחַר", a:"תיקנו חז\"ל (ברכות ס:)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר נָתַן לַשֶּׂכְוִי בִינָה לְהַבְחִין בֵּין יוֹם וּבֵין לָיְלָה.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, פּוֹקֵחַ עִוְרִים.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, מַתִּיר אֲסוּרִים.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, זוֹקֵף כְּפוּפִים.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, מַלְבִּישׁ עֲרֻמִּים.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַנּוֹתֵן לַיָּעֵף כֹּחַ.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, רוֹקַע הָאָרֶץ עַל הַמָּיִם.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַמֵּכִין מִצְעֲדֵי גָבֶר.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁעָשָׂה לִי כָּל צָרְכִּי.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אוֹזֵר יִשְׂרָאֵל בִּגְבוּרָה.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, עוֹטֵר יִשְׂרָאֵל בְּתִפְאָרָה.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁלֹּא עָשַׂנִי גּוֹי.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁלֹּא עָשַׂנִי עָבֶד.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁלֹּא עָשַׂנִי אִשָּׁה. (אישה אומרת: שֶׁעָשַׂנִי כִּרְצוֹנוֹ.)
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַמַּעֲבִיר חֶבְלֵי שֵׁנָה מֵעֵינַי וּתְנוּמָה מֵעַפְעַפָּי...`},
+  {n:"קְרִיאַת שְׁמַע (שָׁלֹשׁ פָּרָשִׁיּוֹת)", a:"מן התורה — דברים ו, יא; במדבר טו", t:`שְׁמַע יִשְׂרָאֵל, יְהֹוָה אֱלֹהֵינוּ, יְהֹוָה אֶחָד.
+(בְּלַחַשׁ:) בָּרוּךְ שֵׁם כְּבוֹד מַלְכוּתוֹ לְעוֹלָם וָעֶד.
+
+וְאָהַבְתָּ אֵת יְהֹוָה אֱלֹהֶיךָ בְּכָל לְבָבְךָ וּבְכָל נַפְשְׁךָ וּבְכָל מְאֹדֶךָ. וְהָיוּ הַדְּבָרִים הָאֵלֶּה אֲשֶׁר אָנֹכִי מְצַוְּךָ הַיּוֹם עַל לְבָבֶךָ. וְשִׁנַּנְתָּם לְבָנֶיךָ וְדִבַּרְתָּ בָּם, בְּשִׁבְתְּךָ בְּבֵיתֶךָ וּבְלֶכְתְּךָ בַדֶּרֶךְ וּבְשָׁכְבְּךָ וּבְקוּמֶךָ. וּקְשַׁרְתָּם לְאוֹת עַל יָדֶךָ וְהָיוּ לְטֹטָפֹת בֵּין עֵינֶיךָ. וּכְתַבְתָּם עַל מְזֻזוֹת בֵּיתֶךָ וּבִשְׁעָרֶיךָ.
+
+וְהָיָה אִם שָׁמֹעַ תִּשְׁמְעוּ אֶל מִצְוֹתַי אֲשֶׁר אָנֹכִי מְצַוֶּה אֶתְכֶם הַיּוֹם, לְאַהֲבָה אֶת יְהֹוָה אֱלֹהֵיכֶם וּלְעָבְדוֹ בְּכָל לְבַבְכֶם וּבְכָל נַפְשְׁכֶם. וְנָתַתִּי מְטַר אַרְצְכֶם בְּעִתּוֹ יוֹרֶה וּמַלְקוֹשׁ, וְאָסַפְתָּ דְגָנֶךָ וְתִירֹשְׁךָ וְיִצְהָרֶךָ. וְנָתַתִּי עֵשֶׂב בְּשָׂדְךָ לִבְהֶמְתֶּךָ, וְאָכַלְתָּ וְשָׂבָעְתָּ. הִשָּׁמְרוּ לָכֶם פֶּן יִפְתֶּה לְבַבְכֶם, וְסַרְתֶּם וַעֲבַדְתֶּם אֱלֹהִים אֲחֵרִים וְהִשְׁתַּחֲוִיתֶם לָהֶם. וְחָרָה אַף יְהֹוָה בָּכֶם וְעָצַר אֶת הַשָּׁמַיִם וְלֹא יִהְיֶה מָטָר, וְהָאֲדָמָה לֹא תִתֵּן אֶת יְבוּלָהּ, וַאֲבַדְתֶּם מְהֵרָה מֵעַל הָאָרֶץ הַטֹּבָה אֲשֶׁר יְהֹוָה נֹתֵן לָכֶם. וְשַׂמְתֶּם אֶת דְּבָרַי אֵלֶּה עַל לְבַבְכֶם וְעַל נַפְשְׁכֶם, וּקְשַׁרְתֶּם אֹתָם לְאוֹת עַל יֶדְכֶם וְהָיוּ לְטוֹטָפֹת בֵּין עֵינֵיכֶם. וְלִמַּדְתֶּם אֹתָם אֶת בְּנֵיכֶם לְדַבֵּר בָּם, בְּשִׁבְתְּךָ בְּבֵיתֶךָ וּבְלֶכְתְּךָ בַדֶּרֶךְ וּבְשָׁכְבְּךָ וּבְקוּמֶךָ. וּכְתַבְתָּם עַל מְזוּזוֹת בֵּיתֶךָ וּבִשְׁעָרֶיךָ. לְמַעַן יִרְבּוּ יְמֵיכֶם וִימֵי בְנֵיכֶם עַל הָאֲדָמָה אֲשֶׁר נִשְׁבַּע יְהֹוָה לַאֲבֹתֵיכֶם לָתֵת לָהֶם, כִּימֵי הַשָּׁמַיִם עַל הָאָרֶץ.
+
+וַיֹּאמֶר יְהֹוָה אֶל מֹשֶׁה לֵּאמֹר. דַּבֵּר אֶל בְּנֵי יִשְׂרָאֵל וְאָמַרְתָּ אֲלֵהֶם, וְעָשׂוּ לָהֶם צִיצִת עַל כַּנְפֵי בִגְדֵיהֶם לְדֹרֹתָם, וְנָתְנוּ עַל צִיצִת הַכָּנָף פְּתִיל תְּכֵלֶת. וְהָיָה לָכֶם לְצִיצִת, וּרְאִיתֶם אֹתוֹ וּזְכַרְתֶּם אֶת כָּל מִצְוֹת יְהֹוָה וַעֲשִׂיתֶם אֹתָם, וְלֹא תָתוּרוּ אַחֲרֵי לְבַבְכֶם וְאַחֲרֵי עֵינֵיכֶם אֲשֶׁר אַתֶּם זֹנִים אַחֲרֵיהֶם. לְמַעַן תִּזְכְּרוּ וַעֲשִׂיתֶם אֶת כָּל מִצְוֹתָי, וִהְיִיתֶם קְדֹשִׁים לֵאלֹהֵיכֶם. אֲנִי יְהֹוָה אֱלֹהֵיכֶם אֲשֶׁר הוֹצֵאתִי אֶתְכֶם מֵאֶרֶץ מִצְרַיִם לִהְיוֹת לָכֶם לֵאלֹהִים, אֲנִי יְהֹוָה אֱלֹהֵיכֶם. אֱמֶת.`},
+  {n:"קְרִיאַת שְׁמַע שֶׁעַל הַמִּטָּה (עדות המזרח, מלא)", a:"ע\"פ הזוהר ור' יהושע בן לוי (ברכות ס:; שבועות טו:)", t:`לְשֵׁם יִחוּד קֻדְשָׁא בְּרִיךְ הוּא וּשְׁכִינְתֵּיהּ, בִּדְחִילוּ וּרְחִימוּ, וּרְחִימוּ וּדְחִילוּ, לְיַחֲדָא שֵׁם אות י ואות ה בשם אות ו ואות ה בְּיִחוּדָא שְׁלִים בְּשֵׁם כָּל יִשְׂרָאֵל. הֲרֵינִי מְקַבֵּל עָלַי אֱלָהוּתוֹ יִתְבָּרַךְ וְאַהֲבָתוֹ וְיִרְאָתוֹ, וַהֲרֵינִי יָרֵא מִמֶּנּוּ בְּגִין דְּאִיהוּ רַב וְשַׁלִּיט עַל כֹּלָּא, וְכֹלָּא קָמֵיהּ כְּלָא. וַהֲרֵינִי מַמְלִיכוֹ עַל כָּל אֵבָר וְאֵבָר וְגִיד וְגִיד מֵרַמַ״ח אֵבָרִים וְשַׁסַ״ה גִּידִים שֶׁל גּוּפִי וְנַפְשִׁי, רוּחִי וְנִשְׁמָתִי מַלְכוּת גְּמוּרָה וּשְׁלֵמָה, וַהֲרֵינִי עֶבֶד לַיְהֹוָה יִתְבָּרַךְ. וְהוּא בְּרַחֲמָיו יְזַכֵּנִי לְעָבְדוֹ בְּלֵבָב שָׁלֵם וְנֶפֶשׁ חֲפֵצָה, אָמֵן כֵּן יְהִי רָצוֹן.
+
+— מְחִילָה —
+רִבּוֹנוֹ שֶׁל עוֹלָם הֲרֵינִי מוֹחֵל וְסוֹלֵחַ לְכָל מִי שֶׁהִכְעִיס וְהִקְנִיט אוֹתִי אוֹ שֶׁחָטָא כְּנֶגְדִּי, בֵּין בְּגוּפִי בֵּין בְּמָמוֹנִי בֵּין בִּכְבוֹדִי בֵּין בְּכָל אֲשֶׁר לִי, בֵּין בְּאֹנֶס בֵּין בְּרָצוֹן בֵּין בְּשׁוֹגֵג בֵּין בְּמֵזִיד בֵּין בְּדִבּוּר בֵּין בְּמַעֲשֶׂה, בֵּין בְּגִלְגּוּל זֶה בֵּין בְּגִלְגּוּל אַחֵר לְכָל בַּר יִשְׂרָאֵל וְלֹא יֵעָנֵשׁ שׁוּם אָדָם בְּסִבָּתִי. יְהִי רָצוֹן מִלְּפָנֶיךָ יְהֹוָה אֱלֹהַי וֵאלֹהֵי אֲבוֹתַי שֶׁלֹּא אֶחֱטָא עוֹד, וּמַה שֶּׁחָטָאתִי לְפָנֶיךָ מְחוֹק בְּרַחֲמֶיךָ הָרַבִּים אֲבָל לֹא עַל יְדֵי יִסּוּרִין וְחוֹלָאִים רָעִים. יִהְיוּ לְרָצוֹן אִמְרֵי פִי וְהֶגְיוֹן לִבִּי לְפָנֶיךָ, יְהֹוָה צוּרִי וְגֹאֲלִי.
+
+— בִּרְכַּת הַמַּפִּיל —
+(אחרי חצות הלילה — נוהגים בלי שם ומלכות. מנהג ספרדים לפי מרן הרב עובדיה יוסף זצ״ל — גם אחרי חצות עם שם ומלכות.)
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַמַּפִּיל חֶבְלֵי שֵׁנָה עַל עֵינַי וּתְנוּמָה עַל עַפְעַפַּי וּמֵאִיר לְאִישׁוֹן בַּת עָיִן. יְהִי רָצוֹן מִלְּפָנֶיךָ יְהֹוָה אֱלֹהַי וֵאלֹהֵי אֲבוֹתַי, שֶׁתַּשְׁכִּיבֵנִי לְשָׁלוֹם וְתַעֲמִידֵנִי לְחַיִּים טוֹבִים וּלְשָׁלוֹם וְתֵן חֶלְקִי בְּתוֹרָתֶךָ, וְתַרְגִּילֵנִי לִדְבַר מִצְוָה וְאַל תַּרְגִּילֵנִי לִדְבַר עֲבֵרָה, וְאַל תְּבִיאֵנִי לִידֵי חֵטְא וְלֹא לִידֵי נִסָּיוֹן וְלֹא לִידֵי בִזָּיוֹן. וְיִשְׁלֹט בִּי יֵצֶר הַטּוֹב וְאַל יִשְׁלֹט בִּי יֵצֶר הָרָע. וְתַצִּילֵנִי מִיֵּצֶר הָרָע וּמֵחוֹלָאִים רָעִים, וְאַל יַבְהִילוּנִי חֲלוֹמוֹת רָעִים וְהִרְהוּרִים רָעִים, וּתְהֵא מִטָּתִי שְׁלֵמָה לְפָנֶיךָ וְהָאֵר עֵינַי פֶּן אִישַׁן הַמָּוֶת. בָּרוּךְ אַתָּה יְהֹוָה, הַמֵּאִיר לְעוֹלָם כֻּלּוֹ בִּכְבוֹדוֹ.
+
+— קְרִיאַת שְׁמַע —
+שְׁמַע יִשְׂרָאֵל, יְהֹוָה אֱלֹהֵינוּ, יְהֹוָה אֶחָד.
+בָּרוּךְ שֵׁם כְּבוֹד מַלְכוּתוֹ לְעוֹלָם וָעֶד.
+(שלוש פרשיות שמע כסדרן.)
+
+— פְּסוּקֵי שְׁמִירָה —
+יַעַלְזוּ חֲסִידִים בְּכָבוֹד, יְרַנְּנוּ עַל מִשְׁכְּבוֹתָם. רוֹמְמוֹת אֵל בִּגְרוֹנָם, וְחֶרֶב פִּיפִיּוֹת בְּיָדָם.
+
+הִנֵּה מִטָּתוֹ שֶׁלִּשְׁלֹמֹה שִׁשִּׁים גִּבֹּרִים סָבִיב לָהּ, מִגִּבֹּרֵי יִשְׂרָאֵל. כֻּלָּם אֲחֻזֵי חֶרֶב מְלֻמְּדֵי מִלְחָמָה, אִישׁ חַרְבּוֹ עַל יְרֵכוֹ מִפַּחַד בַּלֵּילוֹת. (ג׳ פעמים)
+
+יְבָרֶכְךָ יְהֹוָה וְיִשְׁמְרֶךָ. יָאֵר יְהֹוָה פָּנָיו אֵלֶיךָ וִיחֻנֶּךָּ. יִשָּׂא יְהֹוָה פָּנָיו אֵלֶיךָ וְיָשֵׂם לְךָ שָׁלוֹם.
+
+— תהילים צ״א —
+יֹשֵׁב בְּסֵתֶר עֶלְיוֹן, בְּצֵל שַׁדַּי יִתְלוֹנָן. אֹמַר לַיְהֹוָה מַחְסִי וּמְצוּדָתִי, אֱלֹהַי אֶבְטַח בּוֹ. כִּי הוּא יַצִּילְךָ מִפַּח יָקוּשׁ מִדֶּבֶר הַוּוֹת. בְּאֶבְרָתוֹ יָסֶךְ לָךְ וְתַחַת כְּנָפָיו תֶּחְסֶה, צִנָּה וְסֹחֵרָה אֲמִתּוֹ. לֹא תִירָא מִפַּחַד לָיְלָה, מֵחֵץ יָעוּף יוֹמָם. מִדֶּבֶר בָּאֹפֶל יַהֲלֹךְ, מִקֶּטֶב יָשׁוּד צָהֳרָיִם. יִפֹּל מִצִּדְּךָ אֶלֶף וּרְבָבָה מִימִינֶךָ, אֵלֶיךָ לֹא יִגָּשׁ. רַק בְּעֵינֶיךָ תַבִּיט, וְשִׁלֻּמַת רְשָׁעִים תִּרְאֶה. כִּי אַתָּה יְהֹוָה מַחְסִי.
+
+— וִדּוּי (לא בשבת, חג, ובחודש ניסן) —
+אָנָּא יְהֹוָה אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ, תָּבֹא לְפָנֶיךָ תְּפִלָּתֵנוּ, וְאַל תִּתְעַלַּם מַלְכֵּנוּ מִתְּחִנָּתֵנוּ. אֲבָל חָטָאנוּ, עָוִינוּ, פָּשַׁעְנוּ, אֲנַחְנוּ וַאֲבוֹתֵינוּ וְאַנְשֵׁי בֵיתֵנוּ.
+
+אָשַׁמְנוּ. בָּגַדְנוּ. גָּזַלְנוּ. דִּבַּרְנוּ דֹפִי וְלָשׁוֹן הָרָע. הֶעֱוִינוּ. וְהִרְשַׁעְנוּ. זַדְנוּ. חָמַסְנוּ. טָפַלְנוּ שֶׁקֶר וּמִרְמָה. יָעַצְנוּ עֵצוֹת רָעוֹת. כִּזַּבְנוּ. כָּעַסְנוּ. לַצְנוּ. מָרַדְנוּ. מָרִינוּ דְבָרֶיךָ. נִאַצְנוּ. נִאַפְנוּ. סָרַרְנוּ. עָוִינוּ. פָּשַׁעְנוּ. פָּגַמְנוּ. צָרַרְנוּ. צִעַרְנוּ אָב וָאֵם. קִשִּׁינוּ עֹרֶף. רָשַׁעְנוּ. שִׁחַתְנוּ. תִּעַבְנוּ. תָּעִינוּ וְתִעֲתַעְנוּ. וְסַרְנוּ מִמִּצְוֹתֶיךָ וּמִמִּשְׁפָּטֶיךָ הַטּוֹבִים וְלֹא שָׁוָה לָנוּ. וְאַתָּה צַדִּיק עַל כָּל הַבָּא עָלֵינוּ, כִּי אֱמֶת עָשִׂיתָ, וַאֲנַחְנוּ הִרְשָׁעְנוּ.
+
+— אָנָּא בְּכֹחַ —
+(אומרים את כל הנוסח, ואז 3 פעמים את הפסוק של היום בשבוע. יום ראשון בלילה נחשב כיום שני, וכן הלאה.)
+
+אָנָּא בְּכֹחַ, גְּדֻלַּת יְמִינֶךָ, תַּתִּיר צְרוּרָה.
+קַבֵּל רִנַּת, עַמֶּךָ, שַׂגְּבֵנוּ, טַהֲרֵנוּ נוֹרָא.
+נָא גִבּוֹר, דּוֹרְשֵׁי יִחוּדֶךָ, כְּבָבַת שָׁמְרֵם.
+בָּרְכֵם טַהֲרֵם, רַחֲמֵי צִדְקָתֶךָ, תָּמִיד גָּמְלֵם.
+חָסִין קָדוֹשׁ, בְּרֹב טוּבְךָ, נַהֵל עֲדָתֶךָ.
+יָחִיד גֵּאֶה, לְעַמְּךָ פְּנֵה, זוֹכְרֵי קְדֻשָּׁתֶךָ.
+שַׁוְעָתֵנוּ קַבֵּל, וּשְׁמַע צַעֲקָתֵנוּ, יוֹדֵעַ תַּעֲלוּמוֹת.
+
+בלחש: בָּרוּךְ שֵׁם כְּבוֹד מַלְכוּתוֹ לְעוֹלָם וָעֶד.
+
+— סִיּוּם —
+אַתָּה תָקוּם תְּרַחֵם צִיּוֹן, כִּי עֵת לְחֶנְנָהּ כִּי בָא מוֹעֵד.
+בְּיָדְךָ אַפְקִיד רוּחִי, פָּדִיתָה אוֹתִי יְהֹוָה אֵל אֱמֶת.`},
+  {n:"אֲשֶׁר יָצַר (עדות המזרח)", a:"תיקנו אנשי כנסת הגדולה (ברכות ס:)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר יָצַר אֶת הָאָדָם בְּחׇכְמָה, וּבָרָא בוֹ נְקָבִים נְקָבִים, חֲלוּלִים חֲלוּלִים. גָּלוּי וְיָדוּעַ לִפְנֵי כִסֵּא כְבוֹדֶךָ, שֶׁאִם יִסָּתֵם אֶחָד מֵהֶם, אוֹ אִם יִפָּתֵֽחַ אֶחָד מֵהֶם, אִי אֶפְשַׁר לְהִתְקַיֵּם אֲפִילוּ שָׁעָה אֶחָת. בָּרוּךְ אַתָּה יְהֹוָה, רוֹפֵא כׇל בָּשָׂר וּמַפְלִיא לַעֲשֹוֹת.`},
+  {n:"בִּרְכוֹת הַנֶּהֱנִין", a:"תיקנו חז\"ל (ברכות לה)", t:`הַמּוֹצִיא (לֶחֶם):
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַמּוֹצִיא לֶחֶם מִן הָאָרֶץ.
+
+מְזוֹנוֹת (תַּבְשִׁילֵי דָּגָן):
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא מִינֵי מְזוֹנוֹת.
+
+הַגֶּפֶן (יַיִן):
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הַגֶּפֶן.
+
+הָעֵץ (פֵּרוֹת אִילָן):
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הָעֵץ.
+
+הָאֲדָמָה (יְרָקוֹת):
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הָאֲדָמָה.
+
+שֶׁהַכֹּל (שְׁאָר מַאֲכָלִים וּמַשְׁקִים):
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁהַכֹּל נִהְיָה בִּדְבָרוֹ.`},
+  {n:"בְּרָכָה מֵעֵין שָׁלוֹשׁ", a:"ברכה דרבנן מעין דאורייתא (ברכות מד.)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם,
+
+על חמשת המינים: עַל הַמִּחְיָה וְעַל הַכַּלְכָּלָה,
+על יין: עַל הַגֶּפֶן וְעַל פְּרִי הַגֶּפֶן,
+על שבעת המינים: עַל הָעֵץ וְעַל פְּרִי הָעֵץ,
+
+וְעַל תְּנוּבַת הַשָּׂדֶה, וְעַל אֶרֶץ חֶמְדָּה טוֹבָה וּרְחָבָה שֶׁרָצִיתָ וְהִנְחַלְתָּ לַאֲבוֹתֵינוּ, לֶאֱכֹל מִפִּרְיָהּ וְלִשְׂבֹּעַ מִטּוּבָהּ.
+
+רַחֵם יְהֹוָה אֱלֹהֵינוּ, עָלֵינוּ וְעַל יִשְׂרָאֵל עַמָּךְ, וְעַל יְרוּשָׁלַיִם עִירָךְ, וְעַל הַר צִיּוֹן מִשְׁכַּן כְּבוֹדָךְ, וְעַל מִזְבָּחָךְ וְעַל הֵיכָלָךְ. וּבְנֵה יְרוּשָׁלַיִם עִיר הַקֹּדֶשׁ בִּמְהֵרָה בְיָמֵינוּ. וְהַעֲלֵנוּ לְתוֹכָהּ, וְשַׂמְּחֵנוּ בְּבִנְיָנָהּ, וּנְבָרֶכְךָ עָלֶיהָ בִּקְדֻשָּׁה וּבְטָהֳרָה.
+
+כִּי אַתָּה טוֹב וּמֵטִיב לַכֹּל, וְנוֹדֶה לְּךָ (יְהֹוָה אֱלֹהֵינוּ) עַל הָאָרֶץ
+
+על חמשת המינים: וְעַל הַמִּחְיָה וְעַל הַכַּלְכָּלָה.
+על יין: וְעַל פְּרִי הַגָּפֶן.
+על שבעת המינים: וְעַל הַפֵּרוֹת.
+
+(בארץ ישראל: וְעַל מִחְיָתָהּ / עַל גַפְנָהּ / עַל פֵּרוֹתֶיהָ.)
+
+בָּרוּךְ אַתָּה יְהֹוָה, עַל הָאָרֶץ
+
+על חמשת המינים: וְעַל הַמִּחְיָה.
+על יין: וְעַל פְּרִי הַגָּפֶן.
+על שבעת המינים: וְעַל הַפֵּרוֹת.`},
+  {n:"בּוֹרֵא נְפָשׁוֹת", a:"תיקנו חז\"ל (ברכות לז.)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא נְפָשׁוֹת רַבּוֹת וְחֶסְרוֹנָן, עַל כֹּל מַה שֶּׁבָּרָאתָ לְהַחֲיוֹת בָּהֶם נֶפֶשׁ כָּל חָי. בָּרוּךְ חֵי הָעוֹלָמִים.`},
+  {n:"שֶׁהֶחֱיָנוּ", a:"תיקנו חז\"ל (ברכות נד.)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁהֶחֱיָנוּ וְקִיְּמָנוּ וְהִגִּיעָנוּ לַזְּמַן הַזֶּה.`},
+  {n:"הַגּוֹמֵל", a:"תיקנו חז\"ל (ברכות נד:; ע\"פ תהילים קז)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַגּוֹמֵל לְחַיָּבִים טוֹבוֹת שֶׁגְּמָלַנִי כָּל טוֹב.
+(הַקָּהָל עוֹנֶה:) אָמֵן. מִי שֶׁגְּמָלְךָ כָּל טוֹב, הוּא יִגְמָלְךָ כָּל טוֹב סֶלָה.`},
+  {n:"הַדְלָקַת נֵרוֹת שַׁבָּת", a:"תיקנו חז\"ל (שבת כג:)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר קִדְּשָׁנוּ בְּמִצְוֹתָיו וְצִוָּנוּ לְהַדְלִיק נֵר שֶׁל שַׁבָּת קֹדֶשׁ.`},
+  {n:"תְּפִלַּת הַדֶּרֶךְ", a:"תיקנו חז\"ל (ברכות כט:)", t:`יְהִי רָצוֹן מִלְּפָנֶיךָ יְהֹוָה אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ, שֶׁתּוֹלִיכֵנוּ לְשָׁלוֹם וְתַצְעִידֵנוּ לְשָׁלוֹם וְתַדְרִיכֵנוּ לְשָׁלוֹם, וְתַגִּיעֵנוּ לִמְחוֹז חֶפְצֵנוּ לְחַיִּים וּלְשִׂמְחָה וּלְשָׁלוֹם. וְתַצִּילֵנוּ מִכַּף כָּל אוֹיֵב וְאוֹרֵב וְלִסְטִים וְחַיּוֹת רָעוֹת בַּדֶּרֶךְ, וּמִכָּל מִינֵי פֻּרְעָנֻיּוֹת הַמִּתְרַגְּשׁוֹת לָבוֹא לָעוֹלָם. וְתִשְׁלַח בְּרָכָה בְּכָל מַעֲשֵׂה יָדֵינוּ, וְתִשְׁמַע קוֹל תַּחֲנוּנֵינוּ, כִּי אֵל שׁוֹמֵעַ תְּפִלָּה וְתַחֲנוּן אַתָּה. בָּרוּךְ אַתָּה יְהֹוָה, שׁוֹמֵעַ תְּפִלָּה.`},
+  {n:"בִּרְכַּת הַמָּזוֹן (עדות המזרח, מלא)", a:"מן התורה (דברים ח, י); בונה ירושלים — אנשי כנסת הגדולה", t:`— פתיחה בסעודת שבת ויום טוב: שִׁיר הַמַּעֲלוֹת —
+שִׁיר הַמַּעֲלוֹת בְּשׁוּב יְהֹוָה אֶת שִׁיבַת צִיּוֹן הָיִינוּ כְּחֹלְמִים. אָז יִמָּלֵא שְׂחוֹק פִּינוּ וּלְשׁוֹנֵנוּ רִנָּה.
+
+— לַמְנַצֵּחַ —
+לַמְנַצֵּחַ בִּנְגִינֹת מִזְמוֹר שִׁיר. אֱלֹהִים יְחׇנֵּנוּ וִיבָֽרְכֵנוּ. יָאֵר פָּנָיו אִתָּנוּ סֶלָה.
+
+— אֲבָרֲכָה —
+אֲבָרְכָה אֶת יְהֹוָה בְּכָל עֵת. תָּמִיד תְּהִלָּתוֹ בְּפִי. סוֹף דָּבָר הַכֹּל נִשְׁמָע. אֶת הָאֱלֹהִים יְרָא וְאֶת מִצְוֹתָיו שְׁמוֹר, כִּי זֶה כָּל הָאָדָם. תְּהִלַּת יְהֹוָה יְדַבֶּר פִּי. וִיבָרֵךְ כָּל בָּשָׂר שֵׁם קׇדְשׁוֹ לְעוֹלָם וָעֶד. וַאֲנַחְנוּ נְבָרֵךְ יָהּ מֵעַתָּה וְעַד עוֹלָם הַלְלוּיָהּ.
+
+וַיְדַבֵּר אֵלַי: זֶה הַשֻּׁלְחָן אֲשֶׁר לִפְנֵי יְהֹוָה.
+
+— זִמּוּן (כְּשֶׁאוֹכְלִים שְׁלוֹשָׁה) —
+המזמן: הַב לָן וְנִבְרִיךְ לְמַלְכָּא עִלָּאָה קַדִּישָׁא.
+עונים: שָׁמַיִם!
+המזמן: בִּרְשׁוּת מַלְכָּא עִלָּאָה קַדִּישָׁא, וּבִרְשׁוּת מוֹרַי וְרַבּוֹתַי וּבִרְשׁוּתְכֶם, נְבָרֵךְ (בַּעֲשָׂרָה: אֱלֹהֵינוּ) שֶׁאָכַלְנוּ מִשֶּׁלוֹ.
+עונים: בָּרוּךְ (בַּעֲשָׂרָה: אֱלֹהֵינוּ) שֶׁאָכַלְנוּ מִשֶּׁלוֹ וּבְטוּבוֹ חָיִינוּ.
+המזמן: בָּרוּךְ (אֱלֹהֵינוּ) שֶׁאָכַלְנוּ מִשֶּׁלוֹ וּבְטוּבוֹ הַגָּדוֹל תָּמִיד חָיִינוּ.
+
+— א׳ — בִּרְכַּת הַזָּן —
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הָאֵל הַזָּן אוֹתָנוּ וְאֶת הָעוֹלָם כֻּלּוֹ בְּטוּבוֹ, בְּחֵן בְּחֶסֶד בְּרֶוַח וּבְרַחֲמִים רַבִּים, נֹתֵן לֶחֶם לְכָל בָּשָׂר כִּי לְעוֹלָם חַסְדּוֹ. וּבְטוּבוֹ הַגָּדוֹל תָּמִיד לֹא חָסַר לָנוּ, וְאַל יֶחְסַר לָנוּ מָזוֹן תָּמִיד לְעוֹלָם וָעֶד, כִּי הוּא אֵל זָן וּמְפַרְנֵס לַכֹּל וְשֻׁלְחָנוֹ עָרוּךְ לַכֹּל, וְהִתְקִין מִחְיָה וּמָזוֹן לְכָל בְּרִיּוֹתָיו אֲשֶׁר בָּרָא בְּרַחֲמָיו וּבְרוֹב חֲסָדָיו, כָּאָמוּר: פּוֹתֵחַ אֶת יָדֶךָ וּמַשְׂבִּיעַ לְכָל חַי רָצוֹן. בָּרוּךְ אַתָּה יְהֹוָה, הַזָּן אֶת הַכֹּל.
+
+— ב׳ — בִּרְכַּת הָאָרֶץ —
+נוֹדֶה לְּךָ יְהֹוָה אֱלֹהֵינוּ עַל שֶׁהִנְחַלְתָּ לַאֲבוֹתֵינוּ אֶרֶץ חֶמְדָּה טוֹבָה וּרְחָבָה, בְּרִית וְתוֹרָה חַיִּים וּמָזוֹן. עַל שֶׁהוֹצֵאתָנוּ מֵאֶרֶץ מִצְרַיִם וּפְדִיתָנוּ מִבֵּית עֲבָדִים, וְעַל בְּרִיתְךָ שֶׁחָתַמְתָּ בִּבְשָׂרֵנוּ, וְעַל תּוֹרָתְךָ שֶׁלִּמַּדְתָּנוּ, וְעַל חֻקֵּי רְצוֹנָךְ שֶׁהוֹדַעְתָּנוּ, וְעַל חַיִּים וּמָזוֹן שֶׁאַתָּה זָן וּמְפַרְנֵס אוֹתָנוּ.
+
+וְעַל הַכֹּל יְהֹוָה אֱלֹהֵינוּ אֲנַחְנוּ מוֹדִים לָךְ וּמְבָרְכִים אֶת שְׁמָךְ, כָּאָמוּר: וְאָכַלְתָּ וְשָׂבָעְתָּ וּבֵרַכְתָּ אֶת יְהֹוָה אֱלֹהֶיךָ עַל הָאָרֶץ הַטֹּבָה אֲשֶׁר נָתַן לָךְ. בָּרוּךְ אַתָּה יְהֹוָה, עַל הָאָרֶץ וְעַל הַמָּזוֹן.
+
+— ג׳ — רַחֵם (בּוֹנֵה יְרוּשָׁלַיִם) —
+רַחֵם יְהֹוָה אֱלֹהֵינוּ עָלֵינוּ וְעַל יִשְׂרָאֵל עַמָּךְ, וְעַל יְרוּשָׁלַיִם עִירָךְ, וְעַל הַר צִיּוֹן מִשְׁכַּן כְּבוֹדָךְ, וְעַל הֵיכָלָךְ, וְעַל מְעוֹנָךְ, וְעַל דְּבִירָךְ, וְעַל הַבַּיִת הַגָּדוֹל וְהַקָּדוֹשׁ שֶׁנִּקְרָא שִׁמְךָ עָלָיו. אָבִינוּ רְעֵנוּ זוּנֵנוּ, פַּרְנְסֵנוּ, כַּלְכְּלֵנוּ, הַרְוִיחֵנוּ, וְהַרְוַח לָנוּ מְהֵרָה מִכָּל צָרוֹתֵינוּ. וְנָא אַל תַּצְרִיכֵנוּ יְהֹוָה אֱלֹהֵינוּ לִידֵי מַתְּנוֹת בָּשָׂר וָדָם וְלֹא לִידֵי הַלְוָאָתָם, אֶלָּא לְיָדְךָ הַמְּלֵאָה וְהָרְחָבָה, הָעֲשִׁירָה וְהַפְּתוּחָה. יְהִי רָצוֹן שֶׁלּא נֵבוֹשׁ בָּעוֹלָם הַזֶּה וְלֹא נִכָּלֵם לְעוֹלָם הַבָּא. וּמַלְכוּת בֵּית דָּוִד מְשִׁיחָךְ תַּחֲזִירֶנָּה לִמְקוֹמָהּ בִּמְהֵרָה בְיָמֵינוּ.
+
+וְתִבְנֶה יְרוּשָׁלַיִם עִירָךְ בִּמְהֵרָה בְיָמֵינוּ. בָּרוּךְ אַתָּה יְהֹוָה, בּוֹנֵה יְרוּשָׁלָיִם. (אָמֵן)
+
+— ד׳ — הַטּוֹב וְהַמֵּטִיב —
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, לָעַד הָאֵל אָבִינוּ מַלְכֵּנוּ אַדִּירֵנוּ, בּוֹרְאֵנוּ, גּוֹאֲלֵנוּ, קְדוֹשֵׁנוּ, קְדוֹשׁ יַעֲקֹב, רוֹעֵנוּ רוֹעֵה יִשְׂרָאֵל, הַמֶּלֶךְ הַטּוֹב וְהַמֵּטִיב לַכֹּל, שֶׁבְּכָל יוֹם וָיוֹם הוּא הֵיטִיב לָנוּ, הוּא מֵיטִיב לָנוּ, הוּא יֵיטִיב לָנוּ, הוּא גְמָלָנוּ, הוּא גוֹמְלֵנוּ, הוּא יִגְמְלֵנוּ לָעַד חֵן וָחֶסֶד וְרַחֲמִים וְרֵיוַח וְהַצָּלָה וְכָל טוֹב.
+
+— הָרַחֲמָן —
+הָרַחֲמָן הוּא יִשְׁתַּבַּח עַל כִּסֵּא כְבוֹדוֹ. הָרַחֲמָן הוּא יִשְׁתַּבַּח בַּשָּׁמַיִם וּבָאָרֶץ. הָרַחֲמָן הוּא יִשְׁתַּבַּח בָּנוּ לְדוֹר דּוֹרִים. הָרַחֲמָן הוּא קֶרֶן לְעַמּוֹ יָרִים. הָרַחֲמָן הוּא יִתְפָּאַר בָּנוּ לָנֶצַח נְצָחִים. הָרַחֲמָן הוּא יְפַרְנְסֵנוּ בְּכָבוֹד וְלֹא בְבִזּוּי, בְּהֶתֵּר וְלֹא בְאִסּוּר, בְּנַחַת וְלֹא בְצָעַר, בְּרֶוַח וְלֹא בְצִמְצוּם. הָרַחֲמָן הוּא יִתֵּן שָׁלוֹם בֵּינֵינוּ. הָרַחֲמָן הוּא יִשְׁלַח בְּרָכָה רְוָחָה וְהַצְלָחָה בְּכָל מַעֲשֵׂה יָדֵינוּ. הָרַחֲמָן הוּא יַצְלִיחַ אֶת דְּרָכֵינוּ. הָרַחֲמָן הוּא יִשְׁבּוֹר עוֹל גָּלוּת מְהֵרָה מֵעַל צַוָּארֵנוּ. הָרַחֲמָן הוּא יוֹלִיכֵנוּ מְהֵרָה קוֹמְמִיּוּת לְאַרְצֵנוּ. הָרַחֲמָן הוּא יִרְפָּאֵנוּ רְפוּאָה שְׁלֵמָה, רְפוּאַת הַנֶּפֶשׁ וּרְפוּאַת הַגּוּף וּרְפוּאַת הָרוּחַ וּרְפוּאַת הַנְּשָׁמָה. הָרַחֲמָן הוּא יִפְתַּח לָנוּ אֶת יָדוֹ הָרְחָבָה. הָרַחֲמָן הוּא יְבָרֵךְ כָּל אֶחָד וְאֶחָד מִמֶּנּוּ בִּשְׁמוֹ הַגָּדוֹל כְּמוֹ שֶׁנִּתְבָּרְכוּ אֲבוֹתֵינוּ אַבְרָהָם יִצְחָק וְיַעֲקֹב בַּכֹּל מִכֹּל כֹּל. כֵּן יְבָרֵךְ אוֹתָנוּ יַחַד בְּרָכָה שְׁלֵמָה, וְכֵן יְהִי רָצוֹן וְנֹאמַר אָמֵן. הָרַחֲמָן הוּא יִפְרוֹשׂ עָלֵינוּ סֻכַּת שְׁלוֹמוֹ. הָרַחֲמָן הוּא יִטַּע תּוֹרָתוֹ וְאַהֲבָתוֹ בְּלִבֵּנוּ וְתִהְיֶה יִרְאָתוֹ עַל פָּנֵינוּ לְבִלְתִּי נֶחֱטָא. וְיִהְיוּ כָל מַעֲשֵׂינוּ לְשֵׁם שָׁמָיִם.
+
+— בִּרְכַּת מְדִינַת יִשְׂרָאֵל (וְיֵשׁ נוֹהֲגִים) —
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת מְדִינַת יִשְׂרָאֵל, רֵאשִׁית צְמִיחַת גְּאֻלָּתֵנוּ.
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת חַיָּלֵי צְבָא הַהֲגָנָה לְיִשְׂרָאֵל וְאַנְשֵׁי כֹּחוֹת הַבִּטָּחוֹן, הָעוֹמְדִים עַל מִשְׁמַר אַרְצֵנוּ וְעָרֵי אֱלֹהֵינוּ.
+
+— בִּרְכַּת הָאוֹרֵחַ —
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת הַשֻּׁלְחָן הַזֶּה שֶׁאָכַלְנוּ עָלָיו, וִיסַדֵּר בּוֹ כָּל מַעֲדַנֵּי עוֹלָם, וְיִהְיֶה כְּשֻׁלְחָנוֹ שֶׁל אַבְרָהָם אָבִינוּ עָלָיו הַשָּׁלוֹם. כָּל רָעֵב מִמֶּנּוּ יֹאכַל, וְכָל צָמֵא מִמֶּנּוּ יִשְׁתֶּה, וְאַל יֶחְסַר מִמֶּנּוּ כָּל טוּב לָעַד וּלְעוֹלְמֵי עוֹלָמִים.
+
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת בַּעַל הַבַּיִת הַזֶּה וּבַעַל הַסְּעֻדָּה הַזֹּאת. הוּא וּבָנָיו וְאִשְׁתּוֹ וְכָל אֲשֶׁר לוֹ, בְּבָנִים שֶׁיִּחְיוּ וּבִנְכָסִים שֶׁיִּרְבּוּ. אָמֵן כֵּן יְהִי רָצוֹן.
+
+— בִּסְעֻדַּת מִילָה —
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת אֲבִי הַבֵּן וְאֶת הָאֵם הַיּוֹלֶדֶת מֵעַתָּה וְעַד עוֹלָם.
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת הַיֶּלֶד הַנּוֹלָד, וּכְשֵׁם שֶׁזִּכָּהוּ הַקָּדוֹשׁ בָּרוּךְ הוּא לְמִילָה, כָּךְ יְזַכֵּהוּ לְהִכָּנֵס לַתּוֹרָה וּלְחֻפָּה וּלְמִצְוֹת וּלְמַעֲשִׂים טוֹבִים. אָמֵן.
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת מַעֲלַת הַסַּנְדָּק וְהַמּוֹהֵל וּשְׁאָר הַמִּשְׁתַּדְּלִים בַּמִּצְוָה.
+
+— בִּסְעֻדַּת חָתָן —
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת הֶחָתָן וְהַכַּלָּה בְּבָנִים זְכָרִים לַעֲבוֹדָתוֹ יִתְבָּרַךְ.
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת כָּל הַמְסֻבִּין בַּשֻּׁלְחָן הַזֶּה, וְיִתֵּן לָנוּ הַקָּדוֹשׁ בָּרוּךְ הוּא כָּל מִשְׁאֲלוֹת לִבֵּנוּ לְטוֹבָה.
+
+— סִיּוּם —
+הָרַחֲמָן הוּא יְחַיֵּינוּ וִיזַכֵּנוּ וִיקָרְבֵנוּ לִימוֹת הַמָּשִׁיחַ וּלְבִנְיַן בֵּית הַמִּקְדָּשׁ וּלְחַיֵּי הָעוֹלָם הַבָּא. מַגְדִּיל יְשׁוּעוֹת מַלְכּוֹ, וְעֹשֶׂה חֶסֶד לִמְשִׁיחוֹ לְדָוִד וּלְזַרְעוֹ עַד עוֹלָם.
+
+מַה שֶּׁאָכַלְנוּ יִהְיֶה לְשָׂבְעָה, וּמַה שֶּׁשָּׁתִינוּ יִהְיֶה לִרְפוּאָה, וּמַה שֶּׁהוֹתַרְנוּ יִהְיֶה לִבְרָכָה. בָּרוּךְ הַגֶּבֶר אֲשֶׁר יִבְטַח בַּיהֹוָה, וְהָיָה יְהֹוָה מִבְטַחוֹ. יְהֹוָה עֹז לְעַמּוֹ יִתֵּן, יְהֹוָה יְבָרֵךְ אֶת עַמּוֹ בַשָּׁלוֹם.
+
+עֹשֶׂה שָׁלוֹם בִּמְרוֹמָיו, הוּא בְרַחֲמָיו יַעֲשֶׂה שָׁלוֹם עָלֵינוּ וְעַל כָּל עַמּוֹ יִשְׂרָאֵל, וְאִמְרוּ אָמֵן.`},
+  {n:"הַתִּיקוּן הַכְּלָלִי", a:"רבי נחמן מברסלב — ליקוטי מוהר\"ן תנינא ע\"ב (אסכרא תקס\"ה)", t:`— יְהִי רָצוֹן קוֹדֵם אֲמִירַת תְּהִלִּים —
+יְהִי רָצוֹן מִלְּפָנֶיךָ יְהֹוָה אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ הַבּוֹחֵר בְּדָוִד עַבְדּוֹ וּבְזַרְעוֹ אַחֲרָיו, וְהַבּוֹחֵר בְּשִׁירוֹת וְתִשְׁבָּחוֹת, שֶׁתֵּפֶן בְּרַחֲמִים אֶל קְרִיאַת מִזְמוֹרֵי תְּהִלִּים שֶׁאֶקְרָא, כְּאִלּוּ אֲמָרָם דָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם בְּעַצְמוֹ. זְכוּתוֹ יָגֵן עָלֵינוּ. וְיַעֲמֹד לָנוּ זְכוּת פְּסוּקֵי תְּהִלִּים וּזְכוּת תֵּבוֹתֵיהֶם וְאוֹתִיוֹתֵיהֶם וּנְקֻדּוֹתֵיהֶם וְטַעֲמֵיהֶם, לְכַפֵּר פְּשָׁעֵינוּ וַעֲוֹנוֹתֵינוּ וְחַטֹּאתֵינוּ.
+
+— לְכוּ נְרַנְּנָה —
+לְכוּ נְרַנְּנָה לַיהֹוָה, נָרִיעָה לְצוּר יִשְׁעֵנוּ. נְקַדְּמָה פָנָיו בְּתוֹדָה, בִּזְמִרוֹת נָרִיעַ לוֹ.
+
+— הֲרֵינִי מְזַמֵּן —
+הֲרֵינִי מְזַמֵּן אֶת פִּי לְהוֹדוֹת וּלְהַלֵּל וּלְשַׁבֵּחַ אֶת בּוֹרְאִי, לְשֵׁם יִחוּד קֻדְשָׁא בְּרִיךְ הוּא וּשְׁכִינְתֵּיהּ, בִּדְחִילוּ וּרְחִימוּ, עַל יְדֵי הַהוּא טָמִיר וְנֶעְלָם, בְּשֵׁם כָּל יִשְׂרָאֵל.
+
+— הֲרֵינִי מְקַשֵּׁר —
+הֲרֵינִי מְקַשֵּׁר עַצְמִי בַּאֲמִירַת הָעֲשָׂרָה מִזְמוֹרִים אֵלּוּ לְכָל הַצַּדִּיקִים הָאֲמִתִּיִּים שֶׁבְּדוֹרֵנוּ, וּלְכָל הַצַּדִּיקִים הָאֲמִתִּים שׁוֹכְנֵי עָפָר — קְדוֹשִׁים אֲשֶׁר בָּאָרֶץ הֵמָּה, וּבִפְרָט לְרַבֵּנוּ הַקָּדוֹשׁ, צַדִּיק יְסוֹד עוֹלָם, נַחַל נוֹבֵעַ מְקוֹר חָכְמָה, רַבֵּנוּ נַחְמָן בֶּן פֵייגֶא. זְכוּתָם יָגֵן עָלֵינוּ וְעַל כָּל יִשְׂרָאֵל אָמֵן.
+
+— מִזְמוֹר טז —
+מִכְתָּם לְדָוִד: שָׁמְרֵנִי אֵל כִּי חָסִיתִי בָךְ... שִׁוִּיתִי יְהֹוָה לְנֶגְדִּי תָמִיד, כִּי מִימִינִי בַּל אֶמּוֹט. לָכֵן שָׂמַח לִבִּי וַיָּגֶל כְּבוֹדִי, אַף בְּשָׂרִי יִשְׁכֹּן לָבֶטַח... תּוֹדִיעֵנִי אֹרַח חַיִּים, שֹׂבַע שְׂמָחוֹת אֶת פָּנֶיךָ, נְעִמוֹת בִּימִינְךָ נֶצַח.
+
+— מִזְמוֹר לב —
+לְדָוִד מַשְׂכִּיל: אַשְׁרֵי נְשׂוּי פֶּשַׁע, כְּסוּי חֲטָאָה. אַשְׁרֵי אָדָם לֹא יַחְשֹׁב יְהֹוָה לוֹ עָוֹן... חַטָּאתִי אוֹדִיעֲךָ וַעֲוֹנִי לֹא כִסִּיתִי. אָמַרְתִּי אוֹדֶה עֲלֵי פְשָׁעַי לַיהֹוָה, וְאַתָּה נָשָׂאתָ עֲוֹן חַטָּאתִי סֶלָה.
+
+— מִזְמוֹר מא —
+לַמְנַצֵּחַ מִזְמוֹר לְדָוִד: אַשְׁרֵי מַשְׂכִּיל אֶל דָּל, בְּיוֹם רָעָה יְמַלְּטֵהוּ יְהֹוָה... וַאֲנִי בְּתֻמִּי תָּמַכְתָּ בִּי, וַתַּצִּיבֵנִי לְפָנֶיךָ לְעוֹלָם. בָּרוּךְ יְהֹוָה אֱלֹהֵי יִשְׂרָאֵל מֵהָעוֹלָם וְעַד הָעוֹלָם, אָמֵן וְאָמֵן.
+
+— מִזְמוֹר מב —
+לַמְנַצֵּחַ מַשְׂכִּיל לִבְנֵי קֹרַח: כְּאַיָּל תַּעֲרֹג עַל אֲפִיקֵי מָיִם, כֵּן נַפְשִׁי תַעֲרֹג אֵלֶיךָ אֱלֹהִים. צָמְאָה נַפְשִׁי לֵאלֹהִים לְאֵל חָי, מָתַי אָבוֹא וְאֵרָאֶה פְּנֵי אֱלֹהִים... הוֹחִילִי לֵאלֹהִים כִּי עוֹד אוֹדֶנּוּ, יְשׁוּעֹת פָּנַי וֵאלֹהָי.
+
+— מִזְמוֹר נט —
+לַמְנַצֵּחַ אַל תַּשְׁחֵת לְדָוִד: הַצִּילֵנִי מֵאֹיְבַי אֱלֹהָי, מִמִּתְקוֹמְמַי תְּשַׂגְּבֵנִי... עֻזִּי אֵלֶיךָ אֲזַמֵּרָה, כִּי אֱלֹהִים מִשְׂגַּבִּי, אֱלֹהֵי חַסְדִּי.
+
+— מִזְמוֹר עז —
+לַמְנַצֵּחַ עַל יְדוּתוּן לְאָסָף מִזְמוֹר: קוֹלִי אֶל אֱלֹהִים וְאֶצְעָקָה, קוֹלִי אֶל אֱלֹהִים וְהַאֲזִין אֵלָי... אֶזְכּוֹר מַעַלְלֵי יָהּ, כִּי אֶזְכְּרָה מִקֶּדֶם פִּלְאֶךָ. נָחִיתָ כַצֹּאן עַמֶּךָ בְּיַד מֹשֶׁה וְאַהֲרֹן.
+
+— מִזְמוֹר צ —
+תְּפִלָּה לְמֹשֶׁה אִישׁ הָאֱלֹהִים: אֲדֹנָי מָעוֹן אַתָּה הָיִיתָ לָּנוּ בְּדֹר וָדֹר... וִיהִי נֹעַם אֲדֹנָי אֱלֹהֵינוּ עָלֵינוּ, וּמַעֲשֵׂה יָדֵינוּ כּוֹנְנָה עָלֵינוּ, וּמַעֲשֵׂה יָדֵינוּ כּוֹנְנֵהוּ.
+
+— מִזְמוֹר קה —
+הוֹדוּ לַיהֹוָה קִרְאוּ בִשְׁמוֹ, הוֹדִיעוּ בָעַמִּים עֲלִילוֹתָיו... בַּעֲבוּר יִשְׁמְרוּ חֻקָּיו וְתוֹרֹתָיו יִנְצֹרוּ, הַלְלוּיָהּ.
+
+— מִזְמוֹר קלז —
+עַל נַהֲרוֹת בָּבֶל שָׁם יָשַׁבְנוּ גַּם בָּכִינוּ, בְּזׇכְרֵנוּ אֶת צִיּוֹן... אִם אֶשְׁכָּחֵךְ יְרוּשָׁלָיִם, תִּשְׁכַּח יְמִינִי.
+
+— מִזְמוֹר קנ —
+הַלְלוּיָהּ! הַלְלוּ אֵל בְּקָדְשׁוֹ, הַלְלוּהוּ בִּרְקִיעַ עֻזּוֹ. הַלְלוּהוּ בִגְבוּרֹתָיו, הַלְלוּהוּ כְּרֹב גֻּדְלוֹ. הַלְלוּהוּ בְּתֵקַע שׁוֹפָר, הַלְלוּהוּ בְּנֵבֶל וְכִנּוֹר. הַלְלוּהוּ בְּתֹף וּמָחוֹל, הַלְלוּהוּ בְּמִנִּים וְעֻגָב. הַלְלוּהוּ בְּצִלְצְלֵי שָׁמַע, הַלְלוּהוּ בְּצִלְצְלֵי תְרוּעָה. כֹּל הַנְּשָׁמָה תְּהַלֵּל יָהּ, הַלְלוּיָהּ.
+
+— פְּסוּקֵי סִיּוּם —
+מִי יִתֵּן מִצִּיּוֹן יְשׁוּעַת יִשְׂרָאֵל. בְּשׁוּב יְהֹוָה שְׁבוּת עַמּוֹ, יָגֵל יַעֲקֹב יִשְׂמַח יִשְׂרָאֵל. וּתְשׁוּעַת צַדִּיקִים מֵיְהֹוָה, מָעוּזָּם בְּעֵת צָרָה. וַיַּעְזְרֵם יְהֹוָה וַיְפַלְּטֵם, יְפַלְּטֵם מֵרְשָׁעִים וְיוֹשִׁיעֵם, כִּי חָסוּ בוֹ.
+
+— רִבּוֹנוֹ שֶׁל עוֹלָם (תפילת רבי נתן) —
+רִבּוֹנוֹ שֶׁל עוֹלָם, עִלַּת הָעִלּוֹת וְסִבַּת כָּל הַסִּבּוֹת, אַנְתְּ לְעֵלָּא לְעֵלָּא מִן כֹּלָּא, וְלֵית לְעֵלָּא מִנָּךְ. אוֹתְךָ אֶדְרֹשׁ, אוֹתְךָ אֲבַקֵּשׁ, שֶׁתַּחְתֹּר חֲתִירָה דֶּרֶךְ כְּבוּשָׁה מֵאִתָּךְ, דֶּרֶךְ כָּל הָעוֹלָמוֹת, עַד הַהִשְׁתַּלְשְׁלוּת שֶׁלִּי בַּמָּקוֹם שֶׁאֲנִי עוֹמֵד. וּבַדֶּרֶךְ הַזֶּה תָּאִיר עָלַי אוֹרְךָ, לְהַחֲזִירֵנִי בִּתְשׁוּבָה שְׁלֵמָה לְפָנֶיךָ בֶּאֱמֶת. הַט לִבִּי אֶל עֵדְוֹתֶיךָ, וְתֶן לִי לֵב טָהוֹר לְעׇבְדְּךָ בֶּאֱמֶת. וְאֶזְכֶּה לְחַדֵּשׁ נְעוּרַי, הַיָּמִים שֶׁעָבְרוּ בַּחֹשֶׁךְ, לְהַחֲזִירָם אֶל הַקְּדֻשָּׁה. וְתִהְיֶה יְצִיאָתִי מִן הָעוֹלָם כְּבִיאָתִי, בְּלֹא חֵטְא. אָמֵן נֶצַח סֶלָה וָעֶד.`},
+  {n:"תִּיקוּן חֲצוֹת (רָחֵל וְלֵאָה)", a:"ע\"פ הזוהר וסידור האר\"י הקדוש", t:`לְשֵׁם יִחוּד קֻדְשָׁא בְּרִיךְ הוּא וּשְׁכִינְתֵּיהּ, בִּדְחִילוּ וּרְחִימוּ, וּרְחִימוּ וּדְחִילוּ, לְיַחֲדָא שֵׁם יוּד קֵ״י בְּוָא״ו קֵ״י בְּיִחוּדָא שְׁלִים בְּשֵׁם כָּל יִשְׂרָאֵל. הֲרֵינִי מוּכָן לוֹמַר תִיקוּן רָחֵל וְתִיקוּן לֵאָה כְּמוֹ שֶׁסִּדְּרוּ לָנוּ רַבּוֹתֵינוּ זִכְרוֹנָם לִבְרָכָה, לְתַקֵּן אֶת שָׁרְשַׁם בְּמָקוֹם עֶלְיוֹן, לַעֲשׂוֹת נַחַת רוּחַ לְיוֹצְרֵנוּ וְלַעֲשׂוֹת רְצוֹן בּוֹרְאֵנוּ.
+
+— וִדּוּי —
+אָנָּא יְהֹוָה אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ, תָּבֹא לְפָנֶיךָ תְּפִלָּתֵנוּ. אֲבָל חָטָאנוּ, עָוִינוּ, פָּשַׁעְנוּ, אֲנַחְנוּ וַאֲבוֹתֵינוּ.
+
+מַה נֹּאמַר לְפָנֶיךָ יוֹשֵׁב מָרוֹם, וּמַה נְּסַפֵּר לְפָנֶיךָ שׁוֹכֵן שְׁחָקִים. הֲלֹא הַנִּסְתָּרוֹת וְהַנִּגְלוֹת אַתָּה יוֹדֵעַ. יְהִי רָצוֹן מִלְּפָנֶיךָ שֶׁתִּמְחוֹל לָנוּ אֶת כָּל חַטֹּאתֵינוּ.
+
+— תִּיקוּן רָחֵל —
+(אין אומרים תיקון רחל בבית החתן, בבית האבל, אבי הבן, המוהל והסנדק בליל המילה.)
+
+עַל נַהֲרוֹת בָּבֶל שָׁם יָשַׁבְנוּ גַּם בָּכִינוּ בְּזׇכְרֵנוּ אֶת צִיּוֹן... אִם אֶשְׁכָּחֵךְ יְרוּשָׁלַיִם, תִּשְׁכַּח יְמִינִי. (תהלים קל"ז)
+
+מִזְמוֹר לְאָסָף: אֱלֹהִים בָּאוּ גוֹיִם בְּנַחֲלָתֶךָ, טִמְּאוּ אֶת הֵיכַל קָדְשֶׁךָ, שָׂמוּ אֶת יְרוּשָׁלַיִם לְעִיִּים... עָזְרֵנוּ אֱלֹהֵי יִשְׁעֵנוּ, עַל דְּבַר כְּבוֹד שְׁמֶךָ. (תהלים ע"ט)
+
+זְכֹר יְהֹוָה מֶה הָיָה לָנוּ, הַבִּיטָה וּרְאֵה אֶת חֶרְפָּתֵנוּ... הֲשִׁיבֵנוּ יְהֹוָה אֵלֶיךָ וְנָשׁוּבָה, חַדֵּשׁ יָמֵינוּ כְּקֶדֶם. (איכה ה')
+
+— תִּיקוּן לֵאָה —
+לַמְנַצֵּחַ מַשְׂכִּיל לִבְנֵי קֹרַח: כְּאַיָּל תַּעֲרֹג עַל אֲפִיקֵי מָיִם, כֵּן נַפְשִׁי תַעֲרֹג אֵלֶיךָ אֱלֹהִים. (תהלים מ"ב)
+
+שׁפְטֵנִי אֱלֹהִים וְרִיבָה רִיבִי מִגּוֹי לֹא חָסִיד... הוֹחִילִי לֵאלֹהִים כִּי עוֹד אוֹדֶנּוּ, יְשׁוּעֹת פָּנַי וֵאלֹהָי. (תהלים מ"ג)
+
+(בימים שאומרים תחנון:) לַמְנַצֵּחַ מִזְמוֹר לְדָוִד: יַעַנְךָ יְהֹוָה בְּיוֹם צָרָה, יְשַׂגֶּבְךָ שֵׁם אֱלֹהֵי יַעֲקֹב. (תהלים כ')
+
+לְדָוִד מִזְמוֹר: לַיהֹוָה הָאָרֶץ וּמְלוֹאָהּ, תֵּבֵל וְיֹשְׁבֵי בָהּ. (תהלים כ"ד)
+
+לַמְנַצֵּחַ בִּנְגִינֹת מִזְמוֹר שִׁיר: אֱלֹהִים יְחָנֵּנוּ וִיבָרְכֵנוּ, יָאֵר פָּנָיו אִתָּנוּ סֶלָה. (תהלים ס"ז)
+
+הַלְלוּיָהּ אוֹדֶה יְהֹוָה בְּכָל לֵבָב, בְּסוֹד יְשָׁרִים וְעֵדָה. (תהלים קי"א)
+
+לַמְנַצֵּחַ מִזְמוֹר לְדָוִד: חָנֵּנִי אֱלֹהִים כְּחַסְדֶּךָ, כְּרֹב רַחֲמֶיךָ מְחֵה פְשָׁעָי. (תהלים נ"א)
+
+— סִיּוּם —
+שִׁיר הַמַּעֲלוֹת בְּשׁוּב יְהֹוָה אֶת שִׁיבַת צִיּוֹן הָיִינוּ כְּחֹלְמִים. אָז יִמָּלֵא שְׂחוֹק פִּינוּ וּלְשׁוֹנֵנוּ רִנָּה... הַזֹּרְעִים בְּדִמְעָה, בְּרִנָּה יִקְצֹרוּ. (תהלים קכ"ו)
+
+יְהִי רָצוֹן מִלְּפָנֶיךָ יְהֹוָה אֱלֹהֵינוּ, שֶׁתַּעֲלֵנוּ בְּשִׂמְחָה לְאַרְצֵנוּ, וְתִטָּעֵנוּ בִּגְבוּלֵנוּ, וְשָׁם נַעֲשֶׂה לְפָנֶיךָ אֶת קָרְבְּנוֹת חוֹבוֹתֵינוּ, תְּמִידִים כְּסִדְרָם וּמוּסָפִים כְּהִלְכָתָם.`},
 ];
 function buildPrayers(){
   const el = document.getElementById("prayList");
   el.innerHTML = PRAYERS.map((p,i)=>
     `<div class="pray-item" data-i="${i}"><span>${p.n}</span><span class="chev">›</span></div>`+
-    `<div class="pray-text" id="pt${i}" style="display:none">${p.t}</div>`
+    `<div class="pray-text" id="pt${i}" style="display:none">${p.a?`<div class="pray-attr">תיקן/חיבר: ${p.a}</div>`:""}<div class="pray-body">${p.t}</div></div>`
   ).join("");
   el.querySelectorAll(".pray-item").forEach(it=>{
     it.addEventListener("click",()=>{
@@ -1761,8 +2302,27 @@ buildPrayers();
 
 /* ===== init ===== */
 (async function init(){
+  // === Theme toggle (יום/לילה) ===
+  try{
+    const saved = localStorage.getItem("sodhadaf-theme");
+    if(saved === "dark") document.documentElement.classList.add("dark");
+  }catch(_){}
+  const tt = document.getElementById("themeToggle");
+  if(tt){
+    const setLabel = ()=>{
+      const isDark = document.documentElement.classList.contains("dark");
+      tt.textContent = isDark ? "☀️" : "🌙";
+      tt.title = isDark ? "מצב יום" : "מצב לילה";
+    };
+    setLabel();
+    tt.addEventListener("click", ()=>{
+      document.documentElement.classList.toggle("dark");
+      setLabel();
+      try{ localStorage.setItem("sodhadaf-theme", document.documentElement.classList.contains("dark") ? "dark" : "light"); }catch(_){}
+    });
+  }
   // make the always-on cards visible (they have no async loader to reveal them)
-  ["monthCard","gemCard","codesFeedCard","libraryCard","logCard","qaCard","tehillimCard","prayCard","prayerSrcCard","lessonArchCard"].forEach(id=>{
+  ["monthCard","gemCard","codesFeedCard","libraryCard","logCard","qaCard","tehillimCard","prayCard","prayerSrcCard","lessonArchCard","breslovCard","bicCard","davidCard","shlomoCard"].forEach(id=>{
     const e=document.getElementById(id); if(e) reveal(e);
   });
   loadCalendar();                          // calendar info is fine to show
@@ -1770,6 +2330,10 @@ buildPrayers();
   loadLibrary();                           // accumulated source library
   loadLog();                               // agent activity log
   loadLessonArchive();                     // archive of all daily lessons
+  loadBreslov();                           // 📖 Rabbi Nachman daily
+  loadBIC();                               // 📖 Ben Ish Chai daily
+  loadDavid();                             // 🎵 King David daily
+  loadShlomo();                            // 👑 King Solomon daily
   loadQAArchive();                         // permanent שו"ת archive (from the Worker)
   loadPrayersAudit();                      // canonical prayer sources
   loadZmanim();                            // sun & prayer times
