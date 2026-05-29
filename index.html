@@ -1,0 +1,2889 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סוֹד הַדַּף · חֵקֶר התורה היומי</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16202f;
+    --ink-soft:#2c3a52;
+    --parch:#f4ecd8;
+    --parch-deep:#ebe0c4;
+    --gold:#b08833;
+    --gold-bright:#cda84a;
+    --crimson:#7a2e2e;
+    --line:rgba(22,32,47,.14);
+    --shadow:0 18px 50px -22px rgba(22,32,47,.55);
+    --card-bg:#fbf6e9;
+    --bg-grad-a:rgba(176,136,51,.08);
+    --bg-grad-b:rgba(122,46,46,.05);
+  }
+  html.dark{
+    --ink:#e6dfc8;
+    --ink-soft:#bdb59a;
+    --parch:#1a1813;
+    --parch-deep:#23201a;
+    --gold:#d4a84a;
+    --gold-bright:#e8c466;
+    --crimson:#d68c8c;
+    --line:rgba(230,223,200,.16);
+    --shadow:0 18px 50px -22px rgba(0,0,0,.7);
+    --card-bg:#23201a;
+    --bg-grad-a:rgba(212,168,74,.06);
+    --bg-grad-b:rgba(214,140,140,.04);
+  }
+  html.dark .card{background:var(--card-bg)}
+  html.dark .pray-text,html.dark .pray-attr{background:#1f1c16}
+  html.dark .pray-attr{color:var(--crimson);background:#2a2520;border-color:#3a3528}
+  html.dark .agent-block{background:rgba(0,0,0,.25);border-color:rgba(230,223,200,.08)}
+  html.dark .breslov-card,html.dark .bic-card,html.dark .david-card,html.dark .shlomo-card{
+    background:linear-gradient(135deg,#1f1c16 0%,#26221a 100%)
+  }
+  html.dark .tachanun-ind.no{background:#1a2a1d;color:#7ec48a;border-color:#2a4030}
+  html.dark .tachanun-ind.yes{background:#2a1f15;color:#d4a06a;border-color:#403020}
+  html.dark .tachanun-ind.partial{background:#2a2515;color:#d4c46a;border-color:#403820}
+  .theme-toggle{
+    position:absolute;top:18px;left:18px;background:var(--card-bg);
+    border:1px solid var(--line);border-radius:50%;width:44px;height:44px;
+    cursor:pointer;font-size:1.3rem;display:grid;place-items:center;
+    box-shadow:var(--shadow);transition:.3s;z-index:50;
+  }
+  .theme-toggle:hover{transform:scale(1.08);border-color:var(--gold)}
+  header{position:relative}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Assistant',sans-serif;
+    background:var(--parch);
+    color:var(--ink);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(circle at 12% 18%, rgba(176,136,51,.07), transparent 40%),
+      radial-gradient(circle at 88% 82%, rgba(122,46,46,.06), transparent 45%);
+    min-height:100vh;
+  }
+  /* subtle paper grain */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;opacity:.4;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 22px}
+
+  /* ===== Header ===== */
+  header{padding:46px 0 26px;text-align:center}
+  .emblem{width:108px;margin:0 auto 22px;filter:drop-shadow(0 8px 16px rgba(126,92,28,.4));opacity:0;animation:rise .9s 0s forwards}
+  .emblem svg{width:100%;height:auto;display:block}
+  .kicker{
+    font-size:.78rem;letter-spacing:.32em;color:var(--gold);
+    font-weight:700;text-transform:uppercase;margin-bottom:14px;
+    opacity:0;animation:rise .8s .1s forwards;
+  }
+  .brand{
+    font-family:'Frank Ruhl Libre',serif;font-weight:900;
+    font-size:clamp(3rem,11vw,5.4rem);line-height:.95;color:var(--ink);
+    letter-spacing:-.01em;opacity:0;animation:rise .9s .25s forwards;
+  }
+  .brand .dot{color:var(--crimson)}
+  .tagline{
+    margin-top:16px;font-size:1.05rem;color:var(--ink-soft);
+    max-width:520px;margin-inline:auto;opacity:0;animation:rise .9s .45s forwards;
+  }
+  .rule{
+    width:64px;height:3px;background:var(--gold);margin:26px auto 0;border-radius:3px;
+    opacity:0;animation:grow .9s .6s forwards;
+  }
+
+  /* ===== Daf banner ===== */
+  .daf-banner{
+    margin:38px 0 10px;background:var(--ink);color:var(--parch);
+    border-radius:18px;padding:30px 34px;box-shadow:var(--shadow);
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+    position:relative;overflow:hidden;
+    opacity:0;animation:rise .9s .7s forwards;
+  }
+  .daf-banner::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 90% -20%, rgba(205,168,74,.28), transparent 55%);
+    pointer-events:none;
+  }
+  .daf-banner .label{font-size:.8rem;letter-spacing:.24em;color:var(--gold-bright);font-weight:700;text-transform:uppercase}
+  .daf-banner .ref{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:clamp(1.8rem,6vw,2.7rem);line-height:1.1;margin-top:6px}
+  .daf-banner .date{font-size:.92rem;opacity:.7;margin-top:4px}
+  .daf-banner .seal{
+    flex:none;width:74px;height:74px;border:2px solid var(--gold);border-radius:50%;
+    display:grid;place-items:center;font-family:'Frank Ruhl Libre',serif;
+    font-weight:900;font-size:1.9rem;color:var(--gold-bright);
+  }
+
+  /* ===== Cards ===== */
+  .card{
+    background:#fbf6e9;border:1px solid var(--line);border-radius:18px;
+    padding:30px 32px;margin:22px 0;box-shadow:0 10px 30px -20px rgba(22,32,47,.4);
+    opacity:0;transform:translateY(16px);transition:.7s;
+  }
+  .card.in{opacity:1;transform:none}
+  .card h2{
+    font-family:'Frank Ruhl Libre',serif;font-size:1.55rem;font-weight:700;
+    display:flex;align-items:center;gap:11px;margin-bottom:6px;
+  }
+  .card h2 .glyph{
+    font-size:1.2rem;width:34px;height:34px;flex:none;border-radius:9px;
+    background:var(--parch-deep);display:grid;place-items:center;color:var(--gold);
+  }
+  .card .sub{font-size:.86rem;color:var(--ink-soft);opacity:.8;margin-bottom:18px}
+
+  /* Distinctive accents for the four daily agent cards */
+  .breslov-card{background:linear-gradient(135deg,#f9f3e3 0%,#fef5e6 100%);border-left:5px solid #c89b3c}
+  .breslov-card h2 .glyph{background:#c89b3c;color:#fff}
+  .bic-card{background:linear-gradient(135deg,#f3ebe0 0%,#faf2e6 100%);border-left:5px solid #8b4513}
+  .bic-card h2 .glyph{background:#8b4513;color:#fff}
+  .david-card{background:linear-gradient(135deg,#e9eef5 0%,#f4f7fb 100%);border-left:5px solid #4a6fa5}
+  .david-card h2 .glyph{background:#4a6fa5;color:#fff}
+  .shlomo-card{background:linear-gradient(135deg,#f0e8d8 0%,#faf4e6 100%);border-left:5px solid #b8860b}
+  .shlomo-card h2 .glyph{background:#b8860b;color:#fff}
+  .shnayim-card{background:linear-gradient(135deg,#ede4d2 0%,#f8efdd 100%);border-left:5px solid #6b4423}
+  .shnayim-card h2 .glyph{background:#6b4423;color:#fff}
+  .yerushalmi-card{background:linear-gradient(135deg,#e8e0d0 0%,#f5eedd 100%);border-left:5px solid #5a4a2a}
+  .yerushalmi-card h2 .glyph{background:#5a4a2a;color:#fff}
+  .hilulot-card{background:linear-gradient(135deg,#f0e0e0 0%,#faecec 100%);border-left:5px solid #7a2e2e}
+  .hilulot-card h2 .glyph{background:#7a2e2e;color:#fff}
+  .chok-card{background:linear-gradient(135deg,#e8ecf0 0%,#f0f4f8 100%);border-left:5px solid #2a5474}
+  .chok-card h2 .glyph{background:#2a5474;color:#fff}
+  .tools-card{background:linear-gradient(135deg,#f5e8d8 0%,#fcf2e3 100%);border-left:5px solid #a67c1f}
+  .tools-card h2 .glyph{background:#a67c1f;color:#fff}
+  .siddur-card{background:linear-gradient(135deg,#ede0c4 0%,#f6ecd4 100%);border-left:5px solid #5a3010}
+  .siddur-card h2 .glyph{background:#5a3010;color:#fff}
+
+  /* Siddur tabs */
+  .siddur-tabs{display:flex;gap:8px;margin:14px 0 18px;flex-wrap:wrap}
+  .siddur-tab{font-family:'Assistant',sans-serif;font-size:.95rem;font-weight:600;padding:10px 18px;
+    border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.55);color:var(--ink);
+    cursor:pointer;transition:.2s}
+  .siddur-tab:hover{background:rgba(176,136,51,.15)}
+  .siddur-tab.active{background:#5a3010;color:#fff;border-color:#5a3010}
+  .siddur-title{font-family:'Frank Ruhl Libre',serif;font-size:1.6rem;color:#5a3010;text-align:center;
+    margin-bottom:4px;font-weight:700}
+  .siddur-subtitle{text-align:center;font-size:.92rem;color:var(--ink-soft);font-style:italic;margin-bottom:10px}
+  .siddur-attribution{background:rgba(90,48,16,.08);padding:10px 14px;border-radius:8px;
+    font-size:.88rem;color:var(--ink);text-align:center;line-height:1.6;margin-bottom:8px;
+    border:1px solid rgba(90,48,16,.18)}
+  .siddur-note{background:rgba(176,136,51,.08);padding:10px 14px;border-radius:8px;
+    font-size:.85rem;color:var(--ink-soft);font-style:italic;line-height:1.6;margin-bottom:14px;
+    border-right:3px solid var(--gold)}
+  .siddur-section{background:rgba(255,255,255,.55);border-radius:10px;margin:6px 0;
+    border:1px solid rgba(0,0,0,.06)}
+  .siddur-section summary{cursor:pointer;padding:12px 18px;font-family:'Frank Ruhl Libre',serif;
+    font-size:1.1rem;color:var(--crimson);font-weight:700;list-style:none;display:flex;align-items:center;gap:8px}
+  .siddur-section summary::before{content:"›";font-weight:900;transition:.2s;color:var(--gold);font-size:1.2rem}
+  .siddur-section[open] summary::before{transform:rotate(90deg)}
+  .siddur-section summary::-webkit-details-marker{display:none}
+  .siddur-section .siddur-text{padding:0 18px 16px;font-family:'Frank Ruhl Libre',serif;
+    font-size:1.08rem;line-height:1.95;color:var(--ink);white-space:pre-line;text-align:justify;
+    border-top:1px solid rgba(0,0,0,.06);padding-top:10px;margin-top:4px}
+  html.dark .siddur-card{background:linear-gradient(135deg,#1f1c16 0%,#26221a 100%)}
+  html.dark .siddur-tab{background:rgba(0,0,0,.25);color:var(--ink)}
+  html.dark .siddur-section{background:rgba(0,0,0,.25)}
+  html.dark .siddur-attribution,html.dark .siddur-note{background:rgba(0,0,0,.25)}
+
+  /* Chok L'Yisrael sections */
+  .chok-overview{background:rgba(42,84,116,.08);padding:12px 16px;border-radius:10px;
+    font-style:italic;color:var(--ink);line-height:1.85;margin-bottom:12px;border-right:3px solid #2a5474}
+  .chok-section{background:rgba(255,255,255,.55);border-radius:10px;padding:12px 16px;margin:8px 0;
+    border:1px solid rgba(0,0,0,.06)}
+  .chok-section-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .chok-section-cat{font-family:'Assistant',sans-serif;font-weight:700;color:#2a5474;font-size:.95rem}
+  .chok-section-ref{font-family:'Assistant',sans-serif;font-size:.85rem;color:var(--ink-soft);font-style:italic}
+  .chok-section-text{font-family:'Frank Ruhl Libre',serif;font-size:1.02rem;line-height:1.8;color:var(--ink);
+    text-align:justify;max-height:120px;overflow:hidden;position:relative;transition:.3s}
+  .chok-section-text.open{max-height:1000px}
+  .chok-section-text::after{content:"";position:absolute;bottom:0;left:0;right:0;height:30px;
+    background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.85))}
+  .chok-section-text.open::after{display:none}
+  .chok-toggle{font-family:'Assistant',sans-serif;font-size:.8rem;color:#2a5474;cursor:pointer;
+    margin-top:6px;display:inline-block;font-weight:600}
+  .chok-toggle:hover{text-decoration:underline}
+
+  /* Calendar tools form */
+  .tool-block{background:rgba(255,255,255,.55);border-radius:12px;padding:16px 18px;
+    border:1px solid rgba(0,0,0,.06);margin-top:6px}
+  .tool-title{font-family:'Frank Ruhl Libre',serif;font-size:1.2rem;color:var(--crimson);margin-bottom:6px;font-weight:700}
+  .tool-desc{font-size:.88rem;color:var(--ink-soft);margin-bottom:12px;line-height:1.6}
+  .tool-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:8px 0}
+  .tool-label{font-family:'Assistant',sans-serif;font-size:.9rem;font-weight:600;color:var(--ink);min-width:50px}
+  .tool-input{font-family:'Assistant',sans-serif;font-size:.95rem;padding:8px 12px;
+    border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);min-width:90px}
+  .tool-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(176,136,51,.2)}
+  .tool-btn{font-family:'Assistant',sans-serif;font-size:.95rem;font-weight:700;padding:10px 24px;
+    border:none;border-radius:10px;background:var(--crimson);color:#fff;cursor:pointer;
+    margin-top:10px;transition:.2s}
+  .tool-btn:hover{background:#5a1e1e;transform:translateY(-1px);box-shadow:0 6px 16px -8px rgba(122,46,46,.5)}
+  .tool-result{margin-top:14px;padding:14px 18px;background:rgba(176,136,51,.08);
+    border-radius:10px;border-right:3px solid var(--gold);line-height:1.85;
+    font-family:'Frank Ruhl Libre',serif;font-size:1.05rem}
+  .tool-result strong{color:var(--crimson);font-weight:700}
+  .tool-result .res-line{padding:4px 0;border-bottom:1px dashed rgba(0,0,0,.08)}
+  .tool-result .res-line:last-child{border:none}
+  .res-label{display:inline-block;min-width:120px;color:var(--ink-soft);font-family:'Assistant',sans-serif;font-size:.9rem;font-weight:600}
+
+  /* Dark mode for chok + tools */
+  html.dark .chok-card,html.dark .tools-card{background:linear-gradient(135deg,#1f1c16 0%,#26221a 100%)}
+  html.dark .tool-block{background:rgba(0,0,0,.25)}
+  html.dark .tool-input{background:#1a1813;color:var(--ink);border-color:rgba(230,223,200,.2)}
+  html.dark .chok-overview,html.dark .chok-section{background:rgba(0,0,0,.25)}
+  html.dark .chok-section-text::after{background:linear-gradient(rgba(35,32,26,0),rgba(35,32,26,.85))}
+  html.dark .tool-result{background:rgba(212,168,74,.08)}
+  .shnayim-mikra{font-family:'Frank Ruhl Libre',serif;font-size:1.12rem;line-height:1.95;
+    background:rgba(255,255,255,.55);padding:14px 18px;border-radius:12px;margin:8px 0;text-align:justify}
+  .shnayim-targum{font-family:'Frank Ruhl Libre',serif;font-size:1.05rem;line-height:1.85;
+    background:rgba(0,0,0,.04);padding:14px 18px;border-radius:12px;margin:8px 0;
+    color:var(--ink-soft);text-align:justify;font-style:italic}
+  .tzaddik-name{font-family:'Frank Ruhl Libre',serif;font-size:1.4rem;font-weight:700;color:var(--crimson);
+    text-align:center;padding:10px 0;border-top:1px dashed rgba(0,0,0,.15);border-bottom:1px dashed rgba(0,0,0,.15);margin:10px 0}
+
+  /* Daily agent content styling */
+  .agent-block{background:rgba(255,255,255,.55);border-radius:12px;padding:14px 18px;margin:10px 0;border:1px solid rgba(0,0,0,.06)}
+  .agent-label{font-family:'Assistant',sans-serif;font-size:.82rem;font-weight:700;color:var(--crimson);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+  .agent-text{font-family:'Frank Ruhl Libre',serif;font-size:1.08rem;line-height:1.85;color:var(--ink)}
+  .agent-verse{font-family:'Frank Ruhl Libre',serif;font-size:1.18rem;line-height:1.8;color:var(--crimson);text-align:center;font-weight:600;padding:10px 0;border-top:1px dashed rgba(0,0,0,.15);border-bottom:1px dashed rgba(0,0,0,.15);margin:10px 0}
+  .arch-summary{cursor:pointer;font-family:'Assistant',sans-serif;font-size:.92rem;color:var(--ink-soft);padding:8px 0;font-weight:600}
+  .arch-summary:hover{color:var(--crimson)}
+  .arch-item{margin:8px 0;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.6);padding:0 14px}
+  .arch-item summary{font-family:'Assistant',sans-serif;font-weight:600;cursor:pointer;padding:10px 0;color:var(--ink)}
+  .arch-item .arch-body{padding:6px 0 14px;border-top:1px solid var(--line);margin-top:6px}
+
+  /* daf text */
+  .daf-text{
+    font-family:'Frank Ruhl Libre',serif;font-size:1.22rem;line-height:2.05;
+    color:var(--ink);max-height:230px;overflow:hidden;position:relative;
+    text-align:justify;
+  }
+  .daf-text.open{max-height:none}
+  .daf-text:not(.open)::after{
+    content:"";position:absolute;inset-block-end:0;inset-inline:0;height:80px;
+    background:linear-gradient(to top,#fbf6e9,transparent);
+  }
+  .toggle{
+    margin-top:14px;background:none;border:none;color:var(--crimson);
+    font-family:'Assistant';font-weight:700;font-size:.95rem;cursor:pointer;
+    border-bottom:2px solid transparent;padding:2px 0;transition:.25s;
+  }
+  .toggle:hover{border-color:var(--crimson)}
+
+  /* insight */
+  .insight-card{background:linear-gradient(160deg,#fdfaf0,#f6ecd2);border-color:rgba(176,136,51,.35)}
+  .insight-body{font-size:1.1rem;line-height:1.95;white-space:pre-wrap}
+  .insight-body strong{color:var(--crimson)}
+  .insight-body p{margin:0 0 12px}
+  .ls-title{font-family:'Frank Ruhl Libre',serif;font-size:1.5rem;font-weight:900;color:var(--crimson);margin-bottom:10px;line-height:1.25}
+  .ls-h{font-family:'Frank Ruhl Libre',serif;font-size:1.18rem;font-weight:700;color:var(--ink);margin:18px 0 6px;border-bottom:1.5px solid var(--line);padding-bottom:4px}
+  .ls-quote{font-family:'Frank Ruhl Libre',serif;font-size:1.05rem;background:var(--parch-deep);border-radius:10px;padding:10px 14px;border-right:3px solid var(--gold)}
+  .ls-src{font-weight:700;color:var(--gold);font-family:'Frank Ruhl Libre',serif}
+
+  /* loading / status */
+  .status{display:flex;align-items:center;gap:12px;color:var(--ink-soft);font-size:1rem;padding:6px 0}
+  .spinner{
+    width:22px;height:22px;border:3px solid var(--parch-deep);
+    border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;flex:none;
+  }
+  .err{background:#fbecec;border-color:#e3bcbc;color:var(--crimson)}
+  .pill{
+    display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:700;
+    letter-spacing:.05em;background:var(--parch-deep);color:var(--gold);
+    padding:5px 13px;border-radius:99px;margin-bottom:14px;
+  }
+  .pill .live{width:8px;height:8px;border-radius:50%;background:#2e9e5b;animation:pulse 1.6s infinite}
+
+  .regen{
+    display:inline-flex;align-items:center;gap:8px;margin-top:20px;cursor:pointer;
+    background:var(--ink);color:var(--parch);border:none;border-radius:11px;
+    font-family:'Assistant';font-weight:700;font-size:.95rem;padding:12px 22px;transition:.25s;
+  }
+  .regen:hover{background:var(--ink-soft);transform:translateY(-2px)}
+  .regen:disabled{opacity:.5;cursor:default;transform:none}
+
+  /* rest (shabbat / yom tov) */
+  .rest-card{
+    background:linear-gradient(160deg,#1c2740,#0f1626);color:var(--parch);
+    border-radius:20px;padding:46px 34px;margin:24px 0;text-align:center;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+    animation:rise .8s forwards;
+  }
+  .rest-card::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 50% 0%, rgba(205,168,74,.25), transparent 60%);pointer-events:none}
+  .rest-glow{font-size:3rem;filter:drop-shadow(0 0 18px rgba(205,168,74,.6));animation:flicker 3s infinite}
+  .rest-card h2{font-family:'Frank Ruhl Libre',serif;font-size:2rem;font-weight:900;margin:10px 0 8px;color:var(--gold-bright)}
+  .rest-card p{max-width:460px;margin:0 auto;font-size:1.08rem}
+  .rest-sub{margin-top:14px !important;opacity:.7;font-size:.95rem !important}
+  @keyframes flicker{0%,100%{opacity:1;transform:scale(1)}45%{opacity:.75;transform:scale(.96)}}
+
+  footer{text-align:center;padding:34px 0 50px;color:var(--ink-soft);font-size:.85rem;opacity:.75}
+  footer a{color:var(--crimson);font-weight:600;text-decoration:none}
+
+  /* calendar bar */
+  .cal-bar{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:30px 0 4px;
+    opacity:0;animation:rise .9s .68s forwards;
+  }
+  .cal-cell{
+    background:#fbf6e9;border:1px solid var(--line);border-radius:14px;
+    padding:14px 16px;display:flex;align-items:center;gap:11px;
+  }
+  .cal-ico{font-size:1.4rem;flex:none}
+  .cal-k{font-size:.72rem;letter-spacing:.08em;color:var(--ink-soft);opacity:.75;font-weight:700}
+  .cal-v{font-family:'Frank Ruhl Libre',serif;font-size:1.12rem;font-weight:700;color:var(--ink);line-height:1.25}
+
+  /* gematria calculator */
+  .gem-input{
+    width:100%;font-family:'Frank Ruhl Libre',serif;font-size:1.4rem;
+    padding:13px 16px;border:1.5px solid var(--line);border-radius:12px;
+    background:#fffdf7;color:var(--ink);outline:none;transition:.2s;
+  }
+  .gem-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(176,136,51,.15)}
+  .gem-results{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+  .gem-box{background:var(--parch-deep);border-radius:12px;padding:14px 10px;text-align:center}
+  .gem-num{font-family:'Frank Ruhl Libre',serif;font-size:1.9rem;font-weight:900;color:var(--crimson);line-height:1}
+  .gem-lbl{font-size:.74rem;color:var(--ink-soft);margin-top:5px;font-weight:600}
+  .gem-note{margin-top:14px;font-size:.98rem;color:var(--ink);min-height:1.2em}
+  .gem-note b{color:var(--gold)}
+
+  /* zmanim grid */
+  .zmanim-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:8px}
+  .zman{background:var(--parch-deep);border-radius:11px;padding:12px 14px;display:flex;
+    align-items:center;justify-content:space-between;gap:8px}
+  .zman-name{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.02rem;color:var(--ink)}
+  .zman-time{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:1.15rem;color:var(--crimson)}
+  .zman-ico{font-size:1.1rem}
+  .compass-info{margin-top:12px;font-family:'Frank Ruhl Libre',serif;font-size:1.1rem;color:var(--ink)}
+  .compass-info b{color:var(--crimson)}
+
+  /* codes calculator */
+  .codes-els{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+  .mini-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .mini-btn{background:var(--parch-deep);border:1px solid var(--line);border-radius:9px;
+    padding:7px 13px;cursor:pointer;font-family:'Assistant';font-weight:700;font-size:.85rem;
+    color:var(--ink);transition:.18s}
+  .mini-btn:hover{background:var(--gold);color:#fff}
+  .els-skip{font-size:.8rem;color:var(--ink-soft);display:flex;align-items:center;gap:5px}
+  .els-skip input{width:62px;padding:6px;border:1.5px solid var(--line);border-radius:8px;font-family:inherit}
+  .codes-out{margin-top:12px;font-family:'Frank Ruhl Libre',serif;font-size:1.02rem;color:var(--ink)}
+  .codes-out .hit{background:var(--parch-deep);border-radius:9px;padding:8px 12px;margin-bottom:6px}
+  .codes-out .hit b{color:var(--crimson)}
+  .codes-out .note{font-size:.82rem;color:var(--ink-soft);margin-top:8px}
+  /* code context strip + matrix */
+  .strip{font-family:'Frank Ruhl Libre',serif;font-size:1.15rem;line-height:2;direction:rtl;
+    background:#fffdf7;border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin:6px 0;word-break:break-all}
+  .strip .lit{background:var(--gold);color:#fff;border-radius:4px;padding:0 3px;font-weight:900}
+  .strip .dim{color:var(--ink-soft);opacity:.55}
+  .matrix{display:inline-grid;gap:2px;direction:rtl;margin:8px 0;padding:8px;
+    background:#fffdf7;border:1px solid var(--line);border-radius:8px;overflow-x:auto;max-width:100%}
+  .matrix .cell{width:22px;height:26px;display:grid;place-items:center;font-family:'Frank Ruhl Libre',serif;
+    font-size:1rem;color:var(--ink);border-radius:3px}
+  .matrix .cell.lit{background:var(--crimson);color:#fff;font-weight:900}
+  .run-tag{display:inline-block;font-size:.82rem;font-weight:700;color:var(--gold);
+    background:var(--parch-deep);border-radius:99px;padding:4px 12px;margin:14px 0 4px}
+  .arch-par{font-family:'Frank Ruhl Libre',serif;font-weight:900;color:var(--crimson);
+    font-size:1.05rem;margin:14px 0 4px;border-bottom:1px solid var(--line);padding-bottom:3px}
+  .arch-date{font-family:'Frank Ruhl Libre',serif;font-weight:700;color:var(--gold);
+    font-size:.92rem;margin:8px 0 3px}
+  .arch-item{background:#fffdf7;border:1px solid var(--line);border-radius:9px;padding:6px 12px;margin:5px 0}
+  .arch-item summary{cursor:pointer;font-weight:600;color:var(--ink);font-size:.95rem}
+  .arch-item summary:hover{color:var(--crimson)}
+  .arch-body{margin-top:8px}
+  .lib-item{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    padding:8px 4px;border-bottom:1px solid var(--line)}
+  .lib-name{font-family:'Frank Ruhl Libre',serif;font-weight:700;color:var(--ink);font-size:1.05rem}
+  .lib-meta{font-size:.8rem;color:var(--ink-soft)}
+  .log-line{font-size:.92rem;color:var(--ink);padding:4px 0;border-bottom:1px dotted var(--line)}
+  .log-line b{color:var(--crimson)}
+
+  /* monthly calendar */
+  .cal-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .cal-nav{background:var(--parch-deep);border:1px solid var(--line);border-radius:9px;
+    padding:4px 14px;cursor:pointer;font-size:1.3rem;color:var(--ink);line-height:1;transition:.18s}
+  .cal-nav:hover{background:var(--gold);color:#fff}
+  .cal-title{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:1.3rem;text-align:center;flex:1;color:var(--ink)}
+  .cal-sub{text-align:center;font-family:'Frank Ruhl Libre',serif;color:var(--crimson);font-weight:700;font-size:1rem;margin-top:2px}
+  .tachanun-ind{text-align:center;font-family:'Assistant',sans-serif;font-size:.92rem;font-weight:700;
+    margin:10px auto 6px;padding:6px 14px;border-radius:20px;display:inline-block;width:fit-content}
+  .tachanun-ind.no{background:#e6f4ea;color:#1b6e2b;border:1px solid #b8dbc0}
+  .tachanun-ind.yes{background:#fcf0e6;color:#7a4a1a;border:1px solid #e6c89a}
+  .tachanun-ind.partial{background:#fef5e0;color:#7a5e1a;border:1px solid #ead8a0}
+  /* center the indicator via wrapper */
+  #tachanunStatus{display:inline-block;margin-inline:auto}
+  #monthCard{text-align:center}
+  #monthCard .cal-grid{text-align:initial}
+  #monthCard > div:not(.cal-head):not(.cal-sub):not(.cal-grid):not(.tachanun-ind){display:block}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;direction:ltr;margin-top:12px}
+  .cal-dow{text-align:center;font-weight:700;font-size:.74rem;color:var(--gold);padding:3px 0}
+  .cal-day{min-height:46px;border:1px solid var(--line);border-radius:8px;padding:4px 5px;
+    display:flex;flex-direction:column;justify-content:space-between;background:#fffdf7}
+  .cal-day.empty{border:none;background:transparent}
+  .cal-day.shabbat{background:#d7eef6;border-color:#a9dcea}
+  .cal-day.today{background:#fdf3c4;border-color:var(--gold);box-shadow:inset 0 0 0 2px var(--gold)}
+  .cal-heb{font-family:'Frank Ruhl Libre',serif;font-weight:700;color:var(--crimson);font-size:.82rem;text-align:right}
+  .cal-greg{color:var(--ink-soft);font-size:.78rem;text-align:left;font-weight:600}
+
+  /* prayers list */
+  .pray-list{margin-top:6px}
+  .pray-item{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:13px 4px;border-bottom:1px solid var(--line);cursor:pointer;
+    font-family:'Frank Ruhl Libre',serif;font-size:1.18rem;font-weight:600;
+    color:var(--ink);transition:.18s;
+  }
+  .pray-item:hover{color:var(--crimson)}
+  .pray-item .chev{color:var(--gold);font-weight:900;font-size:1rem;transition:.2s}
+  .pray-item.open .chev{transform:rotate(90deg)}
+  .pray-text{
+    font-family:'Frank Ruhl Libre',serif;font-size:1.12rem;line-height:1.95;
+    color:var(--ink);white-space:pre-line;text-align:justify;
+    padding:6px 14px 16px;border-bottom:1px solid var(--line);
+    background:var(--parch-deep);border-radius:0 0 10px 10px;
+  }
+  .pray-attr{
+    font-family:'Assistant',sans-serif;font-size:.85rem;font-weight:600;
+    color:var(--crimson);background:#f5e8d8;padding:6px 12px;border-radius:8px;
+    margin-bottom:10px;text-align:center;border:1px solid #e0d0b0;
+    font-style:italic;
+  }
+  .pray-body{font-family:'Frank Ruhl Libre',serif}
+
+  /* sources / yeshiva panel */
+  .src-card{background:#f7f1e0}
+  .src-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .guard{
+    display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--parch);
+    border-radius:12px;padding:10px 14px;flex:none;
+  }
+  .guard-dot{width:10px;height:10px;border-radius:50%;background:#2e9e5b;box-shadow:0 0 0 4px rgba(46,158,91,.2);animation:pulse 1.8s infinite}
+  .guard-t{font-weight:700;font-size:.9rem}
+  .guard-s{font-size:.72rem;color:var(--gold-bright);letter-spacing:.05em}
+  .src-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .filters{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .filter{font-size:.74rem;font-weight:700;color:var(--ink-soft);background:var(--parch-deep);
+    border-radius:99px;padding:4px 11px;border:1px solid var(--line)}
+  .src-tag{
+    background:#fffdf7;border:1px solid var(--line);border-radius:99px;
+    padding:6px 14px;font-size:.92rem;font-family:'Frank Ruhl Libre',serif;font-weight:600;
+    display:inline-flex;align-items:center;gap:7px;
+  }
+  .src-tag::before{content:"✓";color:#2e9e5b;font-weight:900}
+  .src-blocked{
+    margin-top:14px;padding:11px 15px;border-radius:11px;background:#fbecec;
+    border:1px solid #e3bcbc;color:var(--crimson);font-size:.9rem;font-weight:600;
+  }
+
+  @keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  @keyframes grow{from{opacity:0;width:0}to{opacity:1;width:64px}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  @media(max-width:560px){
+    .daf-banner{flex-direction:column;text-align:center}
+    .card{padding:24px 22px}
+    .cal-bar{grid-template-columns:1fr}
+    .gem-results{grid-template-columns:1fr}
+    .zmanim-grid{grid-template-columns:1fr}
+    .src-head{flex-direction:column}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="emblem" aria-label="כתר תורה על לוחות הברית">
+      <svg viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f0d27a"/>
+            <stop offset="45%" stop-color="#cda84a"/>
+            <stop offset="100%" stop-color="#9c7322"/>
+          </linearGradient>
+          <linearGradient id="goldDeep" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#cda84a"/>
+            <stop offset="100%" stop-color="#7e5c1c"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Tablets of the Covenant (the Torah stones) -->
+        <g stroke="#7e5c1c" stroke-width="2.2">
+          <path d="M30 70 a22 22 0 0 1 44 0 v74 a6 6 0 0 1 -6 6 H36 a6 6 0 0 1 -6 -6 Z" fill="url(#gold)"/>
+          <path d="M86 70 a22 22 0 0 1 44 0 v74 a6 6 0 0 1 -6 6 H92 a6 6 0 0 1 -6 -6 Z" fill="url(#gold)"/>
+        </g>
+        <!-- commandment letters -->
+        <g fill="#6b4d16" font-family="Frank Ruhl Libre, serif" font-size="11" font-weight="700" text-anchor="middle">
+          <text x="52" y="86">א</text><text x="52" y="102">ב</text><text x="52" y="118">ג</text><text x="52" y="134">ד</text><text x="52" y="150">ה</text>
+          <text x="108" y="86">ו</text><text x="108" y="102">ז</text><text x="108" y="118">ח</text><text x="108" y="134">ט</text><text x="108" y="150">י</text>
+        </g>
+
+        <!-- Keter Torah (crown) resting on the tablets -->
+        <g stroke="#7e5c1c" stroke-width="2" fill="url(#goldDeep)">
+          <path d="M40 56 L48 30 L62 48 L80 22 L98 48 L112 30 L120 56 Z"/>
+          <rect x="38" y="54" width="84" height="13" rx="5"/>
+        </g>
+        <g fill="#f6e6a8" stroke="#7e5c1c" stroke-width="1.3">
+          <circle cx="48" cy="28" r="4.5"/>
+          <circle cx="80" cy="19" r="5.5"/>
+          <circle cx="112" cy="28" r="4.5"/>
+        </g>
+        <g fill="#7a2e2e"><circle cx="64" cy="60" r="2.4"/><circle cx="80" cy="60" r="2.4"/><circle cx="96" cy="60" r="2.4"/></g>
+      </svg>
+    </div>
+    <div class="kicker">סוכן חֵקֶר אוטונומי · מתחדש מדי יום</div>
+    <h1 class="brand">סוֹד הַדַּף<span class="dot">.</span></h1>
+    <p class="tagline">מנוע שלומד את הדף יומי בכל בוקר, צולל למקורות וחושׂף תובנה אחת עמוקה — ישירות מן הטקסט.</p>
+    <div class="rule"></div>
+    <button id="themeToggle" class="theme-toggle" aria-label="החלף מצב יום/לילה" title="מצב לילה">🌙</button>
+  </header>
+
+  <!-- Jewish calendar bar -->
+  <div class="cal-bar" id="calBar">
+    <div class="cal-cell">
+      <span class="cal-ico">🕯️</span>
+      <div><div class="cal-k">התאריך העברי</div><div class="cal-v" id="calHeDate">…</div></div>
+    </div>
+    <div class="cal-cell">
+      <span class="cal-ico">📖</span>
+      <div><div class="cal-k">פרשת השבוע</div><div class="cal-v" id="calParasha">…</div></div>
+    </div>
+    <div class="cal-cell">
+      <span class="cal-ico">✡️</span>
+      <div><div class="cal-k">החג הבא</div><div class="cal-v" id="calHoliday">…</div></div>
+    </div>
+  </div>
+
+  <!-- Monthly calendar (Hebrew + Gregorian) -->
+  <section class="card" id="monthCard">
+    <div class="cal-head">
+      <button class="cal-nav" id="calPrev" aria-label="חודש קודם">‹</button>
+      <div class="cal-title" id="calTitle">…</div>
+      <button class="cal-nav" id="calNext" aria-label="חודש הבא">›</button>
+    </div>
+    <div class="cal-sub" id="calHebTitle"></div>
+    <div id="tachanunStatus" class="tachanun-ind" style="display:none"></div>
+    <div class="cal-grid" id="calGrid"></div>
+  </section>
+
+  <!-- Rest notice (Shabbat / Yom Tov) -->
+  <section class="rest-card" id="restCard" style="display:none">
+    <div class="rest-glow">🕯️</div>
+    <h2 id="restTitle">הישיבה שובתת</h2>
+    <p id="restReason"></p>
+    <p class="rest-sub">הסוכנים אינם פועלים בשבת, בערב שבת ובימים טובים. הלימוד יתחדש בעזרת ה׳ במוצאי המנוחה.</p>
+  </section>
+
+  <!-- Zmanim (prayer & sun times) -->
+  <section class="card" id="zmanimCard">
+    <h2><span class="glyph">🌅</span> זמני היום</h2>
+    <div class="sub" id="zmanimPlace">זמני זריחה, שקיעה ותפילה — לפי מיקומך</div>
+    <div id="zmanimStatus" class="status"><span class="spinner"></span> מחשב זמנים…</div>
+    <div id="zmanimGrid" class="zmanim-grid" style="display:none"></div>
+  </section>
+
+  <!-- Compass to Jerusalem -->
+  <section class="card" id="compassCard">
+    <h2><span class="glyph">🧭</span> לכיוון ירושלים</h2>
+    <div class="sub">הכיוון להר הבית מן המקום שבו אתה נמצא — לתפילה</div>
+    <div id="compassStatus" class="status"><span class="spinner"></span> מחשב כיוון…</div>
+    <div id="compassWrap" style="display:none;text-align:center">
+      <svg id="compassSvg" viewBox="0 0 200 200" style="max-width:240px;width:100%">
+        <circle cx="100" cy="100" r="84" fill="#fbf6e9" stroke="var(--gold)" stroke-width="2"/>
+        <circle cx="100" cy="100" r="84" fill="none" stroke="var(--line)" stroke-width="1"/>
+        <!-- fixed 'forward' marker (top of screen) -->
+        <polygon points="100,4 93,18 107,18" fill="var(--crimson)"/>
+        <g id="compassDial">
+          <text x="100" y="30" text-anchor="middle" font-family="Frank Ruhl Libre,serif" font-weight="700" font-size="13" fill="var(--ink-soft)">צ</text>
+          <text x="178" y="105" text-anchor="middle" font-family="Frank Ruhl Libre,serif" font-weight="700" font-size="13" fill="var(--ink-soft)">מז</text>
+          <text x="100" y="182" text-anchor="middle" font-family="Frank Ruhl Libre,serif" font-weight="700" font-size="13" fill="var(--ink-soft)">ד</text>
+          <text x="22" y="105" text-anchor="middle" font-family="Frank Ruhl Libre,serif" font-weight="700" font-size="13" fill="var(--ink-soft)">מע</text>
+          <g id="jeruArrow">
+            <line x1="100" y1="100" x2="100" y2="34" stroke="var(--gold)" stroke-width="5" stroke-linecap="round"/>
+            <polygon points="100,22 90,42 110,42" fill="var(--gold)"/>
+            <circle cx="100" cy="100" r="7" fill="var(--ink)"/>
+          </g>
+        </g>
+      </svg>
+      <div id="compassInfo" class="compass-info"></div>
+      <button id="liveCompassBtn" class="regen" style="margin-top:6px">🧭 הפעל מצפן חי</button>
+    </div>
+  </section>
+
+  <!-- Gematria calculator -->
+  <section class="card" id="gemCard">
+    <h2><span class="glyph">🔢</span> מחשבון גימטריה</h2>
+    <div class="sub">חשב ערך מספרי של מילה או ביטוי בעברית — חישוב מדויק, לא ניחוש</div>
+    <input type="text" id="gemInput" class="gem-input" placeholder="הקלד מילה בעברית…" dir="rtl" autocomplete="off">
+    <div class="gem-results">
+      <div class="gem-box"><div class="gem-num" id="gemStd">0</div><div class="gem-lbl">רגיל (הכרחי)</div></div>
+      <div class="gem-box"><div class="gem-num" id="gemOrd">0</div><div class="gem-lbl">סידורי</div></div>
+      <div class="gem-box"><div class="gem-num" id="gemSml">0</div><div class="gem-lbl">קטן (מספר קטן)</div></div>
+    </div>
+    <div class="gem-note" id="gemNote"></div>
+  </section>
+
+  <!-- Codes calculator (live) — hidden from front; kept in code, can be restored -->
+  <section class="card" id="codesCard" data-keep-hidden="1" style="display:none">
+    <h2><span class="glyph">🔯</span> מחשבון צפנים</h2>
+    <div class="sub">גימטריה · אתב״ש · נוטריקון · דילוגי אותיות — חישוב חי</div>
+    <input type="text" id="codeInput" class="gem-input" placeholder="הקלד מילה או ביטוי…" dir="rtl" autocomplete="off">
+    <div class="gem-results">
+      <div class="gem-box"><div class="gem-num" id="cGem">0</div><div class="gem-lbl">גימטריה</div></div>
+      <div class="gem-box"><div class="gem-num" id="cAtbash" style="font-size:1.3rem">—</div><div class="gem-lbl">אתב״ש</div></div>
+      <div class="gem-box"><div class="gem-num" id="cNotar" style="font-size:1.1rem">—</div><div class="gem-lbl">ראשי תיבות</div></div>
+    </div>
+    <div class="codes-els">
+      <div class="ls-h" style="font-size:1.06rem">🔎 דילוגי אותיות (ELS) — על כל חמשת החומשים</div>
+      <div class="sub">החיפוש מבוסס על הטקסט המלא של בראשית · שמות · ויקרא · במדבר · דברים</div>
+      <div class="mini-row">
+        <select id="torahScope" class="gem-input" style="flex:1;min-width:160px;font-size:1rem">
+          <option value="ALL">כל התורה — חמישה חומשים</option>
+          <option value="Genesis">בְּרֵאשִׁית</option>
+          <option value="Exodus">שְׁמוֹת</option>
+          <option value="Leviticus">וַיִּקְרָא</option>
+          <option value="Numbers">בְּמִדְבָּר</option>
+          <option value="Deuteronomy">דְּבָרִים</option>
+        </select>
+        <button class="mini-btn" id="loadTorah">📜 טען</button>
+      </div>
+      <div class="mini-row" style="margin-top:4px"><span id="torahStatus" class="sub" style="margin:0"></span></div>
+      <div class="mini-row" style="margin-top:10px">
+        <input type="text" id="elsWord" class="gem-input" style="flex:1;min-width:130px" placeholder="מילה לחיפוש (למשל: תורה)" dir="rtl">
+        <label class="els-skip">דילוג עד <input type="number" id="elsMax" value="100" min="2" max="500"></label>
+        <button class="regen" id="elsBtn" style="margin:0">חפש דילוגים</button>
+      </div>
+      <div id="elsOut" class="codes-out"></div>
+    </div>
+  </section>
+
+  <!-- (codes archive moved to the bottom of the page) -->
+
+
+  <!-- Daf banner -->
+  <div class="daf-banner" id="dafBanner">
+    <div>
+      <div class="label">הדף יומי · היום</div>
+      <div class="ref" id="dafRef">טוֹעֵן…</div>
+      <div class="date" id="dafDate"></div>
+    </div>
+    <div class="seal">ד״ף</div>
+  </div>
+
+  <!-- Source text -->
+  <section class="card" id="textCard">
+    <h2><span class="glyph">📜</span> הטקסט של הדף</h2>
+    <div class="sub" id="textRef">נמשך ישירות ממאגר ספריא (Sefaria)</div>
+    <div id="textStatus" class="status"><span class="spinner"></span> מושך את הדף מספריא…</div>
+    <div class="daf-text" id="dafText" style="display:none"></div>
+    <button class="toggle" id="textToggle" style="display:none">הצג את הדף המלא ↓</button>
+  </section>
+
+  <!-- Daily lesson (AI) -->
+  <section class="card insight-card" id="insightCard">
+    <span class="pill"><span class="live"></span> שיעור יומי · נוצר על-ידי הסוכן</span>
+    <h2><span class="glyph">🔑</span> השיעור של היום</h2>
+    <div class="sub">הסוכן לומד את הדף ואת מפרשיו המאושרים, ומגיש שיעור קצר</div>
+    <div id="insightStatus" class="status"><span class="spinner"></span> ממתין לטקסט…</div>
+    <div class="insight-body" id="insightBody" style="display:none"></div>
+    <button class="regen" id="regenBtn" style="display:none">✦ שיעור נוסף על אותו דף</button>
+  </section>
+
+  <!-- ארבעת הסוכנים החדשים - כל אחד שיעור יומי בכרטיס נפרד -->
+
+  <!-- 📖 ליקוטי מוהר"ן + עצות (רבי נחמן מברסלב) -->
+  <section class="card breslov-card" id="breslovCard">
+    <h2><span class="glyph">📖</span> רבי נחמן מברסלב — תורה ועצה יומית</h2>
+    <div class="sub">ליקוטי מוהר"ן וליקוטי עצות · מתחדש כל יום</div>
+    <div id="breslovStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="breslovBody" style="display:none;margin-top:8px"></div>
+    <details style="margin-top:12px"><summary class="arch-summary">📚 ארכיון תורות קודמות</summary><div id="breslovArch"></div></details>
+  </section>
+
+  <!-- 📖 הלכות הבן איש חי -->
+  <section class="card bic-card" id="bicCard">
+    <h2><span class="glyph">📖</span> הבן איש חי — 2 הלכות יומיות</h2>
+    <div class="sub">לרבי יוסף חיים מבגדאד זצ"ל · ע"פ פרשת השבוע</div>
+    <div id="bicStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="bicBody" style="display:none;margin-top:8px"></div>
+    <details style="margin-top:12px"><summary class="arch-summary">📚 ארכיון הלכות קודמות</summary><div id="bicArch"></div></details>
+  </section>
+
+  <!-- 🎵 דוד המלך - תהילים יומי -->
+  <section class="card david-card" id="davidCard">
+    <h2><span class="glyph">🎵</span> דוד המלך — ברכה ועצה מתהילים</h2>
+    <div class="sub">בהשראת מזמורי דוד · מתחדש כל יום</div>
+    <div id="davidStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="davidBody" style="display:none;margin-top:8px"></div>
+    <details style="margin-top:12px"><summary class="arch-summary">📚 ארכיון ברכות קודמות</summary><div id="davidArch"></div></details>
+  </section>
+
+  <!-- 👑 שלמה המלך - חכמה ועצה -->
+  <section class="card shlomo-card" id="shlomoCard">
+    <h2><span class="glyph">👑</span> שלמה המלך — חכמה ועצה</h2>
+    <div class="sub">משלי · קהלת · שיר השירים · מתחדש כל יום</div>
+    <div id="shlomoStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="shlomoBody" style="display:none;margin-top:8px"></div>
+    <details style="margin-top:12px"><summary class="arch-summary">📚 ארכיון חכמה קודמת</summary><div id="shlomoArch"></div></details>
+  </section>
+
+  <!-- 📜 שניים מקרא ואחד תרגום -->
+  <section class="card shnayim-card" id="shnayimCard">
+    <h2><span class="glyph">📜</span> שניים מקרא ואחד תרגום</h2>
+    <div class="sub">חלקו של היום מפרשת השבוע + תרגום אונקלוס</div>
+    <div id="shnayimStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="shnayimBody" style="display:none;margin-top:8px"></div>
+  </section>
+
+  <!-- 🕯️ דף יומי ירושלמי -->
+  <section class="card yerushalmi-card" id="yerushalmiCard">
+    <h2><span class="glyph">🕯️</span> דף יומי ירושלמי</h2>
+    <div class="sub">לצד הבבלי · ע"פ מחזור הלימוד</div>
+    <div id="yerStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="yerBody" style="display:none;margin-top:8px"></div>
+  </section>
+
+  <!-- ✨ הילולות צדיקים -->
+  <section class="card hilulot-card" id="hilulotCard">
+    <h2><span class="glyph">✨</span> הילולות צדיקים</h2>
+    <div class="sub">מי הצדיק שהיום יום הילולתו</div>
+    <div id="hilulotStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="hilulotBody" style="display:none;margin-top:8px"></div>
+  </section>
+
+  <!-- 📚 חוק לישראל - לימוד יומי משולב -->
+  <section class="card chok-card" id="chokCard">
+    <h2><span class="glyph">📚</span> חוק לישראל — לימוד יומי משולב</h2>
+    <div class="sub">תורה · נביאים · כתובים · משנה · גמרא · זוהר · הלכה · מוסר — מנהג עדות־המזרח</div>
+    <div id="chokStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="chokBody" style="display:none;margin-top:8px"></div>
+  </section>
+
+  <!-- 🎡 כלי לוח השנה: גלגלת תאריכים וגלגלת פרשיות -->
+  <section class="card tools-card" id="toolsCard">
+    <h2><span class="glyph">🎡</span> כלי לוח השנה</h2>
+    <div class="sub">גלגלת תאריכים · גלגלת פרשיות · המרה דו־כיוונית</div>
+
+    <div class="tool-block">
+      <h3 class="tool-title">📅 גלגלת תאריכים</h3>
+      <div class="tool-desc">בחר תאריך עברי או לועזי, ולחץ "הצג" — תקבל יום בשבוע, פרשה, חגים, ומצב תחנון לאותו יום.</div>
+      <div class="tool-row">
+        <label class="tool-label">סוג:</label>
+        <select id="dateType" class="tool-input">
+          <option value="he">עברי → לועזי</option>
+          <option value="ge">לועזי → עברי</option>
+        </select>
+      </div>
+      <div class="tool-row" id="heInputs">
+        <label class="tool-label">יום:</label>
+        <select id="heDay" class="tool-input"></select>
+        <label class="tool-label">חודש:</label>
+        <select id="heMonth" class="tool-input">
+          <option value="Tishrei">תשרי</option>
+          <option value="Cheshvan">חשון</option>
+          <option value="Kislev">כסלו</option>
+          <option value="Tevet">טבת</option>
+          <option value="Sh'vat">שבט</option>
+          <option value="Adar">אדר</option>
+          <option value="Adar I">אדר א</option>
+          <option value="Adar II">אדר ב</option>
+          <option value="Nisan">ניסן</option>
+          <option value="Iyyar">אייר</option>
+          <option value="Sivan">סיון</option>
+          <option value="Tamuz">תמוז</option>
+          <option value="Av">אב</option>
+          <option value="Elul">אלול</option>
+        </select>
+        <label class="tool-label">שנה:</label>
+        <input type="number" id="heYear" class="tool-input" min="5700" max="6000" value="5786">
+      </div>
+      <div class="tool-row" id="geInputs" style="display:none">
+        <input type="date" id="geDate" class="tool-input">
+      </div>
+      <button class="tool-btn" id="dateLookup">🔍 הצג מידע</button>
+      <div id="dateResult" class="tool-result" style="display:none"></div>
+    </div>
+
+    <div class="tool-block" style="margin-top:18px">
+      <h3 class="tool-title">📖 גלגלת פרשיות</h3>
+      <div class="tool-desc">בחר פרשה ושנה — תראה באיזה תאריך לועזי היא נקראת.</div>
+      <div class="tool-row">
+        <label class="tool-label">פרשה:</label>
+        <select id="parshaSelect" class="tool-input">
+          <option value="Bereshit">בראשית</option><option value="Noach">נח</option>
+          <option value="Lech-Lecha">לך לך</option><option value="Vayera">וירא</option>
+          <option value="Chayei Sara">חיי שרה</option><option value="Toldot">תולדות</option>
+          <option value="Vayetzei">ויצא</option><option value="Vayishlach">וישלח</option>
+          <option value="Vayeshev">וישב</option><option value="Miketz">מקץ</option>
+          <option value="Vayigash">ויגש</option><option value="Vayechi">ויחי</option>
+          <option value="Shemot">שמות</option><option value="Vaera">וארא</option>
+          <option value="Bo">בא</option><option value="Beshalach">בשלח</option>
+          <option value="Yitro">יתרו</option><option value="Mishpatim">משפטים</option>
+          <option value="Terumah">תרומה</option><option value="Tetzaveh">תצוה</option>
+          <option value="Ki Tisa">כי תשא</option><option value="Vayakhel">ויקהל</option>
+          <option value="Pekudei">פקודי</option><option value="Vayikra">ויקרא</option>
+          <option value="Tzav">צו</option><option value="Shmini">שמיני</option>
+          <option value="Tazria">תזריע</option><option value="Metzora">מצרע</option>
+          <option value="Achrei Mot">אחרי מות</option><option value="Kedoshim">קדושים</option>
+          <option value="Emor">אמור</option><option value="Behar">בהר</option>
+          <option value="Bechukotai">בחקתי</option><option value="Bamidbar">במדבר</option>
+          <option value="Nasso">נשא</option><option value="Beha'alotcha">בהעלתך</option>
+          <option value="Sh'lach">שלח</option><option value="Korach">קרח</option>
+          <option value="Chukat">חקת</option><option value="Balak">בלק</option>
+          <option value="Pinchas">פינחס</option><option value="Matot">מטות</option>
+          <option value="Masei">מסעי</option><option value="Devarim">דברים</option>
+          <option value="Vaetchanan">ואתחנן</option><option value="Eikev">עקב</option>
+          <option value="Re'eh">ראה</option><option value="Shoftim">שופטים</option>
+          <option value="Ki Teitzei">כי תצא</option><option value="Ki Tavo">כי תבוא</option>
+          <option value="Nitzavim">נצבים</option><option value="Vayeilech">וילך</option>
+          <option value="Ha'Azinu">האזינו</option><option value="Vezot Haberakhah">וזאת הברכה</option>
+        </select>
+        <label class="tool-label">שנה:</label>
+        <input type="number" id="parshaYear" class="tool-input" min="2024" max="2050" value="2026">
+      </div>
+      <button class="tool-btn" id="parshaLookup">🔍 הצג מידע</button>
+      <div id="parshaResult" class="tool-result" style="display:none"></div>
+    </div>
+  </section>
+
+  <!-- 📿 סידור עדות־המזרח: שחרית · מנחה · ערבית -->
+  <section class="card siddur-card" id="siddurCard">
+    <h2><span class="glyph">📿</span> סידור עדות־המזרח</h2>
+    <div class="sub">שחרית · מנחה · ערבית — קרוב לסידור בן איש חי הבגדאדי</div>
+    <div class="siddur-tabs">
+      <button class="siddur-tab active" data-tab="shacharit">🌅 שחרית</button>
+      <button class="siddur-tab" data-tab="mincha">🕯️ מנחה</button>
+      <button class="siddur-tab" data-tab="arvit">🌃 ערבית</button>
+    </div>
+    <div id="siddurStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="siddurBody" style="display:none;margin-top:8px"></div>
+  </section>
+
+  <!-- ארכיון שיעורים יומיים קודמים -->
+  <section class="card" id="lessonArchCard">
+    <h2><span class="glyph">📅</span> ארכיון שיעורים יומיים</h2>
+    <div class="sub">כל שיעור שהסוכן כתב — לחץ על שיעור לפתיחה</div>
+    <div id="lessonArchStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="lessonArchBody" style="display:none;margin-top:8px"></div>
+  </section>
+
+  <!-- שו"ת: ask a halachic question -->
+  <section class="card" id="qaCard">
+    <h2><span class="glyph">📨</span> שו״ת — שאל שאלה</h2>
+    <div class="sub">כתוב שאלה הלכתית או נושא, בחר פורמט, והתשובה תופיע כאן תוך שניות</div>
+    <input id="qaPass" type="password" placeholder="🔐 קוד גישה"
+      style="width:100%;box-sizing:border-box;font-family:inherit;font-size:1rem;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#fffdf7;color:var(--ink);margin-bottom:8px" autocomplete="off">
+    <textarea id="qaInput" rows="3" placeholder="לדוגמה: כמה שיעור מים צריך לנטילת ידיים בשחרית? או נושא לשיעור: דיני בורר בשבת"
+      style="width:100%;box-sizing:border-box;font-family:inherit;font-size:1rem;padding:10px;border:1px solid var(--line);border-radius:9px;background:#fffdf7;color:var(--ink);resize:vertical"></textarea>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <button class="regen" id="qaFullBtn" style="margin:0">📖 שיעור מלא</button>
+      <button class="regen" id="qaShortBtn" style="margin:0">⚡ תמצית</button>
+    </div>
+    <div class="note" id="qaHint" style="margin-top:6px">התשובה נוצרת מיד באתר (דרוש קוד גישה). חומר לימוד בלבד — לא פסק הלכה.</div>
+    <div id="qaStatus" class="status" style="margin-top:10px;display:none"><span class="spinner"></span> טוען…</div>
+    <div id="qaBody" style="display:none;margin-top:10px"></div>
+  </section>
+
+  <!-- Agent activity log -->
+  <section class="card" id="logCard">
+    <h2><span class="glyph">📋</span> יומן הסוכנים</h2>
+    <div class="sub">מה כל סוכן עשה בכל ריצה — כדי שתוכל לראות, ללמוד, ולהדריך</div>
+    <div id="logStatus" class="status"><span class="spinner"></span> טוען יומן…</div>
+    <div id="logBody" style="display:none"></div>
+  </section>
+
+  <!-- Sources / Yeshiva log + guardrail -->
+  <section class="card src-card" id="srcCard">
+    <div class="src-head">
+      <div>
+        <h2><span class="glyph">📚</span> יומן המקורות · הישיבה</h2>
+        <div class="sub">היכן הסוכן חיפש את המידע — וכל מה שנחסם</div>
+        <div class="filters">
+          <span class="filter">🛑 שם חסום → עצירה ומחיקה</span>
+          <span class="filter">עברית בלבד</span>
+          <span class="filter">מוקד: זוהר · תהילים · נביאים</span>
+          <span class="filter">🔄 עדכון כל שעה</span>
+        </div>
+      </div>
+      <div class="guard" id="guard" title="מאובטח — לא ניתן לכבות באב-טיפוס">
+        <span class="guard-dot"></span>
+        <div><div class="guard-t">מקורות מאושרים בלבד</div><div class="guard-s">🔒 נעול</div></div>
+      </div>
+    </div>
+    <div id="srcStatus" class="status"><span class="spinner"></span> בודק מקורות…</div>
+    <div id="srcList" class="src-list" style="display:none"></div>
+    <div id="srcBlocked" class="src-blocked" style="display:none"></div>
+  </section>
+
+  <!-- Tehillim Yomi -->
+  <section class="card" id="tehillimCard">
+    <h2><span class="glyph">📖</span> תהילים יומי</h2>
+    <div class="sub" id="tehillimSub">חלוקת ספר תהילים לימי החודש</div>
+    <button class="regen" id="tehillimBtn" style="margin-top:0">הצג את תהילים של היום ↓</button>
+    <div id="tehillimStatus" class="status" style="display:none"><span class="spinner"></span> טוען תהילים…</div>
+    <div id="tehillimBody" class="pray-text" style="display:none;border-radius:12px;margin-top:14px"></div>
+  </section>
+
+  <!-- Source library (accumulated by the librarian agent) -->
+  <section class="card" id="libraryCard">
+    <h2><span class="glyph">📚</span> ספריית המקורות</h2>
+    <div class="sub">המקורות שהסוכן אסף ועקב אחרי מאיפה כל אחד הובא — מתעדכן והולך</div>
+    <div id="libraryStatus" class="status"><span class="spinner"></span> טוען ספרייה…</div>
+    <div id="libraryBody" style="display:none"></div>
+  </section>
+
+  <!-- Prayers & blessings -->
+  <section class="card" id="prayCard">
+    <h2><span class="glyph">📿</span> תפילות וברכות</h2>
+    <div class="sub">נוסח ספרדי (עדות המזרח) · לחץ על תפילה לפתיחת הנוסח כאן בדף</div>
+    <div class="pray-list" id="prayList"></div>
+  </section>
+
+  <!-- Prayer-source completion (from the prayers-audit agent) -->
+  <section class="card" id="prayerSrcCard">
+    <h2><span class="glyph">🕯️</span> השלמת תפילות מהמקור</h2>
+    <div class="sub">מקורות מדויקים מנחלת הכלל (תורה ותהילים) להשלמת החלקים החסרים</div>
+    <div id="prayerSrcStatus" class="status"><span class="spinner"></span> טוען מקורות…</div>
+    <div id="prayerSrcBody" style="display:none"></div>
+  </section>
+
+  <!-- Codes archive (collapsed, at the bottom — not shown on the front) -->
+  <section class="card" id="codesFeedCard">
+    <h2><span class="glyph">🔯</span> ארכיון הצפנים</h2>
+    <div class="sub">נשמר אוטומטית · מוצג רק כאן (פתח לצפייה) — ללימוד והתבוננות, לא הוכחה</div>
+    <div id="codesFeedStatus" class="status" style="display:none"></div>
+    <details id="codesArchiveWrap"><summary style="cursor:pointer;font-weight:700;color:var(--crimson)">📂 פתח את ארכיון הצפנים</summary>
+      <div id="codesFeedBody" style="display:none;margin-top:10px"></div>
+    </details>
+  </section>
+
+  <footer>
+    אב-טיפוס · נתוני תורה ומפרשים מ-<a href="https://www.sefaria.org" target="_blank">Sefaria</a> · לוח שנה מ-<a href="https://www.hebcal.com" target="_blank">Hebcal</a> · השיעורים נוצרים על-ידי מנוע בינה מלאכותית ואינם תחליף ללימוד עם רב.
+  </footer>
+
+</div>
+
+<script>
+const SEFARIA = "https://www.sefaria.org";
+let dafRefGlobal = null;
+let dafTextGlobal = "";
+
+// === Guardrail: the forbidden name (Hebrew + English). Mirrors the backend. ===
+const FORBIDDEN = ["ישו","ישוע","ישובע","יזוס","הנוצרי","אותו האיש","אותו איש","jesus","christ","yeshu","jesu"];
+function normHe(s){ return (s||"").replace(/[\u0591-\u05C7]/g,"").replace(/["'\u05F3\u05F4\u2018\u2019]/g,"").toLowerCase(); }
+function forbiddenHit(text){
+  const n = normHe(text);
+  for(const t of FORBIDDEN){ if(n.includes(normHe(t))) return t; }
+  return null;
+}
+function hasHebrew(s){ return /[\u05D0-\u05EA]/.test(s||""); }
+
+function stripHtml(s){
+  const d = document.createElement("div");
+  d.innerHTML = s;
+  return (d.textContent || "").replace(/\s+/g," ").trim();
+}
+function reveal(el){ requestAnimationFrame(()=>el.classList.add("in")); }
+
+// 1) Fetch today's Daf Yomi from the calendar
+async function loadDaf(){
+  try{
+    const r = await fetch(`${SEFARIA}/api/calendars`);
+    const data = await r.json();
+    const items = data.calendar_items||[];
+    const daf = items.find(i => i.title && i.title.en === "Daf Yomi");
+    const par = items.find(i => i.title && i.title.en === "Parashat Hashavua");
+    if(par) document.getElementById("calParasha").textContent =
+      (par.displayValue && (par.displayValue.he || par.displayValue.en)) || "—";
+    if(!daf) throw new Error("no daf");
+
+    dafRefGlobal = daf.ref;
+    document.getElementById("dafRef").textContent = daf.displayValue.he || daf.displayValue.en;
+    const d = new Date();
+    document.getElementById("dafDate").textContent =
+      d.toLocaleDateString("he-IL",{weekday:"long",day:"numeric",month:"long"});
+
+    loadSources(daf.ref);        // provenance + guardrail (parallel)
+    await loadText(daf.ref);
+  }catch(e){
+    document.getElementById("dafRef").textContent = "שגיאה בטעינה";
+    showError("textStatus","לא הצלחתי להתחבר לספריא. בדוק חיבור אינטרנט ונסה לרענן.");
+  }
+}
+
+// 2) Fetch the Hebrew text of the daf
+async function loadText(ref){
+  try{
+    const r = await fetch(`${SEFARIA}/api/texts/${encodeURIComponent(ref)}`);
+    const data = await r.json();
+    const heArr = Array.isArray(data.he) ? data.he.flat(Infinity) : [data.he];
+    const clean = heArr.map(stripHtml).filter(Boolean);
+    dafTextGlobal = clean.join(" ");
+    if(!dafTextGlobal) throw new Error("empty");
+
+    // HARD BLOCK: if the forbidden name appears, halt immediately — no display,
+    // no lesson, no sources, nothing logged.
+    const hit = forbiddenHit(dafTextGlobal);
+    if(hit){
+      haltForbidden();
+      return;
+    }
+
+    const tc = document.getElementById("textCard");
+    document.getElementById("textRef").textContent = (data.heRef||ref) + " · מקור: ספריא";
+    document.getElementById("textStatus").style.display="none";
+    const tEl = document.getElementById("dafText");
+    tEl.textContent = dafTextGlobal;
+    tEl.style.display="block";
+    reveal(tc);
+
+    const toggle = document.getElementById("textToggle");
+    toggle.style.display="inline-block";
+    toggle.onclick = ()=>{
+      tEl.classList.toggle("open");
+      toggle.textContent = tEl.classList.contains("open") ? "הסתר ↑" : "הצג את הדף המלא ↓";
+    };
+
+    loadLesson();
+  }catch(e){
+    showError("textStatus","לא הצלחתי לטעון את טקסט הדף.");
+  }
+}
+
+// Load today's lesson: prefer the engine's discoveries.json (production, no key
+// in the browser); fall back to in-browser generation (works inside claude.ai).
+async function loadLesson(){
+  reveal(document.getElementById("insightCard"));
+  const status = document.getElementById("insightStatus");
+  status.style.display="flex";
+  status.innerHTML = '<span class="spinner"></span> טוען את שיעור היום…';
+  try{
+    const r = await fetch("./discoveries.json", {cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    const rec = (Array.isArray(arr) ? (arr.find(x=>x.ref===dafRefGlobal) || arr[0]) : null);
+    if(!rec || !rec.lesson) throw new Error("no lesson");
+    renderLesson(rec.lesson);
+  }catch(e){
+    generateInsight();           // dev fallback (claude.ai preview)
+  }
+}
+
+function renderLesson(L){
+  const status = document.getElementById("insightStatus");
+  const body = document.getElementById("insightBody");
+  status.style.display="none";
+  let h = "";
+  if(L.title)     h += `<div class="ls-title">${L.title}</div>`;
+  if(L.intro)     h += `<p>${L.intro}</p>`;
+  if(L.opening)   h += `<p>${L.opening}</p>`;   // backward compatible
+  if(L.method)    h += `<div class="ls-h">🧭 דרך הלימוד</div><p>${L.method}</p>`;
+  if(L.aramaic)   h += `<div class="ls-h">📘 מארמית לעברית</div><p class="ls-quote">${L.aramaic}</p>`;
+
+  // Daf section
+  if(L.daf){
+    h += `<div class="ls-h">📖 הדף — ${L.daf.ref||""}</div>`;
+    h += `<p>${L.daf.teaching||""}</p>`;
+  } else if(L.teaching){
+    h += `<p>${L.teaching}</p>`;
+  }
+
+  // Mishnayot
+  if(Array.isArray(L.mishnayot) && L.mishnayot.length){
+    L.mishnayot.forEach((m,i)=>{
+      h += `<div class="ls-h">📜 משנה ${L.mishnayot.length>1?(i+1):""} — ${m.ref||""}</div>`;
+      if(m.text_summary) h += `<p class="ls-quote">${m.text_summary}</p>`;
+      if(m.insight)      h += `<p>${m.insight}</p>`;
+    });
+  }
+
+  // Commentators
+  if(Array.isArray(L.commentators) && L.commentators.length){
+    h += `<div class="ls-h">🗣️ דברי המפרשים</div>`;
+    L.commentators.forEach(c=>{
+      h += `<p><span class="ls-src">${c.name||""}:</span> ${c.point||""}</p>`;
+    });
+  }
+
+  // Cross-source connections
+  if(Array.isArray(L.connections) && L.connections.length){
+    h += `<div class="ls-h">🔗 קשרים מכל המקורות</div>`;
+    L.connections.forEach(c=>{
+      const from = c.from ? ` <span class="lib-meta">(מתוך ${c.from})</span>` : "";
+      h += `<p><span class="ls-src">${c.source||""}</span>${from} ${c.point||""}</p>`;
+    });
+  }
+
+  if(L.deep_dive)     h += `<div class="ls-h">🔬 עיון לעומק</div><p>${L.deep_dive}</p>`;
+  if(L.halacha)       h += `<div class="ls-h">⚖️ הלכה למעשה</div><p>${L.halacha}</p>`;
+  if(L.gematria_note) h += `<div class="ls-h">🔢 גימטריה</div><p>${L.gematria_note}</p>`;
+  if(L.codes)         h += `<div class="ls-h">🔯 צפנים בתורה</div><p>${L.codes}</p>` +
+                           `<p style="font-size:.85rem;color:var(--ink-soft)">הצפנים מחושבים בקוד מתוך טקסט התורה, ומובאים ללימוד והתבוננות בלבד — לא כהוכחה. דפוסים כאלה מופיעים גם במקרה בכל טקסט ארוך.</p>`;
+  if(L.question)      h += `<div class="ls-h">🤔 שאלה למחשבה</div><p>${L.question}</p>`;
+  if(L.takeaway)      h += `<div class="ls-h">✨ לקח ליום</div><p>${L.takeaway}</p>`;
+
+  body.innerHTML = h;
+  body.style.display="block";
+  document.getElementById("regenBtn").style.display="none";
+}
+
+/* ===== Read the lesson aloud — removed by request ===== */
+
+// 3) The "brain": ask Claude to compose today's daily lesson from the daf
+async function generateInsight(){
+  reveal(document.getElementById("insightCard"));
+  const status = document.getElementById("insightStatus");
+  const body = document.getElementById("insightBody");
+  const btn = document.getElementById("regenBtn");
+  status.style.display="flex";
+  status.innerHTML = '<span class="spinner"></span> הסוכן לומד את הדף ומחבר שיעור…';
+  body.style.display="none";
+  btn.disabled = true;
+
+  const snippet = dafTextGlobal.slice(0, 3500);
+  const prompt =
+`להלן קטע מתוך הדף יומי (${dafRefGlobal}):
+
+"""${snippet}"""
+
+אתה רב שכותב שיעור יומי קצר. קרא את הדף וכתוב שיעור בעברית בלבד, בטון חם וברור, במבנה הבא (השתמש ב-** לכותרות משנה):
+**כותרת השיעור**
+פתיחה: משפט-שניים שמציגים את הנושא.
+**הרעיון** הסבר מרכזי של 2-3 משפטים, מבוסס על הטקסט בלבד (בלי להמציא ציטוטים).
+**שאלה למחשבה** שאלה אחת.
+**לקח ליום** משפט אחד לקחת ליום.
+סך הכול עד 130 מילה.`;
+
+  try{
+    const res = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:1000,
+        messages:[{role:"user",content:prompt}]
+      })
+    });
+    const data = await res.json();
+    const text = (data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n").trim();
+    if(!text) throw new Error("empty");
+
+    status.style.display="none";
+    body.innerHTML = text
+      .replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")
+      .replace(/\n/g,"<br>");
+    body.style.display="block";
+    btn.style.display="inline-flex";
+    btn.disabled=false;
+    btn.onclick = generateInsight;
+  }catch(e){
+    const status=document.getElementById("insightStatus");
+    status.style.display="none";
+    const body=document.getElementById("insightBody");
+    body.style.display="block";
+    body.innerHTML="<strong>השיעור נכתב על-ידי המנוע.</strong><br>הפעל את מנוע הישיבה (scheduler) כדי שהשיעור היומי ייכתב לכאן אוטומטית.";
+    btn.style.display="none";
+  }
+}
+
+function showError(id,msg){
+  const el = document.getElementById(id);
+  el.innerHTML = "⚠️ " + msg;
+  el.closest(".card")?.classList.add("in");
+  el.parentElement.classList.add("err");
+}
+
+// HARD STOP for a forbidden page: halt research, show notice, log nothing.
+function haltForbidden(){
+  dafTextGlobal = "";
+  const ts = document.getElementById("textStatus");
+  ts.style.display="flex"; ts.classList.add("err");
+  ts.innerHTML = "🛑 המחקר על עמוד זה הופסק: זוהה שם חסום. שום מידע לא נשמר.";
+  ["dafText","textToggle","insightStatus","insightBody","regenBtn","srcStatus","srcList","srcBlocked"]
+    .forEach(id=>{ const e=document.getElementById(id); if(e) e.style.display="none"; });
+  reveal(document.getElementById("insightCard"));
+  const ib = document.getElementById("insightBody");
+  ib.style.display="block";
+  ib.innerHTML = "<strong>המחקר נעצר.</strong><br>העמוד הכיל שם חסום, ולכן הסוכן לא קרא אותו, לא הפיק שיעור, והרישום נמחק.";
+}
+
+/* ===== Jewish calendar (Hebcal) ===== */
+async function loadCalendar(){
+  const d = new Date();
+  const iso = d.toISOString().slice(0,10);
+  // Hebrew date
+  try{
+    const r = await fetch(`https://www.hebcal.com/converter?cfg=json&date=${iso}&g2h=1&strict=1`);
+    const j = await r.json();
+    document.getElementById("calHeDate").textContent = j.hebrew || "—";
+    // ====== מצב תחנון ======
+    try{
+      const events = (j.events||[]).map(e=>String(e).toLowerCase());
+      const evJoined = events.join(" | ");
+      // Hebcal-style event names that suppress tachanun
+      const noTachReasons = [];
+      const isShabbat = d.getDay() === 6;
+      const isErevShabbat = d.getDay() === 5;
+      if(isShabbat) noTachReasons.push("שבת קודש");
+      // Holidays / RH / Chol HaMoed / Chanukah / Purim
+      const noTachKeywords = ["rosh chodesh","rosh hashana","yom kippur","sukkot","shmini atzeret","simchat torah",
+        "pesach","shavuot","chol hamoed","chanukah","purim","tu bishvat","tu b'av","tu beav","pesach sheni",
+        "lag baomer","lag b'omer","yom ha'atzmaut","yom haatzmaut","yom yerushalayim"];
+      for(const kw of noTachKeywords){
+        if(evJoined.includes(kw)){
+          const found = events.find(e=>e.includes(kw));
+          noTachReasons.push(found);
+        }
+      }
+      // Hebrew month context — Nisan/early Sivan/Tishrei suppression
+      const heDateStr = j.hebrew || "";
+      if(heDateStr.includes("נִיסָן") || heDateStr.includes("ניסן")) noTachReasons.push("חודש ניסן");
+      // Sivan 1-12
+      const heDay = j.hd || 0;
+      if((heDateStr.includes("סִיוָן") || heDateStr.includes("סיון")) && heDay >= 1 && heDay <= 12)
+        noTachReasons.push("א-יב סיון");
+      // Tishrei 11 onwards (after Yom Kippur)
+      if((heDateStr.includes("תִּשְׁרֵי") || heDateStr.includes("תשרי")) && heDay >= 11)
+        noTachReasons.push("י״א בתשרי ואילך");
+      // Erev Yom Kippur (9 Tishrei)
+      if((heDateStr.includes("תִּשְׁרֵי") || heDateStr.includes("תשרי")) && heDay === 9)
+        noTachReasons.push("ערב יום כיפור");
+      // Display
+      const ind = document.getElementById("tachanunStatus");
+      ind.style.display = "inline-block";
+      if(noTachReasons.length){
+        ind.className = "tachanun-ind no";
+        ind.innerHTML = `🕊️ אין תחנון היום · ${noTachReasons[0]}`;
+      } else if(isErevShabbat){
+        ind.className = "tachanun-ind partial";
+        ind.innerHTML = `🕯️ תחנון בוקר בלבד · ערב שבת`;
+      } else {
+        ind.className = "tachanun-ind yes";
+        ind.innerHTML = `📿 אומרים תחנון`;
+      }
+    }catch(e){
+      document.getElementById("tachanunStatus").style.display = "none";
+    }
+  }catch(e){ document.getElementById("calHeDate").textContent = "—"; }
+  // Next major holiday
+  try{
+    const y = d.getFullYear();
+    const r = await fetch(`https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&geo=none&year=${y}&month=x`);
+    const j = await r.json();
+    const next = (j.items||[])
+      .filter(it => it.category === "holiday" && it.date >= iso)
+      .sort((a,b)=>a.date.localeCompare(b.date))[0];
+    if(next){
+      const when = new Date(next.date).toLocaleDateString("he-IL",{day:"numeric",month:"long"});
+      document.getElementById("calHoliday").textContent =
+        `${next.hebrew || next.title} · ${when}`;
+    } else {
+      document.getElementById("calHoliday").textContent = "—";
+    }
+  }catch(e){ document.getElementById("calHoliday").textContent = "—"; }
+}
+
+/* ===== Sources log + 'approved sources only' guardrail ===== */
+// mirrors the backend SourcePolicy allowlist
+const APPROVED_CATS = ["Tanakh","Targum","Mishnah","Talmud","Tosefta","Midrash",
+  "Halakhah","Kabbalah","Liturgy","Jewish Thought","Chasidut","Musar","Responsa",
+  "Commentary","Quoting Commentary","Reference"];
+
+async function loadSources(ref){
+  const status = document.getElementById("srcStatus");
+  const list = document.getElementById("srcList");
+  const blockedEl = document.getElementById("srcBlocked");
+  reveal(document.getElementById("srcCard"));
+  try{
+    const r = await fetch(`${SEFARIA}/api/links/${encodeURIComponent(ref)}?with_text=0`);
+    const links = await r.json();
+    const seen = new Set(); const approved = []; let blocked = 0, halted = 0;
+    for(const ln of links){
+      const cat = ln.category;
+      const name = (ln.collectiveTitle && ln.collectiveTitle.he) || ln.index_title || "?";
+      if(forbiddenHit(name)){ halted++; continue; }          // forbidden name → purge
+      if(APPROVED_CATS.includes(cat)){
+        if(!seen.has(name)){ seen.add(name); approved.push(name); }
+      } else { blocked++; }
+    }
+    status.style.display="none";
+    list.style.display="flex";
+    list.innerHTML = approved.slice(0,18).map(n=>`<span class="src-tag">${n}</span>`).join("")
+      || '<span class="src-tag">אין מקורות מקושרים</span>';
+    if(blocked>0 || halted>0){
+      blockedEl.style.display="block";
+      let msg = "";
+      if(blocked>0) msg += `🔒 ${blocked} קישורים נחסמו — אינם בכלל המקורות המאושרים. `;
+      if(halted>0) msg += `🛑 ${halted} קישורים נמחקו — הזכירו שם חסום.`;
+      blockedEl.textContent = msg;
+    }
+  }catch(e){
+    showError("srcStatus","לא הצלחתי לטעון את יומן המקורות.");
+  }
+}
+
+/* ===== Gematria calculator (pure, matches the backend engine) ===== */
+const GEM = {א:1,ב:2,ג:3,ד:4,ה:5,ו:6,ז:7,ח:8,ט:9,י:10,כ:20,ך:20,ל:30,מ:40,ם:40,
+  נ:50,ן:50,ס:60,ע:70,פ:80,ף:80,צ:90,ץ:90,ק:100,ר:200,ש:300,ת:400};
+const ORD = {א:1,ב:2,ג:3,ד:4,ה:5,ו:6,ז:7,ח:8,ט:9,י:10,כ:11,ך:11,ל:12,מ:13,ם:13,
+  נ:14,ן:14,ס:15,ע:16,פ:17,ף:17,צ:18,ץ:18,ק:19,ר:20,ש:21,ת:22};
+const ANCHORS = {13:"אֶחָד / אַהֲבָה",18:"חַי",26:'שם הוי״ה',86:"אֱלֹהִים · הַטֶּבַע",611:"תּוֹרָה",613:'תרי״ג מצוות'};
+
+function digitSum(n){ while(n>9){ n=String(n).split("").reduce((a,c)=>a+ +c,0);} return n; }
+
+function calcGematria(){
+  const txt = document.getElementById("gemInput").value;
+  let std=0, ord=0;
+  for(const ch of txt){ if(GEM[ch]){ std+=GEM[ch]; ord+=ORD[ch]; } }
+  document.getElementById("gemStd").textContent = std;
+  document.getElementById("gemOrd").textContent = ord;
+  document.getElementById("gemSml").textContent = std?digitSum(std):0;
+  const note = document.getElementById("gemNote");
+  note.innerHTML = (std && ANCHORS[std])
+    ? `הערך <b>${std}</b> זהה ל: ${ANCHORS[std]}`
+    : "";
+}
+document.getElementById("gemInput").addEventListener("input", calcGematria);
+
+/* ===== Rest Guard: no agent work on Friday, Shabbat, or Jewish holiday ===== */
+async function restStatus(){
+  const d = new Date();
+  const day = d.getDay();                 // Sun=0 … Fri=5, Sat=6
+  if(day === 5) return {resting:true, reason:"יום שישי — ערב שבת"};
+  if(day === 6) return {resting:true, reason:"שבת קודש"};
+  // holiday check via Hebcal
+  try{
+    const iso = d.toISOString().slice(0,10);
+    const r = await fetch(`https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&min=off&mod=off&geo=none&year=${d.getFullYear()}&month=${d.getMonth()+1}`);
+    const j = await r.json();
+    const hol = (j.items||[]).find(it => it.date===iso && it.category==="holiday");
+    if(hol) return {resting:true, reason:`חג: ${hol.hebrew||hol.title}`};
+  }catch(e){ /* if unknown, do not block on holidays */ }
+  return {resting:false, reason:""};
+}
+
+function showRest(reason){
+  document.getElementById("restReason").textContent = reason;
+  document.getElementById("restCard").style.display = "block";
+  // pause everything the agents would do
+  ["dafBanner","textCard","insightCard","srcCard"].forEach(id=>{
+    const e = document.getElementById(id); if(e) e.style.display="none";
+  });
+}
+
+/* ===== Zmanim — sun & prayer times (Hebcal — full halachic list) ===== */
+async function fetchZmanim(lat, lon, label){
+  const d = new Date().toISOString().slice(0,10);
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Jerusalem";
+  const url = `https://www.hebcal.com/zmanim?cfg=json&latitude=${lat}&longitude=${lon}&tzid=${encodeURIComponent(tz)}&date=${d}`;
+  const j = await (await fetch(url)).json();
+  const t = j.times || {};
+  const fmt = s => s ? new Date(s).toLocaleTimeString("he-IL",{hour:"2-digit",minute:"2-digit"}) : "—";
+  // שעה זמנית: הגר"א = (שקיעה - הנץ)/12; מג"א = (צאת ר"ת - עלות)/12
+  let shaaZmanitGra = "—", shaaZmanitMGA = "—";
+  try{
+    if(t.sunrise && t.sunset){
+      const ms = new Date(t.sunset) - new Date(t.sunrise);
+      const sec = Math.round(ms/12/1000);
+      shaaZmanitGra = `${Math.floor(sec/3600)}:${String(Math.floor((sec%3600)/60)).padStart(2,"0")}`;
+    }
+    if(t.alotHaShachar && (t.tzeit72min || t.tzeit7083deg)){
+      const end = t.tzeit72min || t.tzeit7083deg;
+      const ms = new Date(end) - new Date(t.alotHaShachar);
+      const sec = Math.round(ms/12/1000);
+      shaaZmanitMGA = `${Math.floor(sec/3600)}:${String(Math.floor((sec%3600)/60)).padStart(2,"0")}`;
+    }
+  }catch(_){}
+  const rows = [
+    ["🌌","עלות השחר", fmt(t.alotHaShachar)],
+    ["📿","תפילין ושמע (משיכיר)", fmt(t.misheyakir||t.misheyakirMachmir)],
+    ["🌅","הנץ החמה", fmt(t.sunrise)],
+    ["📖","סוף זמן ק״ש (מג״א)", fmt(t.sofZmanShmaMGA)],
+    ["📖","סוף זמן ק״ש (הגר״א)", fmt(t.sofZmanShma)],
+    ["🙏","סוף זמן תפילה (מג״א)", fmt(t.sofZmanTfillaMGA)],
+    ["🙏","סוף זמן תפילה (הגר״א)", fmt(t.sofZmanTfilla)],
+    ["☀️","חצות היום", fmt(t.chatzot)],
+    ["🕯️","מנחה גדולה", fmt(t.minchaGedola)],
+    ["🕯️","מנחה קטנה", fmt(t.minchaKetana)],
+    ["🌇","פלג המנחה", fmt(t.plagHaMincha)],
+    ["🌆","שקיעת החמה", fmt(t.sunset)],
+    ["🌃","צאת הכוכבים", fmt(t.tzeit7083deg||t.tzeit85deg)],
+    ["🌙","לילה דר״ת (72 דק׳)", fmt(t.tzeit72min)],
+    ["🕛","חצות הלילה", fmt(t.chatzotNight)],
+    ["⏱️","שעה זמנית (הגר״א)", shaaZmanitGra],
+    ["⏱️","שעה זמנית (מג״א)", shaaZmanitMGA],
+  ];
+  document.getElementById("zmanimPlace").textContent = "זמני היום · " + label;
+  document.getElementById("zmanimStatus").style.display="none";
+  const g = document.getElementById("zmanimGrid");
+  g.style.display="grid";
+  g.innerHTML = rows.map(r=>`<div class="zman"><span class="zman-name"><span class="zman-ico">${r[0]}</span> ${r[1]}</span><span class="zman-time">${r[2]}</span></div>`).join("");
+}
+
+function loadZmanim(){
+  reveal(document.getElementById("zmanimCard"));
+  const JERU = [31.778, 35.235, "ירושלים (ברירת מחדל)"];
+  const fallback = ()=>fetchZmanim(JERU[0],JERU[1],JERU[2]).catch(()=>{
+    document.getElementById("zmanimStatus").innerHTML="⚠️ לא הצלחתי לחשב זמנים.";
+  });
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(
+      p=>fetchZmanim(p.coords.latitude, p.coords.longitude, "לפי מיקומך").catch(fallback),
+      ()=>fallback(),
+      {timeout:8000}
+    );
+  } else { fallback(); }
+}
+
+/* ===== Compass to Jerusalem (Temple Mount) ===== */
+const JERU_LAT = 31.778, JERU_LON = 35.2354;
+let jeruBearing = 0;
+
+function toRad(d){ return d*Math.PI/180; }
+function bearingTo(lat, lon){
+  const φ1=toRad(lat), φ2=toRad(JERU_LAT), Δλ=toRad(JERU_LON-lon);
+  const y=Math.sin(Δλ)*Math.cos(φ2);
+  const x=Math.cos(φ1)*Math.sin(φ2)-Math.sin(φ1)*Math.cos(φ2)*Math.cos(Δλ);
+  return (Math.atan2(y,x)*180/Math.PI+360)%360;
+}
+function distanceTo(lat, lon){
+  const R=6371, φ1=toRad(lat), φ2=toRad(JERU_LAT),
+    dφ=toRad(JERU_LAT-lat), dλ=toRad(JERU_LON-lon);
+  const a=Math.sin(dφ/2)**2+Math.cos(φ1)*Math.cos(φ2)*Math.sin(dλ/2)**2;
+  return Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));
+}
+function cardinalHe(b){
+  const names=["צפון","צפון־מזרח","מזרח","דרום־מזרח","דרום","דרום־מערב","מערב","צפון־מערב"];
+  return names[Math.round(b/45)%8];
+}
+function setRot(id,deg){ document.getElementById(id).setAttribute("transform",`rotate(${deg} 100 100)`); }
+
+function renderCompass(lat, lon){
+  jeruBearing = bearingTo(lat, lon);
+  const dist = distanceTo(lat, lon);
+  document.getElementById("compassStatus").style.display="none";
+  document.getElementById("compassWrap").style.display="block";
+  setRot("jeruArrow", jeruBearing);
+  setRot("compassDial", 0);
+  document.getElementById("compassInfo").innerHTML =
+    `ירושלים נמצאת ב־<b>${Math.round(jeruBearing)}°</b> (${cardinalHe(jeruBearing)}) · מרחק כ־<b>${dist.toLocaleString()}</b> ק״מ.<br>` +
+    `<span style="font-size:.9rem;color:var(--ink-soft)">החזק את הצפון למעלה, או הפעל מצפן חי לכיוון מדויק.</span>`;
+}
+
+function loadCompass(){
+  reveal(document.getElementById("compassCard"));
+  const fail=()=>{ document.getElementById("compassStatus").innerHTML="⚠️ צריך מיקום כדי לחשב כיוון."; };
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(
+      p=>renderCompass(p.coords.latitude, p.coords.longitude), fail, {timeout:8000});
+  } else fail();
+}
+
+// live compass (rotates dial with device heading)
+function startOrientation(){
+  function handle(e){
+    let heading = (e.webkitCompassHeading != null) ? e.webkitCompassHeading
+                 : (e.alpha != null ? 360 - e.alpha : null);
+    if(heading == null) return;
+    setRot("compassDial", -heading);   // align dial to real world; arrow stays at bearing
+  }
+  window.addEventListener("deviceorientationabsolute", handle, true);
+  window.addEventListener("deviceorientation", handle, true);
+}
+document.addEventListener("click", function once(ev){
+  const btn = ev.target.closest && ev.target.closest("#liveCompassBtn");
+  if(!btn) return;
+  // iOS needs permission on a user tap
+  if(typeof DeviceOrientationEvent!=="undefined" && DeviceOrientationEvent.requestPermission){
+    DeviceOrientationEvent.requestPermission().then(s=>{ if(s==="granted") startOrientation(); })
+      .catch(()=>{});
+  } else startOrientation();
+  btn.textContent = "🧭 מצפן חי פעיל";
+  btn.disabled = true;
+});
+
+/* ===== Monthly calendar (Hebrew + Gregorian, all client-side) ===== */
+let calOffset = 0;
+function hebPart(date, opt){ return new Intl.DateTimeFormat("he-u-ca-hebrew", opt).format(date); }
+function renderCalendar(){
+  const now = new Date();
+  const base = new Date(now.getFullYear(), now.getMonth()+calOffset, 1);
+  const y = base.getFullYear(), m = base.getMonth();
+  const startDow = new Date(y, m, 1).getDay();          // 0=Sun
+  const days = new Date(y, m+1, 0).getDate();
+  const lastDay = new Date(y, m, days);
+  const todayStr = now.toDateString();
+
+  document.getElementById("calTitle").textContent =
+    base.toLocaleDateString("he-IL",{month:"long",year:"numeric"});
+  const hMonStart = hebPart(base,{month:"long"});
+  const hMonEnd = hebPart(lastDay,{month:"long"});
+  const hYear = hebPart(lastDay,{year:"numeric"});
+  document.getElementById("calHebTitle").textContent =
+    (hMonStart===hMonEnd ? hMonStart : hMonStart+"–"+hMonEnd) + " " + hYear;
+
+  const dows = ["א׳","ב׳","ג׳","ד׳","ה׳","ו׳","שבת"];
+  let html = dows.map(d=>`<div class="cal-dow">${d}</div>`).join("");
+  for(let i=0;i<startDow;i++) html += `<div class="cal-day empty"></div>`;
+  for(let d=1; d<=days; d++){
+    const date = new Date(y, m, d);
+    const sh = date.getDay()===6 ? "shabbat" : "";
+    const tod = date.toDateString()===todayStr ? "today" : "";
+    const heb = hebPart(date,{day:"numeric"});
+    html += `<div class="cal-day ${sh} ${tod}"><span class="cal-heb">${heb}</span><span class="cal-greg">${d}</span></div>`;
+  }
+  document.getElementById("calGrid").innerHTML = html;
+}
+document.getElementById("calPrev").addEventListener("click",()=>{calOffset--;renderCalendar();});
+document.getElementById("calNext").addEventListener("click",()=>{calOffset++;renderCalendar();});
+renderCalendar();
+
+/* ===== Daily codes feed (reads codes.json from the agent) ===== */
+function renderStrip(strip, marks){
+  if(!strip) return "";
+  const set = new Set(marks||[]);
+  let s = "";
+  for(let i=0;i<strip.length;i++){
+    s += set.has(i) ? `<span class="lit">${strip[i]}</span>` : `<span class="dim">${strip[i]}</span>`;
+  }
+  return `<div class="strip">${s}</div>`;
+}
+function renderMatrix(strip, marks, width){
+  if(!strip || width<2 || width>30) return "";
+  const set = new Set(marks||[]);
+  let cells = "";
+  for(let i=0;i<strip.length;i++){
+    cells += `<div class="cell ${set.has(i)?"lit":""}">${strip[i]}</div>`;
+  }
+  return `<div class="matrix" style="grid-template-columns:repeat(${width},22px)">${cells}</div>`;
+}
+function renderHit(h){
+  let html = `<div class="hit">המילה <b>${h.word}</b> — דילוג <b>${h.skip}</b> ${h.dir} · מאות ${(h.start+1).toLocaleString()}</div>`;
+  if(h.strip) html += renderStrip(h.strip, h.marks);
+  return html;
+}
+// full hit: text + strip + a visual matrix table (when the skip width is displayable)
+function renderHitFull(h){
+  let html = renderHit(h);
+  if(h.strip && h.skip>=2 && h.skip<=26) html += renderMatrix(h.strip, h.marks, h.skip);
+  return html;
+}
+function renderRecord(rec){
+  let h = "";
+  if(rec.week_codes && rec.week_codes.els && rec.week_codes.els.length){
+    h += `<div class="ls-h">📅 צפנים לשם הפרשה (בכל התורה)</div>`;
+    h += rec.week_codes.els.map(renderHitFull).join("");
+  }
+  if(rec.full_torah && rec.full_torah.els && rec.full_torah.els.length){
+    h += `<div class="ls-h">📜 דילוגים בכל חמשת החומשים</div>`;
+    h += rec.full_torah.els.slice(0,6).map(renderHitFull).join("");
+  }
+  if(rec.parasha_codes){
+    const pc = rec.parasha_codes;
+    if(pc.els && pc.els.length){
+      h += `<div class="ls-h">🔎 דילוגים בתוך הפרשה</div>`;
+      h += pc.els.slice(0,5).map(renderHitFull).join("");
+    }
+    if(pc.gematria && pc.gematria.length){
+      h += `<div class="ls-h">🔢 גימטריאות שוות בפרשה</div>`;
+      h += pc.gematria.map(g=>`<div class="hit">ערך <b>${g.value}</b>: ${g.words.join(" = ")}</div>`).join("");
+    }
+    if(pc.notarikon && pc.notarikon.initials){
+      h += `<div class="ls-h">🔤 נוטריקון (ראשי תיבות פתיחת הפרשה)</div>`;
+      h += `<div class="hit">${pc.notarikon.initials}</div>`;
+    }
+  }
+  return h;
+}
+let CODES_DATA = [];
+// Hebrew date per record (cached), fetched from Hebcal by the record's Gregorian date
+const HEBDATE_CACHE = {};
+async function hebDateFor(iso){
+  if(HEBDATE_CACHE[iso]) return HEBDATE_CACHE[iso];
+  try{
+    const r = await fetch(`https://www.hebcal.com/converter?cfg=json&date=${iso}&g2h=1&strict=1`);
+    const j = await r.json();
+    HEBDATE_CACHE[iso] = j.hebrew || iso;
+  }catch(e){ HEBDATE_CACHE[iso] = iso; }
+  return HEBDATE_CACHE[iso];
+}
+async function loadCodes(){
+  reveal(document.getElementById("codesFeedCard"));
+  const st = document.getElementById("codesFeedStatus");
+  const body = document.getElementById("codesFeedBody");
+  try{
+    const r = await fetch("./codes.json", {cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    CODES_DATA = arr;
+
+    // resolve Hebrew dates for all records (unique Gregorian dates)
+    const dates = [...new Set(arr.map(x=>x.date))];
+    await Promise.all(dates.map(hebDateFor));
+
+    // archive only — nothing shown up front; everything lives under the collapsed wrapper
+    let h = `<div class="note">הצפנים נשמרים אוטומטית בכל ריצה ושמורים כאן בארכיון בלבד — ללימוד והתבוננות, לא הוכחה.</div>`;
+    const groups = {};
+    arr.forEach((rec,idx)=>{ const k=rec.parasha||"—"; (groups[k]=groups[k]||[]).push(idx); });
+    let arch = `<div class="ls-h" style="font-size:1.1rem;margin-top:14px">🗂️ ארכיון הצפנים — לפי פרשה ותאריך עברי</div>`;
+    Object.keys(groups).forEach(par=>{
+      arch += `<div class="arch-par">פרשת ${par}</div>`;
+      // group this parasha's records by Hebrew date
+      const byHeb = {};
+      groups[par].forEach(idx=>{ const hd=HEBDATE_CACHE[arr[idx].date]||arr[idx].date; (byHeb[hd]=byHeb[hd]||[]).push(idx); });
+      Object.keys(byHeb).forEach(hd=>{
+        arch += `<div class="arch-date">🕯️ ${hd}</div>`;
+        byHeb[hd].forEach(idx=>{
+          const rec = arr[idx];
+          arch += `<details class="arch-item" data-idx="${idx}"><summary>${rec.run||""} · ${rec.ts||rec.date}</summary><div class="arch-body" id="arch${idx}"></div></details>`;
+        });
+      });
+    });
+
+    st.style.display="none";
+    body.innerHTML = h + arch;
+    body.style.display="block";
+
+    // lazy-render each archive item when opened
+    body.querySelectorAll(".arch-item").forEach(d=>{
+      d.addEventListener("toggle", ()=>{
+        if(d.open){
+          const idx = +d.dataset.idx;
+          const cell = document.getElementById("arch"+idx);
+          if(cell && !cell.dataset.done){ cell.innerHTML = renderRecord(CODES_DATA[idx]); cell.dataset.done="1"; }
+        }
+      });
+    });
+  }catch(e){
+    st.style.display="none";
+    body.style.display="block";
+    body.innerHTML = '<div class="codes-out"><div class="note">עדיין אין צפנים שמורים. הם ייווצרו בהרצת הסוכן הבאה (Run workflow), וייטענו לכאן אוטומטית.</div></div>';
+  }
+}
+
+/* ===== Source library (reads library.json) ===== */
+async function loadLibrary(){
+  reveal(document.getElementById("libraryCard"));
+  const st = document.getElementById("libraryStatus");
+  const body = document.getElementById("libraryBody");
+  try{
+    const r = await fetch("./library.json", {cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const lib = await r.json();
+    if(!Array.isArray(lib) || !lib.length) throw new Error("empty");
+    let h = `<div class="sub" style="margin-bottom:8px">סך הכול ${lib.length.toLocaleString()} מקורות בספרייה</div>`;
+    h += lib.slice(0,60).map(e=>{
+      const from = (e.from&&e.from.length) ? ` · מתוך: ${e.from.slice(0,2).join(", ")}` : "";
+      const cnt = e.count>1 ? ` · נראה ${e.count}×` : "";
+      return `<div class="lib-item"><span class="lib-name">${e.name}</span><span class="lib-meta">${e.category||""}${cnt}${from}</span></div>`;
+    }).join("");
+    st.style.display="none";
+    body.innerHTML = h;
+    body.style.display="block";
+  }catch(e){
+    st.style.display="none";
+    body.style.display="block";
+    body.innerHTML = '<div class="codes-out"><div class="note">הספרייה תתמלא אחרי הרצת הסוכן (Run workflow) — הוא אוסף את המקורות ועוקב מאיפה כל אחד הובא.</div></div>';
+  }
+}
+
+/* ===== Source library (reads library.json) — end ===== */
+/* ===== Prayer-source completion (reads prayers_audit.json) ===== */
+async function loadPrayersAudit(){
+  reveal(document.getElementById("prayerSrcCard"));
+  const st = document.getElementById("prayerSrcStatus");
+  const body = document.getElementById("prayerSrcBody");
+  try{
+    const r = await fetch("./prayers_audit.json", {cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const rec = await r.json();
+    const prayers = rec.prayers || {};
+    const names = Object.keys(prayers);
+    if(!names.length) throw new Error("empty");
+    let h = "";
+    names.forEach(name=>{
+      const parts = prayers[name] || [];
+      let inner = "";
+      parts.forEach(p=>{
+        inner += `<div class="lib-meta" style="margin-top:6px">${p.he_ref||p.ref}</div>`;
+        inner += `<p class="ls-quote">${p.text}</p>`;
+      });
+      h += `<details class="arch-item"><summary>${name}</summary><div class="arch-body">${inner}</div></details>`;
+    });
+    if(rec.note) h += `<div class="codes-out"><div class="note">${rec.note}</div></div>`;
+    st.style.display="none";
+    body.innerHTML = h;
+    body.style.display="block";
+  }catch(e){
+    st.style.display="none";
+    body.style.display="block";
+    body.innerHTML = '<div class="codes-out"><div class="note">המקורות יתמלאו אחרי הרצת הסוכן (Run workflow) — הוא אוסף את מקורות התפילה מנחלת הכלל.</div></div>';
+  }
+}
+/* ===== Agent activity log (reads log.json) ===== */
+/* ===== Lesson archive (reads discoveries.json — all daily lessons) ===== */
+/* ===== ארבעת הסוכנים החדשים — טעינה והצגה ===== */
+
+// פונקציית עזר: ממיר אובייקט תוכן לתצוגה (לפי מבנה הסוכן)
+function renderBreslov(content){
+  if(!content) return "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+  let h = "";
+  if(content.torah_summary) h += `<div class="agent-block"><div class="agent-label">תורה</div><div class="agent-text">${content.torah_summary}</div></div>`;
+  if(content.chiddush) h += `<div class="agent-block"><div class="agent-label">חידוש</div><div class="agent-text">${content.chiddush}</div></div>`;
+  if(content.advice) h += `<div class="agent-block"><div class="agent-label">עצה מעשית</div><div class="agent-text">${content.advice}</div></div>`;
+  if(content.hitbodedut) h += `<div class="agent-block"><div class="agent-label">להתבודדות</div><div class="agent-text">${content.hitbodedut}</div></div>`;
+  return h || "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+}
+function renderBIC(content){
+  if(!content) return "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+  let h = "";
+  if(content.halacha1){
+    h += `<div class="agent-block"><div class="agent-label">הלכה א׳ · ${content.halacha1.title||""}</div><div class="agent-text">${content.halacha1.explanation||""}</div></div>`;
+  }
+  if(content.halacha2){
+    h += `<div class="agent-block"><div class="agent-label">הלכה ב׳ · ${content.halacha2.title||""}</div><div class="agent-text">${content.halacha2.explanation||""}</div></div>`;
+  }
+  if(content.connection) h += `<div class="agent-block"><div class="agent-label">חיבור</div><div class="agent-text">${content.connection}</div></div>`;
+  if(content.disclaimer) h += `<div style="font-size:.85rem;color:var(--ink-soft);margin-top:10px;font-style:italic">⚠️ ${content.disclaimer}</div>`;
+  return h || "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+}
+function renderDavid(content){
+  if(!content) return "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+  let h = "";
+  if(content.key_verse) h += `<div class="agent-verse">${content.key_verse}</div>`;
+  if(content.david_voice) h += `<div class="agent-block"><div class="agent-label">קולו של דוד</div><div class="agent-text">${content.david_voice}</div></div>`;
+  if(content.blessing) h += `<div class="agent-block"><div class="agent-label">ברכה ליום</div><div class="agent-text">${content.blessing}</div></div>`;
+  if(content.advice) h += `<div class="agent-block"><div class="agent-label">עצה</div><div class="agent-text">${content.advice}</div></div>`;
+  return h || "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+}
+function renderShlomo(content){
+  if(!content) return "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+  let h = "";
+  if(content.key_verse) h += `<div class="agent-verse">${content.key_verse}</div>`;
+  if(content.wisdom) h += `<div class="agent-block"><div class="agent-label">חכמת שלמה</div><div class="agent-text">${content.wisdom}</div></div>`;
+  if(content.advice) h += `<div class="agent-block"><div class="agent-label">עצה למעשה</div><div class="agent-text">${content.advice}</div></div>`;
+  if(content.reflection) h += `<div class="agent-block"><div class="agent-label">להרהר</div><div class="agent-text">${content.reflection}</div></div>`;
+  return h || "<div class='note'>תוכן יתווסף בריצה הבאה.</div>";
+}
+
+// טוען גנרי לסוכן יומי
+async function loadDailyAgent(jsonPath, cardId, statusId, bodyId, archId, titleField, contentRenderer){
+  const card = document.getElementById(cardId);
+  const st = document.getElementById(statusId);
+  const body = document.getElementById(bodyId);
+  const arch = document.getElementById(archId);
+  reveal(card);
+  try{
+    const r = await fetch("./"+jsonPath, {cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    const today = arr[0];
+    const c = today.content || {};
+    let h = "";
+    if(c.title) h += `<h3 style="font-family:'Frank Ruhl Libre',serif;font-size:1.3rem;color:var(--crimson);margin-bottom:10px">${c.title}</h3>`;
+    h += contentRenderer(c);
+    st.style.display = "none";
+    body.innerHTML = h;
+    body.style.display = "block";
+    // ארכיון
+    if(arr.length > 1){
+      const archH = arr.slice(1, 30).map(rec=>{
+        const cc = rec.content || {};
+        const title = cc.title || rec.date || "";
+        return `<details class="arch-item"><summary>${title} · ${rec.date||""}</summary><div class="arch-body">${contentRenderer(cc)}</div></details>`;
+      }).join("");
+      arch.innerHTML = archH;
+    } else {
+      arch.innerHTML = "<div class='note'>הארכיון יצטבר עם כל ריצה.</div>";
+    }
+  }catch(e){
+    st.style.display = "none";
+    body.style.display = "block";
+    body.innerHTML = "<div class='note'>שיעור היום ייצור בריצה הקרובה של הסוכן (אוטומטית פעמיים ביום, או ידנית מ-Actions → שיעור יומי אוטומטי → Run workflow).</div>";
+  }
+}
+async function loadBreslov(){ return loadDailyAgent("breslov.json", "breslovCard", "breslovStatus", "breslovBody", "breslovArch", "title", renderBreslov); }
+async function loadBIC(){ return loadDailyAgent("benishchai.json", "bicCard", "bicStatus", "bicBody", "bicArch", "title", renderBIC); }
+async function loadDavid(){ return loadDailyAgent("david.json", "davidCard", "davidStatus", "davidBody", "davidArch", "title", renderDavid); }
+async function loadShlomo(){ return loadDailyAgent("shlomo.json", "shlomoCard", "shlomoStatus", "shlomoBody", "shlomoArch", "title", renderShlomo); }
+/* ===== Daily agents loaders — end ===== */
+
+async function loadShnayim(){
+  const card = document.getElementById("shnayimCard");
+  const st = document.getElementById("shnayimStatus");
+  const body = document.getElementById("shnayimBody");
+  reveal(card);
+  try{
+    const r = await fetch("./shnayim.json",{cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    const t = arr[0]; const c = t.content || {};
+    let h = `<h3 style="font-family:'Frank Ruhl Libre',serif;font-size:1.3rem;color:var(--crimson);margin-bottom:10px">פרשת ${c.parasha||""} — ${c.day||""} · עלייה ${c.aliya||""}</h3>`;
+    if(c.mikra) h += `<div class="agent-label">מקרא · פעמיים</div><div class="shnayim-mikra">${c.mikra}</div>`;
+    if(c.targum) h += `<div class="agent-label" style="margin-top:14px">תרגום אונקלוס · פעם אחת</div><div class="shnayim-targum">${c.targum}</div>`;
+    if(c.note) h += `<div style="font-size:.85rem;color:var(--ink-soft);margin-top:12px;font-style:italic">⚠️ ${c.note}</div>`;
+    st.style.display = "none"; body.innerHTML = h; body.style.display = "block";
+  }catch(e){
+    st.style.display = "none"; body.style.display = "block";
+    body.innerHTML = "<div class='note'>הלימוד יוצר בריצה הבאה.</div>";
+  }
+}
+async function loadYerushalmi(){
+  const card = document.getElementById("yerushalmiCard");
+  const st = document.getElementById("yerStatus");
+  const body = document.getElementById("yerBody");
+  reveal(card);
+  try{
+    const r = await fetch("./yerushalmi.json",{cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    const t = arr[0];
+    let h = `<h3 style="font-family:'Frank Ruhl Libre',serif;font-size:1.3rem;color:var(--crimson);margin-bottom:10px">${t.he_ref||""}</h3>`;
+    if(t.summary) h += `<div class="agent-block"><div class="agent-label">תקציר</div><div class="agent-text">${t.summary}</div></div>`;
+    if(t.hebrew) h += `<details style="margin-top:10px"><summary class="arch-summary">📖 קרא את הדף המלא</summary><div class="shnayim-mikra" style="margin-top:8px">${t.hebrew.substring(0,3000)}${t.hebrew.length>3000?'…':''}</div></details>`;
+    st.style.display = "none"; body.innerHTML = h; body.style.display = "block";
+  }catch(e){
+    st.style.display = "none"; body.style.display = "block";
+    body.innerHTML = "<div class='note'>הדף ייטען בריצה הבאה (ייתכן שאין דף ירושלמי היום).</div>";
+  }
+}
+async function loadHilulot(){
+  const card = document.getElementById("hilulotCard");
+  const st = document.getElementById("hilulotStatus");
+  const body = document.getElementById("hilulotBody");
+  reveal(card);
+  try{
+    const r = await fetch("./hilulot.json",{cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    const t = arr[0]; const tz = t.tzaddikim || [];
+    let h = "";
+    if(tz.length){
+      h += `<div class="agent-text" style="text-align:center;margin-bottom:8px">${t.content?.intro || "היום יום הילולא של:"}</div>`;
+      h += tz.map(x=>`<div class="tzaddik-name">${x.name||""}${x.year?` · נפטר ${x.year}`:""}</div>`).join("");
+      h += `<div style="font-size:.85rem;color:var(--ink-soft);text-align:center;margin-top:10px;font-style:italic">${t.date_he||""} · יהי זכרם ברוך</div>`;
+    } else {
+      h = "<div class='note'>אין הילולא של צדיק מהמאגר ליום זה.</div>";
+    }
+    st.style.display = "none"; body.innerHTML = h; body.style.display = "block";
+  }catch(e){
+    st.style.display = "none"; body.style.display = "block";
+    body.innerHTML = "<div class='note'>הילולא של היום תיטען בריצה הבאה.</div>";
+  }
+}
+
+/* ===== חוק לישראל — לימוד יומי משולב ===== */
+async function loadChok(){
+  const card = document.getElementById("chokCard");
+  const st = document.getElementById("chokStatus");
+  const body = document.getElementById("chokBody");
+  reveal(card);
+  try{
+    const r = await fetch("./chok.json",{cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    const t = arr[0];
+    let h = "";
+    if(t.overview) h += `<div class="chok-overview">${t.overview}</div>`;
+    const order = ["תורה","נביאים","כתובים","משנה","גמרא","זוהר","הלכה","מוסר"];
+    const sections = t.sections || {};
+    for(const cat of order){
+      if(!sections[cat]) continue;
+      const s = sections[cat];
+      const id = `chok-sec-${cat}`;
+      h += `<div class="chok-section">
+        <div class="chok-section-head">
+          <span class="chok-section-cat">${cat}</span>
+          <span class="chok-section-ref">· ${s.ref||""}</span>
+        </div>
+        <div class="chok-section-text" id="${id}">${s.text||""}</div>
+        <div class="chok-toggle" onclick="document.getElementById('${id}').classList.toggle('open');this.textContent=document.getElementById('${id}').classList.contains('open')?'הסתר':'הצג עוד';">הצג עוד</div>
+      </div>`;
+    }
+    st.style.display = "none"; body.innerHTML = h; body.style.display = "block";
+  }catch(e){
+    st.style.display = "none"; body.style.display = "block";
+    body.innerHTML = "<div class='note'>הלימוד היומי ייווצר בריצה הבאה.</div>";
+  }
+}
+
+/* ===== כלי לוח השנה: גלגלת תאריכים וגלגלת פרשיות ===== */
+function setupCalendarTools(){
+  // אכלוס ימים 1-30
+  const heDayEl = document.getElementById("heDay");
+  if(heDayEl){
+    for(let i=1; i<=30; i++) heDayEl.add(new Option(i, i));
+  }
+  // ברירת מחדל - היום
+  const today = new Date();
+  const geDateEl = document.getElementById("geDate");
+  if(geDateEl) geDateEl.value = today.toISOString().slice(0,10);
+
+  // החלפה בין סוגי תאריך
+  const dateType = document.getElementById("dateType");
+  if(dateType){
+    dateType.addEventListener("change", ()=>{
+      const isHe = dateType.value === "he";
+      document.getElementById("heInputs").style.display = isHe ? "flex" : "none";
+      document.getElementById("geInputs").style.display = isHe ? "none" : "flex";
+    });
+  }
+
+  // לחיצה על "הצג מידע" - תאריך
+  const dateBtn = document.getElementById("dateLookup");
+  if(dateBtn) dateBtn.addEventListener("click", lookupDate);
+  const parshaBtn = document.getElementById("parshaLookup");
+  if(parshaBtn) parshaBtn.addEventListener("click", lookupParsha);
+}
+
+async function lookupDate(){
+  const result = document.getElementById("dateResult");
+  result.style.display = "block";
+  result.innerHTML = "<div class='note'><span class='spinner'></span> טוען…</div>";
+  const isHe = document.getElementById("dateType").value === "he";
+  try{
+    let url; let isoDate = "";
+    if(isHe){
+      const d = document.getElementById("heDay").value;
+      const m = document.getElementById("heMonth").value;
+      const y = document.getElementById("heYear").value;
+      url = `https://www.hebcal.com/converter?cfg=json&hy=${y}&hm=${encodeURIComponent(m)}&hd=${d}&h2g=1&strict=1`;
+    } else {
+      isoDate = document.getElementById("geDate").value;
+      url = `https://www.hebcal.com/converter?cfg=json&date=${isoDate}&g2h=1&strict=1`;
+    }
+    const r = await fetch(url);
+    const j = await r.json();
+    if(j.error){ result.innerHTML = `<div class='note'>⚠️ ${j.error}</div>`; return; }
+    isoDate = isoDate || j.gy + "-" + String(j.gm).padStart(2,"0") + "-" + String(j.gd).padStart(2,"0");
+    // יום בשבוע
+    const dt = new Date(isoDate);
+    const dayNames = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"];
+    const dayName = dayNames[dt.getDay()];
+    // אירועי היום
+    const events = (j.events||[]);
+    // חישוב פרשת השבוע - ניתן Hebcal API נוסף
+    let parsha = "—";
+    try{
+      const r2 = await fetch(`https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&min=off&mod=off&s=on&geo=none&start=${isoDate}&end=${isoDate}&i=on`);
+      const j2 = await r2.json();
+      const parshaItem = (j2.items||[]).find(it=>it.category==="parashat");
+      if(parshaItem) parsha = parshaItem.hebrew || parshaItem.title || "—";
+    }catch(_){}
+    // תחנון
+    let tach = "📿 אומרים תחנון";
+    const evJoin = events.join(" | ").toLowerCase();
+    const heDateStr = j.hebrew || "";
+    const heDay = j.hd || 0;
+    const noTach = [
+      [dt.getDay()===6, "שבת"],
+      [evJoin.includes("rosh chodesh"), events.find(e=>e.toLowerCase().includes("rosh chodesh")) || "ר\"ח"],
+      [evJoin.includes("rosh hashana"), "ראש השנה"],
+      [evJoin.includes("yom kippur"), "יום כיפור"],
+      [evJoin.includes("sukkot")||evJoin.includes("chol hamoed sukkot"), "סוכות / חוה\"מ"],
+      [evJoin.includes("shmini atzeret"), "שמיני עצרת"],
+      [evJoin.includes("simchat torah"), "שמחת תורה"],
+      [evJoin.includes("pesach")||evJoin.includes("chol hamoed pesach"), "פסח / חוה\"מ"],
+      [evJoin.includes("shavuot"), "שבועות"],
+      [evJoin.includes("chanukah"), "חנוכה"],
+      [evJoin.includes("purim"), "פורים"],
+      [evJoin.includes("tu bishvat")||evJoin.includes("tu b'shvat"), "ט\"ו בשבט"],
+      [evJoin.includes("tu b'av")||evJoin.includes("tu beav"), "ט\"ו באב"],
+      [evJoin.includes("pesach sheni"), "פסח שני"],
+      [evJoin.includes("lag baomer")||evJoin.includes("lag b'omer"), "ל\"ג בעומר"],
+      [evJoin.includes("yom ha'atzmaut")||evJoin.includes("yom haatzmaut"), "יום העצמאות"],
+      [evJoin.includes("yom yerushalayim"), "יום ירושלים"],
+      [(heDateStr.includes("נִיסָן")||heDateStr.includes("ניסן")), "חודש ניסן"],
+      [(heDateStr.includes("סִיוָן")||heDateStr.includes("סיון")) && heDay>=1 && heDay<=12, "א-יב סיון"],
+      [(heDateStr.includes("תִּשְׁרֵי")||heDateStr.includes("תשרי")) && heDay>=11, "י\"א בתשרי ואילך"],
+      [(heDateStr.includes("תִּשְׁרֵי")||heDateStr.includes("תשרי")) && heDay===9, "ערב יום כיפור"],
+    ];
+    for(const [cond, reason] of noTach){
+      if(cond){ tach = `🕊️ אין תחנון · ${reason}`; break; }
+    }
+    if(tach.startsWith("📿") && dt.getDay()===5) tach = "🕯️ תחנון בוקר בלבד · ערב שבת";
+    // עיצוב תוצאה
+    const geLabel = new Date(isoDate).toLocaleDateString("he-IL",{day:"numeric",month:"long",year:"numeric"});
+    let h = "";
+    h += `<div class="res-line"><span class="res-label">תאריך עברי:</span> <strong>${j.hebrew||"—"}</strong></div>`;
+    h += `<div class="res-line"><span class="res-label">תאריך לועזי:</span> <strong>${geLabel}</strong></div>`;
+    h += `<div class="res-line"><span class="res-label">יום בשבוע:</span> יום ${dayName}</div>`;
+    h += `<div class="res-line"><span class="res-label">פרשת השבוע:</span> ${parsha}</div>`;
+    if(events.length){
+      h += `<div class="res-line"><span class="res-label">אירועי היום:</span> ${events.join(" · ")}</div>`;
+    }
+    h += `<div class="res-line"><span class="res-label">תחנון:</span> ${tach}</div>`;
+    result.innerHTML = h;
+  }catch(e){
+    result.innerHTML = "<div class='note'>⚠️ שגיאה. בדוק את הקלט ונסה שוב.</div>";
+  }
+}
+
+async function lookupParsha(){
+  const result = document.getElementById("parshaResult");
+  result.style.display = "block";
+  result.innerHTML = "<div class='note'><span class='spinner'></span> טוען…</div>";
+  try{
+    const parsha = document.getElementById("parshaSelect").value;
+    const year = document.getElementById("parshaYear").value;
+    // Hebcal hebcal API עם פרמטר parsha
+    const r = await fetch(`https://www.hebcal.com/hebcal?v=1&cfg=json&maj=off&min=off&mod=off&s=on&geo=none&year=${year}&month=x&i=on`);
+    const j = await r.json();
+    const items = (j.items||[]).filter(it=>it.category==="parashat");
+    // התאמה לפי שם הפרשה (Hebcal עם title)
+    const target = parsha.toLowerCase().replace(/[\s']/g,"");
+    const match = items.find(it=>String(it.title||"").toLowerCase().replace(/[\s']/g,"").includes(target));
+    if(!match){
+      result.innerHTML = `<div class='note'>לא מצאתי את פרשת ${parsha} בשנת ${year}. אולי השנה כפול-פרשיות.</div>`;
+      return;
+    }
+    const dt = new Date(match.date);
+    const geLabel = dt.toLocaleDateString("he-IL",{day:"numeric",month:"long",year:"numeric"});
+    let h = "";
+    h += `<div class="res-line"><span class="res-label">פרשה:</span> <strong>${match.hebrew || match.title}</strong></div>`;
+    h += `<div class="res-line"><span class="res-label">קוראים בשבת:</span> ${geLabel}</div>`;
+    if(match.leyning){
+      const fullkriya = match.leyning.torah || "";
+      if(fullkriya) h += `<div class="res-line"><span class="res-label">קריאה:</span> ${fullkriya}</div>`;
+      if(match.leyning.haftarah) h += `<div class="res-line"><span class="res-label">הפטרה:</span> ${match.leyning.haftarah}</div>`;
+    }
+    h += `<div class="res-line" style="margin-top:8px"><a href="https://www.sefaria.org/${parsha.replace(/[\s']/g,"_")}" target="_blank" style="color:var(--crimson);text-decoration:underline">📖 לימוד הפרשה ב-Sefaria</a></div>`;
+    result.innerHTML = h;
+  }catch(e){
+    result.innerHTML = "<div class='note'>⚠️ שגיאה. נסה שוב.</div>";
+  }
+}
+/* ===== End additional loaders ===== */
+
+/* ===== Siddur (Edot HaMizrach / Ben Ish Chai) ===== */
+let _siddurCache = {};
+async function loadSiddurTab(name){
+  const body = document.getElementById("siddurBody");
+  const st = document.getElementById("siddurStatus");
+  if(!body) return;
+  if(!_siddurCache[name]){
+    st.style.display = "block";
+    st.innerHTML = '<span class="spinner"></span> טוען…';
+    body.style.display = "none";
+    try{
+      const r = await fetch(`./${name}.json`,{cache:"no-store"});
+      if(!r.ok) throw new Error("no file");
+      _siddurCache[name] = await r.json();
+    }catch(e){
+      st.innerHTML = "<div class='note'>הסידור לא נטען. ודא שהקובץ קיים ב-repo.</div>";
+      return;
+    }
+  }
+  const data = _siddurCache[name];
+  let h = "";
+  h += `<div class="siddur-title">${data.title||""}</div>`;
+  if(data.subtitle) h += `<div class="siddur-subtitle">${data.subtitle}</div>`;
+  if(data.attribution) h += `<div class="siddur-attribution"><strong>סדר התפילה:</strong> ${data.attribution}</div>`;
+  if(data.note) h += `<div class="siddur-note">💡 ${data.note}</div>`;
+  (data.sections||[]).forEach((s, i)=>{
+    h += `<details class="siddur-section" ${i<2?"open":""}><summary>${s.n||""}</summary><div class="siddur-text">${s.t||""}</div></details>`;
+  });
+  st.style.display = "none";
+  body.style.display = "block";
+  body.innerHTML = h;
+}
+function setupSiddurTabs(){
+  const tabs = document.querySelectorAll(".siddur-tab");
+  tabs.forEach(t=>{
+    t.addEventListener("click", ()=>{
+      tabs.forEach(x=>x.classList.remove("active"));
+      t.classList.add("active");
+      loadSiddurTab(t.dataset.tab);
+    });
+  });
+  // טען שחרית בהתחלה
+  loadSiddurTab("shacharit");
+}
+/* ===== End Siddur ===== */
+
+async function loadLessonArchive(){
+  reveal(document.getElementById("lessonArchCard"));
+  const st = document.getElementById("lessonArchStatus");
+  const body = document.getElementById("lessonArchBody");
+  try{
+    const r = await fetch("./discoveries.json", {cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    let h = `<div class="ls-h" style="font-size:1rem">סה״כ ${arr.length} שיעורים</div>`;
+    arr.forEach((rec)=>{
+      const L = rec.lesson || {};
+      const title = L.title || rec.he_ref || "שיעור";
+      const date = rec.ts || rec.date || "";
+      let inner = "";
+      if(L.intro) inner += `<p>${L.intro}</p>`;
+      if(Array.isArray(L.sources) && L.sources.length){
+        inner += `<div class="ls-h">📚 מקורות</div>`;
+        L.sources.forEach(s=> inner += `<p><span class="ls-src">${s.name||""}</span> ${s.point||""}</p>`);
+      }
+      if(L.discussion) inner += `<div class="ls-h">🗣️ דיון</div><p>${L.discussion}</p>`;
+      if(L.deep_dive)  inner += `<div class="ls-h">🔬 עיון לעומק</div><p>${L.deep_dive}</p>`;
+      if(L.connections){
+        inner += `<div class="ls-h">🔗 קשרים בין המקורות</div>`;
+        if(Array.isArray(L.connections)) L.connections.forEach(c=> inner += `<p>${c.from?`<span class="ls-src">${c.from}</span> `:''}${c.point||c}</p>`);
+        else inner += `<p>${L.connections}</p>`;
+      }
+      if(L.conclusion) inner += `<div class="ls-h">📝 סיכום</div><p>${L.conclusion}</p>`;
+      if(L.practical)  inner += `<div class="ls-h">✅ למעשה</div><p>${L.practical}</p>`;
+      if(L.disclaimer) inner += `<p style="font-size:.85rem;color:var(--ink-soft);margin-top:8px">⚠️ ${L.disclaimer}</p>`;
+      h += `<details class="arch-item"><summary>${title} · ${rec.he_ref||""} · ${date}</summary><div class="arch-body">${inner}</div></details>`;
+    });
+    st.style.display="none";
+    body.innerHTML = h;
+    body.style.display="block";
+  }catch(e){
+    st.style.display="none";
+    body.style.display="block";
+    body.innerHTML = '<div class="note">ארכיון יתמלא עם כל ריצה של הסוכן — כרגע יש מעט שיעורים. אפשר להריץ ידנית מ-Actions → Daily Lesson → Run workflow.</div>';
+  }
+}
+/* ===== Lesson archive — end ===== */
+async function loadLog(){
+  reveal(document.getElementById("logCard"));
+  const st = document.getElementById("logStatus");
+  const body = document.getElementById("logBody");
+  try{
+    const r = await fetch("./log.json", {cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    let h = "";
+    arr.slice(0,40).forEach(e=>{
+      const lb=e.librarian||{}, co=e.connector||{}, te=e.teacher||{}, cd=e.codes||{}, pr=e.prayers||{};
+      let inner = "";
+      inner += `<div class="log-line">📚 <b>ספרן</b>: אסף ${lb.sources_found||0} מקורות · בספרייה: ${lb.library_total||0}</div>`;
+      if(lb.sources && lb.sources.length)
+        inner += `<div class="log-line" style="padding-right:18px;color:var(--ink-soft);font-size:.9rem">${lb.sources.join(" · ")}</div>`;
+      inner += `<div class="log-line">🔗 <b>מקשר</b>: ${co.theme||"—"}${co.method?` · דרך: ${co.method}`:""}${co.aramaic?` · מארמית: ${co.aramaic}`:""} · ${co.links||0} קשרים</div>`;
+      if(co.thread) inner += `<div class="log-line" style="padding-right:18px;color:var(--ink-soft);font-size:.9rem">${co.thread}</div>`;
+      inner += `<div class="log-line">📖 <b>מגיד</b>: כתב "${te.title||"—"}"</div>`;
+      inner += `<div class="log-line">🔯 <b>צפנים</b>: נמצאו ${cd.found||0} דילוגים${cd.words&&cd.words.length?` (${cd.words.join(", ")})`:""}</div>`;
+      inner += `<div class="log-line">🕯️ <b>תפילות</b>: ${pr.audited||0} מקורות${pr.names&&pr.names.length?` (${pr.names.slice(0,8).join(", ")})`:""}</div>`;
+      if(e.shared_words&&e.shared_words.length) inner += `<div class="log-line">🧵 מילים משותפות בין המקורות: ${e.shared_words.join(", ")}</div>`;
+      h += `<details class="arch-item"><summary>${e.run||""} · ${e.ts||e.date} · ${e.daf||""}</summary><div class="arch-body">${inner}</div></details>`;
+    });
+    st.style.display="none";
+    body.innerHTML = h;
+    body.style.display="block";
+  }catch(e){
+    st.style.display="none";
+    body.style.display="block";
+    body.innerHTML = '<div class="codes-out"><div class="note">היומן יתמלא אחרי הרצת הסוכן (Run workflow) — כל ריצה תתעד מה כל סוכן עשה.</div></div>';
+  }
+}
+/* ===== Agent activity log (reads log.json) — end ===== */
+/* ===== שו"ת — ask the Worker (password-gated) + permanent archive ===== */
+const QA_WORKER_URL = "https://sod-hadaf-qa.24locksmith24.workers.dev";
+let QA_ARCHIVE = [];
+function qaLessonHTML(L){
+  L = L || {};
+  let h = "";
+  if(L.summary){
+    h += `<p>${L.summary}</p>`;
+    if(Array.isArray(L.key_sources) && L.key_sources.length)
+      h += `<div class="ls-h">📚 מקורות עיקריים</div><p>${L.key_sources.join(" · ")}</p>`;
+    if(L.bottom_line) h += `<div class="ls-h">✨ שורה תחתונה</div><p>${L.bottom_line}</p>`;
+    if(L.disclaimer) h += `<p style="font-size:.85rem;color:var(--ink-soft);margin-top:8px">⚠️ ${L.disclaimer}</p>`;
+    return h;
+  }
+  if(L.intro)      h += `<p>${L.intro}</p>`;
+  if(Array.isArray(L.sources) && L.sources.length){
+    h += `<div class="ls-h">📚 מקורות</div>`;
+    L.sources.forEach(s=> h += `<p><span class="ls-src">${s.name||""}</span> ${s.point||""}</p>`);
+  }
+  if(L.discussion) h += `<div class="ls-h">🗣️ דיון</div><p>${L.discussion}</p>`;
+  if(L.deep_dive)  h += `<div class="ls-h">🔬 עיון לעומק וחידושים</div><p>${L.deep_dive}</p>`;
+  if(Array.isArray(L.chiddushim) && L.chiddushim.length){
+    h += `<div class="ls-h">💡 חידושים</div>`;
+    L.chiddushim.forEach(c=> h += `<p>• ${c}</p>`);
+  }
+  if(L.conclusion) h += `<div class="ls-h">📝 סיכום</div><p>${L.conclusion}</p>`;
+  if(L.practical)  h += `<div class="ls-h">✅ למעשה</div><p>${L.practical}</p>`;
+  if(L.disclaimer) h += `<p style="font-size:.85rem;color:var(--ink-soft);margin-top:8px">⚠️ ${L.disclaimer}</p>`;
+  return h;
+}
+function fmtTs(ts){ try{ return new Date(ts).toLocaleString("he-IL"); }catch(e){ return ts||""; } }
+function renderQAList(){
+  const body = document.getElementById("qaBody");
+  if(!QA_ARCHIVE.length){ body.style.display="none"; return; }
+  let h = `<div class="ls-h" style="font-size:1.05rem">🗂️ ארכיון השו״ת</div>`;
+  QA_ARCHIVE.forEach((rec,idx)=>{
+    const title = (rec.lesson&&rec.lesson.title)? rec.lesson.title : rec.question;
+    h += `<details class="arch-item" ${idx===0?"open":""}><summary>${title} · ${fmtTs(rec.ts)}</summary>`+
+         `<div class="arch-body">${qaLessonHTML(rec.lesson)}`+
+         `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">`+
+         `<button class="regen" style="margin:0" onclick="printQA(${idx})">🖨️ שמור כ-PDF</button>`+
+         `<button class="regen" style="margin:0" onclick="downloadQA(${idx})">📥 הורד</button>`+
+         `</div></div></details>`;
+  });
+  body.innerHTML = h;
+  body.style.display="block";
+}
+async function loadQAArchive(){
+  try{
+    const r = await fetch(QA_WORKER_URL, {cache:"no-store"});
+    if(!r.ok) return;
+    const data = await r.json();
+    if(Array.isArray(data.archive)){ QA_ARCHIVE = data.archive; renderQAList(); }
+  }catch(e){}
+}
+async function askWorker(mode){
+  const q = (document.getElementById("qaInput").value || "").trim();
+  const pass = (document.getElementById("qaPass").value || "").trim();
+  const hint = document.getElementById("qaHint");
+  if(!q){ hint.textContent = "כתוב שאלה או נושא קודם 🙂"; return; }
+  if(!pass){ hint.textContent = "הקלד את קוד הגישה (הסיסמה) 🔐"; return; }
+  if(QA_WORKER_URL.includes("REPLACE-WITH-YOUR-WORKER")){
+    hint.innerHTML = "⚠️ עדיין לא חובר ה-Worker (QA_WORKER_URL)."; return;
+  }
+  const body = document.getElementById("qaBody");
+  body.style.display="block";
+  const wait = (mode==="short") ? "הסוכן מחבר תמצית…" : "הסוכן צולל לעומק ומחבר חידושים… (עד דקה)";
+  body.innerHTML = '<div class="status"><span class="spinner"></span> '+wait+'</div>';
+  hint.textContent = "";
+  try{
+    const r = await fetch(QA_WORKER_URL, {
+      method:"POST", headers:{ "content-type":"application/json" },
+      body: JSON.stringify({ question:q, mode, password:pass })
+    });
+    if(!r.ok){
+      let msg="שגיאה", det="";
+      try{ const e=await r.json(); msg=e.error||msg; det=e.detail||""; }catch(_){}
+      hint.innerHTML = `⚠️ ${msg} ${det?("· "+det):""}`;
+      renderQAList(); return;
+    }
+    // read the streamed sectioned text to completion
+    const reader = r.body.getReader();
+    const dec = new TextDecoder();
+    let full = "";
+    try{
+      while(true){
+        const {done, value} = await reader.read();
+        if(done) break;
+        full += dec.decode(value, {stream:true});
+      }
+    }catch(_streamErr){ /* keep whatever we received */ }
+    const lesson = parseSectionedLesson(full, q);
+    document.getElementById("qaInput").value = "";
+    QA_ARCHIVE.unshift({ ts:new Date().toISOString(), question:q, mode, lesson });
+    renderQAList();
+  }catch(e){
+    hint.textContent = "⚠️ לא הצלחתי לקרוא את התשובה מה-Worker. נסה שוב.";
+  }
+}
+
+// פענוח טקסט מסומן ===NAME=== לאובייקט שיעור (אותו פענוח כמו ב-Worker)
+function parseSectionedLesson(text, q){
+  const lesson = { title:"", intro:"", sources:[], discussion:"",
+                   deep_dive:"", chiddushim:[], conclusion:"",
+                   practical:"", disclaimer:"" };
+  if(!text) return Object.assign(lesson, { title:q||"שיעור", intro:"לא התקבל תוכן — נסה שוב." });
+  const parts = text.split(/===\s*([^=\n]+?)\s*===/);
+  let foundAnySection = false;
+  for(let i=1; i<parts.length; i+=2){
+    const name = (parts[i]||"").trim();
+    const content = (parts[i+1]||"").trim();
+    if(!name || !content) continue;
+    foundAnySection = true;
+    if(name==="כותרת") lesson.title = content;
+    else if(name==="פתיחה" || name==="תמצית") lesson.intro = content;
+    else if(name==="מקורות"){
+      lesson.sources = content.split(/\r?\n/)
+        .map(l=>l.trim()).filter(l=>/^[-•*]/.test(l))
+        .map(l=>l.replace(/^[-•*]\s*/,""))
+        .map(l=>{
+          const idx = l.indexOf(":");
+          if(idx>0) return {name:l.slice(0,idx).trim(), point:l.slice(idx+1).trim()};
+          return {name:l, point:""};
+        }).filter(s=>s.name);
+    }
+    else if(name==="דיון") lesson.discussion = content;
+    else if(name==="עיון לעומק" || name==="עיון") lesson.deep_dive = content;
+    else if(name==="חידושים"){
+      lesson.chiddushim = content.split(/\r?\n/)
+        .map(l=>l.trim()).filter(l=>/^[-•*]/.test(l))
+        .map(l=>l.replace(/^[-•*]\s*/,"").trim()).filter(Boolean);
+    }
+    else if(name==="סיכום") lesson.conclusion = content;
+    else if(name==="למעשה" || name==="שורה תחתונה") lesson.practical = content;
+    else if(name==="הסתייגות") lesson.disclaimer = content;
+  }
+  // אם לא נמצא אף סעיף — או שכל הסעיפים ריקים — נשתמש בטקסט הגולמי כתוכן
+  if(!foundAnySection || (!lesson.intro && !lesson.discussion && !lesson.deep_dive && !lesson.conclusion)){
+    if(!lesson.intro) lesson.intro = (text||"").trim();
+  }
+  if(!lesson.title) lesson.title = q || "שיעור";
+  if(!lesson.disclaimer) lesson.disclaimer = "חומר לימוד בלבד, אינו פסק הלכה; להוראה למעשה יש לפנות לרב מוסמך.";
+  return lesson;
+}
+function printQA(idx){
+  const rec = QA_ARCHIVE[idx]; if(!rec) return;
+  const title = (rec.lesson&&rec.lesson.title)? rec.lesson.title : rec.question;
+  const w = window.open("", "_blank");
+  w.document.write(`<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>${title}</title>`+
+    `<style>body{font-family:'Frank Ruhl Libre',Georgia,serif;direction:rtl;max-width:720px;margin:30px auto;padding:0 20px;line-height:1.7;color:#1a1410}`+
+    `h1{font-size:1.5rem}h2{font-size:1.05rem;color:#7a1f1f;margin-top:18px;border-bottom:1px solid #ddd;padding-bottom:3px}`+
+    `.src{font-weight:700;color:#7a1f1f}.note{font-size:.85rem;color:#666}</style></head><body>`+
+    `<h1>${title}</h1><p class="note">שאלה: ${rec.question} · ${fmtTs(rec.ts)}</p>`+
+    qaLessonHTML(rec.lesson).replace(/class="ls-h"/g,'').replace(/<div >/g,'<h2>').replace(/ls-src/g,'src')+
+    `<hr><p class="note">סוֹד הַדַּף · חומר לימוד בלבד, אינו פסק הלכה</p></body></html>`);
+  w.document.close();
+  setTimeout(()=>{ w.focus(); w.print(); }, 400);
+}
+function downloadQA(idx){
+  const rec = QA_ARCHIVE[idx]; if(!rec) return;
+  const title = (rec.lesson&&rec.lesson.title)? rec.lesson.title : rec.question;
+  const html = `<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>${title}</title>`+
+    `<style>body{font-family:Georgia,serif;direction:rtl;max-width:720px;margin:30px auto;padding:0 20px;line-height:1.7}`+
+    `h2{color:#7a1f1f}</style></head><body><h1>${title}</h1><p>שאלה: ${rec.question} · ${fmtTs(rec.ts)}</p>`+
+    qaLessonHTML(rec.lesson)+`<hr><p>סוֹד הַדַּף · חומר לימוד בלבד</p></body></html>`;
+  const blob = new Blob([html], {type:"text/html;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = (title.replace(/[^\u05D0-\u05EAa-zA-Z0-9 ]/g,"").slice(0,40)||"shut") + ".html";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+/* ===== Codes calculator (live): gematria, atbash, notarikon, ELS ===== */
+const ALEFBET = "אבגדהוזחטיכלמנסעפצקרשת";
+const FINALS_J = {ך:"כ",ם:"מ",ן:"נ",ף:"פ",ץ:"צ"};
+const ATBASH_J = {}; for(let i=0;i<22;i++) ATBASH_J[ALEFBET[i]] = ALEFBET[21-i];
+function toCons(s){
+  s = (s||"").replace(/[\u0591-\u05C7]/g,"");
+  let o=""; for(const c of s){ const b=FINALS_J[c]||c; if(b>="א"&&b<="ת") o+=b; } return o;
+}
+function atbashWord(w){ return [...toCons(w)].map(c=>ATBASH_J[c]||c).join(""); }
+function notar(s){
+  const ws=(s||"").split(/\s+/).map(w=>w.replace(/[^\u05D0-\u05EA]/g,"")).filter(Boolean);
+  return { ini: ws.map(w=>w[0]).join(""), fin: ws.map(w=>w[w.length-1]).join("") };
+}
+function elsSearch(letters, target, maxSkip, maxHits){
+  const t=toCons(target), tr=[...t].reverse().join(""), n=letters.length, m=t.length, hits=[];
+  if(m<2 || n<m) return hits;
+  for(let skip=2; skip<=maxSkip; skip++){
+    for(let r=0; r<skip; r++){
+      // build residue-class subsequence: letters[r], letters[r+skip], ...
+      let sub=""; for(let p=r; p<n; p+=skip) sub+=letters[p];
+      let i=sub.indexOf(t);
+      while(i!==-1){ hits.push({skip,dir:"→",start:r+i*skip}); if(hits.length>=maxHits) return hits; i=sub.indexOf(t,i+1); }
+      i=sub.indexOf(tr);
+      while(i!==-1){ hits.push({skip,dir:"←",start:r+(i+m-1)*skip}); if(hits.length>=maxHits) return hits; i=sub.indexOf(tr,i+1); }
+    }
+  }
+  return hits;
+}
+function calcCodes(){
+  const v = document.getElementById("codeInput").value;
+  let std=0; for(const ch of v){ if(GEM[ch]) std+=GEM[ch]; }
+  document.getElementById("cGem").textContent = std;
+  document.getElementById("cAtbash").textContent = atbashWord(v) || "—";
+  const nt = notar(v);
+  document.getElementById("cNotar").textContent = nt.ini || "—";
+}
+
+// the Five Books, loaded on demand and cached as consonant streams
+let TORAH_LETTERS = "";          // currently-loaded corpus
+let TORAH_LABEL = "";
+const TORAH_CACHE = {};          // per-book consonant cache
+const TORAH_BOOKS = ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy"];
+const BOOK_HE = {ALL:"חמישה חומשים", Genesis:"בראשית", Exodus:"שמות", Leviticus:"ויקרא", Numbers:"במדבר", Deuteronomy:"דברים"};
+async function fetchBook(b){
+  if(TORAH_CACHE[b]) return TORAH_CACHE[b];
+  const r = await fetch(`${SEFARIA}/api/texts/${b}`);
+  const d = await r.json();
+  const v = (Array.isArray(d.he)?d.he.flat(Infinity):[d.he]).map(stripHtml).filter(Boolean);
+  TORAH_CACHE[b] = toCons(v.join(" "));
+  return TORAH_CACHE[b];
+}
+async function loadTorahScope(){
+  const scope = document.getElementById("torahScope").value;
+  const st = document.getElementById("torahStatus");
+  const btn = document.getElementById("loadTorah");
+  btn.disabled = true;
+  st.innerHTML = '<span class="spinner" style="width:14px;height:14px;border-width:2px"></span> טוען…';
+  try{
+    if(scope === "ALL"){
+      let all = "";
+      for(const b of TORAH_BOOKS){ st.textContent = `טוען ${BOOK_HE[b]}…`; all += await fetchBook(b); }
+      TORAH_LETTERS = all; TORAH_LABEL = BOOK_HE.ALL;
+    } else {
+      st.textContent = `טוען ${BOOK_HE[scope]}…`;
+      TORAH_LETTERS = await fetchBook(scope); TORAH_LABEL = BOOK_HE[scope];
+    }
+    st.textContent = `${TORAH_LABEL}: נטענו ${TORAH_LETTERS.length.toLocaleString()} אותיות ✓`;
+  }catch(e){
+    st.textContent = "⚠️ טעינה נכשלה — נסה שוב.";
+  }
+  btn.disabled = false;
+}
+function hitContext(letters, word, skip, dir, start, maxStrip){
+  const m = toCons(word).length;
+  if((m-1)*skip+1 > (maxStrip||200)) return null;
+  let lo, hi;
+  if(dir==="→"){ lo=start; hi=start+(m-1)*skip; } else { hi=start; lo=start-(m-1)*skip; }
+  if(lo<0 || hi>=letters.length) return null;
+  const strip = letters.slice(lo, hi+1);
+  const marks = []; for(let k=0;k<m;k++) marks.push(k*skip);
+  return {strip, marks};
+}
+async function runEls(){
+  const word = document.getElementById("elsWord").value.trim();
+  const maxSkip = Math.min(500, Math.max(2, parseInt(document.getElementById("elsMax").value,10)||100));
+  const out = document.getElementById("elsOut");
+  if(!word || toCons(word).length<2){ out.innerHTML = '<div class="note">הקלד מילה באורך 2 אותיות לפחות.</div>'; return; }
+  if(!TORAH_LETTERS){
+    out.innerHTML = '<div class="note">טוען את התורה… רגע אחד.</div>';
+    await loadTorahScope();
+    if(!TORAH_LETTERS){ out.innerHTML = '<div class="note">לא הצלחתי לטעון את התורה. נסה שוב.</div>'; return; }
+  }
+  out.innerHTML = '<div class="status"><span class="spinner"></span> מחפש דילוגים…</div>';
+  setTimeout(()=>{
+    const hits = elsSearch(TORAH_LETTERS, word, maxSkip, 8);
+    if(!hits.length){
+      out.innerHTML = `<div class="note">לא נמצאו דילוגים של "${word}" עד מרווח ${maxSkip} ב${TORAH_LABEL} (${TORAH_LETTERS.length.toLocaleString()} אותיות).</div>`;
+      return;
+    }
+    let html = "";
+    hits.forEach((h,idx)=>{
+      const ctx = hitContext(TORAH_LETTERS, word, h.skip, h.dir, h.start, 200);
+      html += `<div class="hit">המילה <b>${word}</b> — דילוג <b>${h.skip}</b> ${h.dir} · מאות ${(h.start+1).toLocaleString()}</div>`;
+      if(ctx) html += renderStrip(ctx.strip, ctx.marks);
+      // visual matrix for the first hit (when the skip width is displayable)
+      if(idx===0 && ctx && h.skip>=2 && h.skip<=30) html += renderMatrix(ctx.strip, ctx.marks, h.skip);
+    });
+    html += `<div class="note">נסרקו ${TORAH_LETTERS.length.toLocaleString()} אותיות (${TORAH_LABEL}). דילוגים מופיעים גם במקרה בכל טקסט ארוך — ללימוד והתבוננות, לא הוכחה.</div>`;
+    out.innerHTML = html;
+  }, 30);
+}
+document.getElementById("codeInput").addEventListener("input", calcCodes);
+document.getElementById("elsBtn").addEventListener("click", runEls);
+document.getElementById("loadTorah").addEventListener("click", loadTorahScope);
+(function(){ const b=document.getElementById("qaFullBtn"); if(b) b.addEventListener("click", ()=>askWorker("full")); })();
+(function(){ const b=document.getElementById("qaShortBtn"); if(b) b.addEventListener("click", ()=>askWorker("short")); })();
+
+/* ===== Tehillim Yomi — monthly division, shown inline ===== */
+// classic division of Psalms across the days of the Hebrew month
+const TEHILLIM_DAYS = {
+  1:[1,9],2:[10,17],3:[18,22],4:[23,28],5:[29,34],6:[35,38],7:[39,43],8:[44,48],
+  9:[49,54],10:[55,59],11:[60,65],12:[66,68],13:[69,71],14:[72,76],15:[77,78],
+  16:[79,82],17:[83,87],18:[88,89],19:[90,96],20:[97,103],21:[104,105],22:[106,107],
+  23:[108,112],24:[113,118],25:[119,119],26:[119,119],27:[120,134],28:[135,139],
+  29:[140,144],30:[145,150]
+};
+function hebDayNum(date){
+  // numeric Hebrew day-of-month via a non-Hebrew locale on the Hebrew calendar
+  return parseInt(new Intl.DateTimeFormat("en-u-ca-hebrew",{day:"numeric"}).format(date),10);
+}
+function tehillimRangeForToday(){
+  const now = new Date();
+  let day = hebDayNum(now);
+  // detect a 29-day month: if today is 29 and tomorrow is day 1
+  const tomorrow = new Date(now.getTime()+86400000);
+  if(day===29 && hebDayNum(tomorrow)===1) return [140,150];
+  if(!TEHILLIM_DAYS[day]) day = 30;
+  return TEHILLIM_DAYS[day];
+}
+function setupTehillim(){
+  reveal(document.getElementById("tehillimCard"));
+  const [a,b] = tehillimRangeForToday();
+  const dayNum = hebDayNum(new Date());
+  let label;
+  if(a===119 && b===119) label = `תהילים פרק קי״ט`;
+  else if(a===b) label = `תהילים פרק ${a}`;
+  else label = `תהילים פרקים ${a}–${b}`;
+  document.getElementById("tehillimSub").textContent = `ליום ${dayNum} בחודש · ${label}`;
+}
+async function loadTehillim(){
+  const btn = document.getElementById("tehillimBtn");
+  const status = document.getElementById("tehillimStatus");
+  const body = document.getElementById("tehillimBody");
+  btn.style.display="none";
+  status.style.display="flex";
+  const [a,b] = tehillimRangeForToday();
+  let out = "";
+  try{
+    for(let ch=a; ch<=b; ch++){
+      const r = await fetch(`${SEFARIA}/api/texts/Psalms.${ch}`,{cache:"force-cache"});
+      const d = await r.json();
+      const verses = (Array.isArray(d.he)?d.he.flat(Infinity):[d.he]).map(stripHtml).filter(Boolean);
+      out += `פרק ${ch}\n` + verses.join(" ") + "\n\n";
+    }
+    status.style.display="none";
+    body.textContent = out.trim();
+    body.style.display="block";
+  }catch(e){
+    status.style.display="none";
+    btn.style.display="inline-flex";
+    btn.textContent = "⚠️ נסה שוב להציג תהילים";
+  }
+}
+setupTehillim();
+document.getElementById("tehillimBtn").addEventListener("click", loadTehillim);
+
+/* ===== Prayers & blessings — Sephardic nusach (Edot HaMizrach), inline ===== */
+const PRAYERS = [
+  {n:"מוֹדֶה אֲנִי", a:"מהר\"ם די לונזאנו (ע\"פ קבלת האר\"י)", t:`מוֹדֶה אֲנִי לְפָנֶיךָ מֶלֶךְ חַי וְקַיָּם, שֶׁהֶחֱזַרְתָּ בִּי נִשְׁמָתִי בְּחֶמְלָה, רַבָּה אֱמוּנָתֶךָ.`},
+  {n:"נְטִילַת יָדַיִם", a:"תיקנו אנשי כנסת הגדולה (שו\"ע או\"ח ד)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר קִדְּשָׁנוּ בְּמִצְוֹתָיו וְצִוָּנוּ עַל נְטִילַת יָדָיִם.`},
+  {n:"בִּרְכוֹת הַשַּׁחַר", a:"תיקנו חז\"ל (ברכות ס:)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר נָתַן לַשֶּׂכְוִי בִינָה לְהַבְחִין בֵּין יוֹם וּבֵין לָיְלָה.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, פּוֹקֵחַ עִוְרִים.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, מַתִּיר אֲסוּרִים.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, זוֹקֵף כְּפוּפִים.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, מַלְבִּישׁ עֲרֻמִּים.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַנּוֹתֵן לַיָּעֵף כֹּחַ.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, רוֹקַע הָאָרֶץ עַל הַמָּיִם.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַמֵּכִין מִצְעֲדֵי גָבֶר.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁעָשָׂה לִי כָּל צָרְכִּי.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אוֹזֵר יִשְׂרָאֵל בִּגְבוּרָה.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, עוֹטֵר יִשְׂרָאֵל בְּתִפְאָרָה.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁלֹּא עָשַׂנִי גּוֹי.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁלֹּא עָשַׂנִי עָבֶד.
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁלֹּא עָשַׂנִי אִשָּׁה. (אישה אומרת: שֶׁעָשַׂנִי כִּרְצוֹנוֹ.)
+
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַמַּעֲבִיר חֶבְלֵי שֵׁנָה מֵעֵינַי וּתְנוּמָה מֵעַפְעַפָּי...`},
+  {n:"קְרִיאַת שְׁמַע (שָׁלֹשׁ פָּרָשִׁיּוֹת)", a:"מן התורה — דברים ו, יא; במדבר טו", t:`שְׁמַע יִשְׂרָאֵל, יְהֹוָה אֱלֹהֵינוּ, יְהֹוָה אֶחָד.
+(בְּלַחַשׁ:) בָּרוּךְ שֵׁם כְּבוֹד מַלְכוּתוֹ לְעוֹלָם וָעֶד.
+
+וְאָהַבְתָּ אֵת יְהֹוָה אֱלֹהֶיךָ בְּכָל לְבָבְךָ וּבְכָל נַפְשְׁךָ וּבְכָל מְאֹדֶךָ. וְהָיוּ הַדְּבָרִים הָאֵלֶּה אֲשֶׁר אָנֹכִי מְצַוְּךָ הַיּוֹם עַל לְבָבֶךָ. וְשִׁנַּנְתָּם לְבָנֶיךָ וְדִבַּרְתָּ בָּם, בְּשִׁבְתְּךָ בְּבֵיתֶךָ וּבְלֶכְתְּךָ בַדֶּרֶךְ וּבְשָׁכְבְּךָ וּבְקוּמֶךָ. וּקְשַׁרְתָּם לְאוֹת עַל יָדֶךָ וְהָיוּ לְטֹטָפֹת בֵּין עֵינֶיךָ. וּכְתַבְתָּם עַל מְזֻזוֹת בֵּיתֶךָ וּבִשְׁעָרֶיךָ.
+
+וְהָיָה אִם שָׁמֹעַ תִּשְׁמְעוּ אֶל מִצְוֹתַי אֲשֶׁר אָנֹכִי מְצַוֶּה אֶתְכֶם הַיּוֹם, לְאַהֲבָה אֶת יְהֹוָה אֱלֹהֵיכֶם וּלְעָבְדוֹ בְּכָל לְבַבְכֶם וּבְכָל נַפְשְׁכֶם. וְנָתַתִּי מְטַר אַרְצְכֶם בְּעִתּוֹ יוֹרֶה וּמַלְקוֹשׁ, וְאָסַפְתָּ דְגָנֶךָ וְתִירֹשְׁךָ וְיִצְהָרֶךָ. וְנָתַתִּי עֵשֶׂב בְּשָׂדְךָ לִבְהֶמְתֶּךָ, וְאָכַלְתָּ וְשָׂבָעְתָּ. הִשָּׁמְרוּ לָכֶם פֶּן יִפְתֶּה לְבַבְכֶם, וְסַרְתֶּם וַעֲבַדְתֶּם אֱלֹהִים אֲחֵרִים וְהִשְׁתַּחֲוִיתֶם לָהֶם. וְחָרָה אַף יְהֹוָה בָּכֶם וְעָצַר אֶת הַשָּׁמַיִם וְלֹא יִהְיֶה מָטָר, וְהָאֲדָמָה לֹא תִתֵּן אֶת יְבוּלָהּ, וַאֲבַדְתֶּם מְהֵרָה מֵעַל הָאָרֶץ הַטֹּבָה אֲשֶׁר יְהֹוָה נֹתֵן לָכֶם. וְשַׂמְתֶּם אֶת דְּבָרַי אֵלֶּה עַל לְבַבְכֶם וְעַל נַפְשְׁכֶם, וּקְשַׁרְתֶּם אֹתָם לְאוֹת עַל יֶדְכֶם וְהָיוּ לְטוֹטָפֹת בֵּין עֵינֵיכֶם. וְלִמַּדְתֶּם אֹתָם אֶת בְּנֵיכֶם לְדַבֵּר בָּם, בְּשִׁבְתְּךָ בְּבֵיתֶךָ וּבְלֶכְתְּךָ בַדֶּרֶךְ וּבְשָׁכְבְּךָ וּבְקוּמֶךָ. וּכְתַבְתָּם עַל מְזוּזוֹת בֵּיתֶךָ וּבִשְׁעָרֶיךָ. לְמַעַן יִרְבּוּ יְמֵיכֶם וִימֵי בְנֵיכֶם עַל הָאֲדָמָה אֲשֶׁר נִשְׁבַּע יְהֹוָה לַאֲבֹתֵיכֶם לָתֵת לָהֶם, כִּימֵי הַשָּׁמַיִם עַל הָאָרֶץ.
+
+וַיֹּאמֶר יְהֹוָה אֶל מֹשֶׁה לֵּאמֹר. דַּבֵּר אֶל בְּנֵי יִשְׂרָאֵל וְאָמַרְתָּ אֲלֵהֶם, וְעָשׂוּ לָהֶם צִיצִת עַל כַּנְפֵי בִגְדֵיהֶם לְדֹרֹתָם, וְנָתְנוּ עַל צִיצִת הַכָּנָף פְּתִיל תְּכֵלֶת. וְהָיָה לָכֶם לְצִיצִת, וּרְאִיתֶם אֹתוֹ וּזְכַרְתֶּם אֶת כָּל מִצְוֹת יְהֹוָה וַעֲשִׂיתֶם אֹתָם, וְלֹא תָתוּרוּ אַחֲרֵי לְבַבְכֶם וְאַחֲרֵי עֵינֵיכֶם אֲשֶׁר אַתֶּם זֹנִים אַחֲרֵיהֶם. לְמַעַן תִּזְכְּרוּ וַעֲשִׂיתֶם אֶת כָּל מִצְוֹתָי, וִהְיִיתֶם קְדֹשִׁים לֵאלֹהֵיכֶם. אֲנִי יְהֹוָה אֱלֹהֵיכֶם אֲשֶׁר הוֹצֵאתִי אֶתְכֶם מֵאֶרֶץ מִצְרַיִם לִהְיוֹת לָכֶם לֵאלֹהִים, אֲנִי יְהֹוָה אֱלֹהֵיכֶם. אֱמֶת.`},
+  {n:"קְרִיאַת שְׁמַע שֶׁעַל הַמִּטָּה (עדות המזרח, מלא)", a:"ע\"פ הזוהר ור' יהושע בן לוי (ברכות ס:; שבועות טו:)", t:`לְשֵׁם יִחוּד קֻדְשָׁא בְּרִיךְ הוּא וּשְׁכִינְתֵּיהּ, בִּדְחִילוּ וּרְחִימוּ, וּרְחִימוּ וּדְחִילוּ, לְיַחֲדָא שֵׁם אות י ואות ה בשם אות ו ואות ה בְּיִחוּדָא שְׁלִים בְּשֵׁם כָּל יִשְׂרָאֵל. הֲרֵינִי מְקַבֵּל עָלַי אֱלָהוּתוֹ יִתְבָּרַךְ וְאַהֲבָתוֹ וְיִרְאָתוֹ, וַהֲרֵינִי יָרֵא מִמֶּנּוּ בְּגִין דְּאִיהוּ רַב וְשַׁלִּיט עַל כֹּלָּא, וְכֹלָּא קָמֵיהּ כְּלָא. וַהֲרֵינִי מַמְלִיכוֹ עַל כָּל אֵבָר וְאֵבָר וְגִיד וְגִיד מֵרַמַ״ח אֵבָרִים וְשַׁסַ״ה גִּידִים שֶׁל גּוּפִי וְנַפְשִׁי, רוּחִי וְנִשְׁמָתִי מַלְכוּת גְּמוּרָה וּשְׁלֵמָה, וַהֲרֵינִי עֶבֶד לַיְהֹוָה יִתְבָּרַךְ. וְהוּא בְּרַחֲמָיו יְזַכֵּנִי לְעָבְדוֹ בְּלֵבָב שָׁלֵם וְנֶפֶשׁ חֲפֵצָה, אָמֵן כֵּן יְהִי רָצוֹן.
+
+— מְחִילָה —
+רִבּוֹנוֹ שֶׁל עוֹלָם הֲרֵינִי מוֹחֵל וְסוֹלֵחַ לְכָל מִי שֶׁהִכְעִיס וְהִקְנִיט אוֹתִי אוֹ שֶׁחָטָא כְּנֶגְדִּי, בֵּין בְּגוּפִי בֵּין בְּמָמוֹנִי בֵּין בִּכְבוֹדִי בֵּין בְּכָל אֲשֶׁר לִי, בֵּין בְּאֹנֶס בֵּין בְּרָצוֹן בֵּין בְּשׁוֹגֵג בֵּין בְּמֵזִיד בֵּין בְּדִבּוּר בֵּין בְּמַעֲשֶׂה, בֵּין בְּגִלְגּוּל זֶה בֵּין בְּגִלְגּוּל אַחֵר לְכָל בַּר יִשְׂרָאֵל וְלֹא יֵעָנֵשׁ שׁוּם אָדָם בְּסִבָּתִי. יְהִי רָצוֹן מִלְּפָנֶיךָ יְהֹוָה אֱלֹהַי וֵאלֹהֵי אֲבוֹתַי שֶׁלֹּא אֶחֱטָא עוֹד, וּמַה שֶּׁחָטָאתִי לְפָנֶיךָ מְחוֹק בְּרַחֲמֶיךָ הָרַבִּים אֲבָל לֹא עַל יְדֵי יִסּוּרִין וְחוֹלָאִים רָעִים. יִהְיוּ לְרָצוֹן אִמְרֵי פִי וְהֶגְיוֹן לִבִּי לְפָנֶיךָ, יְהֹוָה צוּרִי וְגֹאֲלִי.
+
+— בִּרְכַּת הַמַּפִּיל —
+(אחרי חצות הלילה — נוהגים בלי שם ומלכות. מנהג ספרדים לפי מרן הרב עובדיה יוסף זצ״ל — גם אחרי חצות עם שם ומלכות.)
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַמַּפִּיל חֶבְלֵי שֵׁנָה עַל עֵינַי וּתְנוּמָה עַל עַפְעַפַּי וּמֵאִיר לְאִישׁוֹן בַּת עָיִן. יְהִי רָצוֹן מִלְּפָנֶיךָ יְהֹוָה אֱלֹהַי וֵאלֹהֵי אֲבוֹתַי, שֶׁתַּשְׁכִּיבֵנִי לְשָׁלוֹם וְתַעֲמִידֵנִי לְחַיִּים טוֹבִים וּלְשָׁלוֹם וְתֵן חֶלְקִי בְּתוֹרָתֶךָ, וְתַרְגִּילֵנִי לִדְבַר מִצְוָה וְאַל תַּרְגִּילֵנִי לִדְבַר עֲבֵרָה, וְאַל תְּבִיאֵנִי לִידֵי חֵטְא וְלֹא לִידֵי נִסָּיוֹן וְלֹא לִידֵי בִזָּיוֹן. וְיִשְׁלֹט בִּי יֵצֶר הַטּוֹב וְאַל יִשְׁלֹט בִּי יֵצֶר הָרָע. וְתַצִּילֵנִי מִיֵּצֶר הָרָע וּמֵחוֹלָאִים רָעִים, וְאַל יַבְהִילוּנִי חֲלוֹמוֹת רָעִים וְהִרְהוּרִים רָעִים, וּתְהֵא מִטָּתִי שְׁלֵמָה לְפָנֶיךָ וְהָאֵר עֵינַי פֶּן אִישַׁן הַמָּוֶת. בָּרוּךְ אַתָּה יְהֹוָה, הַמֵּאִיר לְעוֹלָם כֻּלּוֹ בִּכְבוֹדוֹ.
+
+— קְרִיאַת שְׁמַע —
+שְׁמַע יִשְׂרָאֵל, יְהֹוָה אֱלֹהֵינוּ, יְהֹוָה אֶחָד.
+בָּרוּךְ שֵׁם כְּבוֹד מַלְכוּתוֹ לְעוֹלָם וָעֶד.
+(שלוש פרשיות שמע כסדרן.)
+
+— פְּסוּקֵי שְׁמִירָה —
+יַעַלְזוּ חֲסִידִים בְּכָבוֹד, יְרַנְּנוּ עַל מִשְׁכְּבוֹתָם. רוֹמְמוֹת אֵל בִּגְרוֹנָם, וְחֶרֶב פִּיפִיּוֹת בְּיָדָם.
+
+הִנֵּה מִטָּתוֹ שֶׁלִּשְׁלֹמֹה שִׁשִּׁים גִּבֹּרִים סָבִיב לָהּ, מִגִּבֹּרֵי יִשְׂרָאֵל. כֻּלָּם אֲחֻזֵי חֶרֶב מְלֻמְּדֵי מִלְחָמָה, אִישׁ חַרְבּוֹ עַל יְרֵכוֹ מִפַּחַד בַּלֵּילוֹת. (ג׳ פעמים)
+
+יְבָרֶכְךָ יְהֹוָה וְיִשְׁמְרֶךָ. יָאֵר יְהֹוָה פָּנָיו אֵלֶיךָ וִיחֻנֶּךָּ. יִשָּׂא יְהֹוָה פָּנָיו אֵלֶיךָ וְיָשֵׂם לְךָ שָׁלוֹם.
+
+— תהילים צ״א —
+יֹשֵׁב בְּסֵתֶר עֶלְיוֹן, בְּצֵל שַׁדַּי יִתְלוֹנָן. אֹמַר לַיְהֹוָה מַחְסִי וּמְצוּדָתִי, אֱלֹהַי אֶבְטַח בּוֹ. כִּי הוּא יַצִּילְךָ מִפַּח יָקוּשׁ מִדֶּבֶר הַוּוֹת. בְּאֶבְרָתוֹ יָסֶךְ לָךְ וְתַחַת כְּנָפָיו תֶּחְסֶה, צִנָּה וְסֹחֵרָה אֲמִתּוֹ. לֹא תִירָא מִפַּחַד לָיְלָה, מֵחֵץ יָעוּף יוֹמָם. מִדֶּבֶר בָּאֹפֶל יַהֲלֹךְ, מִקֶּטֶב יָשׁוּד צָהֳרָיִם. יִפֹּל מִצִּדְּךָ אֶלֶף וּרְבָבָה מִימִינֶךָ, אֵלֶיךָ לֹא יִגָּשׁ. רַק בְּעֵינֶיךָ תַבִּיט, וְשִׁלֻּמַת רְשָׁעִים תִּרְאֶה. כִּי אַתָּה יְהֹוָה מַחְסִי.
+
+— וִדּוּי (לא בשבת, חג, ובחודש ניסן) —
+אָנָּא יְהֹוָה אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ, תָּבֹא לְפָנֶיךָ תְּפִלָּתֵנוּ, וְאַל תִּתְעַלַּם מַלְכֵּנוּ מִתְּחִנָּתֵנוּ. אֲבָל חָטָאנוּ, עָוִינוּ, פָּשַׁעְנוּ, אֲנַחְנוּ וַאֲבוֹתֵינוּ וְאַנְשֵׁי בֵיתֵנוּ.
+
+אָשַׁמְנוּ. בָּגַדְנוּ. גָּזַלְנוּ. דִּבַּרְנוּ דֹפִי וְלָשׁוֹן הָרָע. הֶעֱוִינוּ. וְהִרְשַׁעְנוּ. זַדְנוּ. חָמַסְנוּ. טָפַלְנוּ שֶׁקֶר וּמִרְמָה. יָעַצְנוּ עֵצוֹת רָעוֹת. כִּזַּבְנוּ. כָּעַסְנוּ. לַצְנוּ. מָרַדְנוּ. מָרִינוּ דְבָרֶיךָ. נִאַצְנוּ. נִאַפְנוּ. סָרַרְנוּ. עָוִינוּ. פָּשַׁעְנוּ. פָּגַמְנוּ. צָרַרְנוּ. צִעַרְנוּ אָב וָאֵם. קִשִּׁינוּ עֹרֶף. רָשַׁעְנוּ. שִׁחַתְנוּ. תִּעַבְנוּ. תָּעִינוּ וְתִעֲתַעְנוּ. וְסַרְנוּ מִמִּצְוֹתֶיךָ וּמִמִּשְׁפָּטֶיךָ הַטּוֹבִים וְלֹא שָׁוָה לָנוּ. וְאַתָּה צַדִּיק עַל כָּל הַבָּא עָלֵינוּ, כִּי אֱמֶת עָשִׂיתָ, וַאֲנַחְנוּ הִרְשָׁעְנוּ.
+
+— אָנָּא בְּכֹחַ —
+(אומרים את כל הנוסח, ואז 3 פעמים את הפסוק של היום בשבוע. יום ראשון בלילה נחשב כיום שני, וכן הלאה.)
+
+אָנָּא בְּכֹחַ, גְּדֻלַּת יְמִינֶךָ, תַּתִּיר צְרוּרָה.
+קַבֵּל רִנַּת, עַמֶּךָ, שַׂגְּבֵנוּ, טַהֲרֵנוּ נוֹרָא.
+נָא גִבּוֹר, דּוֹרְשֵׁי יִחוּדֶךָ, כְּבָבַת שָׁמְרֵם.
+בָּרְכֵם טַהֲרֵם, רַחֲמֵי צִדְקָתֶךָ, תָּמִיד גָּמְלֵם.
+חָסִין קָדוֹשׁ, בְּרֹב טוּבְךָ, נַהֵל עֲדָתֶךָ.
+יָחִיד גֵּאֶה, לְעַמְּךָ פְּנֵה, זוֹכְרֵי קְדֻשָּׁתֶךָ.
+שַׁוְעָתֵנוּ קַבֵּל, וּשְׁמַע צַעֲקָתֵנוּ, יוֹדֵעַ תַּעֲלוּמוֹת.
+
+בלחש: בָּרוּךְ שֵׁם כְּבוֹד מַלְכוּתוֹ לְעוֹלָם וָעֶד.
+
+— סִיּוּם —
+אַתָּה תָקוּם תְּרַחֵם צִיּוֹן, כִּי עֵת לְחֶנְנָהּ כִּי בָא מוֹעֵד.
+בְּיָדְךָ אַפְקִיד רוּחִי, פָּדִיתָה אוֹתִי יְהֹוָה אֵל אֱמֶת.`},
+  {n:"אֲשֶׁר יָצַר (עדות המזרח)", a:"תיקנו אנשי כנסת הגדולה (ברכות ס:)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר יָצַר אֶת הָאָדָם בְּחׇכְמָה, וּבָרָא בוֹ נְקָבִים נְקָבִים, חֲלוּלִים חֲלוּלִים. גָּלוּי וְיָדוּעַ לִפְנֵי כִסֵּא כְבוֹדֶךָ, שֶׁאִם יִסָּתֵם אֶחָד מֵהֶם, אוֹ אִם יִפָּתֵֽחַ אֶחָד מֵהֶם, אִי אֶפְשַׁר לְהִתְקַיֵּם אֲפִילוּ שָׁעָה אֶחָת. בָּרוּךְ אַתָּה יְהֹוָה, רוֹפֵא כׇל בָּשָׂר וּמַפְלִיא לַעֲשֹוֹת.`},
+  {n:"בִּרְכוֹת הַנֶּהֱנִין", a:"תיקנו חז\"ל (ברכות לה)", t:`הַמּוֹצִיא (לֶחֶם):
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַמּוֹצִיא לֶחֶם מִן הָאָרֶץ.
+
+מְזוֹנוֹת (תַּבְשִׁילֵי דָּגָן):
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא מִינֵי מְזוֹנוֹת.
+
+הַגֶּפֶן (יַיִן):
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הַגֶּפֶן.
+
+הָעֵץ (פֵּרוֹת אִילָן):
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הָעֵץ.
+
+הָאֲדָמָה (יְרָקוֹת):
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הָאֲדָמָה.
+
+שֶׁהַכֹּל (שְׁאָר מַאֲכָלִים וּמַשְׁקִים):
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁהַכֹּל נִהְיָה בִּדְבָרוֹ.`},
+  {n:"בְּרָכָה מֵעֵין שָׁלוֹשׁ", a:"ברכה דרבנן מעין דאורייתא (ברכות מד.)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם,
+
+על חמשת המינים: עַל הַמִּחְיָה וְעַל הַכַּלְכָּלָה,
+על יין: עַל הַגֶּפֶן וְעַל פְּרִי הַגֶּפֶן,
+על שבעת המינים: עַל הָעֵץ וְעַל פְּרִי הָעֵץ,
+
+וְעַל תְּנוּבַת הַשָּׂדֶה, וְעַל אֶרֶץ חֶמְדָּה טוֹבָה וּרְחָבָה שֶׁרָצִיתָ וְהִנְחַלְתָּ לַאֲבוֹתֵינוּ, לֶאֱכֹל מִפִּרְיָהּ וְלִשְׂבֹּעַ מִטּוּבָהּ.
+
+רַחֵם יְהֹוָה אֱלֹהֵינוּ, עָלֵינוּ וְעַל יִשְׂרָאֵל עַמָּךְ, וְעַל יְרוּשָׁלַיִם עִירָךְ, וְעַל הַר צִיּוֹן מִשְׁכַּן כְּבוֹדָךְ, וְעַל מִזְבָּחָךְ וְעַל הֵיכָלָךְ. וּבְנֵה יְרוּשָׁלַיִם עִיר הַקֹּדֶשׁ בִּמְהֵרָה בְיָמֵינוּ. וְהַעֲלֵנוּ לְתוֹכָהּ, וְשַׂמְּחֵנוּ בְּבִנְיָנָהּ, וּנְבָרֶכְךָ עָלֶיהָ בִּקְדֻשָּׁה וּבְטָהֳרָה.
+
+כִּי אַתָּה טוֹב וּמֵטִיב לַכֹּל, וְנוֹדֶה לְּךָ (יְהֹוָה אֱלֹהֵינוּ) עַל הָאָרֶץ
+
+על חמשת המינים: וְעַל הַמִּחְיָה וְעַל הַכַּלְכָּלָה.
+על יין: וְעַל פְּרִי הַגָּפֶן.
+על שבעת המינים: וְעַל הַפֵּרוֹת.
+
+(בארץ ישראל: וְעַל מִחְיָתָהּ / עַל גַפְנָהּ / עַל פֵּרוֹתֶיהָ.)
+
+בָּרוּךְ אַתָּה יְהֹוָה, עַל הָאָרֶץ
+
+על חמשת המינים: וְעַל הַמִּחְיָה.
+על יין: וְעַל פְּרִי הַגָּפֶן.
+על שבעת המינים: וְעַל הַפֵּרוֹת.`},
+  {n:"בּוֹרֵא נְפָשׁוֹת", a:"תיקנו חז\"ל (ברכות לז.)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא נְפָשׁוֹת רַבּוֹת וְחֶסְרוֹנָן, עַל כֹּל מַה שֶּׁבָּרָאתָ לְהַחֲיוֹת בָּהֶם נֶפֶשׁ כָּל חָי. בָּרוּךְ חֵי הָעוֹלָמִים.`},
+  {n:"שֶׁהֶחֱיָנוּ", a:"תיקנו חז\"ל (ברכות נד.)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁהֶחֱיָנוּ וְקִיְּמָנוּ וְהִגִּיעָנוּ לַזְּמַן הַזֶּה.`},
+  {n:"הַגּוֹמֵל", a:"תיקנו חז\"ל (ברכות נד:; ע\"פ תהילים קז)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַגּוֹמֵל לְחַיָּבִים טוֹבוֹת שֶׁגְּמָלַנִי כָּל טוֹב.
+(הַקָּהָל עוֹנֶה:) אָמֵן. מִי שֶׁגְּמָלְךָ כָּל טוֹב, הוּא יִגְמָלְךָ כָּל טוֹב סֶלָה.`},
+  {n:"הַדְלָקַת נֵרוֹת שַׁבָּת", a:"תיקנו חז\"ל (שבת כג:)", t:`בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר קִדְּשָׁנוּ בְּמִצְוֹתָיו וְצִוָּנוּ לְהַדְלִיק נֵר שֶׁל שַׁבָּת קֹדֶשׁ.`},
+  {n:"תְּפִלַּת הַדֶּרֶךְ", a:"תיקנו חז\"ל (ברכות כט:)", t:`יְהִי רָצוֹן מִלְּפָנֶיךָ יְהֹוָה אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ, שֶׁתּוֹלִיכֵנוּ לְשָׁלוֹם וְתַצְעִידֵנוּ לְשָׁלוֹם וְתַדְרִיכֵנוּ לְשָׁלוֹם, וְתַגִּיעֵנוּ לִמְחוֹז חֶפְצֵנוּ לְחַיִּים וּלְשִׂמְחָה וּלְשָׁלוֹם. וְתַצִּילֵנוּ מִכַּף כָּל אוֹיֵב וְאוֹרֵב וְלִסְטִים וְחַיּוֹת רָעוֹת בַּדֶּרֶךְ, וּמִכָּל מִינֵי פֻּרְעָנֻיּוֹת הַמִּתְרַגְּשׁוֹת לָבוֹא לָעוֹלָם. וְתִשְׁלַח בְּרָכָה בְּכָל מַעֲשֵׂה יָדֵינוּ, וְתִשְׁמַע קוֹל תַּחֲנוּנֵינוּ, כִּי אֵל שׁוֹמֵעַ תְּפִלָּה וְתַחֲנוּן אַתָּה. בָּרוּךְ אַתָּה יְהֹוָה, שׁוֹמֵעַ תְּפִלָּה.`},
+  {n:"בִּרְכַּת הַמָּזוֹן (עדות המזרח, מלא)", a:"מן התורה (דברים ח, י); בונה ירושלים — אנשי כנסת הגדולה", t:`— פתיחה בסעודת שבת ויום טוב: שִׁיר הַמַּעֲלוֹת —
+שִׁיר הַמַּעֲלוֹת בְּשׁוּב יְהֹוָה אֶת שִׁיבַת צִיּוֹן הָיִינוּ כְּחֹלְמִים. אָז יִמָּלֵא שְׂחוֹק פִּינוּ וּלְשׁוֹנֵנוּ רִנָּה.
+
+— לַמְנַצֵּחַ —
+לַמְנַצֵּחַ בִּנְגִינֹת מִזְמוֹר שִׁיר. אֱלֹהִים יְחׇנֵּנוּ וִיבָֽרְכֵנוּ. יָאֵר פָּנָיו אִתָּנוּ סֶלָה.
+
+— אֲבָרֲכָה —
+אֲבָרְכָה אֶת יְהֹוָה בְּכָל עֵת. תָּמִיד תְּהִלָּתוֹ בְּפִי. סוֹף דָּבָר הַכֹּל נִשְׁמָע. אֶת הָאֱלֹהִים יְרָא וְאֶת מִצְוֹתָיו שְׁמוֹר, כִּי זֶה כָּל הָאָדָם. תְּהִלַּת יְהֹוָה יְדַבֶּר פִּי. וִיבָרֵךְ כָּל בָּשָׂר שֵׁם קׇדְשׁוֹ לְעוֹלָם וָעֶד. וַאֲנַחְנוּ נְבָרֵךְ יָהּ מֵעַתָּה וְעַד עוֹלָם הַלְלוּיָהּ.
+
+וַיְדַבֵּר אֵלַי: זֶה הַשֻּׁלְחָן אֲשֶׁר לִפְנֵי יְהֹוָה.
+
+— זִמּוּן (כְּשֶׁאוֹכְלִים שְׁלוֹשָׁה) —
+המזמן: הַב לָן וְנִבְרִיךְ לְמַלְכָּא עִלָּאָה קַדִּישָׁא.
+עונים: שָׁמַיִם!
+המזמן: בִּרְשׁוּת מַלְכָּא עִלָּאָה קַדִּישָׁא, וּבִרְשׁוּת מוֹרַי וְרַבּוֹתַי וּבִרְשׁוּתְכֶם, נְבָרֵךְ (בַּעֲשָׂרָה: אֱלֹהֵינוּ) שֶׁאָכַלְנוּ מִשֶּׁלוֹ.
+עונים: בָּרוּךְ (בַּעֲשָׂרָה: אֱלֹהֵינוּ) שֶׁאָכַלְנוּ מִשֶּׁלוֹ וּבְטוּבוֹ חָיִינוּ.
+המזמן: בָּרוּךְ (אֱלֹהֵינוּ) שֶׁאָכַלְנוּ מִשֶּׁלוֹ וּבְטוּבוֹ הַגָּדוֹל תָּמִיד חָיִינוּ.
+
+— א׳ — בִּרְכַּת הַזָּן —
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הָאֵל הַזָּן אוֹתָנוּ וְאֶת הָעוֹלָם כֻּלּוֹ בְּטוּבוֹ, בְּחֵן בְּחֶסֶד בְּרֶוַח וּבְרַחֲמִים רַבִּים, נֹתֵן לֶחֶם לְכָל בָּשָׂר כִּי לְעוֹלָם חַסְדּוֹ. וּבְטוּבוֹ הַגָּדוֹל תָּמִיד לֹא חָסַר לָנוּ, וְאַל יֶחְסַר לָנוּ מָזוֹן תָּמִיד לְעוֹלָם וָעֶד, כִּי הוּא אֵל זָן וּמְפַרְנֵס לַכֹּל וְשֻׁלְחָנוֹ עָרוּךְ לַכֹּל, וְהִתְקִין מִחְיָה וּמָזוֹן לְכָל בְּרִיּוֹתָיו אֲשֶׁר בָּרָא בְּרַחֲמָיו וּבְרוֹב חֲסָדָיו, כָּאָמוּר: פּוֹתֵחַ אֶת יָדֶךָ וּמַשְׂבִּיעַ לְכָל חַי רָצוֹן. בָּרוּךְ אַתָּה יְהֹוָה, הַזָּן אֶת הַכֹּל.
+
+— ב׳ — בִּרְכַּת הָאָרֶץ —
+נוֹדֶה לְּךָ יְהֹוָה אֱלֹהֵינוּ עַל שֶׁהִנְחַלְתָּ לַאֲבוֹתֵינוּ אֶרֶץ חֶמְדָּה טוֹבָה וּרְחָבָה, בְּרִית וְתוֹרָה חַיִּים וּמָזוֹן. עַל שֶׁהוֹצֵאתָנוּ מֵאֶרֶץ מִצְרַיִם וּפְדִיתָנוּ מִבֵּית עֲבָדִים, וְעַל בְּרִיתְךָ שֶׁחָתַמְתָּ בִּבְשָׂרֵנוּ, וְעַל תּוֹרָתְךָ שֶׁלִּמַּדְתָּנוּ, וְעַל חֻקֵּי רְצוֹנָךְ שֶׁהוֹדַעְתָּנוּ, וְעַל חַיִּים וּמָזוֹן שֶׁאַתָּה זָן וּמְפַרְנֵס אוֹתָנוּ.
+
+וְעַל הַכֹּל יְהֹוָה אֱלֹהֵינוּ אֲנַחְנוּ מוֹדִים לָךְ וּמְבָרְכִים אֶת שְׁמָךְ, כָּאָמוּר: וְאָכַלְתָּ וְשָׂבָעְתָּ וּבֵרַכְתָּ אֶת יְהֹוָה אֱלֹהֶיךָ עַל הָאָרֶץ הַטֹּבָה אֲשֶׁר נָתַן לָךְ. בָּרוּךְ אַתָּה יְהֹוָה, עַל הָאָרֶץ וְעַל הַמָּזוֹן.
+
+— ג׳ — רַחֵם (בּוֹנֵה יְרוּשָׁלַיִם) —
+רַחֵם יְהֹוָה אֱלֹהֵינוּ עָלֵינוּ וְעַל יִשְׂרָאֵל עַמָּךְ, וְעַל יְרוּשָׁלַיִם עִירָךְ, וְעַל הַר צִיּוֹן מִשְׁכַּן כְּבוֹדָךְ, וְעַל הֵיכָלָךְ, וְעַל מְעוֹנָךְ, וְעַל דְּבִירָךְ, וְעַל הַבַּיִת הַגָּדוֹל וְהַקָּדוֹשׁ שֶׁנִּקְרָא שִׁמְךָ עָלָיו. אָבִינוּ רְעֵנוּ זוּנֵנוּ, פַּרְנְסֵנוּ, כַּלְכְּלֵנוּ, הַרְוִיחֵנוּ, וְהַרְוַח לָנוּ מְהֵרָה מִכָּל צָרוֹתֵינוּ. וְנָא אַל תַּצְרִיכֵנוּ יְהֹוָה אֱלֹהֵינוּ לִידֵי מַתְּנוֹת בָּשָׂר וָדָם וְלֹא לִידֵי הַלְוָאָתָם, אֶלָּא לְיָדְךָ הַמְּלֵאָה וְהָרְחָבָה, הָעֲשִׁירָה וְהַפְּתוּחָה. יְהִי רָצוֹן שֶׁלּא נֵבוֹשׁ בָּעוֹלָם הַזֶּה וְלֹא נִכָּלֵם לְעוֹלָם הַבָּא. וּמַלְכוּת בֵּית דָּוִד מְשִׁיחָךְ תַּחֲזִירֶנָּה לִמְקוֹמָהּ בִּמְהֵרָה בְיָמֵינוּ.
+
+וְתִבְנֶה יְרוּשָׁלַיִם עִירָךְ בִּמְהֵרָה בְיָמֵינוּ. בָּרוּךְ אַתָּה יְהֹוָה, בּוֹנֵה יְרוּשָׁלָיִם. (אָמֵן)
+
+— ד׳ — הַטּוֹב וְהַמֵּטִיב —
+בָּרוּךְ אַתָּה יְהֹוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, לָעַד הָאֵל אָבִינוּ מַלְכֵּנוּ אַדִּירֵנוּ, בּוֹרְאֵנוּ, גּוֹאֲלֵנוּ, קְדוֹשֵׁנוּ, קְדוֹשׁ יַעֲקֹב, רוֹעֵנוּ רוֹעֵה יִשְׂרָאֵל, הַמֶּלֶךְ הַטּוֹב וְהַמֵּטִיב לַכֹּל, שֶׁבְּכָל יוֹם וָיוֹם הוּא הֵיטִיב לָנוּ, הוּא מֵיטִיב לָנוּ, הוּא יֵיטִיב לָנוּ, הוּא גְמָלָנוּ, הוּא גוֹמְלֵנוּ, הוּא יִגְמְלֵנוּ לָעַד חֵן וָחֶסֶד וְרַחֲמִים וְרֵיוַח וְהַצָּלָה וְכָל טוֹב.
+
+— הָרַחֲמָן —
+הָרַחֲמָן הוּא יִשְׁתַּבַּח עַל כִּסֵּא כְבוֹדוֹ. הָרַחֲמָן הוּא יִשְׁתַּבַּח בַּשָּׁמַיִם וּבָאָרֶץ. הָרַחֲמָן הוּא יִשְׁתַּבַּח בָּנוּ לְדוֹר דּוֹרִים. הָרַחֲמָן הוּא קֶרֶן לְעַמּוֹ יָרִים. הָרַחֲמָן הוּא יִתְפָּאַר בָּנוּ לָנֶצַח נְצָחִים. הָרַחֲמָן הוּא יְפַרְנְסֵנוּ בְּכָבוֹד וְלֹא בְבִזּוּי, בְּהֶתֵּר וְלֹא בְאִסּוּר, בְּנַחַת וְלֹא בְצָעַר, בְּרֶוַח וְלֹא בְצִמְצוּם. הָרַחֲמָן הוּא יִתֵּן שָׁלוֹם בֵּינֵינוּ. הָרַחֲמָן הוּא יִשְׁלַח בְּרָכָה רְוָחָה וְהַצְלָחָה בְּכָל מַעֲשֵׂה יָדֵינוּ. הָרַחֲמָן הוּא יַצְלִיחַ אֶת דְּרָכֵינוּ. הָרַחֲמָן הוּא יִשְׁבּוֹר עוֹל גָּלוּת מְהֵרָה מֵעַל צַוָּארֵנוּ. הָרַחֲמָן הוּא יוֹלִיכֵנוּ מְהֵרָה קוֹמְמִיּוּת לְאַרְצֵנוּ. הָרַחֲמָן הוּא יִרְפָּאֵנוּ רְפוּאָה שְׁלֵמָה, רְפוּאַת הַנֶּפֶשׁ וּרְפוּאַת הַגּוּף וּרְפוּאַת הָרוּחַ וּרְפוּאַת הַנְּשָׁמָה. הָרַחֲמָן הוּא יִפְתַּח לָנוּ אֶת יָדוֹ הָרְחָבָה. הָרַחֲמָן הוּא יְבָרֵךְ כָּל אֶחָד וְאֶחָד מִמֶּנּוּ בִּשְׁמוֹ הַגָּדוֹל כְּמוֹ שֶׁנִּתְבָּרְכוּ אֲבוֹתֵינוּ אַבְרָהָם יִצְחָק וְיַעֲקֹב בַּכֹּל מִכֹּל כֹּל. כֵּן יְבָרֵךְ אוֹתָנוּ יַחַד בְּרָכָה שְׁלֵמָה, וְכֵן יְהִי רָצוֹן וְנֹאמַר אָמֵן. הָרַחֲמָן הוּא יִפְרוֹשׂ עָלֵינוּ סֻכַּת שְׁלוֹמוֹ. הָרַחֲמָן הוּא יִטַּע תּוֹרָתוֹ וְאַהֲבָתוֹ בְּלִבֵּנוּ וְתִהְיֶה יִרְאָתוֹ עַל פָּנֵינוּ לְבִלְתִּי נֶחֱטָא. וְיִהְיוּ כָל מַעֲשֵׂינוּ לְשֵׁם שָׁמָיִם.
+
+— בִּרְכַּת מְדִינַת יִשְׂרָאֵל (וְיֵשׁ נוֹהֲגִים) —
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת מְדִינַת יִשְׂרָאֵל, רֵאשִׁית צְמִיחַת גְּאֻלָּתֵנוּ.
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת חַיָּלֵי צְבָא הַהֲגָנָה לְיִשְׂרָאֵל וְאַנְשֵׁי כֹּחוֹת הַבִּטָּחוֹן, הָעוֹמְדִים עַל מִשְׁמַר אַרְצֵנוּ וְעָרֵי אֱלֹהֵינוּ.
+
+— בִּרְכַּת הָאוֹרֵחַ —
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת הַשֻּׁלְחָן הַזֶּה שֶׁאָכַלְנוּ עָלָיו, וִיסַדֵּר בּוֹ כָּל מַעֲדַנֵּי עוֹלָם, וְיִהְיֶה כְּשֻׁלְחָנוֹ שֶׁל אַבְרָהָם אָבִינוּ עָלָיו הַשָּׁלוֹם. כָּל רָעֵב מִמֶּנּוּ יֹאכַל, וְכָל צָמֵא מִמֶּנּוּ יִשְׁתֶּה, וְאַל יֶחְסַר מִמֶּנּוּ כָּל טוּב לָעַד וּלְעוֹלְמֵי עוֹלָמִים.
+
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת בַּעַל הַבַּיִת הַזֶּה וּבַעַל הַסְּעֻדָּה הַזֹּאת. הוּא וּבָנָיו וְאִשְׁתּוֹ וְכָל אֲשֶׁר לוֹ, בְּבָנִים שֶׁיִּחְיוּ וּבִנְכָסִים שֶׁיִּרְבּוּ. אָמֵן כֵּן יְהִי רָצוֹן.
+
+— בִּסְעֻדַּת מִילָה —
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת אֲבִי הַבֵּן וְאֶת הָאֵם הַיּוֹלֶדֶת מֵעַתָּה וְעַד עוֹלָם.
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת הַיֶּלֶד הַנּוֹלָד, וּכְשֵׁם שֶׁזִּכָּהוּ הַקָּדוֹשׁ בָּרוּךְ הוּא לְמִילָה, כָּךְ יְזַכֵּהוּ לְהִכָּנֵס לַתּוֹרָה וּלְחֻפָּה וּלְמִצְוֹת וּלְמַעֲשִׂים טוֹבִים. אָמֵן.
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת מַעֲלַת הַסַּנְדָּק וְהַמּוֹהֵל וּשְׁאָר הַמִּשְׁתַּדְּלִים בַּמִּצְוָה.
+
+— בִּסְעֻדַּת חָתָן —
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת הֶחָתָן וְהַכַּלָּה בְּבָנִים זְכָרִים לַעֲבוֹדָתוֹ יִתְבָּרַךְ.
+הָרַחֲמָן הוּא יְבָרֵךְ אֶת כָּל הַמְסֻבִּין בַּשֻּׁלְחָן הַזֶּה, וְיִתֵּן לָנוּ הַקָּדוֹשׁ בָּרוּךְ הוּא כָּל מִשְׁאֲלוֹת לִבֵּנוּ לְטוֹבָה.
+
+— סִיּוּם —
+הָרַחֲמָן הוּא יְחַיֵּינוּ וִיזַכֵּנוּ וִיקָרְבֵנוּ לִימוֹת הַמָּשִׁיחַ וּלְבִנְיַן בֵּית הַמִּקְדָּשׁ וּלְחַיֵּי הָעוֹלָם הַבָּא. מַגְדִּיל יְשׁוּעוֹת מַלְכּוֹ, וְעֹשֶׂה חֶסֶד לִמְשִׁיחוֹ לְדָוִד וּלְזַרְעוֹ עַד עוֹלָם.
+
+מַה שֶּׁאָכַלְנוּ יִהְיֶה לְשָׂבְעָה, וּמַה שֶּׁשָּׁתִינוּ יִהְיֶה לִרְפוּאָה, וּמַה שֶּׁהוֹתַרְנוּ יִהְיֶה לִבְרָכָה. בָּרוּךְ הַגֶּבֶר אֲשֶׁר יִבְטַח בַּיהֹוָה, וְהָיָה יְהֹוָה מִבְטַחוֹ. יְהֹוָה עֹז לְעַמּוֹ יִתֵּן, יְהֹוָה יְבָרֵךְ אֶת עַמּוֹ בַשָּׁלוֹם.
+
+עֹשֶׂה שָׁלוֹם בִּמְרוֹמָיו, הוּא בְרַחֲמָיו יַעֲשֶׂה שָׁלוֹם עָלֵינוּ וְעַל כָּל עַמּוֹ יִשְׂרָאֵל, וְאִמְרוּ אָמֵן.`},
+  {n:"הַתִּיקוּן הַכְּלָלִי", a:"רבי נחמן מברסלב — ליקוטי מוהר\"ן תנינא ע\"ב (אסכרא תקס\"ה)", t:`— יְהִי רָצוֹן קוֹדֵם אֲמִירַת תְּהִלִּים —
+יְהִי רָצוֹן מִלְּפָנֶיךָ יְהֹוָה אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ הַבּוֹחֵר בְּדָוִד עַבְדּוֹ וּבְזַרְעוֹ אַחֲרָיו, וְהַבּוֹחֵר בְּשִׁירוֹת וְתִשְׁבָּחוֹת, שֶׁתֵּפֶן בְּרַחֲמִים אֶל קְרִיאַת מִזְמוֹרֵי תְּהִלִּים שֶׁאֶקְרָא, כְּאִלּוּ אֲמָרָם דָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם בְּעַצְמוֹ. זְכוּתוֹ יָגֵן עָלֵינוּ. וְיַעֲמֹד לָנוּ זְכוּת פְּסוּקֵי תְּהִלִּים וּזְכוּת תֵּבוֹתֵיהֶם וְאוֹתִיוֹתֵיהֶם וּנְקֻדּוֹתֵיהֶם וְטַעֲמֵיהֶם, לְכַפֵּר פְּשָׁעֵינוּ וַעֲוֹנוֹתֵינוּ וְחַטֹּאתֵינוּ.
+
+— לְכוּ נְרַנְּנָה —
+לְכוּ נְרַנְּנָה לַיהֹוָה, נָרִיעָה לְצוּר יִשְׁעֵנוּ. נְקַדְּמָה פָנָיו בְּתוֹדָה, בִּזְמִרוֹת נָרִיעַ לוֹ.
+
+— הֲרֵינִי מְזַמֵּן —
+הֲרֵינִי מְזַמֵּן אֶת פִּי לְהוֹדוֹת וּלְהַלֵּל וּלְשַׁבֵּחַ אֶת בּוֹרְאִי, לְשֵׁם יִחוּד קֻדְשָׁא בְּרִיךְ הוּא וּשְׁכִינְתֵּיהּ, בִּדְחִילוּ וּרְחִימוּ, עַל יְדֵי הַהוּא טָמִיר וְנֶעְלָם, בְּשֵׁם כָּל יִשְׂרָאֵל.
+
+— הֲרֵינִי מְקַשֵּׁר —
+הֲרֵינִי מְקַשֵּׁר עַצְמִי בַּאֲמִירַת הָעֲשָׂרָה מִזְמוֹרִים אֵלּוּ לְכָל הַצַּדִּיקִים הָאֲמִתִּיִּים שֶׁבְּדוֹרֵנוּ, וּלְכָל הַצַּדִּיקִים הָאֲמִתִּים שׁוֹכְנֵי עָפָר — קְדוֹשִׁים אֲשֶׁר בָּאָרֶץ הֵמָּה, וּבִפְרָט לְרַבֵּנוּ הַקָּדוֹשׁ, צַדִּיק יְסוֹד עוֹלָם, נַחַל נוֹבֵעַ מְקוֹר חָכְמָה, רַבֵּנוּ נַחְמָן בֶּן פֵייגֶא. זְכוּתָם יָגֵן עָלֵינוּ וְעַל כָּל יִשְׂרָאֵל אָמֵן.
+
+— מִזְמוֹר טז —
+מִכְתָּם לְדָוִד: שָׁמְרֵנִי אֵל כִּי חָסִיתִי בָךְ... שִׁוִּיתִי יְהֹוָה לְנֶגְדִּי תָמִיד, כִּי מִימִינִי בַּל אֶמּוֹט. לָכֵן שָׂמַח לִבִּי וַיָּגֶל כְּבוֹדִי, אַף בְּשָׂרִי יִשְׁכֹּן לָבֶטַח... תּוֹדִיעֵנִי אֹרַח חַיִּים, שֹׂבַע שְׂמָחוֹת אֶת פָּנֶיךָ, נְעִמוֹת בִּימִינְךָ נֶצַח.
+
+— מִזְמוֹר לב —
+לְדָוִד מַשְׂכִּיל: אַשְׁרֵי נְשׂוּי פֶּשַׁע, כְּסוּי חֲטָאָה. אַשְׁרֵי אָדָם לֹא יַחְשֹׁב יְהֹוָה לוֹ עָוֹן... חַטָּאתִי אוֹדִיעֲךָ וַעֲוֹנִי לֹא כִסִּיתִי. אָמַרְתִּי אוֹדֶה עֲלֵי פְשָׁעַי לַיהֹוָה, וְאַתָּה נָשָׂאתָ עֲוֹן חַטָּאתִי סֶלָה.
+
+— מִזְמוֹר מא —
+לַמְנַצֵּחַ מִזְמוֹר לְדָוִד: אַשְׁרֵי מַשְׂכִּיל אֶל דָּל, בְּיוֹם רָעָה יְמַלְּטֵהוּ יְהֹוָה... וַאֲנִי בְּתֻמִּי תָּמַכְתָּ בִּי, וַתַּצִּיבֵנִי לְפָנֶיךָ לְעוֹלָם. בָּרוּךְ יְהֹוָה אֱלֹהֵי יִשְׂרָאֵל מֵהָעוֹלָם וְעַד הָעוֹלָם, אָמֵן וְאָמֵן.
+
+— מִזְמוֹר מב —
+לַמְנַצֵּחַ מַשְׂכִּיל לִבְנֵי קֹרַח: כְּאַיָּל תַּעֲרֹג עַל אֲפִיקֵי מָיִם, כֵּן נַפְשִׁי תַעֲרֹג אֵלֶיךָ אֱלֹהִים. צָמְאָה נַפְשִׁי לֵאלֹהִים לְאֵל חָי, מָתַי אָבוֹא וְאֵרָאֶה פְּנֵי אֱלֹהִים... הוֹחִילִי לֵאלֹהִים כִּי עוֹד אוֹדֶנּוּ, יְשׁוּעֹת פָּנַי וֵאלֹהָי.
+
+— מִזְמוֹר נט —
+לַמְנַצֵּחַ אַל תַּשְׁחֵת לְדָוִד: הַצִּילֵנִי מֵאֹיְבַי אֱלֹהָי, מִמִּתְקוֹמְמַי תְּשַׂגְּבֵנִי... עֻזִּי אֵלֶיךָ אֲזַמֵּרָה, כִּי אֱלֹהִים מִשְׂגַּבִּי, אֱלֹהֵי חַסְדִּי.
+
+— מִזְמוֹר עז —
+לַמְנַצֵּחַ עַל יְדוּתוּן לְאָסָף מִזְמוֹר: קוֹלִי אֶל אֱלֹהִים וְאֶצְעָקָה, קוֹלִי אֶל אֱלֹהִים וְהַאֲזִין אֵלָי... אֶזְכּוֹר מַעַלְלֵי יָהּ, כִּי אֶזְכְּרָה מִקֶּדֶם פִּלְאֶךָ. נָחִיתָ כַצֹּאן עַמֶּךָ בְּיַד מֹשֶׁה וְאַהֲרֹן.
+
+— מִזְמוֹר צ —
+תְּפִלָּה לְמֹשֶׁה אִישׁ הָאֱלֹהִים: אֲדֹנָי מָעוֹן אַתָּה הָיִיתָ לָּנוּ בְּדֹר וָדֹר... וִיהִי נֹעַם אֲדֹנָי אֱלֹהֵינוּ עָלֵינוּ, וּמַעֲשֵׂה יָדֵינוּ כּוֹנְנָה עָלֵינוּ, וּמַעֲשֵׂה יָדֵינוּ כּוֹנְנֵהוּ.
+
+— מִזְמוֹר קה —
+הוֹדוּ לַיהֹוָה קִרְאוּ בִשְׁמוֹ, הוֹדִיעוּ בָעַמִּים עֲלִילוֹתָיו... בַּעֲבוּר יִשְׁמְרוּ חֻקָּיו וְתוֹרֹתָיו יִנְצֹרוּ, הַלְלוּיָהּ.
+
+— מִזְמוֹר קלז —
+עַל נַהֲרוֹת בָּבֶל שָׁם יָשַׁבְנוּ גַּם בָּכִינוּ, בְּזׇכְרֵנוּ אֶת צִיּוֹן... אִם אֶשְׁכָּחֵךְ יְרוּשָׁלָיִם, תִּשְׁכַּח יְמִינִי.
+
+— מִזְמוֹר קנ —
+הַלְלוּיָהּ! הַלְלוּ אֵל בְּקָדְשׁוֹ, הַלְלוּהוּ בִּרְקִיעַ עֻזּוֹ. הַלְלוּהוּ בִגְבוּרֹתָיו, הַלְלוּהוּ כְּרֹב גֻּדְלוֹ. הַלְלוּהוּ בְּתֵקַע שׁוֹפָר, הַלְלוּהוּ בְּנֵבֶל וְכִנּוֹר. הַלְלוּהוּ בְּתֹף וּמָחוֹל, הַלְלוּהוּ בְּמִנִּים וְעֻגָב. הַלְלוּהוּ בְּצִלְצְלֵי שָׁמַע, הַלְלוּהוּ בְּצִלְצְלֵי תְרוּעָה. כֹּל הַנְּשָׁמָה תְּהַלֵּל יָהּ, הַלְלוּיָהּ.
+
+— פְּסוּקֵי סִיּוּם —
+מִי יִתֵּן מִצִּיּוֹן יְשׁוּעַת יִשְׂרָאֵל. בְּשׁוּב יְהֹוָה שְׁבוּת עַמּוֹ, יָגֵל יַעֲקֹב יִשְׂמַח יִשְׂרָאֵל. וּתְשׁוּעַת צַדִּיקִים מֵיְהֹוָה, מָעוּזָּם בְּעֵת צָרָה. וַיַּעְזְרֵם יְהֹוָה וַיְפַלְּטֵם, יְפַלְּטֵם מֵרְשָׁעִים וְיוֹשִׁיעֵם, כִּי חָסוּ בוֹ.
+
+— רִבּוֹנוֹ שֶׁל עוֹלָם (תפילת רבי נתן) —
+רִבּוֹנוֹ שֶׁל עוֹלָם, עִלַּת הָעִלּוֹת וְסִבַּת כָּל הַסִּבּוֹת, אַנְתְּ לְעֵלָּא לְעֵלָּא מִן כֹּלָּא, וְלֵית לְעֵלָּא מִנָּךְ. אוֹתְךָ אֶדְרֹשׁ, אוֹתְךָ אֲבַקֵּשׁ, שֶׁתַּחְתֹּר חֲתִירָה דֶּרֶךְ כְּבוּשָׁה מֵאִתָּךְ, דֶּרֶךְ כָּל הָעוֹלָמוֹת, עַד הַהִשְׁתַּלְשְׁלוּת שֶׁלִּי בַּמָּקוֹם שֶׁאֲנִי עוֹמֵד. וּבַדֶּרֶךְ הַזֶּה תָּאִיר עָלַי אוֹרְךָ, לְהַחֲזִירֵנִי בִּתְשׁוּבָה שְׁלֵמָה לְפָנֶיךָ בֶּאֱמֶת. הַט לִבִּי אֶל עֵדְוֹתֶיךָ, וְתֶן לִי לֵב טָהוֹר לְעׇבְדְּךָ בֶּאֱמֶת. וְאֶזְכֶּה לְחַדֵּשׁ נְעוּרַי, הַיָּמִים שֶׁעָבְרוּ בַּחֹשֶׁךְ, לְהַחֲזִירָם אֶל הַקְּדֻשָּׁה. וְתִהְיֶה יְצִיאָתִי מִן הָעוֹלָם כְּבִיאָתִי, בְּלֹא חֵטְא. אָמֵן נֶצַח סֶלָה וָעֶד.`},
+  {n:"תִּיקוּן חֲצוֹת (רָחֵל וְלֵאָה)", a:"ע\"פ הזוהר וסידור האר\"י הקדוש", t:`לְשֵׁם יִחוּד קֻדְשָׁא בְּרִיךְ הוּא וּשְׁכִינְתֵּיהּ, בִּדְחִילוּ וּרְחִימוּ, וּרְחִימוּ וּדְחִילוּ, לְיַחֲדָא שֵׁם יוּד קֵ״י בְּוָא״ו קֵ״י בְּיִחוּדָא שְׁלִים בְּשֵׁם כָּל יִשְׂרָאֵל. הֲרֵינִי מוּכָן לוֹמַר תִיקוּן רָחֵל וְתִיקוּן לֵאָה כְּמוֹ שֶׁסִּדְּרוּ לָנוּ רַבּוֹתֵינוּ זִכְרוֹנָם לִבְרָכָה, לְתַקֵּן אֶת שָׁרְשַׁם בְּמָקוֹם עֶלְיוֹן, לַעֲשׂוֹת נַחַת רוּחַ לְיוֹצְרֵנוּ וְלַעֲשׂוֹת רְצוֹן בּוֹרְאֵנוּ.
+
+— וִדּוּי —
+אָנָּא יְהֹוָה אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ, תָּבֹא לְפָנֶיךָ תְּפִלָּתֵנוּ. אֲבָל חָטָאנוּ, עָוִינוּ, פָּשַׁעְנוּ, אֲנַחְנוּ וַאֲבוֹתֵינוּ.
+
+מַה נֹּאמַר לְפָנֶיךָ יוֹשֵׁב מָרוֹם, וּמַה נְּסַפֵּר לְפָנֶיךָ שׁוֹכֵן שְׁחָקִים. הֲלֹא הַנִּסְתָּרוֹת וְהַנִּגְלוֹת אַתָּה יוֹדֵעַ. יְהִי רָצוֹן מִלְּפָנֶיךָ שֶׁתִּמְחוֹל לָנוּ אֶת כָּל חַטֹּאתֵינוּ.
+
+— תִּיקוּן רָחֵל —
+(אין אומרים תיקון רחל בבית החתן, בבית האבל, אבי הבן, המוהל והסנדק בליל המילה.)
+
+עַל נַהֲרוֹת בָּבֶל שָׁם יָשַׁבְנוּ גַּם בָּכִינוּ בְּזׇכְרֵנוּ אֶת צִיּוֹן... אִם אֶשְׁכָּחֵךְ יְרוּשָׁלַיִם, תִּשְׁכַּח יְמִינִי. (תהלים קל"ז)
+
+מִזְמוֹר לְאָסָף: אֱלֹהִים בָּאוּ גוֹיִם בְּנַחֲלָתֶךָ, טִמְּאוּ אֶת הֵיכַל קָדְשֶׁךָ, שָׂמוּ אֶת יְרוּשָׁלַיִם לְעִיִּים... עָזְרֵנוּ אֱלֹהֵי יִשְׁעֵנוּ, עַל דְּבַר כְּבוֹד שְׁמֶךָ. (תהלים ע"ט)
+
+זְכֹר יְהֹוָה מֶה הָיָה לָנוּ, הַבִּיטָה וּרְאֵה אֶת חֶרְפָּתֵנוּ... הֲשִׁיבֵנוּ יְהֹוָה אֵלֶיךָ וְנָשׁוּבָה, חַדֵּשׁ יָמֵינוּ כְּקֶדֶם. (איכה ה')
+
+— תִּיקוּן לֵאָה —
+לַמְנַצֵּחַ מַשְׂכִּיל לִבְנֵי קֹרַח: כְּאַיָּל תַּעֲרֹג עַל אֲפִיקֵי מָיִם, כֵּן נַפְשִׁי תַעֲרֹג אֵלֶיךָ אֱלֹהִים. (תהלים מ"ב)
+
+שׁפְטֵנִי אֱלֹהִים וְרִיבָה רִיבִי מִגּוֹי לֹא חָסִיד... הוֹחִילִי לֵאלֹהִים כִּי עוֹד אוֹדֶנּוּ, יְשׁוּעֹת פָּנַי וֵאלֹהָי. (תהלים מ"ג)
+
+(בימים שאומרים תחנון:) לַמְנַצֵּחַ מִזְמוֹר לְדָוִד: יַעַנְךָ יְהֹוָה בְּיוֹם צָרָה, יְשַׂגֶּבְךָ שֵׁם אֱלֹהֵי יַעֲקֹב. (תהלים כ')
+
+לְדָוִד מִזְמוֹר: לַיהֹוָה הָאָרֶץ וּמְלוֹאָהּ, תֵּבֵל וְיֹשְׁבֵי בָהּ. (תהלים כ"ד)
+
+לַמְנַצֵּחַ בִּנְגִינֹת מִזְמוֹר שִׁיר: אֱלֹהִים יְחָנֵּנוּ וִיבָרְכֵנוּ, יָאֵר פָּנָיו אִתָּנוּ סֶלָה. (תהלים ס"ז)
+
+הַלְלוּיָהּ אוֹדֶה יְהֹוָה בְּכָל לֵבָב, בְּסוֹד יְשָׁרִים וְעֵדָה. (תהלים קי"א)
+
+לַמְנַצֵּחַ מִזְמוֹר לְדָוִד: חָנֵּנִי אֱלֹהִים כְּחַסְדֶּךָ, כְּרֹב רַחֲמֶיךָ מְחֵה פְשָׁעָי. (תהלים נ"א)
+
+— סִיּוּם —
+שִׁיר הַמַּעֲלוֹת בְּשׁוּב יְהֹוָה אֶת שִׁיבַת צִיּוֹן הָיִינוּ כְּחֹלְמִים. אָז יִמָּלֵא שְׂחוֹק פִּינוּ וּלְשׁוֹנֵנוּ רִנָּה... הַזֹּרְעִים בְּדִמְעָה, בְּרִנָּה יִקְצֹרוּ. (תהלים קכ"ו)
+
+יְהִי רָצוֹן מִלְּפָנֶיךָ יְהֹוָה אֱלֹהֵינוּ, שֶׁתַּעֲלֵנוּ בְּשִׂמְחָה לְאַרְצֵנוּ, וְתִטָּעֵנוּ בִּגְבוּלֵנוּ, וְשָׁם נַעֲשֶׂה לְפָנֶיךָ אֶת קָרְבְּנוֹת חוֹבוֹתֵינוּ, תְּמִידִים כְּסִדְרָם וּמוּסָפִים כְּהִלְכָתָם.`},
+];
+function buildPrayers(){
+  const el = document.getElementById("prayList");
+  el.innerHTML = PRAYERS.map((p,i)=>
+    `<div class="pray-item" data-i="${i}"><span>${p.n}</span><span class="chev">›</span></div>`+
+    `<div class="pray-text" id="pt${i}" style="display:none">${p.a?`<div class="pray-attr">תיקן/חיבר: ${p.a}</div>`:""}<div class="pray-body">${p.t}</div></div>`
+  ).join("");
+  el.querySelectorAll(".pray-item").forEach(it=>{
+    it.addEventListener("click",()=>{
+      const pt = document.getElementById("pt"+it.dataset.i);
+      const open = pt.style.display !== "none";
+      pt.style.display = open ? "none" : "block";
+      it.classList.toggle("open", !open);
+    });
+  });
+}
+buildPrayers();
+
+/* ===== init ===== */
+(async function init(){
+  // === Theme toggle (יום/לילה) ===
+  try{
+    const saved = localStorage.getItem("sodhadaf-theme");
+    if(saved === "dark") document.documentElement.classList.add("dark");
+  }catch(_){}
+  const tt = document.getElementById("themeToggle");
+  if(tt){
+    const setLabel = ()=>{
+      const isDark = document.documentElement.classList.contains("dark");
+      tt.textContent = isDark ? "☀️" : "🌙";
+      tt.title = isDark ? "מצב יום" : "מצב לילה";
+    };
+    setLabel();
+    tt.addEventListener("click", ()=>{
+      document.documentElement.classList.toggle("dark");
+      setLabel();
+      try{ localStorage.setItem("sodhadaf-theme", document.documentElement.classList.contains("dark") ? "dark" : "light"); }catch(_){}
+    });
+  }
+  // make the always-on cards visible (they have no async loader to reveal them)
+  ["monthCard","gemCard","codesFeedCard","libraryCard","logCard","qaCard","tehillimCard","prayCard","prayerSrcCard","lessonArchCard","breslovCard","bicCard","davidCard","shlomoCard","shnayimCard","yerushalmiCard","hilulotCard","chokCard","toolsCard","siddurCard"].forEach(id=>{
+    const e=document.getElementById(id); if(e) reveal(e);
+  });
+  loadCalendar();                          // calendar info is fine to show
+  loadCodes();                             // daily codes feed (reads codes.json)
+  loadLibrary();                           // accumulated source library
+  loadLog();                               // agent activity log
+  loadLessonArchive();                     // archive of all daily lessons
+  loadBreslov();                           // 📖 Rabbi Nachman daily
+  loadBIC();                               // 📖 Ben Ish Chai daily
+  loadDavid();                             // 🎵 King David daily
+  loadShlomo();                            // 👑 King Solomon daily
+  loadShnayim();                           // 📜 Shnayim Mikra v'Echad Targum
+  loadYerushalmi();                        // 🕯️ Daf Yerushalmi
+  loadHilulot();                           // ✨ Hilulot tzaddikim
+  loadChok();                              // 📚 Chok L'Yisrael
+  setupCalendarTools();                    // 🎡 Date + Parsha pickers
+  setupSiddurTabs();                       // 📿 Siddur (Shacharit/Mincha/Arvit)
+  loadQAArchive();                         // permanent שו"ת archive (from the Worker)
+  loadPrayersAudit();                      // canonical prayer sources
+  loadZmanim();                            // sun & prayer times
+  loadCompass();                           // direction to Jerusalem
+  const rest = await restStatus();
+  if(rest.resting){
+    showRest(rest.reason);                  // agents rest — no daf, no lesson, no scan
+    return;
+  }
+  loadDaf();
+})();
+
+// safety net: reveal any card still hidden a moment after load (skip intentionally-hidden ones)
+setTimeout(()=>document.querySelectorAll(".card,.daf-banner").forEach(el=>{
+  if(el.dataset.keepHidden==="1") return;
+  reveal(el);
+}), 900);
+</script>
+</body>
+</html>
