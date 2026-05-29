@@ -146,6 +146,19 @@
   .david-card h2 .glyph{background:#4a6fa5;color:#fff}
   .shlomo-card{background:linear-gradient(135deg,#f0e8d8 0%,#faf4e6 100%);border-left:5px solid #b8860b}
   .shlomo-card h2 .glyph{background:#b8860b;color:#fff}
+  .shnayim-card{background:linear-gradient(135deg,#ede4d2 0%,#f8efdd 100%);border-left:5px solid #6b4423}
+  .shnayim-card h2 .glyph{background:#6b4423;color:#fff}
+  .yerushalmi-card{background:linear-gradient(135deg,#e8e0d0 0%,#f5eedd 100%);border-left:5px solid #5a4a2a}
+  .yerushalmi-card h2 .glyph{background:#5a4a2a;color:#fff}
+  .hilulot-card{background:linear-gradient(135deg,#f0e0e0 0%,#faecec 100%);border-left:5px solid #7a2e2e}
+  .hilulot-card h2 .glyph{background:#7a2e2e;color:#fff}
+  .shnayim-mikra{font-family:'Frank Ruhl Libre',serif;font-size:1.12rem;line-height:1.95;
+    background:rgba(255,255,255,.55);padding:14px 18px;border-radius:12px;margin:8px 0;text-align:justify}
+  .shnayim-targum{font-family:'Frank Ruhl Libre',serif;font-size:1.05rem;line-height:1.85;
+    background:rgba(0,0,0,.04);padding:14px 18px;border-radius:12px;margin:8px 0;
+    color:var(--ink-soft);text-align:justify;font-style:italic}
+  .tzaddik-name{font-family:'Frank Ruhl Libre',serif;font-size:1.4rem;font-weight:700;color:var(--crimson);
+    text-align:center;padding:10px 0;border-top:1px dashed rgba(0,0,0,.15);border-bottom:1px dashed rgba(0,0,0,.15);margin:10px 0}
 
   /* Daily agent content styling */
   .agent-block{background:rgba(255,255,255,.55);border-radius:12px;padding:14px 18px;margin:10px 0;border:1px solid rgba(0,0,0,.06)}
@@ -630,6 +643,30 @@
     <div id="shlomoStatus" class="status"><span class="spinner"></span> טוען…</div>
     <div id="shlomoBody" style="display:none;margin-top:8px"></div>
     <details style="margin-top:12px"><summary class="arch-summary">📚 ארכיון חכמה קודמת</summary><div id="shlomoArch"></div></details>
+  </section>
+
+  <!-- 📜 שניים מקרא ואחד תרגום -->
+  <section class="card shnayim-card" id="shnayimCard">
+    <h2><span class="glyph">📜</span> שניים מקרא ואחד תרגום</h2>
+    <div class="sub">חלקו של היום מפרשת השבוע + תרגום אונקלוס</div>
+    <div id="shnayimStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="shnayimBody" style="display:none;margin-top:8px"></div>
+  </section>
+
+  <!-- 🕯️ דף יומי ירושלמי -->
+  <section class="card yerushalmi-card" id="yerushalmiCard">
+    <h2><span class="glyph">🕯️</span> דף יומי ירושלמי</h2>
+    <div class="sub">לצד הבבלי · ע"פ מחזור הלימוד</div>
+    <div id="yerStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="yerBody" style="display:none;margin-top:8px"></div>
+  </section>
+
+  <!-- ✨ הילולות צדיקים -->
+  <section class="card hilulot-card" id="hilulotCard">
+    <h2><span class="glyph">✨</span> הילולות צדיקים</h2>
+    <div class="sub">מי הצדיק שהיום יום הילולתו</div>
+    <div id="hilulotStatus" class="status"><span class="spinner"></span> טוען…</div>
+    <div id="hilulotBody" style="display:none;margin-top:8px"></div>
   </section>
 
   <!-- ארכיון שיעורים יומיים קודמים -->
@@ -1583,6 +1620,74 @@ async function loadDavid(){ return loadDailyAgent("david.json", "davidCard", "da
 async function loadShlomo(){ return loadDailyAgent("shlomo.json", "shlomoCard", "shlomoStatus", "shlomoBody", "shlomoArch", "title", renderShlomo); }
 /* ===== Daily agents loaders — end ===== */
 
+async function loadShnayim(){
+  const card = document.getElementById("shnayimCard");
+  const st = document.getElementById("shnayimStatus");
+  const body = document.getElementById("shnayimBody");
+  reveal(card);
+  try{
+    const r = await fetch("./shnayim.json",{cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    const t = arr[0]; const c = t.content || {};
+    let h = `<h3 style="font-family:'Frank Ruhl Libre',serif;font-size:1.3rem;color:var(--crimson);margin-bottom:10px">פרשת ${c.parasha||""} — ${c.day||""} · עלייה ${c.aliya||""}</h3>`;
+    if(c.mikra) h += `<div class="agent-label">מקרא · פעמיים</div><div class="shnayim-mikra">${c.mikra}</div>`;
+    if(c.targum) h += `<div class="agent-label" style="margin-top:14px">תרגום אונקלוס · פעם אחת</div><div class="shnayim-targum">${c.targum}</div>`;
+    if(c.note) h += `<div style="font-size:.85rem;color:var(--ink-soft);margin-top:12px;font-style:italic">⚠️ ${c.note}</div>`;
+    st.style.display = "none"; body.innerHTML = h; body.style.display = "block";
+  }catch(e){
+    st.style.display = "none"; body.style.display = "block";
+    body.innerHTML = "<div class='note'>הלימוד יוצר בריצה הבאה.</div>";
+  }
+}
+async function loadYerushalmi(){
+  const card = document.getElementById("yerushalmiCard");
+  const st = document.getElementById("yerStatus");
+  const body = document.getElementById("yerBody");
+  reveal(card);
+  try{
+    const r = await fetch("./yerushalmi.json",{cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    const t = arr[0];
+    let h = `<h3 style="font-family:'Frank Ruhl Libre',serif;font-size:1.3rem;color:var(--crimson);margin-bottom:10px">${t.he_ref||""}</h3>`;
+    if(t.summary) h += `<div class="agent-block"><div class="agent-label">תקציר</div><div class="agent-text">${t.summary}</div></div>`;
+    if(t.hebrew) h += `<details style="margin-top:10px"><summary class="arch-summary">📖 קרא את הדף המלא</summary><div class="shnayim-mikra" style="margin-top:8px">${t.hebrew.substring(0,3000)}${t.hebrew.length>3000?'…':''}</div></details>`;
+    st.style.display = "none"; body.innerHTML = h; body.style.display = "block";
+  }catch(e){
+    st.style.display = "none"; body.style.display = "block";
+    body.innerHTML = "<div class='note'>הדף ייטען בריצה הבאה (ייתכן שאין דף ירושלמי היום).</div>";
+  }
+}
+async function loadHilulot(){
+  const card = document.getElementById("hilulotCard");
+  const st = document.getElementById("hilulotStatus");
+  const body = document.getElementById("hilulotBody");
+  reveal(card);
+  try{
+    const r = await fetch("./hilulot.json",{cache:"no-store"});
+    if(!r.ok) throw new Error("no file");
+    const arr = await r.json();
+    if(!Array.isArray(arr) || !arr.length) throw new Error("empty");
+    const t = arr[0]; const tz = t.tzaddikim || [];
+    let h = "";
+    if(tz.length){
+      h += `<div class="agent-text" style="text-align:center;margin-bottom:8px">${t.content?.intro || "היום יום הילולא של:"}</div>`;
+      h += tz.map(x=>`<div class="tzaddik-name">${x.name||""}${x.year?` · נפטר ${x.year}`:""}</div>`).join("");
+      h += `<div style="font-size:.85rem;color:var(--ink-soft);text-align:center;margin-top:10px;font-style:italic">${t.date_he||""} · יהי זכרם ברוך</div>`;
+    } else {
+      h = "<div class='note'>אין הילולא של צדיק מהמאגר ליום זה.</div>";
+    }
+    st.style.display = "none"; body.innerHTML = h; body.style.display = "block";
+  }catch(e){
+    st.style.display = "none"; body.style.display = "block";
+    body.innerHTML = "<div class='note'>הילולא של היום תיטען בריצה הבאה.</div>";
+  }
+}
+/* ===== End additional loaders ===== */
+
 async function loadLessonArchive(){
   reveal(document.getElementById("lessonArchCard"));
   const st = document.getElementById("lessonArchStatus");
@@ -2322,7 +2427,7 @@ buildPrayers();
     });
   }
   // make the always-on cards visible (they have no async loader to reveal them)
-  ["monthCard","gemCard","codesFeedCard","libraryCard","logCard","qaCard","tehillimCard","prayCard","prayerSrcCard","lessonArchCard","breslovCard","bicCard","davidCard","shlomoCard"].forEach(id=>{
+  ["monthCard","gemCard","codesFeedCard","libraryCard","logCard","qaCard","tehillimCard","prayCard","prayerSrcCard","lessonArchCard","breslovCard","bicCard","davidCard","shlomoCard","shnayimCard","yerushalmiCard","hilulotCard"].forEach(id=>{
     const e=document.getElementById(id); if(e) reveal(e);
   });
   loadCalendar();                          // calendar info is fine to show
@@ -2334,6 +2439,9 @@ buildPrayers();
   loadBIC();                               // 📖 Ben Ish Chai daily
   loadDavid();                             // 🎵 King David daily
   loadShlomo();                            // 👑 King Solomon daily
+  loadShnayim();                           // 📜 Shnayim Mikra v'Echad Targum
+  loadYerushalmi();                        // 🕯️ Daf Yerushalmi
+  loadHilulot();                           // ✨ Hilulot tzaddikim
   loadQAArchive();                         // permanent שו"ת archive (from the Worker)
   loadPrayersAudit();                      // canonical prayer sources
   loadZmanim();                            // sun & prayer times

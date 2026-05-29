@@ -696,6 +696,202 @@ def shlomo_agent(today):
     _save_archive(SHLOMO_OUT, rec)
     return rec
 
+# ---------- סוכן שניים מקרא ואחד תרגום ----------
+SHNAYIM_OUT = "shnayim.json"
+def shnayim_agent(today, parasha_name, parasha_ref):
+    """מביא את חלקו של היום מן הפרשה + תרגום אונקלוס.
+    המנהג: כל יום בשבוע - עלייה אחת (א-ז), שישי = שני-שלישי אם פיגרת, שבת = השלמה."""
+    if not parasha_ref:
+        return None
+    # יום בשבוע (א=0, ב=1, ..., ש=6)
+    weekday = today.weekday()  # Mon=0..Sun=6 → נמיר ליום עברי
+    # ביום ראשון Python מחזיר 6, נמיר: א=0, ב=1, ג=2, ד=3, ה=4, ו=5, ש=6
+    he_day = (weekday + 1) % 7  # Sunday=0
+    he_day_names = ["יום ראשון","יום שני","יום שלישי","יום רביעי","יום חמישי","יום שישי","שבת קודש"]
+    # מנהג נפוץ: עלייה לכל יום
+    aliya_no = he_day + 1  # 1-7
+    # שולפים את הפרשה בשלמותה כדי לחלץ את העלייה
+    parasha_text = ""
+    onkelos_text = ""
+    try:
+        d = requests.get(f"{SEF}/texts/{requests.utils.quote(parasha_ref)}", timeout=25,
+                         params={"context":0,"pad":0}).json()
+        segs = _clean(d.get("he", []))
+        parasha_text = " ".join(segs)
+    except Exception:
+        pass
+    # תרגום אונקלוס — Sefaria ref: "Targum Onkelos [Book] [chap]:[verse]"
+    book_en_map = {"בראשית":"Genesis","שמות":"Exodus","ויקרא":"Leviticus","במדבר":"Numbers","דברים":"Deuteronomy"}
+    try:
+        # parasha_ref כמו "Genesis 1:1-6:8" — אונקלוס באותו פורמט עם prefix
+        onk_ref = f"Onkelos {parasha_ref}"
+        d = requests.get(f"{SEF}/texts/{requests.utils.quote(onk_ref)}", timeout=25,
+                         params={"context":0,"pad":0}).json()
+        # אונקלוס יחזור בשדה he או text
+        segs = _clean(d.get("he", []) or d.get("text", []))
+        onkelos_text = " ".join(segs)
+    except Exception:
+        pass
+    # אם לא הצלחנו - מחזירים מה שיש
+    if not parasha_text and not onkelos_text:
+        return None
+    # חלוקה משוערת לעלייה לפי אורך הטקסט (1/7 של הכל לכל יום)
+    chunk_size = max(1, len(parasha_text) // 7)
+    aliya_start = (aliya_no - 1) * chunk_size
+    aliya_end = aliya_no * chunk_size if aliya_no < 7 else len(parasha_text)
+    today_portion = parasha_text[aliya_start:aliya_end]
+    # תרגום - אם זה שישי או שבת, נביא הכל
+    if he_day >= 5:
+        today_targum = onkelos_text
+        today_portion = parasha_text[aliya_start:]  # מהיום ועד הסוף
+    else:
+        chunk_t = max(1, len(onkelos_text) // 7) if onkelos_text else 0
+        today_targum = onkelos_text[(aliya_no - 1) * chunk_t:aliya_no * chunk_t] if onkelos_text else ""
+    content = {
+        "parasha": parasha_name,
+        "day": he_day_names[he_day],
+        "aliya": ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שביעי"][he_day],
+        "mikra": today_portion[:4000],
+        "targum": today_targum[:4000],
+        "note": ("מנהג: לקרוא את כל הפרשה פעמיים במקור ופעם אחת בתרגום אונקלוס, "
+                 "לפני שבת קודש. החלוקה ליום היא לעזר בלימוד; "
+                 "ניתן גם לקרוא הכל בערב שבת."),
+    }
+    rec = {"date": today.isoformat(),
+           "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+           "parasha": parasha_name, "day": he_day_names[he_day],
+           "content": content}
+    _save_archive(SHNAYIM_OUT, rec)
+    return rec
+
+# ---------- סוכן דף יומי ירושלמי ----------
+YERUSHALMI_OUT = "yerushalmi.json"
+def yerushalmi_agent(today):
+    """מביא את הדף היומי הירושלמי (לפי המחזור) + מקורות אם זמינים."""
+    items = daily_items()
+    yer = items.get("Daf Yomi Yerushalmi") or items.get("Daf Yerushalmi") or items.get("Yerushalmi Yomi")
+    if not yer or not yer.get("ref"):
+        return None
+    try:
+        daf = get_text(yer["ref"])
+    except Exception:
+        return None
+    if not daf.get("hebrew") or forbidden_hit(daf["hebrew"]):
+        return None
+    # מפרשים זמינים (קצר)
+    comms_short = []
+    try:
+        for c in get_commentaries(yer["ref"], cap=5):
+            comms_short.append({"name": c["name"], "text": c["text"][:400]})
+    except Exception:
+        pass
+    # סיכום קצר ע"י Claude
+    summary = ""
+    try:
+        client = anthropic.Anthropic()
+        sysmsg = ("אתה תלמיד חכם המביא תקציר קצר וברור של דף ירושלמי. "
+                  "בעברית בלבד. הטקסט עשוי להיות בארמית גלילית — תרגם והבן. "
+                  "כתוב במילים שלך, ב-3-5 משפטים — מה הסוגיה המרכזית של הדף.")
+        user = f"דף ירושלמי {daf['he_ref']}:\n{daf['hebrew'][:3000]}\n\nכתוב תקציר קצר."
+        msg = client.messages.create(model=MODEL, max_tokens=800, temperature=0.4,
+                system=sysmsg, messages=[{"role":"user","content":user}])
+        summary = "".join(b.text for b in msg.content if b.type=="text").strip()
+    except Exception:
+        summary = "תקציר ייווצר בריצה הבאה."
+    rec = {"date": today.isoformat(),
+           "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+           "he_ref": daf["he_ref"], "ref": daf["ref"],
+           "hebrew": daf["hebrew"][:5000],
+           "summary": summary,
+           "commentaries": comms_short}
+    _save_archive(YERUSHALMI_OUT, rec)
+    return rec
+
+# ---------- סוכן הילולות צדיקים ----------
+HILULOT_OUT = "hilulot.json"
+# מאגר הילולות מרכזיות (יום עברי + חודש עברי) — נחלת הכלל
+HILULOT_DB = {
+    # תשרי
+    "3 תשרי":  [{"name":"רבי דוד אבן זמרא (הרדב\"ז)","year":"של\"ג"}],
+    "5 תשרי":  [{"name":"רבי נפתלי כ\"ץ","year":"תע\"ט"}],
+    "13 תשרי": [{"name":"רבי עקיבא איגר","year":"תקצ\"ח"}],
+    "15 תשרי": [{"name":"רבי יהודה הנשיא (רבי)","year":"ג'תתקצ\"ב"}],
+    "18 תשרי": [{"name":"רבי נחמן מברסלב","year":"תקע\"א"},{"name":"המהר\"ל מפראג","year":"שס\"ט"}],
+    "26 תשרי": [{"name":"שמעון הצדיק","year":"ג'תמ\"ח"}],
+    # חשון
+    "11 חשון": [{"name":"רחל אמנו","year":"א'תקנ\"ז לבריאה"}],
+    "27 חשון": [{"name":"רבי אברהם אבולעפיה","year":"נ\"ב"}],
+    # כסלו
+    "9 כסלו":  [{"name":"רבי דובער (האדמו\"ר האמצעי, חב\"ד)","year":"תקפ\"ח"}],
+    "24 כסלו": [{"name":"רבי שלום שרעבי (הרש\"ש)","year":"תקל\"ז"}],
+    # טבת
+    "10 טבת":  [{"name":"עזרא הסופר","year":"ג'תי\"ג"}],
+    "24 טבת":  [{"name":"רבי שניאור זלמן מלאדי (בעל התניא)","year":"תקע\"ג"}],
+    # שבט
+    "15 שבט":  [{"name":"רבי אריה לייב (השאגת אריה)","year":"תקמ\"ה"}],
+    "24 שבט":  [{"name":"רבי יוסף קארו (מרן בעל השו\"ע)","year":"של\"ה"}],
+    # אדר
+    "7 אדר":   [{"name":"משה רבנו","year":"ב'תפ\"ח"}],
+    "13 אדר":  [{"name":"רבי יואל סירקיש (הב\"ח)","year":"ת\"א"}],
+    "29 אדר":  [{"name":"רבי שמואל הנגיד","year":"ד'תתט\"ו"}],
+    # ניסן
+    "10 ניסן": [{"name":"מרים הנביאה","year":"ב'תפ\"ח"}],
+    "15 ניסן": [{"name":"יצחק אבינו","year":"ב'פ\"ה"}],
+    "26 ניסן": [{"name":"יהושע בן נון","year":"ב'תקט\"ז"}],
+    # אייר
+    "14 אייר": [{"name":"רבי מאיר בעל הנס","year":""}],
+    "18 אייר": [{"name":"רבי שמעון בר יוחאי","year":"ג'תתע\"ט"}],
+    "26 אייר": [{"name":"אהרון הכהן","year":"ב'תפ\"ח"}],
+    # סיון
+    "3 סיון":  [{"name":"רבי שלמה לוריא (המהרש\"ל)","year":"של\"ד"}],
+    "6 סיון":  [{"name":"דוד המלך","year":"ב'תתפ\"ד"}],
+    "20 סיון": [{"name":"רבי חיים בן עטר (האור החיים הקדוש)","year":"תק\"ג"}],
+    # תמוז
+    "3 תמוז":  [{"name":"רבי יוסף שניאורסון (הריי\"צ)","year":"תש\"י"},{"name":"רבי מנחם מנדל מליובאוויטש","year":"תשנ\"ד"}],
+    "12 תמוז": [{"name":"רבי מאיר שמחה הכהן (האור שמח)","year":"תרפ\"ו"}],
+    # אב
+    "1 אב":    [{"name":"אהרון הכהן (י\"א)","year":""}],
+    "5 אב":    [{"name":"רבי יצחק לוריא (האר\"י הקדוש)","year":"של\"ב"}],
+    "15 אב":   [{"name":"חמשה עשר באב"}],
+    "29 אב":   [{"name":"רבי יוסף חיים מבגדאד (הבן איש חי)","year":"תרס\"ט"}],
+    # אלול
+    "18 אלול": [{"name":"רבי ישראל בעל שם טוב (הבעש\"ט)","year":"תק\"ך"}],
+    "25 אלול": [{"name":"רבי יצחק אבוהב","year":"רנ\"ג"}],
+}
+def hilulot_agent(today):
+    """אם היום יום הילולה — מחזיר את הצדיק/ים."""
+    try:
+        iso = today.isoformat()
+        r = requests.get(f"https://www.hebcal.com/converter?cfg=json&date={iso}&g2h=1&strict=1", timeout=15)
+        j = r.json()
+        heb_d = j.get("hd"); heb_m = j.get("hm","")
+        # מיפוי לשם חודש בעברית
+        month_map = {"Tishrei":"תשרי","Cheshvan":"חשון","Heshvan":"חשון",
+                     "Kislev":"כסלו","Tevet":"טבת","Sh'vat":"שבט","Shvat":"שבט",
+                     "Adar":"אדר","Adar I":"אדר א","Adar II":"אדר",
+                     "Nisan":"ניסן","Iyar":"אייר","Iyyar":"אייר",
+                     "Sivan":"סיון","Tamuz":"תמוז","Tammuz":"תמוז",
+                     "Av":"אב","Elul":"אלול"}
+        m_he = month_map.get(heb_m, heb_m)
+        key = f"{heb_d} {m_he}"
+        rec_list = HILULOT_DB.get(key, [])
+        if rec_list:
+            content = {"date_he": key, "tzaddikim": rec_list,
+                       "intro": f"היום, {key}, יום ההילולא של:" if len(rec_list)==1
+                                else f"היום, {key}, יום ההילולא של:"}
+            rec = {"date": iso, "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+                   "date_he": key, "tzaddikim": rec_list, "content": content}
+            _save_archive(HILULOT_OUT, rec, cap=400)
+            return rec
+    except Exception:
+        pass
+    # ביום ללא הילולה — נשמור רשומה ריקה כדי שהכרטיס יציג "אין היום"
+    rec = {"date": today.isoformat(),
+           "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+           "tzaddikim": [], "content": {"intro": "אין הילולא של צדיק מהמאגר ליום זה."}}
+    _save_archive(HILULOT_OUT, rec, cap=400)
+    return rec
+
 # ---------- שמירה ----------
 def save(record):
     data = []
@@ -984,6 +1180,31 @@ def main():
     except Exception as ex:
         print("   ⚠️ סוכן שלמה המלך נכשל:", ex)
 
+    # ====== 3 סוכנים נוספים: שניים מקרא, ירושלמי, הילולות ======
+    shnayim_rec = None; yer_rec = None; hilulot_rec = None
+    try:
+        print("📜 סוכן שניים מקרא ואחד תרגום…")
+        shnayim_rec = shnayim_agent(today, parasha_name, par.get("ref","") if par else "")
+        if shnayim_rec: print("   ✅ נשמר ל-shnayim.json")
+    except Exception as ex:
+        print("   ⚠️ סוכן שניים מקרא נכשל:", ex)
+    try:
+        print("🕯️ סוכן דף ירושלמי…")
+        yer_rec = yerushalmi_agent(today)
+        if yer_rec: print("   ✅ נשמר ל-yerushalmi.json")
+        else: print("   ℹ️ אין דף ירושלמי היום (סוף מסכת או מנוחה)")
+    except Exception as ex:
+        print("   ⚠️ סוכן דף ירושלמי נכשל:", ex)
+    try:
+        print("✨ סוכן הילולות צדיקים…")
+        hilulot_rec = hilulot_agent(today)
+        if hilulot_rec and hilulot_rec.get("tzaddikim"):
+            print(f"   ✅ נשמרה הילולא: {hilulot_rec['tzaddikim'][0]['name']}")
+        else:
+            print("   ℹ️ אין הילולא היום")
+    except Exception as ex:
+        print("   ⚠️ סוכן הילולות נכשל:", ex)
+
     # יומן הסוכנים — תיעוד מלא של מה שכל סוכן עשה בריצה הזו
     try:
         now = datetime.datetime.now()
@@ -1012,6 +1233,10 @@ def main():
                       "title": (david_rec.get("content") or {}).get("title","") if david_rec else ""},
             "shlomo": {"book": shlomo_rec.get("book") if shlomo_rec else "",
                        "title": (shlomo_rec.get("content") or {}).get("title","") if shlomo_rec else ""},
+            "shnayim": {"day": (shnayim_rec.get("content") or {}).get("day","") if shnayim_rec else "",
+                        "aliya": (shnayim_rec.get("content") or {}).get("aliya","") if shnayim_rec else ""},
+            "yerushalmi": {"he_ref": yer_rec.get("he_ref","") if yer_rec else ""},
+            "hilulot": {"tzaddikim": [t.get("name","") for t in (hilulot_rec or {}).get("tzaddikim",[])][:3]},
             "shared_words": [w for w, _ in shared][:10],
         })
         print("📋 נשמר יומן הסוכנים ל-log.json")
