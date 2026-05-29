@@ -1111,8 +1111,11 @@ def answer_question(question, mode="full"):
 def main():
     today = datetime.date.today()
     reason = resting_reason(today)
-    if reason:
+    force = os.environ.get("FORCE_RUN") == "1"
+    if reason and not force:
         print("🕎 הישיבה שובתת —", reason, "| לא נכתב שיעור."); return
+    if reason and force:
+        print(f"⚠️  מצב בדיקה: עוקף את {reason} (FORCE_RUN=1) — לבדיקה בלבד")
 
     items = daily_items()
     daf_item = items.get("Daf Yomi")
