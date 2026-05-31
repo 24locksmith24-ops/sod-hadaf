@@ -298,6 +298,30 @@
   .cmt-reply-head{font-weight:700;color:var(--gold);font-size:.85rem;margin-bottom:4px;font-family:'Assistant',sans-serif}
   .cmt-reply-text{font-family:'Frank Ruhl Libre',serif;font-size:1rem;line-height:1.65;color:var(--ink)}
   html.dark .cmt-reply{background:linear-gradient(135deg, rgba(212,168,74,.12), rgba(214,140,140,.06))}
+
+  /* === 🗺️ מפת מבקרים === */
+  .vis-total{text-align:center;font-family:'Frank Ruhl Libre',serif;font-size:1.1rem;color:var(--ink);
+    margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+  .vis-list{display:flex;flex-direction:column;gap:8px}
+  .vis-row{display:flex;align-items:center;gap:10px}
+  .vis-name{flex:0 0 130px;font-family:'Assistant',sans-serif;font-size:.92rem;font-weight:600;color:var(--ink)}
+  .vis-bar-wrap{flex:1;height:18px;background:rgba(176,136,51,.12);border-radius:9px;overflow:hidden}
+  .vis-bar{height:100%;background:linear-gradient(90deg, var(--gold), var(--crimson));border-radius:9px;transition:width .8s ease}
+  .vis-count{flex:0 0 50px;text-align:left;font-family:'Assistant',sans-serif;font-weight:700;color:var(--crimson);font-size:.9rem}
+  @media (max-width:600px){.vis-name{flex:0 0 100px;font-size:.82rem}}
+
+  /* === 🙏 ברכה === */
+  .blessing-card{
+    background:linear-gradient(160deg, #2a2618, #3d3520)!important;
+    border:2px solid var(--gold)!important;text-align:center;
+  }
+  .blessing-inner{padding:8px}
+  .blessing-glyph{font-size:2.6rem;margin-bottom:8px}
+  .blessing-title{font-family:'Frank Ruhl Libre',serif!important;color:var(--gold)!important;
+    font-size:1.7rem!important;margin:0 0 14px!important;border:none!important}
+  .blessing-text{font-family:'Frank Ruhl Libre',serif;color:#f0e9d2;font-size:1.15rem;
+    line-height:2;max-width:560px;margin:0 auto}
+  .blessing-sign{font-family:'Assistant',sans-serif;color:var(--gold);font-size:.95rem;margin-top:16px;font-style:italic}
   html.dark .arch-empty{background:rgba(212,168,74,.08)}
   html.dark .qa-arch-q{background:rgba(214,140,140,.1)}
 
@@ -737,6 +761,9 @@
     <button class="nav-tab" data-tab="comments" role="tab">
       <span class="nav-tab-icon">💬</span><span class="nav-tab-label">תגובות</span>
     </button>
+    <button class="nav-tab" data-tab="map" role="tab">
+      <span class="nav-tab-icon">🗺️</span><span class="nav-tab-label">מבקרים</span>
+    </button>
     <button class="nav-tab" data-tab="all" role="tab">
       <span class="nav-tab-icon">🌟</span><span class="nav-tab-label">הכל</span>
     </button>
@@ -1107,6 +1134,29 @@
     <div class="note" id="cmtHint" style="margin-top:6px">התגובות גלויות לכולם. שאלות ותקלות מקבלות מענה אוטומטי מסוכן AI 🤖 · יש לכתוב בעברית.</div>
     <div id="cmtStatus" class="status" style="margin-top:10px;display:none"><span class="spinner"></span> שולח…</div>
     <div id="cmtList" style="margin-top:16px"></div>
+  </section>
+
+  <!-- 🙏 ברכה לכל המשתמשים -->
+  <section class="card blessing-card" id="blessingCard" data-category="map">
+    <div class="blessing-inner">
+      <div class="blessing-glyph">🙏</div>
+      <h2 class="blessing-title">בִּרְכַּת הַלּוֹמְדִים</h2>
+      <p class="blessing-text">
+        יְהִי רָצוֹן שֶׁכָּל הַלּוֹמְדִים וְהַמְבַקְּרִים בַּאֲתָר זֶה,
+        מִכָּל קְצוֹת תֵּבֵל, יִזְכּוּ לְאוֹר הַתּוֹרָה וּלְשִׂמְחַת הַלִּמּוּד.
+        יְבָרֵךְ אֶתְכֶם ה' מִצִּיּוֹן, וְתִרְאוּ בָּנִים וּבְנֵי בָנִים עוֹסְקִים בַּתּוֹרָה,
+        וְתִזְכּוּ לִבְרִיאוּת, לְפַרְנָסָה, וּלְנַחַת.
+      </p>
+      <p class="blessing-sign">— מכל הלב, צוות סוֹד הַדַּף 💛</p>
+    </div>
+  </section>
+
+  <!-- 🗺️ מפת מבקרים -->
+  <section class="card" id="visitorsCard" data-category="map">
+    <h2><span class="glyph">🗺️</span> מבקרים מכל העולם</h2>
+    <div class="sub">מאיזה אזורים בעולם לומדים איתנו — כל נקודה היא נשמה שמתחברת לתורה</div>
+    <div id="visitorsStatus" class="status"><span class="spinner"></span> טוען נתוני מבקרים…</div>
+    <div id="visitorsBody" style="display:none;margin-top:12px"></div>
   </section>
 
   <!-- Agent activity log -->
@@ -2554,6 +2604,56 @@ async function loadQAArchive(){
     if(Array.isArray(data.archive)){ QA_ARCHIVE = data.archive; renderQAList(); }
   }catch(e){}
 }
+/* ===== 🗺️ מעקב ומפת מבקרים ===== */
+const VISIT_URL = QA_WORKER_URL + "/visit";
+const COUNTRY_NAMES = {
+  IL:"🇮🇱 ישראל", US:"🇺🇸 ארצות הברית", GB:"🇬🇧 בריטניה", FR:"🇫🇷 צרפת",
+  CA:"🇨🇦 קנדה", AU:"🇦🇺 אוסטרליה", DE:"🇩🇪 גרמניה", BE:"🇧🇪 בלגיה",
+  RU:"🇷🇺 רוסיה", UA:"🇺🇦 אוקראינה", AR:"🇦🇷 ארגנטינה", BR:"🇧🇷 ברזיל",
+  MX:"🇲🇽 מקסיקו", ZA:"🇿🇦 דרום אפריקה", IT:"🇮🇹 איטליה", ES:"🇪🇸 ספרד",
+  NL:"🇳🇱 הולנד", CH:"🇨🇭 שווייץ", AT:"🇦🇹 אוסטריה", SE:"🇸🇪 שוודיה",
+  PA:"🇵🇦 פנמה", CL:"🇨🇱 צ׳ילה", UY:"🇺🇾 אורוגוואי", IN:"🇮🇳 הודו",
+  HU:"🇭🇺 הונגריה", PL:"🇵🇱 פולין", TR:"🇹🇷 טורקיה", MA:"🇲🇦 מרוקו",
+  XX:"🌍 לא ידוע"
+};
+async function trackVisit(){
+  try{ await fetch(VISIT_URL, {method:"POST", headers:{"content-type":"application/json"}, body:"{}"}); }catch(e){}
+}
+async function loadVisitors(){
+  const st = document.getElementById("visitorsStatus");
+  const body = document.getElementById("visitorsBody");
+  if(!body) return;
+  try{
+    const r = await fetch(VISIT_URL, {cache:"no-store"});
+    if(!r.ok) throw new Error("fail");
+    const data = await r.json();
+    const visits = data.visits || {};
+    const total = data.total || 0;
+    const entries = Object.entries(visits).sort((a,b)=>b[1]-a[1]);
+    if(!entries.length){
+      st.style.display="none"; body.style.display="block";
+      body.innerHTML = `<div class="arch-empty">🗺️ <strong>אתה מהמבקרים הראשונים!</strong><br>ברוך הבא — בקרוב נראה כאן מבקרים מכל העולם.</div>`;
+      return;
+    }
+    const maxCount = entries[0][1];
+    let h = `<div class="vis-total">סה״כ <strong>${total.toLocaleString('he-IL')}</strong> ביקורים · <strong>${entries.length}</strong> מדינות 🌍</div>`;
+    h += `<div class="vis-list">`;
+    entries.forEach(([code,count])=>{
+      const name = COUNTRY_NAMES[code] || ("🏳️ " + code);
+      const pct = Math.round((count/maxCount)*100);
+      h += `<div class="vis-row">
+        <div class="vis-name">${name}</div>
+        <div class="vis-bar-wrap"><div class="vis-bar" style="width:${pct}%"></div></div>
+        <div class="vis-count">${count.toLocaleString('he-IL')}</div>
+      </div>`;
+    });
+    h += `</div>`;
+    st.style.display="none"; body.innerHTML = h; body.style.display="block";
+  }catch(e){
+    st.style.display="none"; body.style.display="block";
+    body.innerHTML = `<div class="arch-empty">🗺️ נתוני המבקרים ייאספו כשהאתר יהיה פעיל.</div>`;
+  }
+}
 /* כפתור הצגת/הסתרת ארכיון השו"ת */
 let _qaArchVisible = false;
 async function toggleQAArchive(){
@@ -3206,6 +3306,8 @@ buildPrayers();
   setupSiddurTabs();                       // 📿 Siddur (Shacharit/Mincha/Arvit)
   loadQAArchive();                         // permanent שו"ת archive (from the Worker)
   loadComments();                          // 💬 דף תגובות
+  trackVisit();                            // 🗺️ רישום ביקור
+  loadVisitors();                          // 🗺️ מפת מבקרים
   loadPrayersAudit();                      // canonical prayer sources
   loadZmanim();                            // sun & prayer times
   loadCompass();                           // direction to Jerusalem
