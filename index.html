@@ -296,6 +296,8 @@
   .nav-tab.active{background:var(--crimson);color:#fff;border-color:var(--crimson);box-shadow:0 4px 12px -4px rgba(122,46,46,.4)}
   .nav-tab-icon{font-size:1.1rem;line-height:1}
   .nav-tab-label{font-size:.82rem}
+  /* class-based hiding — חזק יותר מאשר style.display */
+  .tab-hidden{display:none !important}
   html.dark .nav-tabs{background:#23201a;border-color:rgba(230,223,200,.15)}
   html.dark .nav-tab{background:rgba(0,0,0,.25)}
   @media (max-width: 600px){
@@ -3290,43 +3292,78 @@ async function loadShabbatTimes(){
   }
 }
 
-/* ===== 📑 לשוניות — Tabs Navigation ===== */
+/* ===== 📑 לשוניות — Tabs Navigation (גרסה חזקה) ===== */
 const TABS_KEY = "sodhadaf-active-tab";
-function setActiveTab(tabName){
-  try{ localStorage.setItem(TABS_KEY, tabName); }catch(_){}
-  // עדכן את כפתורי הטאבים
-  document.querySelectorAll(".nav-tab").forEach(t => {
-    t.classList.toggle("active", t.dataset.tab === tabName);
-    t.setAttribute("aria-selected", t.dataset.tab === tabName ? "true" : "false");
+
+function applyTab(tabName){
+  // 1. עדכן את כפתורי הלשוניות
+  const tabs = document.querySelectorAll(".nav-tab");
+  tabs.forEach(t => {
+    const active = t.dataset.tab === tabName;
+    t.classList.toggle("active", active);
+    t.setAttribute("aria-selected", active ? "true" : "false");
   });
-  // הצג/הסתר כרטיסים לפי קטגוריה
+
+  // 2. הצג/הסתר כרטיסים — באמצעות class (חזק יותר מ-style.display)
   const showAll = tabName === "all";
-  document.querySelectorAll("[data-category]").forEach(card => {
+  const allCards = document.querySelectorAll("[data-category]");
+  let shown = 0;
+  allCards.forEach(card => {
     const cat = card.dataset.category;
-    card.style.display = (showAll || cat === tabName) ? "" : "none";
+    if (showAll || cat === tabName){
+      card.classList.remove("tab-hidden");
+      shown++;
+    } else {
+      card.classList.add("tab-hidden");
+    }
   });
-  // גם daf-banner
+
+  // 3. גם daf-banner
   const banner = document.getElementById("dafBanner");
   if (banner){
-    banner.style.display = (showAll || tabName === "today") ? "" : "none";
+    if (showAll || tabName === "today") banner.classList.remove("tab-hidden");
+    else banner.classList.add("tab-hidden");
   }
-}
-function setupTabs(){
-  document.querySelectorAll(".nav-tab").forEach(t => {
-    t.addEventListener("click", () => setActiveTab(t.dataset.tab));
-  });
-  // טען את הטאב האחרון
-  let saved = "today";
-  try{ saved = localStorage.getItem(TABS_KEY) || "today"; }catch(_){}
-  setActiveTab(saved);
+
+  // 4. שמור את הבחירה
+  try{ localStorage.setItem(TABS_KEY, tabName); }catch(_){}
+
+  // 5. גלילה למעלה
+  window.scrollTo({top: 0, behavior: 'smooth'});
+
+  console.log(`📑 לשונית: ${tabName} (${shown} כרטיסים)`);
 }
 
-/* טעינת זמני שבת + לשוניות */
-setTimeout(()=>{
-  loadShabbatTimes();
-  setupTabs();
-}, 800);
-/* רענון זמני שבת כל שעה */
+// הצמדת מאזיני הקלקות מיד כשה-DOM מוכן
+function initTabs(){
+  const tabs = document.querySelectorAll(".nav-tab");
+  if (!tabs.length){
+    console.warn("nav-tabs לא נמצא, מנסה שוב…");
+    setTimeout(initTabs, 500);
+    return;
+  }
+  tabs.forEach(t => {
+    t.onclick = function(e){
+      e.preventDefault();
+      applyTab(t.dataset.tab);
+    };
+  });
+  // טען את הלשונית האחרונה
+  let saved = "today";
+  try{ saved = localStorage.getItem(TABS_KEY) || "today"; }catch(_){}
+  applyTab(saved);
+  console.log(`📑 לשוניות הופעלו (${tabs.length} כפתורים)`);
+}
+
+// הפעל מיד וגם כש-DOM מוכן
+if (document.readyState === "loading"){
+  document.addEventListener("DOMContentLoaded", initTabs);
+} else {
+  initTabs();
+}
+
+/* טעינת זמני שבת */
+setTimeout(()=>{ loadShabbatTimes(); }, 800);
 setInterval(loadShabbatTimes, 3600000);
 
 </script>
