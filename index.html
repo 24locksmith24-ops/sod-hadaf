@@ -258,6 +258,25 @@
   .qa-disclaimer .report-link{color:var(--crimson);text-decoration:underline;cursor:pointer;font-weight:600}
   html.dark .qa-disclaimer{background:linear-gradient(135deg, rgba(212,168,74,.12), rgba(214,140,140,.08));border-color:rgba(212,168,74,.3)}
 
+  /* === ארכיון יפה === */
+  .arch-empty{
+    text-align:center;padding:24px 18px;color:var(--ink-soft);
+    background:rgba(176,136,51,.06);border:1px dashed rgba(176,136,51,.3);
+    border-radius:12px;font-family:'Frank Ruhl Libre',serif;line-height:1.8;font-size:.95rem;
+  }
+  .qa-arch-item summary{display:flex;flex-direction:column;gap:3px;align-items:flex-start}
+  .qa-arch-title{font-weight:700;color:var(--crimson);font-size:1.05rem}
+  .qa-arch-meta{font-size:.8rem;color:var(--ink-soft);font-family:'Assistant',sans-serif}
+  .qa-arch-q{
+    background:rgba(122,46,46,.06);border-right:3px solid var(--crimson);
+    padding:10px 14px;border-radius:8px;margin:6px 0 10px;
+    font-family:'Frank Ruhl Libre',serif;font-size:1.02rem;line-height:1.7;
+  }
+  .qa-arch-a{margin-bottom:4px}
+  .qa-arch-label{font-weight:700;color:var(--gold);font-family:'Assistant',sans-serif;font-size:.92rem}
+  html.dark .arch-empty{background:rgba(212,168,74,.08)}
+  html.dark .qa-arch-q{background:rgba(214,140,140,.1)}
+
   /* === 🕯️ זמני שבת === */
   .shabbat-times{
     margin:14px 0 10px;padding:14px 16px;
@@ -311,8 +330,7 @@
   .nav-tab-icon{font-size:1.1rem;line-height:1}
   .nav-tab-label{font-size:.82rem}
   /* class-based hiding — חזק יותר מאשר style.display */
-  .tab-hidden{display:none !important}
-  html.dark .nav-tabs{background:#23201a;border-color:rgba(230,223,200,.15)}
+  .tab-hidden{display:none !important}  html.dark .nav-tabs{background:#23201a;border-color:rgba(230,223,200,.15)}
   html.dark .nav-tab{background:rgba(0,0,0,.25)}
   @media (max-width: 600px){
     .nav-tabs{padding:8px 8px;gap:4px}
@@ -2310,7 +2328,7 @@ async function loadLessonArchive(){
   }catch(e){
     st.style.display="none";
     body.style.display="block";
-    body.innerHTML = '<div class="note">ארכיון יתמלא עם כל ריצה של הסוכן — כרגע יש מעט שיעורים. אפשר להריץ ידנית מ-Actions → Daily Lesson → Run workflow.</div>';
+    body.innerHTML = '<div class="arch-empty">📖 <strong>ארכיון השיעורים יתמלא בקרוב</strong><br>כל ריצה של הסוכן (פעמיים ביום) מוסיפה שיעור חדש עם תאריך. אפשר להריץ ידנית: Actions → Run workflow.</div>';
   }
 }
 /* ===== Lesson archive — end ===== */
@@ -2381,16 +2399,32 @@ function qaLessonHTML(L){
 function fmtTs(ts){ try{ return new Date(ts).toLocaleString("he-IL"); }catch(e){ return ts||""; } }
 function renderQAList(){
   const body = document.getElementById("qaBody");
-  if(!QA_ARCHIVE.length){ body.style.display="none"; return; }
-  let h = `<div class="ls-h" style="font-size:1.05rem">🗂️ ארכיון השו״ת</div>`;
+  if(!QA_ARCHIVE.length){
+    body.style.display="block";
+    body.innerHTML = `<div class="arch-empty">🗂️ <strong>ארכיון השו״ת ריק עדיין</strong><br>
+      שאל שאלה ראשונה (תמצית חינם!) והיא תישמר כאן עם התאריך, השאלה, והתשובה.</div>`;
+    return;
+  }
+  let h = `<div class="ls-h" style="font-size:1.1rem;margin-bottom:10px">🗂️ ארכיון השו״ת · ${QA_ARCHIVE.length} שאלות</div>`;
   QA_ARCHIVE.forEach((rec,idx)=>{
-    const title = (rec.lesson&&rec.lesson.title)? rec.lesson.title : rec.question;
-    h += `<details class="arch-item" ${idx===0?"open":""}><summary>${title} · ${fmtTs(rec.ts)}</summary>`+
-         `<div class="arch-body">${qaLessonHTML(rec.lesson)}`+
-         `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">`+
-         `<button class="regen" style="margin:0" onclick="printQA(${idx})">🖨️ שמור כ-PDF</button>`+
-         `<button class="regen" style="margin:0" onclick="downloadQA(${idx})">📥 הורד</button>`+
-         `</div></div></details>`;
+    const L = rec.lesson || {};
+    const title = L.title || rec.question || "שאלה";
+    const modeBadge = rec.mode === "short" ? "⚡ תמצית" : "📖 שיעור מלא";
+    h += `<details class="arch-item qa-arch-item" ${idx===0?"open":""}>
+      <summary>
+        <span class="qa-arch-title">${title}</span>
+        <span class="qa-arch-meta">${modeBadge} · 📅 ${fmtTs(rec.ts)}</span>
+      </summary>
+      <div class="arch-body">
+        <div class="qa-arch-q"><span class="qa-arch-label">❓ השאלה:</span> ${rec.question || "(לא נשמרה)"}</div>
+        <div class="qa-arch-a"><span class="qa-arch-label">💡 התשובה:</span></div>
+        ${qaLessonHTML(rec.lesson)}
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+          <button class="regen" style="margin:0" onclick="printQA(${idx})">🖨️ שמור כ-PDF</button>
+          <button class="regen" style="margin:0" onclick="downloadQA(${idx})">📥 הורד</button>
+        </div>
+      </div>
+    </details>`;
   });
   body.innerHTML = h;
   body.style.display="block";
