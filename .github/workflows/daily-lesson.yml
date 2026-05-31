@@ -1,13 +1,13 @@
-name: שיעור יומי אוטומטי
+name: Sod HaDaf - Daily Agent
 
 on:
   schedule:
-    - cron: "0 4 * * *"        # 04:00 UTC — ריצת בוקר
-    - cron: "0 14 * * *"       # 14:00 UTC — ריצת אחר הצהריים
+    - cron: "0 4 * * *"
+    - cron: "0 14 * * *"
   workflow_dispatch:
     inputs:
       force_run:
-        description: '⚠️ עקוף שבת/חג (לבדיקה בלבד)'
+        description: 'Override Shabbat/Holiday check (testing only)'
         required: false
         default: 'no'
         type: choice
@@ -26,38 +26,66 @@ jobs:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       FORCE_RUN: ${{ github.event.inputs.force_run == 'yes' && '1' || '0' }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0       # היסטוריה מלאה — עוזר ל-rebase
-      - uses: actions/setup-python@v5
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install anthropic requests
-      - run: python engine.py
-      - name: שמירה ודחיפה (עם הגנה מ-race conditions)
+
+      - name: Install dependencies
+        run: pip install anthropic requests
+
+      - name: Run engine
+        run: python engine.py
+
+      - name: Commit and push (with race-condition protection)
         run: |
-          git config user.name  "Sod HaDaf Bot"
+          set +e
+
+          git config user.name "Sod HaDaf Bot"
           git config user.email "bot@users.noreply.github.com"
-          # הוספת כל קבצי הסוכנים
-          git add discoveries.json codes.json library.json insights.json prayers_audit.json log.json 2>/dev/null || true
-          git add breslov.json benishchai.json david.json shlomo.json 2>/dev/null || true
-          git add shnayim.json yerushalmi.json hilulot.json chok.json 2>/dev/null || true
-          if git diff --staged --quiet; then
-            echo "אין שינוי (שבת/חג או שכבר קיים) — לא שומר."
+
+          # Add all agent files
+          git add discoveries.json codes.json library.json insights.json prayers_audit.json log.json 2>/dev/null
+          git add breslov.json benishchai.json david.json shlomo.json 2>/dev/null
+          git add shnayim.json yerushalmi.json hilulot.json chok.json 2>/dev/null
+
+          # Check if there are changes
+          git diff --staged --quiet
+          if [ $? -eq 0 ]; then
+            echo "No changes to commit."
             exit 0
           fi
-          git commit -m "שיעור יומי אוטומטי"
-          # ניסיונות דחיפה — אם המשתמש עדכן את ה-repo בזמן הריצה, נשלוף ונדחוף שוב
+
+          git commit -m "Daily lesson auto-update"
+
+          # Retry push up to 5 times with rebase
           for attempt in 1 2 3 4 5; do
-            echo "📤 ניסיון דחיפה #$attempt..."
-            if git push; then
-              echo "✅ הדחיפה הצליחה!"
+            echo ""
+            echo "===== Push attempt $attempt of 5 ====="
+
+            git push origin main
+            if [ $? -eq 0 ]; then
+              echo "SUCCESS: Push completed on attempt $attempt"
               exit 0
             fi
-            echo "⚠️ נכשל — מושך שינויים אחרונים ומנסה שוב..."
-            git pull --rebase --autostash origin main || \
-              git pull --rebase --strategy-option=theirs origin main
-            sleep 3
+
+            echo "Push failed. Pulling latest changes with rebase..."
+            git rebase --abort 2>/dev/null
+
+            git pull --rebase --autostash origin main
+            if [ $? -ne 0 ]; then
+              echo "Rebase failed. Retrying with theirs strategy..."
+              git rebase --abort 2>/dev/null
+              git pull --rebase --strategy-option=theirs --autostash origin main
+            fi
+
+            sleep $((attempt * 2))
           done
-          echo "❌ דחיפה נכשלה אחרי 5 ניסיונות"
+
+          echo "ERROR: Push failed after 5 attempts"
           exit 1
