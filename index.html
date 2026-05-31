@@ -1063,6 +1063,7 @@
     <input id="qaPass" type="password" placeholder="🔐 קוד גישה (רק לשיעור מלא)"
       style="width:100%;box-sizing:border-box;font-family:inherit;font-size:1rem;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#fffdf7;color:var(--ink);margin-top:8px" autocomplete="off">
     <div class="note" id="qaHint" style="margin-top:6px">⚡ <strong>תמצית — חינם לכולם!</strong> לשיעור מלא ועמוק דרוש קוד גישה. חומר לימוד בלבד — לא פסק הלכה.</div>
+    <button class="regen" id="qaArchBtn" style="margin-top:10px;width:100%;background:var(--gold);color:#fff;font-size:.95rem" onclick="toggleQAArchive()">📂 הצג שאלות ותשובות קודמות</button>
     <div id="qaStatus" class="status" style="margin-top:10px;display:none"><span class="spinner"></span> טוען…</div>
     <div id="qaBody" style="display:none;margin-top:10px"></div>
   </section>
@@ -2436,6 +2437,29 @@ async function loadQAArchive(){
     const data = await r.json();
     if(Array.isArray(data.archive)){ QA_ARCHIVE = data.archive; renderQAList(); }
   }catch(e){}
+}
+/* כפתור הצגת/הסתרת ארכיון השו"ת */
+let _qaArchVisible = false;
+async function toggleQAArchive(){
+  const body = document.getElementById("qaBody");
+  const btn = document.getElementById("qaArchBtn");
+  const st = document.getElementById("qaStatus");
+  _qaArchVisible = !_qaArchVisible;
+  if(!_qaArchVisible){
+    body.style.display = "none";
+    btn.textContent = "📂 הצג שאלות ותשובות קודמות";
+    return;
+  }
+  btn.textContent = "📂 הסתר ארכיון";
+  st.style.display = "block";
+  st.innerHTML = '<span class="spinner"></span> טוען ארכיון מהשרת…';
+  await loadQAArchive();
+  st.style.display = "none";
+  // אם עדיין ריק — renderQAList כבר הציג הודעת empty
+  if(!QA_ARCHIVE.length){
+    body.style.display = "block";
+    body.innerHTML = `<div class="arch-empty">🗂️ <strong>אין עדיין שאלות בארכיון</strong><br>שאל שאלה ראשונה (תמצית חינם!) והיא תישמר כאן עם תאריך, שאלה ותשובה.</div>`;
+  }
 }
 async function askWorker(mode){
   const q = (document.getElementById("qaInput").value || "").trim();
