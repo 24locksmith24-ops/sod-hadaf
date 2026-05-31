@@ -276,6 +276,20 @@
   .shabbat-date{font-size:.82rem;color:var(--ink-soft);font-style:italic}
   .shabbat-loc{text-align:center;font-size:.78rem;color:var(--ink-soft);margin-top:6px;font-style:italic}
   .shabbat-loc-pick{cursor:pointer;color:var(--crimson);text-decoration:underline}
+  .gps-btn{
+    background:linear-gradient(135deg, var(--crimson), #5a1e1e);
+    color:#fff;border:none;border-radius:20px;padding:7px 16px;
+    font-family:'Assistant',sans-serif;font-size:.88rem;font-weight:600;
+    cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:5px;
+    box-shadow:0 3px 10px -3px rgba(122,46,46,.5);
+  }
+  .gps-btn:hover{transform:translateY(-1px);box-shadow:0 5px 14px -3px rgba(122,46,46,.7)}
+  .loc-select{
+    background:rgba(255,255,255,.8);border:1px solid var(--line);border-radius:18px;
+    color:var(--ink);font-family:'Assistant',sans-serif;font-size:.88rem;
+    padding:6px 14px;cursor:pointer;outline:none;
+  }
+  html.dark .loc-select{background:rgba(0,0,0,.3);color:var(--ink);border-color:rgba(230,223,200,.2)}
   html.dark .shabbat-times{background:linear-gradient(135deg, rgba(212,168,74,.12), rgba(214,140,140,.08))}
 
   /* === 📑 לשוניות — Navigation Tabs === */
@@ -3193,17 +3207,76 @@ const HEBCAL_LOCATIONS = {
   paris:     {id: 2988507, name: "Paris"},
 };
 const SHABBAT_LOC_KEY = "sodhadaf-shabbat-loc";
+const SHABBAT_GPS_KEY = "sodhadaf-shabbat-gps";
 
 function getShabbatLocation(){
   try{
     const v = localStorage.getItem(SHABBAT_LOC_KEY);
     if (v && HEBCAL_LOCATIONS[v]) return v;
   }catch(_){}
-  return "jerusalem"; // ברירת מחדל
+  return "jerusalem";
 }
 function setShabbatLocation(loc){
-  try{ localStorage.setItem(SHABBAT_LOC_KEY, loc); }catch(_){}
+  try{
+    localStorage.setItem(SHABBAT_LOC_KEY, loc);
+    localStorage.removeItem(SHABBAT_GPS_KEY); // נקה GPS
+  }catch(_){}
   loadShabbatTimes();
+}
+function getCustomGPS(){
+  try{
+    const v = localStorage.getItem(SHABBAT_GPS_KEY);
+    return v ? JSON.parse(v) : null;
+  }catch(_){ return null; }
+}
+
+/* 🛰️ איתור GPS אוטומטי */
+function detectMyLocation(){
+  const wrap = document.getElementById("shabbatTimes");
+  if (!navigator.geolocation){
+    alert("⚠️ הדפדפן לא תומך באיתור מיקום");
+    return;
+  }
+  if (wrap) wrap.innerHTML = '<div class="shabbat-loading"><span class="spinner"></span> 🛰️ מאתר מיקום...</div>';
+
+  navigator.geolocation.getCurrentPosition(
+    function(pos){
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Jerusalem";
+      // נסה לקבל את שם העיר דרך reverse geocoding (אופציונלי)
+      reverseGeocode(lat, lon).then(cityName => {
+        const gps = {
+          lat: lat.toFixed(4), lon: lon.toFixed(4), tz: tz,
+          name: cityName || `📍 ${lat.toFixed(2)}, ${lon.toFixed(2)}`,
+          accuracy: Math.round(pos.coords.accuracy)
+        };
+        try{ localStorage.setItem(SHABBAT_GPS_KEY, JSON.stringify(gps)); }catch(_){}
+        loadShabbatTimes();
+      });
+    },
+    function(err){
+      const msgs = {1:"דחית את ההרשאה לשתף מיקום", 2:"לא הצלחתי לאתר מיקום", 3:"הבקשה פגה"};
+      const msg = msgs[err.code] || err.message;
+      alert("⚠️ " + msg + "\n\nאפשר לבחור עיר ידנית מהרשימה למטה.");
+      loadShabbatTimes();
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 600000 }
+  );
+}
+
+/* ניסיון לקבל שם העיר מקואורדינטות (דרך OpenStreetMap, חינמי) */
+async function reverseGeocode(lat, lon){
+  try{
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&accept-language=he&zoom=10`;
+    const r = await fetch(url);
+    if (!r.ok) return null;
+    const j = await r.json();
+    const a = j.address || {};
+    const city = a.city || a.town || a.village || a.suburb || a.neighbourhood || a.county;
+    const country = a.country;
+    return city ? `📍 ${city}${country && country !== "ישראל" ? ", " + country : ""}` : null;
+  }catch(_){ return null; }
 }
 
 async function loadShabbatTimes(){
@@ -3212,21 +3285,26 @@ async function loadShabbatTimes(){
   wrap.style.display = "block";
   wrap.innerHTML = '<div class="shabbat-loading"><span class="spinner"></span> טוען זמנים...</div>';
 
-  const locKey = getShabbatLocation();
-  const loc = HEBCAL_LOCATIONS[locKey];
-  // candle lighting offset: 18 דק' לפני שקיעה (40 דק' לירושלים)
-  const offset = locKey === "jerusalem" ? 40 : 18;
-  // havdalah: tzeit kochavim, 50 דקות אחרי שקיעה
-  const havd = 50;
+  // עדיפות 1: GPS אם נשמר
+  const gps = getCustomGPS();
+  let url, locDisplay;
+  if (gps){
+    url = `https://www.hebcal.com/shabbat?cfg=json&latitude=${gps.lat}&longitude=${gps.lon}&tzid=${encodeURIComponent(gps.tz)}&b=18&m=50&lg=he`;
+    locDisplay = gps.name + (gps.accuracy ? ` (דיוק ±${gps.accuracy}מ׳)` : "");
+  } else {
+    const locKey = getShabbatLocation();
+    const loc = HEBCAL_LOCATIONS[locKey];
+    const offset = locKey === "jerusalem" ? 40 : 18;
+    url = `https://www.hebcal.com/shabbat?cfg=json&geonameid=${loc.id}&b=${offset}&m=50&lg=he`;
+    locDisplay = loc.name;
+  }
 
   try{
-    const url = `https://www.hebcal.com/shabbat?cfg=json&geonameid=${loc.id}&b=${offset}&m=${havd}&lg=he`;
     const r = await fetch(url, {cache: "default"});
     if (!r.ok) throw new Error("hebcal fail");
     const j = await r.json();
     const items = j.items || [];
 
-    // Find next candle lighting + havdalah + holidays
     const candle = items.find(it => it.category === "candles");
     const havdalah = items.find(it => it.category === "havdalah");
     const parsha = items.find(it => it.category === "parashat");
@@ -3277,18 +3355,23 @@ async function loadShabbatTimes(){
       html += `</div>`;
     }
 
-    // location picker
+    // 🛰️ בחירת מיקום + כפתור GPS
     let locOptions = "";
     for (const [k, v] of Object.entries(HEBCAL_LOCATIONS)){
-      locOptions += `<option value="${k}" ${k===locKey?'selected':''}>${v.name}</option>`;
+      locOptions += `<option value="${k}" ${(!gps && k===getShabbatLocation())?'selected':''}>${v.name}</option>`;
     }
     html += `<div class="shabbat-loc">
-      📍 <select onchange="setShabbatLocation(this.value)" style="background:transparent;border:none;color:var(--crimson);font-family:inherit;cursor:pointer;text-decoration:underline">${locOptions}</select>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:8px">
+        <button onclick="detectMyLocation()" class="gps-btn">🛰️ אתר אותי אוטומטית</button>
+        <span style="color:var(--ink-soft)">·</span>
+        <select onchange="setShabbatLocation(this.value)" class="loc-select">${locOptions}</select>
+      </div>
+      <div style="margin-top:6px">📍 ${locDisplay}</div>
     </div>`;
 
     wrap.innerHTML = html;
   }catch(e){
-    wrap.innerHTML = `<div class="shabbat-loading">לא הצלחנו לטעון זמני שבת. בדוק חיבור לאינטרנט.</div>`;
+    wrap.innerHTML = `<div class="shabbat-loading">לא הצלחנו לטעון זמני שבת. <button onclick="loadShabbatTimes()" class="gps-btn">נסה שוב</button></div>`;
   }
 }
 
