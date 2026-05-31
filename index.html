@@ -1036,15 +1036,15 @@
   <section class="card" id="qaCard" data-category="qa">
     <h2><span class="glyph">📨</span> שו״ת — שאל שאלה</h2>
     <div class="sub">כתוב שאלה הלכתית או נושא, בחר פורמט, והתשובה תופיע כאן תוך שניות</div>
-    <input id="qaPass" type="password" placeholder="🔐 קוד גישה"
-      style="width:100%;box-sizing:border-box;font-family:inherit;font-size:1rem;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#fffdf7;color:var(--ink);margin-bottom:8px" autocomplete="off">
     <textarea id="qaInput" rows="3" placeholder="לדוגמה: כמה שיעור מים צריך לנטילת ידיים בשחרית? או נושא לשיעור: דיני בורר בשבת"
       style="width:100%;box-sizing:border-box;font-family:inherit;font-size:1rem;padding:10px;border:1px solid var(--line);border-radius:9px;background:#fffdf7;color:var(--ink);resize:vertical"></textarea>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-      <button class="regen" id="qaShortBtn" style="margin:0;background:var(--crimson);color:#fff">⚡ תמצית מהירה</button>
-      <button class="regen" id="qaFullBtn" style="margin:0">📖 שיעור מלא (ארוך)</button>
+      <button class="regen" id="qaShortBtn" style="margin:0;background:var(--crimson);color:#fff">⚡ תמצית מהירה (חינם)</button>
+      <button class="regen" id="qaFullBtn" style="margin:0">📖 שיעור מלא (🔐 קוד)</button>
     </div>
-    <div class="note" id="qaHint" style="margin-top:6px">⚡ ברירת מחדל: תמצית קצרה וברורה. ל-שיעור מלא ועמוק לחץ "שיעור מלא". (דרוש קוד גישה) · חומר לימוד בלבד — לא פסק הלכה.</div>
+    <input id="qaPass" type="password" placeholder="🔐 קוד גישה (רק לשיעור מלא)"
+      style="width:100%;box-sizing:border-box;font-family:inherit;font-size:1rem;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#fffdf7;color:var(--ink);margin-top:8px" autocomplete="off">
+    <div class="note" id="qaHint" style="margin-top:6px">⚡ <strong>תמצית — חינם לכולם!</strong> לשיעור מלא ועמוק דרוש קוד גישה. חומר לימוד בלבד — לא פסק הלכה.</div>
     <div id="qaStatus" class="status" style="margin-top:10px;display:none"><span class="spinner"></span> טוען…</div>
     <div id="qaBody" style="display:none;margin-top:10px"></div>
   </section>
@@ -2408,7 +2408,8 @@ async function askWorker(mode){
   const pass = (document.getElementById("qaPass").value || "").trim();
   const hint = document.getElementById("qaHint");
   if(!q){ hint.textContent = "כתוב שאלה או נושא קודם 🙂"; return; }
-  if(!pass){ hint.textContent = "הקלד את קוד הגישה (הסיסמה) 🔐"; return; }
+  // תמצית — חינם בלי קוד. שיעור מלא — דורש קוד.
+  if(mode==="full" && !pass){ hint.textContent = "📖 שיעור מלא דורש קוד גישה 🔐 — או נסה ⚡ תמצית (חינם)"; return; }
   if(QA_WORKER_URL.includes("REPLACE-WITH-YOUR-WORKER")){
     hint.innerHTML = "⚠️ עדיין לא חובר ה-Worker (QA_WORKER_URL)."; return;
   }
