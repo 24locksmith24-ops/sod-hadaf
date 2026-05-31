@@ -124,8 +124,9 @@
   .card{
     background:#fbf6e9;border:1px solid var(--line);border-radius:18px;
     padding:30px 32px;margin:22px 0;box-shadow:0 10px 30px -20px rgba(22,32,47,.4);
-    opacity:0;transform:translateY(16px);transition:.7s;
+    animation:cardEntrance .6s ease both;
   }
+  @keyframes cardEntrance{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
   .card.in{opacity:1;transform:none}
   .card h2{
     font-family:'Frank Ruhl Libre',serif;font-size:1.55rem;font-weight:700;
@@ -274,6 +275,11 @@
   }
   .qa-arch-a{margin-bottom:4px}
   .qa-arch-label{font-weight:700;color:var(--gold);font-family:'Assistant',sans-serif;font-size:.92rem}
+  .qa-badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.78rem;font-weight:700;font-family:'Assistant',sans-serif}
+  .qa-badge-free{background:rgba(46,125,50,.15);color:#2e7d32;border:1px solid rgba(46,125,50,.4)}
+  .qa-badge-paid{background:rgba(176,136,51,.18);color:var(--gold);border:1px solid rgba(176,136,51,.5)}
+  html.dark .qa-badge-free{background:rgba(102,187,106,.18);color:#81c784}
+  html.dark .qa-badge-paid{background:rgba(212,168,74,.18);color:#d4a84a}
   html.dark .arch-empty{background:rgba(212,168,74,.08)}
   html.dark .qa-arch-q{background:rgba(214,140,140,.1)}
 
@@ -2410,7 +2416,9 @@ function renderQAList(){
   QA_ARCHIVE.forEach((rec,idx)=>{
     const L = rec.lesson || {};
     const title = L.title || rec.question || "שאלה";
-    const modeBadge = rec.mode === "short" ? "⚡ תמצית" : "📖 שיעור מלא";
+    const modeBadge = rec.mode === "short"
+      ? '<span class="qa-badge qa-badge-free">⚡ תמצית · חינם</span>'
+      : '<span class="qa-badge qa-badge-paid">📖 שיעור מלא · בתשלום</span>';
     h += `<details class="arch-item qa-arch-item" ${idx===0?"open":""}>
       <summary>
         <span class="qa-arch-title">${title}</span>
@@ -3477,11 +3485,11 @@ function applyTab(tabName){
 }
 
 // הצמדת מאזיני הקלקות מיד כשה-DOM מוכן
-function initTabs(){
+function initTabs(retries){
+  retries = retries || 0;
   const tabs = document.querySelectorAll(".nav-tab");
   if (!tabs.length){
-    console.warn("nav-tabs לא נמצא, מנסה שוב…");
-    setTimeout(initTabs, 500);
+    if (retries < 10){ setTimeout(()=>initTabs(retries+1), 500); }
     return;
   }
   tabs.forEach(t => {
