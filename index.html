@@ -185,6 +185,124 @@
   .siddur-section .siddur-text{padding:0 18px 16px;font-family:'Frank Ruhl Libre',serif;
     font-size:1.08rem;line-height:1.95;color:var(--ink);white-space:pre-line;text-align:justify;
     border-top:1px solid rgba(0,0,0,.06);padding-top:10px;margin-top:4px}
+
+  /* === לעילוי נשמת — פס עליון לכרטיסי שיעור === */
+  .ilui-bar{
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    background:linear-gradient(90deg, rgba(122,46,46,.08), rgba(176,136,51,.06), rgba(122,46,46,.08));
+    border:1px solid rgba(122,46,46,.18);
+    border-radius:10px;padding:8px 14px;margin:-4px 0 14px;
+    font-family:'Frank Ruhl Libre',serif;font-size:.94rem;color:var(--ink);
+  }
+  .ilui-bar .ilui-icon{font-size:1.1rem}
+  .ilui-bar .ilui-default{flex:1;font-style:italic;color:var(--crimson);font-weight:600}
+  .ilui-bar .ilui-user{font-weight:600;color:var(--ink)}
+  .ilui-bar .ilui-user::before{content:" · ";color:var(--ink-soft)}
+  .ilui-bar .ilui-add{
+    background:none;border:1px solid rgba(122,46,46,.25);border-radius:8px;
+    padding:3px 10px;font-family:'Assistant',sans-serif;font-size:.82rem;
+    color:var(--crimson);cursor:pointer;transition:.2s;font-weight:600;
+  }
+  .ilui-bar .ilui-add:hover{background:rgba(122,46,46,.1)}
+  html.dark .ilui-bar{background:linear-gradient(90deg, rgba(214,140,140,.1), rgba(212,168,74,.06), rgba(214,140,140,.1));border-color:rgba(214,140,140,.25)}
+
+  /* === כפתור משוב צף === */
+  #fbBtn{
+    position:fixed;bottom:24px;left:24px;z-index:100;
+    background:var(--crimson);color:#fff;border:none;border-radius:30px;
+    padding:12px 20px;font-family:'Assistant',sans-serif;font-weight:700;font-size:.95rem;
+    cursor:pointer;box-shadow:0 8px 24px -8px rgba(122,46,46,.5);
+    display:flex;align-items:center;gap:8px;transition:.2s;
+  }
+  #fbBtn:hover{transform:translateY(-2px);box-shadow:0 12px 28px -8px rgba(122,46,46,.7)}
+  #fbBtn .fb-icon{font-size:1.1rem}
+  #fbModal{
+    position:fixed;inset:0;background:rgba(22,32,47,.7);z-index:200;
+    display:none;align-items:center;justify-content:center;padding:20px;
+  }
+  #fbModal.show{display:flex}
+  .fb-modal-card{
+    background:var(--card-bg);border-radius:16px;padding:24px;max-width:520px;width:100%;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,.5);max-height:90vh;overflow-y:auto;
+  }
+  .fb-modal-card h3{font-family:'Frank Ruhl Libre',serif;font-size:1.5rem;color:var(--crimson);margin-bottom:8px}
+  .fb-modal-card .fb-sub{font-size:.88rem;color:var(--ink-soft);margin-bottom:14px;line-height:1.6}
+  .fb-modal-card label{display:block;font-family:'Assistant',sans-serif;font-size:.9rem;font-weight:600;
+    color:var(--ink);margin:10px 0 4px}
+  .fb-modal-card input,.fb-modal-card select,.fb-modal-card textarea{
+    width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:8px;
+    background:#fff;color:var(--ink);font-family:'Assistant',sans-serif;font-size:.95rem;
+  }
+  .fb-modal-card textarea{min-height:90px;resize:vertical;line-height:1.6}
+  html.dark .fb-modal-card input,html.dark .fb-modal-card select,html.dark .fb-modal-card textarea{
+    background:#1a1813;color:var(--ink);border-color:rgba(230,223,200,.2)}
+  .fb-actions{display:flex;gap:10px;margin-top:16px;justify-content:flex-end}
+  .fb-actions button{padding:9px 20px;border-radius:8px;font-family:'Assistant',sans-serif;
+    font-weight:600;font-size:.92rem;cursor:pointer;border:1px solid transparent}
+  .fb-cancel{background:none;color:var(--ink-soft);border-color:var(--line)}
+  .fb-cancel:hover{background:rgba(0,0,0,.04)}
+  .fb-submit{background:var(--crimson);color:#fff}
+  .fb-submit:hover{background:#5a1e1e}
+
+  /* === באנר תצהיר שו"ת === */
+  .qa-disclaimer{
+    background:linear-gradient(135deg, rgba(176,136,51,.12), rgba(122,46,46,.08));
+    border:1px solid rgba(176,136,51,.3);
+    border-radius:12px;padding:14px 18px;margin:14px 0;
+    font-family:'Assistant',sans-serif;font-size:.92rem;line-height:1.7;color:var(--ink);
+  }
+  .qa-disclaimer-head{font-weight:700;color:var(--crimson);font-size:1rem;margin-bottom:8px;
+    display:flex;align-items:center;gap:8px}
+  .qa-disclaimer ul{margin:6px 0 0 18px;padding-right:18px;padding-left:0}
+  .qa-disclaimer li{margin:4px 0}
+  .qa-disclaimer .report-link{color:var(--crimson);text-decoration:underline;cursor:pointer;font-weight:600}
+  html.dark .qa-disclaimer{background:linear-gradient(135deg, rgba(212,168,74,.12), rgba(214,140,140,.08));border-color:rgba(212,168,74,.3)}
+
+  /* === 🕯️ זמני שבת === */
+  .shabbat-times{
+    margin:14px 0 10px;padding:14px 16px;
+    background:linear-gradient(135deg, rgba(176,136,51,.12), rgba(122,46,46,.08));
+    border:1px solid rgba(176,136,51,.3);
+    border-radius:12px;font-family:'Frank Ruhl Libre',serif;
+  }
+  .shabbat-loading{text-align:center;color:var(--ink-soft);font-size:.9rem}
+  .shabbat-head{font-weight:700;color:var(--crimson);font-size:1.1rem;
+    text-align:center;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px}
+  .shabbat-row{display:flex;justify-content:space-between;align-items:center;
+    padding:6px 0;border-bottom:1px dashed rgba(0,0,0,.1)}
+  .shabbat-row:last-child{border:none}
+  .shabbat-label{font-weight:600;color:var(--ink);font-size:.95rem}
+  .shabbat-time{font-family:'Assistant',sans-serif;font-weight:700;color:var(--crimson);font-size:1.05rem}
+  .shabbat-date{font-size:.82rem;color:var(--ink-soft);font-style:italic}
+  .shabbat-loc{text-align:center;font-size:.78rem;color:var(--ink-soft);margin-top:6px;font-style:italic}
+  .shabbat-loc-pick{cursor:pointer;color:var(--crimson);text-decoration:underline}
+  html.dark .shabbat-times{background:linear-gradient(135deg, rgba(212,168,74,.12), rgba(214,140,140,.08))}
+
+  /* === 📑 לשוניות — Navigation Tabs === */
+  .nav-tabs{
+    position:sticky;top:0;z-index:50;
+    display:flex;flex-wrap:wrap;gap:6px;padding:10px 14px;
+    background:var(--bg);border-bottom:2px solid var(--line);
+    margin:0 -16px 14px;box-shadow:0 4px 12px -8px rgba(0,0,0,.08);
+  }
+  .nav-tab{
+    flex:1 1 auto;min-width:90px;padding:10px 12px;
+    font-family:'Assistant',sans-serif;font-size:.92rem;font-weight:600;
+    background:rgba(255,255,255,.5);border:1px solid var(--line);border-radius:10px;
+    color:var(--ink);cursor:pointer;text-align:center;transition:.2s;
+    display:flex;flex-direction:column;align-items:center;gap:3px;
+  }
+  .nav-tab:hover{background:rgba(176,136,51,.15);transform:translateY(-1px)}
+  .nav-tab.active{background:var(--crimson);color:#fff;border-color:var(--crimson);box-shadow:0 4px 12px -4px rgba(122,46,46,.4)}
+  .nav-tab-icon{font-size:1.1rem;line-height:1}
+  .nav-tab-label{font-size:.82rem}
+  html.dark .nav-tabs{background:#23201a;border-color:rgba(230,223,200,.15)}
+  html.dark .nav-tab{background:rgba(0,0,0,.25)}
+  @media (max-width: 600px){
+    .nav-tabs{padding:8px 8px;gap:4px}
+    .nav-tab{min-width:60px;padding:8px 6px;font-size:.78rem}
+    .nav-tab-label{font-size:.7rem}
+  }
   html.dark .siddur-card{background:linear-gradient(135deg,#1f1c16 0%,#26221a 100%)}
   html.dark .siddur-tab{background:rgba(0,0,0,.25);color:var(--ink)}
   html.dark .siddur-section{background:rgba(0,0,0,.25)}
@@ -541,6 +659,28 @@
     <button id="themeToggle" class="theme-toggle" aria-label="החלף מצב יום/לילה" title="מצב לילה">🌙</button>
   </header>
 
+  <!-- 📑 לשוניות הניווט -->
+  <nav class="nav-tabs" id="navTabs" role="tablist">
+    <button class="nav-tab active" data-tab="today" role="tab" aria-selected="true">
+      <span class="nav-tab-icon">🕯️</span><span class="nav-tab-label">היום</span>
+    </button>
+    <button class="nav-tab" data-tab="prayers" role="tab">
+      <span class="nav-tab-icon">📿</span><span class="nav-tab-label">תפילות</span>
+    </button>
+    <button class="nav-tab" data-tab="calendar" role="tab">
+      <span class="nav-tab-icon">📅</span><span class="nav-tab-label">לוח</span>
+    </button>
+    <button class="nav-tab" data-tab="qa" role="tab">
+      <span class="nav-tab-icon">✍️</span><span class="nav-tab-label">שו"ת</span>
+    </button>
+    <button class="nav-tab" data-tab="archive" role="tab">
+      <span class="nav-tab-icon">📚</span><span class="nav-tab-label">ארכיון</span>
+    </button>
+    <button class="nav-tab" data-tab="all" role="tab">
+      <span class="nav-tab-icon">🌟</span><span class="nav-tab-label">הכל</span>
+    </button>
+  </nav>
+
   <!-- Jewish calendar bar -->
   <div class="cal-bar" id="calBar">
     <div class="cal-cell">
@@ -558,7 +698,7 @@
   </div>
 
   <!-- Monthly calendar (Hebrew + Gregorian) -->
-  <section class="card" id="monthCard">
+  <section class="card" id="monthCard" data-category="calendar">
     <div class="cal-head">
       <button class="cal-nav" id="calPrev" aria-label="חודש קודם">‹</button>
       <div class="cal-title" id="calTitle">…</div>
@@ -566,11 +706,17 @@
     </div>
     <div class="cal-sub" id="calHebTitle"></div>
     <div id="tachanunStatus" class="tachanun-ind" style="display:none"></div>
+
+    <!-- 🕯️ זמני שבת וחגים -->
+    <div id="shabbatTimes" class="shabbat-times" style="display:none">
+      <div class="shabbat-loading"><span class="spinner"></span> טוען זמנים...</div>
+    </div>
+
     <div class="cal-grid" id="calGrid"></div>
   </section>
 
   <!-- Rest notice (Shabbat / Yom Tov) -->
-  <section class="rest-card" id="restCard" style="display:none">
+  <section class="rest-card" id="restCard" data-category="today" style="display:none">
     <div class="rest-glow">🕯️</div>
     <h2 id="restTitle">הישיבה שובתת</h2>
     <p id="restReason"></p>
@@ -578,7 +724,7 @@
   </section>
 
   <!-- Zmanim (prayer & sun times) -->
-  <section class="card" id="zmanimCard">
+  <section class="card" id="zmanimCard" data-category="calendar">
     <h2><span class="glyph">🌅</span> זמני היום</h2>
     <div class="sub" id="zmanimPlace">זמני זריחה, שקיעה ותפילה — לפי מיקומך</div>
     <div id="zmanimStatus" class="status"><span class="spinner"></span> מחשב זמנים…</div>
@@ -586,7 +732,7 @@
   </section>
 
   <!-- Compass to Jerusalem -->
-  <section class="card" id="compassCard">
+  <section class="card" id="compassCard" data-category="calendar">
     <h2><span class="glyph">🧭</span> לכיוון ירושלים</h2>
     <div class="sub">הכיוון להר הבית מן המקום שבו אתה נמצא — לתפילה</div>
     <div id="compassStatus" class="status"><span class="spinner"></span> מחשב כיוון…</div>
@@ -614,7 +760,7 @@
   </section>
 
   <!-- Gematria calculator -->
-  <section class="card" id="gemCard">
+  <section class="card" id="gemCard" data-category="today">
     <h2><span class="glyph">🔢</span> מחשבון גימטריה</h2>
     <div class="sub">חשב ערך מספרי של מילה או ביטוי בעברית — חישוב מדויק, לא ניחוש</div>
     <input type="text" id="gemInput" class="gem-input" placeholder="הקלד מילה בעברית…" dir="rtl" autocomplete="off">
@@ -674,7 +820,7 @@
   </div>
 
   <!-- Source text -->
-  <section class="card" id="textCard">
+  <section class="card" id="textCard" data-category="today">
     <h2><span class="glyph">📜</span> הטקסט של הדף</h2>
     <div class="sub" id="textRef">נמשך ישירות ממאגר ספריא (Sefaria)</div>
     <div id="textStatus" class="status"><span class="spinner"></span> מושך את הדף מספריא…</div>
@@ -695,7 +841,7 @@
   <!-- ארבעת הסוכנים החדשים - כל אחד שיעור יומי בכרטיס נפרד -->
 
   <!-- 📖 ליקוטי מוהר"ן + עצות (רבי נחמן מברסלב) -->
-  <section class="card breslov-card" id="breslovCard">
+  <section class="card breslov-card" id="breslovCard" data-category="today">
     <h2><span class="glyph">📖</span> רבי נחמן מברסלב — תורה ועצה יומית</h2>
     <div class="sub">ליקוטי מוהר"ן וליקוטי עצות · מתחדש כל יום</div>
     <div id="breslovStatus" class="status"><span class="spinner"></span> טוען…</div>
@@ -704,7 +850,7 @@
   </section>
 
   <!-- 📖 הלכות הבן איש חי -->
-  <section class="card bic-card" id="bicCard">
+  <section class="card bic-card" id="bicCard" data-category="today">
     <h2><span class="glyph">📖</span> הבן איש חי — 2 הלכות יומיות</h2>
     <div class="sub">לרבי יוסף חיים מבגדאד זצ"ל · ע"פ פרשת השבוע</div>
     <div id="bicStatus" class="status"><span class="spinner"></span> טוען…</div>
@@ -713,7 +859,7 @@
   </section>
 
   <!-- 🎵 דוד המלך - תהילים יומי -->
-  <section class="card david-card" id="davidCard">
+  <section class="card david-card" id="davidCard" data-category="today">
     <h2><span class="glyph">🎵</span> דוד המלך — ברכה ועצה מתהילים</h2>
     <div class="sub">בהשראת מזמורי דוד · מתחדש כל יום</div>
     <div id="davidStatus" class="status"><span class="spinner"></span> טוען…</div>
@@ -722,7 +868,7 @@
   </section>
 
   <!-- 👑 שלמה המלך - חכמה ועצה -->
-  <section class="card shlomo-card" id="shlomoCard">
+  <section class="card shlomo-card" id="shlomoCard" data-category="today">
     <h2><span class="glyph">👑</span> שלמה המלך — חכמה ועצה</h2>
     <div class="sub">משלי · קהלת · שיר השירים · מתחדש כל יום</div>
     <div id="shlomoStatus" class="status"><span class="spinner"></span> טוען…</div>
@@ -731,7 +877,7 @@
   </section>
 
   <!-- 📜 שניים מקרא ואחד תרגום -->
-  <section class="card shnayim-card" id="shnayimCard">
+  <section class="card shnayim-card" id="shnayimCard" data-category="today">
     <h2><span class="glyph">📜</span> שניים מקרא ואחד תרגום</h2>
     <div class="sub">חלקו של היום מפרשת השבוע + תרגום אונקלוס</div>
     <div id="shnayimStatus" class="status"><span class="spinner"></span> טוען…</div>
@@ -739,7 +885,7 @@
   </section>
 
   <!-- 🕯️ דף יומי ירושלמי -->
-  <section class="card yerushalmi-card" id="yerushalmiCard">
+  <section class="card yerushalmi-card" id="yerushalmiCard" data-category="today">
     <h2><span class="glyph">🕯️</span> דף יומי ירושלמי</h2>
     <div class="sub">לצד הבבלי · ע"פ מחזור הלימוד</div>
     <div id="yerStatus" class="status"><span class="spinner"></span> טוען…</div>
@@ -747,7 +893,7 @@
   </section>
 
   <!-- ✨ הילולות צדיקים -->
-  <section class="card hilulot-card" id="hilulotCard">
+  <section class="card hilulot-card" id="hilulotCard" data-category="today">
     <h2><span class="glyph">✨</span> הילולות צדיקים</h2>
     <div class="sub">מי הצדיק שהיום יום הילולתו</div>
     <div id="hilulotStatus" class="status"><span class="spinner"></span> טוען…</div>
@@ -755,7 +901,7 @@
   </section>
 
   <!-- 📚 חוק לישראל - לימוד יומי משולב -->
-  <section class="card chok-card" id="chokCard">
+  <section class="card chok-card" id="chokCard" data-category="today">
     <h2><span class="glyph">📚</span> חוק לישראל — לימוד יומי משולב</h2>
     <div class="sub">תורה · נביאים · כתובים · משנה · גמרא · זוהר · הלכה · מוסר — מנהג עדות־המזרח</div>
     <div id="chokStatus" class="status"><span class="spinner"></span> טוען…</div>
@@ -763,7 +909,7 @@
   </section>
 
   <!-- 🎡 כלי לוח השנה: גלגלת תאריכים וגלגלת פרשיות -->
-  <section class="card tools-card" id="toolsCard">
+  <section class="card tools-card" id="toolsCard" data-category="calendar">
     <h2><span class="glyph">🎡</span> כלי לוח השנה</h2>
     <div class="sub">גלגלת תאריכים · גלגלת פרשיות · המרה דו־כיוונית</div>
 
@@ -850,7 +996,7 @@
   </section>
 
   <!-- 📿 סידור עדות־המזרח: שחרית · מנחה · ערבית -->
-  <section class="card siddur-card" id="siddurCard">
+  <section class="card siddur-card" id="siddurCard" data-category="prayers">
     <h2><span class="glyph">📿</span> סידור עדות־המזרח</h2>
     <div class="sub">שחרית · מנחה · ערבית — קרוב לסידור בן איש חי הבגדאדי</div>
     <div class="siddur-tabs">
@@ -863,7 +1009,7 @@
   </section>
 
   <!-- ארכיון שיעורים יומיים קודמים -->
-  <section class="card" id="lessonArchCard">
+  <section class="card" id="lessonArchCard" data-category="archive">
     <h2><span class="glyph">📅</span> ארכיון שיעורים יומיים</h2>
     <div class="sub">כל שיעור שהסוכן כתב — לחץ על שיעור לפתיחה</div>
     <div id="lessonArchStatus" class="status"><span class="spinner"></span> טוען…</div>
@@ -871,7 +1017,7 @@
   </section>
 
   <!-- שו"ת: ask a halachic question -->
-  <section class="card" id="qaCard">
+  <section class="card" id="qaCard" data-category="qa">
     <h2><span class="glyph">📨</span> שו״ת — שאל שאלה</h2>
     <div class="sub">כתוב שאלה הלכתית או נושא, בחר פורמט, והתשובה תופיע כאן תוך שניות</div>
     <input id="qaPass" type="password" placeholder="🔐 קוד גישה"
@@ -879,16 +1025,16 @@
     <textarea id="qaInput" rows="3" placeholder="לדוגמה: כמה שיעור מים צריך לנטילת ידיים בשחרית? או נושא לשיעור: דיני בורר בשבת"
       style="width:100%;box-sizing:border-box;font-family:inherit;font-size:1rem;padding:10px;border:1px solid var(--line);border-radius:9px;background:#fffdf7;color:var(--ink);resize:vertical"></textarea>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-      <button class="regen" id="qaFullBtn" style="margin:0">📖 שיעור מלא</button>
-      <button class="regen" id="qaShortBtn" style="margin:0">⚡ תמצית</button>
+      <button class="regen" id="qaShortBtn" style="margin:0;background:var(--crimson);color:#fff">⚡ תמצית מהירה</button>
+      <button class="regen" id="qaFullBtn" style="margin:0">📖 שיעור מלא (ארוך)</button>
     </div>
-    <div class="note" id="qaHint" style="margin-top:6px">התשובה נוצרת מיד באתר (דרוש קוד גישה). חומר לימוד בלבד — לא פסק הלכה.</div>
+    <div class="note" id="qaHint" style="margin-top:6px">⚡ ברירת מחדל: תמצית קצרה וברורה. ל-שיעור מלא ועמוק לחץ "שיעור מלא". (דרוש קוד גישה) · חומר לימוד בלבד — לא פסק הלכה.</div>
     <div id="qaStatus" class="status" style="margin-top:10px;display:none"><span class="spinner"></span> טוען…</div>
     <div id="qaBody" style="display:none;margin-top:10px"></div>
   </section>
 
   <!-- Agent activity log -->
-  <section class="card" id="logCard">
+  <section class="card" id="logCard" data-category="archive">
     <h2><span class="glyph">📋</span> יומן הסוכנים</h2>
     <div class="sub">מה כל סוכן עשה בכל ריצה — כדי שתוכל לראות, ללמוד, ולהדריך</div>
     <div id="logStatus" class="status"><span class="spinner"></span> טוען יומן…</div>
@@ -919,7 +1065,7 @@
   </section>
 
   <!-- Tehillim Yomi -->
-  <section class="card" id="tehillimCard">
+  <section class="card" id="tehillimCard" data-category="calendar">
     <h2><span class="glyph">📖</span> תהילים יומי</h2>
     <div class="sub" id="tehillimSub">חלוקת ספר תהילים לימי החודש</div>
     <button class="regen" id="tehillimBtn" style="margin-top:0">הצג את תהילים של היום ↓</button>
@@ -928,7 +1074,7 @@
   </section>
 
   <!-- Source library (accumulated by the librarian agent) -->
-  <section class="card" id="libraryCard">
+  <section class="card" id="libraryCard" data-category="archive">
     <h2><span class="glyph">📚</span> ספריית המקורות</h2>
     <div class="sub">המקורות שהסוכן אסף ועקב אחרי מאיפה כל אחד הובא — מתעדכן והולך</div>
     <div id="libraryStatus" class="status"><span class="spinner"></span> טוען ספרייה…</div>
@@ -936,14 +1082,14 @@
   </section>
 
   <!-- Prayers & blessings -->
-  <section class="card" id="prayCard">
+  <section class="card" id="prayCard" data-category="prayers">
     <h2><span class="glyph">📿</span> תפילות וברכות</h2>
     <div class="sub">נוסח ספרדי (עדות המזרח) · לחץ על תפילה לפתיחת הנוסח כאן בדף</div>
     <div class="pray-list" id="prayList"></div>
   </section>
 
   <!-- Prayer-source completion (from the prayers-audit agent) -->
-  <section class="card" id="prayerSrcCard">
+  <section class="card" id="prayerSrcCard" data-category="prayers">
     <h2><span class="glyph">🕯️</span> השלמת תפילות מהמקור</h2>
     <div class="sub">מקורות מדויקים מנחלת הכלל (תורה ותהילים) להשלמת החלקים החסרים</div>
     <div id="prayerSrcStatus" class="status"><span class="spinner"></span> טוען מקורות…</div>
@@ -951,7 +1097,7 @@
   </section>
 
   <!-- Codes archive (collapsed, at the bottom — not shown on the front) -->
-  <section class="card" id="codesFeedCard">
+  <section class="card" id="codesFeedCard" data-category="calendar">
     <h2><span class="glyph">🔯</span> ארכיון הצפנים</h2>
     <div class="sub">נשמר אוטומטית · מוצג רק כאן (פתח לצפייה) — ללימוד והתבוננות, לא הוכחה</div>
     <div id="codesFeedStatus" class="status" style="display:none"></div>
@@ -2885,5 +3031,305 @@ setTimeout(()=>document.querySelectorAll(".card,.daf-banner").forEach(el=>{
   reveal(el);
 }), 900);
 </script>
+
+<!-- כפתור משוב צף + Modal -->
+<button id="fbBtn" onclick="openFeedback()" aria-label="דווח על בעיה">
+  <span class="fb-icon">📮</span>
+  <span>משוב / דיווח</span>
+</button>
+<div id="fbModal" onclick="if(event.target.id==='fbModal')closeFeedback()">
+  <div class="fb-modal-card">
+    <h3>📮 משוב, דיווח על תקלה או אי־דיוק</h3>
+    <div class="fb-sub">
+      אם נתקלת בטקסט לא נכון, נוסח שאינו תואם את הנוסח של הקהילה, או באג טכני — תודה שתספר לנו.<br>
+      הדיווח ייפתח כאימייל מוכן לשליחה.
+    </div>
+    <label for="fbType">סוג הדיווח:</label>
+    <select id="fbType">
+      <option value="אי־דיוק בטקסט">🔍 אי־דיוק בטקסט / נוסח</option>
+      <option value="באג טכני">🐛 באג טכני באתר</option>
+      <option value="הצעה">💡 הצעה לשיפור</option>
+      <option value="שאלת הלכה">📜 שאלה הלכתית</option>
+      <option value="אחר">📝 אחר</option>
+    </select>
+    <label for="fbWhere">איפה? (איזה כרטיס / קטע)</label>
+    <input id="fbWhere" placeholder="לדוגמה: כרטיס תפילות, בברכת המזון, פסקה שלישית"/>
+    <label for="fbDetails">פירוט:</label>
+    <textarea id="fbDetails" placeholder="תאר את הבעיה — מה ראית, מה נכון לדעתך, או הצעתך"></textarea>
+    <label for="fbEmail">האימייל שלך (אופציונלי — אם תרצה תשובה):</label>
+    <input id="fbEmail" type="email" placeholder="email@example.com"/>
+    <div class="fb-actions">
+      <button class="fb-cancel" onclick="closeFeedback()">ביטול</button>
+      <button class="fb-submit" onclick="sendFeedback()">📨 שלח</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== מערכת לעילוי נשמת + משוב + תצהיר שו"ת ===== */
+const ILUI_DEFAULT_TEXT = "לעילוי נשמת כל ישראל ולזיכוי הרבים"; // הבעלים יכול לערוך כאן
+const ILUI_USER_KEY = "sodhadaf-ilui-user";
+const FEEDBACK_EMAIL = "feedback@sodhadaf.com"; // יוגדר ב-cPanel כשהדומיין יוקם
+
+function getUserIlui(){ try{ return localStorage.getItem(ILUI_USER_KEY) || ""; }catch(_){ return ""; } }
+function setUserIlui(v){ try{ localStorage.setItem(ILUI_USER_KEY, v || ""); }catch(_){ } }
+
+function makeIluiBar(){
+  const user = getUserIlui();
+  return `<div class="ilui-bar">
+    <span class="ilui-icon">🕯️</span>
+    <span class="ilui-default">${ILUI_DEFAULT_TEXT}</span>
+    ${user ? `<span class="ilui-user">${user}</span>` : ""}
+    <button class="ilui-add" onclick="promptIlui()">${user ? "✏️ ערוך" : "+ הוסף שם"}</button>
+  </div>`;
+}
+
+function promptIlui(){
+  const current = getUserIlui();
+  const name = prompt("הוסף שם נוסף לעילוי נשמת (יישמר במחשב שלך בלבד):\n(להשאיר ריק כדי למחוק)", current);
+  if (name === null) return; // ביטול
+  setUserIlui(name.trim());
+  // רענן את כל הפסים בעמוד
+  document.querySelectorAll(".ilui-bar").forEach(b=>{ b.outerHTML = makeIluiBar(); });
+}
+
+function addIluiBars(){
+  // הוסף פס לעילוי נשמת לכרטיסי שיעור
+  const ids = ["dafCard","breslovCard","bicCard","davidCard","shlomoCard",
+               "shnayimCard","yerushalmiCard","hilulotCard","chokCard","gemCard"];
+  ids.forEach(id=>{
+    const card = document.getElementById(id);
+    if (!card) return;
+    if (card.querySelector(".ilui-bar")) return; // כבר יש
+    const sub = card.querySelector(".sub");
+    const bar = document.createElement("div");
+    bar.innerHTML = makeIluiBar();
+    if (sub) sub.parentNode.insertBefore(bar.firstElementChild, sub.nextSibling);
+    else card.insertBefore(bar.firstElementChild, card.firstChild.nextSibling);
+  });
+}
+
+/* ----- משוב ----- */
+function openFeedback(){
+  // נסה למלא אוטומטית את "איפה?" — חפש את הכרטיס שהמשתמש קרוב אליו
+  const cards = document.querySelectorAll(".card");
+  let visibleCardTitle = "";
+  for (const c of cards){
+    const r = c.getBoundingClientRect();
+    if (r.top < window.innerHeight/2 && r.bottom > window.innerHeight/3){
+      const h = c.querySelector("h2");
+      if (h){ visibleCardTitle = h.textContent.trim(); break; }
+    }
+  }
+  if (visibleCardTitle) document.getElementById("fbWhere").value = visibleCardTitle;
+  document.getElementById("fbModal").classList.add("show");
+}
+function closeFeedback(){ document.getElementById("fbModal").classList.remove("show"); }
+function sendFeedback(){
+  const type = document.getElementById("fbType").value;
+  const where = document.getElementById("fbWhere").value.trim();
+  const details = document.getElementById("fbDetails").value.trim();
+  const email = document.getElementById("fbEmail").value.trim();
+  if (!details){ alert("נא לפרט את הדיווח."); return; }
+  const subject = encodeURIComponent(`[סוד הדף] ${type}${where ? " · " + where : ""}`);
+  const body = encodeURIComponent(
+    `סוג: ${type}\n` +
+    `מקום: ${where || "(לא צויין)"}\n\n` +
+    `פירוט:\n${details}\n\n` +
+    `${email ? "תשובה ל: " + email + "\n" : ""}` +
+    `\n---\nנשלח מ-${location.href}\n` +
+    `דפדפן: ${navigator.userAgent}`
+  );
+  // פותח את ה-email client של המשתמש עם הודעה מוכנה
+  window.location.href = `mailto:${FEEDBACK_EMAIL}?subject=${subject}&body=${body}`;
+  setTimeout(closeFeedback, 500);
+}
+
+/* ----- תצהיר שו"ת ----- */
+function addQADisclaimer(){
+  const qaCard = document.getElementById("qaCard");
+  if (!qaCard) return;
+  if (qaCard.querySelector(".qa-disclaimer")) return;
+  const disc = document.createElement("div");
+  disc.className = "qa-disclaimer";
+  disc.innerHTML = `
+    <div class="qa-disclaimer-head">⚠️ לפני שאתה שולח שאלה — קרא:</div>
+    <ul>
+      <li><strong>השיעור אינו מחליף רב.</strong> זהו חומר לימוד בלבד; לפסיקה למעשה — פנה לרב מוסמך.</li>
+      <li><strong>התשובה מבוססת על המקורות עצמם</strong> — אנשי כנסת הגדולה, חז"ל, ראשונים, שולחן ערוך ונושאי כליו.</li>
+      <li><strong>כל המקורות מובאים בשיעור</strong> — אפשר ומומלץ לבדוק כל ציטוט במקור.</li>
+      <li><strong>מצאת אי-דיוק?</strong> <span class="report-link" onclick="openFeedback()">לחץ כאן לדיווח</span> — נשמח לתקן.</li>
+    </ul>
+  `;
+  // הכנס לפני האזור של הקלט (form), או אחרי ה-sub
+  const sub = qaCard.querySelector(".sub");
+  const ilui = qaCard.querySelector(".ilui-bar");
+  const insertAfter = ilui || sub;
+  if (insertAfter) insertAfter.parentNode.insertBefore(disc, insertAfter.nextSibling);
+  else qaCard.appendChild(disc);
+}
+
+/* רץ אחרי הטעינה */
+setTimeout(()=>{ addIluiBars(); addQADisclaimer(); }, 1200);
+
+/* ===== 🕯️ זמני שבת וחגים ===== */
+const HEBCAL_LOCATIONS = {
+  jerusalem: {id: 281184, name: "ירושלים"},
+  bnei_brak: {id: 295629, name: "בני ברק"},
+  tel_aviv:  {id: 293397, name: "תל אביב"},
+  haifa:     {id: 294801, name: "חיפה"},
+  beer_sheva:{id: 295530, name: "באר שבע"},
+  ashdod:    {id: 295629, name: "אשדוד"},
+  netanya:   {id: 293703, name: "נתניה"},
+  bet_shemesh:{id: 295232, name: "בית שמש"},
+  brooklyn:  {id: 5110302, name: "ברוקלין NY"},
+  los_angeles:{id: 5368361, name: "Los Angeles"},
+  san_jose:  {id: 5392171, name: "San Jose, CA"},
+  toronto:   {id: 6167865, name: "Toronto"},
+  miami:     {id: 4164138, name: "Miami"},
+  london:    {id: 2643743, name: "London"},
+  paris:     {id: 2988507, name: "Paris"},
+};
+const SHABBAT_LOC_KEY = "sodhadaf-shabbat-loc";
+
+function getShabbatLocation(){
+  try{
+    const v = localStorage.getItem(SHABBAT_LOC_KEY);
+    if (v && HEBCAL_LOCATIONS[v]) return v;
+  }catch(_){}
+  return "jerusalem"; // ברירת מחדל
+}
+function setShabbatLocation(loc){
+  try{ localStorage.setItem(SHABBAT_LOC_KEY, loc); }catch(_){}
+  loadShabbatTimes();
+}
+
+async function loadShabbatTimes(){
+  const wrap = document.getElementById("shabbatTimes");
+  if (!wrap) return;
+  wrap.style.display = "block";
+  wrap.innerHTML = '<div class="shabbat-loading"><span class="spinner"></span> טוען זמנים...</div>';
+
+  const locKey = getShabbatLocation();
+  const loc = HEBCAL_LOCATIONS[locKey];
+  // candle lighting offset: 18 דק' לפני שקיעה (40 דק' לירושלים)
+  const offset = locKey === "jerusalem" ? 40 : 18;
+  // havdalah: tzeit kochavim, 50 דקות אחרי שקיעה
+  const havd = 50;
+
+  try{
+    const url = `https://www.hebcal.com/shabbat?cfg=json&geonameid=${loc.id}&b=${offset}&m=${havd}&lg=he`;
+    const r = await fetch(url, {cache: "default"});
+    if (!r.ok) throw new Error("hebcal fail");
+    const j = await r.json();
+    const items = j.items || [];
+
+    // Find next candle lighting + havdalah + holidays
+    const candle = items.find(it => it.category === "candles");
+    const havdalah = items.find(it => it.category === "havdalah");
+    const parsha = items.find(it => it.category === "parashat");
+    const holidays = items.filter(it => it.category === "holiday").slice(0, 3);
+
+    const fmtDate = (iso) => {
+      try{
+        const d = new Date(iso);
+        return d.toLocaleDateString('he-IL', {weekday:'long', day:'numeric', month:'long'});
+      }catch(_){ return iso; }
+    };
+    const fmtTime = (iso) => {
+      try{
+        const d = new Date(iso);
+        return d.toLocaleTimeString('he-IL', {hour:'2-digit', minute:'2-digit', hour12: false});
+      }catch(_){ return iso; }
+    };
+
+    let html = `<div class="shabbat-head">🕯️ זמני שבת ${parsha ? '· ' + (parsha.hebrew || parsha.title) : ''}</div>`;
+
+    if (candle){
+      html += `<div class="shabbat-row">
+        <div>
+          <div class="shabbat-label">הדלקת נרות</div>
+          <div class="shabbat-date">${fmtDate(candle.date)}</div>
+        </div>
+        <div class="shabbat-time">${fmtTime(candle.date)}</div>
+      </div>`;
+    }
+    if (havdalah){
+      html += `<div class="shabbat-row">
+        <div>
+          <div class="shabbat-label">צאת השבת (ר"ת)</div>
+          <div class="shabbat-date">${fmtDate(havdalah.date)}</div>
+        </div>
+        <div class="shabbat-time">${fmtTime(havdalah.date)}</div>
+      </div>`;
+    }
+    if (holidays.length){
+      html += `<div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(0,0,0,.1)">
+        <div class="shabbat-label" style="margin-bottom:4px">✡️ חגים קרובים:</div>`;
+      for (const h of holidays){
+        html += `<div class="shabbat-row" style="border:none;padding:3px 0">
+          <div class="shabbat-date">${h.hebrew || h.title}</div>
+          <div class="shabbat-date">${fmtDate(h.date)}</div>
+        </div>`;
+      }
+      html += `</div>`;
+    }
+
+    // location picker
+    let locOptions = "";
+    for (const [k, v] of Object.entries(HEBCAL_LOCATIONS)){
+      locOptions += `<option value="${k}" ${k===locKey?'selected':''}>${v.name}</option>`;
+    }
+    html += `<div class="shabbat-loc">
+      📍 <select onchange="setShabbatLocation(this.value)" style="background:transparent;border:none;color:var(--crimson);font-family:inherit;cursor:pointer;text-decoration:underline">${locOptions}</select>
+    </div>`;
+
+    wrap.innerHTML = html;
+  }catch(e){
+    wrap.innerHTML = `<div class="shabbat-loading">לא הצלחנו לטעון זמני שבת. בדוק חיבור לאינטרנט.</div>`;
+  }
+}
+
+/* ===== 📑 לשוניות — Tabs Navigation ===== */
+const TABS_KEY = "sodhadaf-active-tab";
+function setActiveTab(tabName){
+  try{ localStorage.setItem(TABS_KEY, tabName); }catch(_){}
+  // עדכן את כפתורי הטאבים
+  document.querySelectorAll(".nav-tab").forEach(t => {
+    t.classList.toggle("active", t.dataset.tab === tabName);
+    t.setAttribute("aria-selected", t.dataset.tab === tabName ? "true" : "false");
+  });
+  // הצג/הסתר כרטיסים לפי קטגוריה
+  const showAll = tabName === "all";
+  document.querySelectorAll("[data-category]").forEach(card => {
+    const cat = card.dataset.category;
+    card.style.display = (showAll || cat === tabName) ? "" : "none";
+  });
+  // גם daf-banner
+  const banner = document.getElementById("dafBanner");
+  if (banner){
+    banner.style.display = (showAll || tabName === "today") ? "" : "none";
+  }
+}
+function setupTabs(){
+  document.querySelectorAll(".nav-tab").forEach(t => {
+    t.addEventListener("click", () => setActiveTab(t.dataset.tab));
+  });
+  // טען את הטאב האחרון
+  let saved = "today";
+  try{ saved = localStorage.getItem(TABS_KEY) || "today"; }catch(_){}
+  setActiveTab(saved);
+}
+
+/* טעינת זמני שבת + לשוניות */
+setTimeout(()=>{
+  loadShabbatTimes();
+  setupTabs();
+}, 800);
+/* רענון זמני שבת כל שעה */
+setInterval(loadShabbatTimes, 3600000);
+
+</script>
+
 </body>
 </html>
