@@ -280,6 +280,24 @@
   .qa-badge-paid{background:rgba(176,136,51,.18);color:var(--gold);border:1px solid rgba(176,136,51,.5)}
   html.dark .qa-badge-free{background:rgba(102,187,106,.18);color:#81c784}
   html.dark .qa-badge-paid{background:rgba(212,168,74,.18);color:#d4a84a}
+
+  /* === 💬 תגובות === */
+  .cmt-item{
+    background:var(--card-bg);border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;margin:10px 0;box-shadow:0 2px 8px -4px rgba(0,0,0,.08);
+  }
+  .cmt-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+  .cmt-name{font-weight:700;color:var(--crimson);font-family:'Assistant',sans-serif;font-size:.95rem}
+  .cmt-when{font-size:.78rem;color:var(--ink-soft);font-family:'Assistant',sans-serif}
+  .cmt-text{font-family:'Frank Ruhl Libre',serif;font-size:1.05rem;line-height:1.7;color:var(--ink)}
+  .cmt-reply{
+    margin-top:10px;padding:10px 14px;border-radius:10px;
+    background:linear-gradient(135deg, rgba(176,136,51,.1), rgba(122,46,46,.06));
+    border-right:3px solid var(--gold);
+  }
+  .cmt-reply-head{font-weight:700;color:var(--gold);font-size:.85rem;margin-bottom:4px;font-family:'Assistant',sans-serif}
+  .cmt-reply-text{font-family:'Frank Ruhl Libre',serif;font-size:1rem;line-height:1.65;color:var(--ink)}
+  html.dark .cmt-reply{background:linear-gradient(135deg, rgba(212,168,74,.12), rgba(214,140,140,.06))}
   html.dark .arch-empty{background:rgba(212,168,74,.08)}
   html.dark .qa-arch-q{background:rgba(214,140,140,.1)}
 
@@ -716,6 +734,9 @@
     <button class="nav-tab" data-tab="archive" role="tab">
       <span class="nav-tab-icon">📚</span><span class="nav-tab-label">ארכיון</span>
     </button>
+    <button class="nav-tab" data-tab="comments" role="tab">
+      <span class="nav-tab-icon">💬</span><span class="nav-tab-label">תגובות</span>
+    </button>
     <button class="nav-tab" data-tab="all" role="tab">
       <span class="nav-tab-icon">🌟</span><span class="nav-tab-label">הכל</span>
     </button>
@@ -1072,6 +1093,20 @@
     <button class="regen" id="qaArchBtn" style="margin-top:10px;width:100%;background:var(--gold);color:#fff;font-size:.95rem" onclick="toggleQAArchive()">📂 הצג שאלות ותשובות קודמות</button>
     <div id="qaStatus" class="status" style="margin-top:10px;display:none"><span class="spinner"></span> טוען…</div>
     <div id="qaBody" style="display:none;margin-top:10px"></div>
+  </section>
+
+  <!-- 💬 דף תגובות -->
+  <section class="card" id="commentsCard" data-category="comments">
+    <h2><span class="glyph">💬</span> תגובות מהציבור</h2>
+    <div class="sub">השאירו תגובה, שאלה או דיווח על תקלה — סוכן AI יענה לשאלות ולתקלות אוטומטית 🤖</div>
+    <input id="cmtName" type="text" placeholder="השם שלך (אופציונלי)" maxlength="40"
+      style="width:100%;box-sizing:border-box;font-family:inherit;font-size:1rem;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#fffdf7;color:var(--ink);margin-bottom:8px" autocomplete="off">
+    <textarea id="cmtText" rows="3" placeholder="כתוב תגובה, שאלה, או דיווח על תקלה... (לשאלות ותקלות — תקבל מענה אוטומטי)"
+      style="width:100%;box-sizing:border-box;font-family:inherit;font-size:1rem;padding:10px;border:1px solid var(--line);border-radius:9px;background:#fffdf7;color:var(--ink);resize:vertical"></textarea>
+    <button class="regen" id="cmtSubmit" style="margin-top:8px;width:100%;background:var(--crimson);color:#fff;font-size:1rem" onclick="submitComment()">📤 שלח תגובה</button>
+    <div class="note" id="cmtHint" style="margin-top:6px">התגובות גלויות לכולם. שאלות ותקלות מקבלות מענה אוטומטי מסוכן AI 🤖 · יש לכתוב בעברית.</div>
+    <div id="cmtStatus" class="status" style="margin-top:10px;display:none"><span class="spinner"></span> שולח…</div>
+    <div id="cmtList" style="margin-top:16px"></div>
   </section>
 
   <!-- Agent activity log -->
@@ -2438,6 +2473,79 @@ function renderQAList(){
   body.innerHTML = h;
   body.style.display="block";
 }
+/* ===== 💬 דף תגובות ===== */
+const COMMENTS_URL = QA_WORKER_URL + "/comments";
+let COMMENTS = [];
+async function loadComments(){
+  try{
+    const r = await fetch(COMMENTS_URL, {cache:"no-store"});
+    if(!r.ok) return;
+    const data = await r.json();
+    if(Array.isArray(data.comments)){ COMMENTS = data.comments; renderComments(); }
+  }catch(e){}
+}
+function escapeHtml(s){
+  return String(s||"").replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function renderComments(){
+  const list = document.getElementById("cmtList");
+  if(!list) return;
+  if(!COMMENTS.length){
+    list.innerHTML = `<div class="arch-empty">💬 <strong>אין עדיין תגובות</strong><br>היה הראשון להגיב, לשאול, או לדווח!</div>`;
+    return;
+  }
+  let h = `<div class="ls-h" style="font-size:1.05rem;margin-bottom:10px">💬 ${COMMENTS.length} תגובות</div>`;
+  COMMENTS.forEach(c=>{
+    const when = fmtTs(c.ts);
+    const sec = (c.section && c.section!=="כללי") ? '· '+escapeHtml(c.section)+' ' : '';
+    h += `<div class="cmt-item">
+      <div class="cmt-head">
+        <span class="cmt-name">👤 ${escapeHtml(c.name||"אנונימי")}</span>
+        <span class="cmt-when">${sec}· ${when}</span>
+      </div>
+      <div class="cmt-text">${escapeHtml(c.text)}</div>`;
+    if(c.reply){
+      h += `<div class="cmt-reply">
+        <div class="cmt-reply-head">🤖 מענה אוטומטי</div>
+        <div class="cmt-reply-text">${escapeHtml(c.reply)}</div>
+      </div>`;
+    }
+    h += `</div>`;
+  });
+  list.innerHTML = h;
+}
+async function submitComment(){
+  const nameEl = document.getElementById("cmtName");
+  const textEl = document.getElementById("cmtText");
+  const hint = document.getElementById("cmtHint");
+  const status = document.getElementById("cmtStatus");
+  const btn = document.getElementById("cmtSubmit");
+  const text = (textEl.value||"").trim();
+  const name = (nameEl.value||"").trim();
+  if(!text){ hint.textContent = "כתוב תגובה קודם 🙂"; return; }
+  if(!/[\u05D0-\u05EA]/.test(text)){ hint.textContent = "נא לכתוב בעברית"; return; }
+  let section = "כללי";
+  try{ section = localStorage.getItem("sodhadaf-active-tab") || "כללי"; }catch(_){}
+  btn.disabled = true;
+  status.style.display = "block";
+  status.innerHTML = '<span class="spinner"></span> שולח… (אם זו שאלה, הסוכן מכין מענה — עד 20 שניות)';
+  hint.textContent = "";
+  try{
+    const r = await fetch(COMMENTS_URL, {
+      method:"POST", headers:{"content-type":"application/json"},
+      body: JSON.stringify({ name, text, section })
+    });
+    const data = await r.json();
+    if(!r.ok){ hint.textContent = "⚠️ " + (data.error||"שגיאה"); status.style.display="none"; btn.disabled=false; return; }
+    textEl.value = ""; nameEl.value = "";
+    status.style.display = "none"; btn.disabled = false;
+    hint.innerHTML = "✅ <strong>התגובה נשלחה!</strong>" + (data.comment&&data.comment.reply ? " הסוכן הגיב 🤖" : "");
+    await loadComments();
+  }catch(e){
+    status.style.display = "none"; btn.disabled = false;
+    hint.textContent = "⚠️ שגיאת רשת. נסה שוב.";
+  }
+}
 async function loadQAArchive(){
   try{
     const r = await fetch(QA_WORKER_URL, {cache:"no-store"});
@@ -3097,6 +3205,7 @@ buildPrayers();
   setupCalendarTools();                    // 🎡 Date + Parsha pickers
   setupSiddurTabs();                       // 📿 Siddur (Shacharit/Mincha/Arvit)
   loadQAArchive();                         // permanent שו"ת archive (from the Worker)
+  loadComments();                          // 💬 דף תגובות
   loadPrayersAudit();                      // canonical prayer sources
   loadZmanim();                            // sun & prayer times
   loadCompass();                           // direction to Jerusalem
