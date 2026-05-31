@@ -475,6 +475,37 @@
   .ner-name{font-family:'Frank Ruhl Libre',serif;font-size:1.05rem;font-weight:600;color:#e8e8f0;text-align:center;margin-top:2px}
   .ner-zl{font-size:.8rem;color:#9a9ab0;margin-top:2px}
 
+  /* === 🤲 דף רפואה === */
+  .refuah-card{
+    background:radial-gradient(ellipse at top, #0f1f1c, #0a1412)!important;
+    border:1px solid rgba(120,200,180,.3)!important;
+    box-shadow:0 0 30px -12px rgba(120,200,180,.4)!important;
+  }
+  .refuah-title{color:#a8e6d4!important;text-align:center;border:none!important;justify-content:center}
+  .refuah-verse{text-align:center;font-family:'Frank Ruhl Libre',serif;font-size:1.15rem;
+    line-height:1.9;color:#cfeee4;margin-bottom:12px;font-style:italic}
+  .refuah-sub{text-align:center;color:#9ec6ba;font-family:'Frank Ruhl Libre',serif;
+    font-size:.98rem;line-height:1.7;margin-bottom:16px}
+  .refuah-input{
+    width:100%;box-sizing:border-box;font-family:'Frank Ruhl Libre',serif;font-size:1.05rem;
+    padding:11px 14px;border:1px solid rgba(120,200,180,.35);border-radius:10px;margin-bottom:10px;
+    background:rgba(255,255,255,.05);color:#e8f5f0;
+  }
+  .refuah-input::placeholder{color:rgba(160,200,190,.55)}
+  .refuah-btn{
+    width:100%;font-family:'Assistant',sans-serif;font-size:1.05rem;font-weight:700;
+    padding:12px;border:none;border-radius:12px;cursor:pointer;
+    background:linear-gradient(180deg, #5cbfa6, #2e8b74);color:#06231d;
+    box-shadow:0 4px 14px -4px rgba(92,191,166,.6);transition:.2s;
+  }
+  .refuah-btn:hover{transform:translateY(-2px)}
+  .refuah-names{display:flex;flex-direction:column;gap:8px}
+  .refuah-name-item{
+    font-family:'Frank Ruhl Libre',serif;font-size:1.15rem;font-weight:600;text-align:center;
+    padding:10px;border:1px solid rgba(120,200,180,.25);border-radius:10px;
+    background:rgba(120,200,180,.06);color:#d4f0e8;
+  }
+
   /* === 🗺️ מפת מבקרים === */
   .vis-total{text-align:center;font-family:'Frank Ruhl Libre',serif;font-size:1.1rem;color:var(--ink);
     margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
@@ -2986,12 +3017,11 @@ function renderMemorialNames(){
 }
 
 async function addName(type){
-  const isSuccess = type === "success";
-  const nameEl = document.getElementById(isSuccess ? "successName" : "memorialName");
-  const dedEl = isSuccess ? document.getElementById("successDed") : null;
-  const hint = document.getElementById(isSuccess ? "successHint" : "memorialHint");
-  const status = document.getElementById(isSuccess ? "successStatus" : "memorialStatus");
-  const btn = document.getElementById(isSuccess ? "successBtn" : "memorialBtn");
+  const nameEl = document.getElementById(type + "Name");
+  const dedEl = type === "success" ? document.getElementById("successDed") : null;
+  const hint = document.getElementById(type + "Hint");
+  const status = document.getElementById(type + "Status");
+  const btn = document.getElementById(type + "Btn");
   const name = (nameEl.value||"").trim();
   const dedication = dedEl ? (dedEl.value||"").trim() : "";
   if(!name){ hint.textContent = "הקלד שם קודם 🙂"; return; }
@@ -3010,7 +3040,8 @@ async function addName(type){
     if(!r.ok){ hint.textContent = "⚠️ " + (data.error||"שגיאה"); return; }
     nameEl.value = "";
     if(dedEl) dedEl.value = "";
-    hint.textContent = isSuccess ? "✅ השם נוסף לתפילת המנורה! 🕎" : "🕯️ נר נשמה הודלק. ת.נ.צ.ב.ה.";
+    const msg = { success:"✅ השם נוסף לתפילת המנורה! 🕎", refuah:"🤲 השם נוסף לרפואה שלמה!", memorial:"🕯️ נר נשמה הודלק. ת.נ.צ.ב.ה." };
+    hint.textContent = msg[type] || "✅ נוסף!";
     await loadNames();
   }catch(e){
     status.style.display = "none";
