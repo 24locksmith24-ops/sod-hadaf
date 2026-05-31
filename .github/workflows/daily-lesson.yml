@@ -4,7 +4,16 @@ on:
   schedule:
     - cron: "0 4 * * *"        # 04:00 UTC — ריצת בוקר
     - cron: "0 14 * * *"       # 14:00 UTC — ריצת אחר הצהריים
-  workflow_dispatch: {}          # כפתור Run workflow להרצה ידנית
+  workflow_dispatch:
+    inputs:
+      force_run:
+        description: '⚠️ עקוף שבת/חג (לבדיקה בלבד)'
+        required: false
+        default: 'no'
+        type: choice
+        options:
+          - 'no'
+          - 'yes'
 
 permissions:
   contents: write
@@ -15,25 +24,40 @@ jobs:
     env:
       TZ: Asia/Jerusalem
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      FORCE_RUN: ${{ github.event.inputs.force_run == 'yes' && '1' || '0' }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0       # היסטוריה מלאה — עוזר ל-rebase
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install anthropic requests
       - run: python engine.py
-      - run: |
+      - name: שמירה ודחיפה (עם הגנה מ-race conditions)
+        run: |
           git config user.name  "Sod HaDaf Bot"
           git config user.email "bot@users.noreply.github.com"
-          # מקורות מקוריים
+          # הוספת כל קבצי הסוכנים
           git add discoveries.json codes.json library.json insights.json prayers_audit.json log.json 2>/dev/null || true
-          # סוכנים יומיים: ברסלב, בן איש חי, דוד, שלמה
           git add breslov.json benishchai.json david.json shlomo.json 2>/dev/null || true
-          # סוכנים נוספים: שניים מקרא, ירושלמי, הילולות, חוק לישראל
           git add shnayim.json yerushalmi.json hilulot.json chok.json 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "אין שינוי (שבת/חג או שכבר קיים) — לא שומר."
-          else
-            git commit -m "שיעור יומי אוטומטי"
-            git push
+            exit 0
           fi
+          git commit -m "שיעור יומי אוטומטי"
+          # ניסיונות דחיפה — אם המשתמש עדכן את ה-repo בזמן הריצה, נשלוף ונדחוף שוב
+          for attempt in 1 2 3 4 5; do
+            echo "📤 ניסיון דחיפה #$attempt..."
+            if git push; then
+              echo "✅ הדחיפה הצליחה!"
+              exit 0
+            fi
+            echo "⚠️ נכשל — מושך שינויים אחרונים ומנסה שוב..."
+            git pull --rebase --autostash origin main || \
+              git pull --rebase --strategy-option=theirs origin main
+            sleep 3
+          done
+          echo "❌ דחיפה נכשלה אחרי 5 ניסיונות"
+          exit 1
