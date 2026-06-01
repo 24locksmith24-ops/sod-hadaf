@@ -626,10 +626,10 @@
 
   /* === 📑 לשוניות — Navigation Tabs === */
   .nav-tabs{
-    position:sticky;top:0;z-index:50;
+    position:sticky;top:0;z-index:60;
     display:flex;flex-wrap:wrap;gap:6px;padding:10px 14px;
-    background:var(--bg);border-bottom:2px solid var(--line);
-    margin:0 -16px 14px;box-shadow:0 4px 12px -8px rgba(0,0,0,.08);
+    background:var(--parch);border-bottom:2px solid var(--line);
+    margin:0 -16px 14px;box-shadow:0 6px 14px -8px rgba(0,0,0,.18);
   }
   .nav-tab{
     flex:1 1 auto;min-width:90px;padding:10px 12px;
@@ -3419,7 +3419,7 @@ async function loadQAArchive(){
     const data = await r.json();
     if(Array.isArray(data.archive)){
       const seen = new Set(), merged = [];
-      const keyOf = x => (x.ts||"") + "|" + (x.question||"");
+      const keyOf = x => (x.question||"") + "|" + (x.mode||"");
       for(const item of [...data.archive, ...QA_ARCHIVE]){
         const k = keyOf(item);
         if(!seen.has(k)){ seen.add(k); merged.push(item); }
@@ -3591,16 +3591,19 @@ async function askWorker(mode){
       }
     }catch(_streamErr){ /* keep whatever we received */ }
     const lesson = parseSectionedLesson(full, q);
+    const nowTs = new Date().toISOString();
     document.getElementById("qaInput").value = "";
-    QA_ARCHIVE.unshift({ ts:new Date().toISOString(), question:q, mode, lesson });
+    // הסר כפילות מקומית של אותה שאלה לפני הוספה
+    QA_ARCHIVE = QA_ARCHIVE.filter(x => !(x && x.question === q && x.mode === mode));
+    QA_ARCHIVE.unshift({ ts: nowTs, question:q, mode, lesson });
     saveQALocal();        // נשמר מיד מקומית — לא ייעלם לעולם
     renderQAList();
-    // שמירה קבועה לשרת — עם משוב גלוי (כדי לאבחן)
+    // שמירה קבועה לשרת — עם אותה חותמת זמן (מונע כפילות) + משוב גלוי
     if(full && full.length > 10){
       try{
         const sr = await fetch(QA_WORKER_URL + "/qa-save", {
           method:"POST", headers:{"content-type":"application/json"},
-          body: JSON.stringify({ question:q, mode, full })
+          body: JSON.stringify({ question:q, mode, full, ts: nowTs })
         });
         const sj = await sr.json().catch(()=>({}));
         if(sj && sj.ok){
