@@ -3401,12 +3401,34 @@ async function submitComment(){
     hint.textContent = "⚠️ שגיאת רשת. נסה שוב.";
   }
 }
+const QA_LS_KEY = "sodhadaf_qa_archive";
+function saveQALocal(){
+  try{ localStorage.setItem(QA_LS_KEY, JSON.stringify(QA_ARCHIVE.slice(0,100))); }catch(_){}
+}
+function loadQALocal(){
+  try{ const v = localStorage.getItem(QA_LS_KEY); if(v){ const a=JSON.parse(v); if(Array.isArray(a)) QA_ARCHIVE = a; } }catch(_){}
+}
 async function loadQAArchive(){
+  // 1) הצג מיד מהזיכרון המקומי (לא תלוי בהתפשטות KV)
+  loadQALocal();
+  if(QA_ARCHIVE.length) renderQAList();
+  // 2) מזג עם השרת (מקור האמת להיסטוריה המלאה)
   try{
     const r = await fetch(QA_WORKER_URL, {cache:"no-store"});
     if(!r.ok) return;
     const data = await r.json();
-    if(Array.isArray(data.archive)){ QA_ARCHIVE = data.archive; renderQAList(); }
+    if(Array.isArray(data.archive)){
+      const seen = new Set(), merged = [];
+      const keyOf = x => (x.ts||"") + "|" + (x.question||"");
+      for(const item of [...data.archive, ...QA_ARCHIVE]){
+        const k = keyOf(item);
+        if(!seen.has(k)){ seen.add(k); merged.push(item); }
+      }
+      merged.sort((a,b)=> (b.ts||"").localeCompare(a.ts||""));
+      QA_ARCHIVE = merged.slice(0,100);
+      saveQALocal();
+      renderQAList();
+    }
   }catch(e){}
 }
 /* ===== 🗺️ מעקב ומפת מבקרים ===== */
@@ -3571,15 +3593,24 @@ async function askWorker(mode){
     const lesson = parseSectionedLesson(full, q);
     document.getElementById("qaInput").value = "";
     QA_ARCHIVE.unshift({ ts:new Date().toISOString(), question:q, mode, lesson });
+    saveQALocal();        // נשמר מיד מקומית — לא ייעלם לעולם
     renderQAList();
-    // שמירה קבועה לשרת — קריאה נפרדת ואמינה (לא תלויה ב-stream)
+    // שמירה קבועה לשרת — עם משוב גלוי (כדי לאבחן)
     if(full && full.length > 10){
       try{
-        fetch(QA_WORKER_URL + "/qa-save", {
+        const sr = await fetch(QA_WORKER_URL + "/qa-save", {
           method:"POST", headers:{"content-type":"application/json"},
           body: JSON.stringify({ question:q, mode, full })
         });
-      }catch(_){}
+        const sj = await sr.json().catch(()=>({}));
+        if(sj && sj.ok){
+          hint.innerHTML = "✅ נשמר בארכיון (" + (sj.count||"?") + " שאלות)";
+        } else {
+          hint.innerHTML = "⚠️ שמירה נכשלה: " + (sj.reason || sj.error || ("סטטוס " + sr.status));
+        }
+      }catch(e){
+        hint.innerHTML = "⚠️ שגיאת שמירה: " + String(e).slice(0,90);
+      }
     }
   }catch(e){
     hint.textContent = "⚠️ לא הצלחתי לקרוא את התשובה מה-Worker. נסה שוב.";
