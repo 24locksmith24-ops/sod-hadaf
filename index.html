@@ -341,12 +341,12 @@
   .menorah-icon{font-size:3rem;margin-bottom:10px;filter:drop-shadow(0 0 12px rgba(255,215,0,.7))}
   .gold-prayer-title{font-family:'Frank Ruhl Libre',serif;font-size:1.5rem;font-weight:700;margin-bottom:14px}
   /* 🕎 מנורה — 7 קנים אנכיים */
-  .menorah-wrap{position:relative;width:100%;max-width:560px;margin:6px auto 4px;
-    aspect-ratio:7/6;direction:rtl}
+  .menorah-wrap{position:relative;width:100%;max-width:560px;margin:6px auto 14px;
+    direction:rtl;overflow:hidden;border-radius:14px}
   .menorah-frame{position:absolute;inset:0;width:100%;height:100%;
-    filter:drop-shadow(0 4px 16px rgba(212,175,55,.4));z-index:0}
-  .menorah-cols{position:absolute;inset:0;display:flex;justify-content:center;
-    align-items:flex-start;gap:1.4%;padding-top:1%;z-index:1}
+    filter:drop-shadow(0 4px 16px rgba(212,175,55,.4));z-index:0;opacity:.85}
+  .menorah-cols{position:relative;z-index:1;display:flex;justify-content:center;
+    align-items:flex-start;gap:1.2%;padding:10px 0 16px}
   .m-branch{flex:1;display:flex;flex-direction:column;align-items:center;max-width:13%}
   /* להבה מונפשת */
   .m-flame{width:13px;height:22px;border-radius:50% 50% 20% 20%;
@@ -365,16 +365,16 @@
     text-shadow:0 1px 1px rgba(120,80,0,.5)}
   /* הפסוק — אנכי, מילה על מילה */
   .m-verse{writing-mode:vertical-rl;text-orientation:upright;
-    font-family:'Frank Ruhl Libre',serif;font-weight:600;font-size:.84rem;line-height:1.45;
-    letter-spacing:.5px;height:78%;overflow:hidden;text-align:start;
+    font-family:'Frank Ruhl Libre',serif;font-weight:600;font-size:.82rem;line-height:1.4;
+    letter-spacing:.5px;height:300px;text-align:start;
     background:linear-gradient(180deg,#fff7cc,#ffe066 20%,#d4af37 50%,#ffe066 80%,#fff7cc);
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
     filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
-  .m-center .m-verse{font-size:.9rem;font-weight:700}
+  .m-center .m-verse{font-size:.88rem;font-weight:700;height:340px}
   .m-center .m-cup{font-size:1rem}
   @media(max-width:600px){
-    .m-verse{font-size:.62rem;letter-spacing:.2px}
-    .m-center .m-verse{font-size:.68rem}
+    .m-verse{font-size:.6rem;letter-spacing:.2px;height:210px}
+    .m-center .m-verse{font-size:.66rem;height:240px}
     .m-cup{font-size:.7rem;min-width:22px;padding:2px 3px}
   }
   .menorah-header{font-size:1.15rem!important;line-height:1.6!important;margin-top:6px;font-weight:700!important}
@@ -539,6 +539,12 @@
   .al-shabbat .al-when{background:rgba(122,46,46,.12);color:var(--crimson)}
   .al-cal{flex:0 0 auto;font-size:1.2rem;text-decoration:none;opacity:.7}
   .al-cal:hover{opacity:1}
+  .notif-btn{width:100%;font-family:'Assistant',sans-serif;font-size:1.05rem;font-weight:700;
+    padding:13px;border:none;border-radius:12px;cursor:pointer;margin-top:10px;
+    background:linear-gradient(180deg,#e8a13c,#c47d1f);color:#fff;
+    box-shadow:0 4px 14px -4px rgba(196,125,31,.6);transition:.2s}
+  .notif-btn:hover{transform:translateY(-2px)}
+  .notif-btn:disabled{opacity:.6}
 
   /* === 🗺️ מפת מבקרים === */
   .vis-total{text-align:center;font-family:'Frank Ruhl Libre',serif;font-size:1.1rem;color:var(--ink);
@@ -1039,8 +1045,10 @@
   </div>
 
   <!-- 🔔 באנר התראות — שבת / ראש חודש / חגים -->
-  <section class="card alert-banner-card" id="alertBannerCard" data-category="today" style="display:none">
+  <section class="card alert-banner-card" id="alertBannerCard" data-category="today">
     <div id="alertBanner"></div>
+    <button class="notif-btn" id="notifBtn" onclick="enableNotifications()">🔔 הפעל התראות לטלפון</button>
+    <div class="note" id="notifHint" style="text-align:center;margin-top:6px">קבל התראה לטלפון לפני שבת, ראש חודש וחגים — גם כשהאתר סגור</div>
   </section>
 
   <!-- Monthly calendar (Hebrew + Gregorian) -->
@@ -1422,6 +1430,17 @@
   </section>
 
   <!-- 🗺️ מפת מבקרים -->
+  <!-- 🌍 מפת עולם אינטראקטיבית -->
+  <section class="card worldmap-card" id="worldMapCard" data-category="map">
+    <h2><span class="glyph">🌍</span> מפת מבקרים חיה</h2>
+    <div class="sub">כל נקודה זוהרת = מבקרים מאותה מדינה. לחץ על נקודה לפרטים 🔆</div>
+    <div class="wm-stage">
+      <svg id="worldMapSvg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+    <div id="wmTooltip" class="wm-tooltip" style="display:none"></div>
+    <div id="wmTotal" class="wm-total"></div>
+  </section>
+
   <section class="card" id="visitorsCard" data-category="map">
     <h2><span class="glyph">🗺️</span> מבקרים מכל העולם</h2>
     <div class="sub">מאיזה אזורים בעולם לומדים איתנו — כל נקודה היא נשמה שמתחברת לתורה</div>
@@ -3084,7 +3103,7 @@ async function loadHebrewAlerts(){
     });
     alerts.sort((a,b)=>a.days-b.days);
     const show = alerts.slice(0,5);
-    if(!show.length){ card.style.display="none"; return; }
+    if(!show.length){ banner.innerHTML=""; return; }
     let h = '<div class="al-head">🔔 התראות קרובות</div>';
     show.forEach(a=>{
       h += `<div class="al-row ${a.cls}">
@@ -3095,10 +3114,55 @@ async function loadHebrewAlerts(){
       </div>`;
     });
     banner.innerHTML = h;
-    card.style.display = "block";
-  }catch(e){ card.style.display="none"; }
+  }catch(e){ }
 }
-/* ===== 🔓 בקשת אישור אתר ===== */
+/* === 🔔 הפעלת פוש נוטיפיקיישן === */
+const VAPID_PUBLIC_KEY = "BE2OXWEO7S4dBP8RRLH1jsN94fb_A7ZBJNauRY1Thmw2w4cn7jv2SfHlvv8uyUCmX-24kdizjr6kBukFq3Uknu0";
+function urlB64ToUint8Array(b){
+  const pad = "=".repeat((4 - b.length % 4) % 4);
+  const s = (b + pad).replace(/-/g,"+").replace(/_/g,"/");
+  const raw = atob(s); const arr = new Uint8Array(raw.length);
+  for(let i=0;i<raw.length;i++) arr[i]=raw.charCodeAt(i);
+  return arr;
+}
+async function enableNotifications(){
+  const hint = document.getElementById("notifHint");
+  const btn = document.getElementById("notifBtn");
+  if(!("serviceWorker" in navigator) || !("PushManager" in window) || !("Notification" in window)){
+    hint.innerHTML = "📱 ב-iPhone: לחץ על <strong>שתף → הוסף למסך הבית</strong>, פתח משם, ואז הפעל התראות.";
+    return;
+  }
+  btn.disabled = true; hint.textContent = "מבקש אישור…";
+  try{
+    const perm = await Notification.requestPermission();
+    if(perm !== "granted"){ hint.textContent = "ההתראות לא אושרו. אפשר להפעיל בהגדרות הדפדפן."; btn.disabled=false; return; }
+    const reg = await navigator.serviceWorker.register("/sw.js");
+    await navigator.serviceWorker.ready;
+    let sub = await reg.pushManager.getSubscription();
+    if(!sub){
+      sub = await reg.pushManager.subscribe({ userVisibleOnly:true, applicationServerKey: urlB64ToUint8Array(VAPID_PUBLIC_KEY) });
+    }
+    await fetch(QA_WORKER_URL + "/push-subscribe", { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify(sub) });
+    hint.innerHTML = "✅ <strong>ההתראות הופעלו!</strong> תקבל התראה לפני שבת, ראש חודש וחגים 🕯️";
+    btn.style.display = "none";
+    try{ localStorage.setItem("sodhadaf-notif","1"); }catch(_){}
+  }catch(e){
+    btn.disabled = false;
+    hint.innerHTML = "📱 ב-iPhone צריך קודם <strong>להוסיף את האתר למסך הבית</strong> (שתף → הוסף למסך הבית), ואז להפעיל מתוך האפליקציה.";
+  }
+}
+function initNotifButton(){
+  try{
+    const btn = document.getElementById("notifBtn");
+    const hint = document.getElementById("notifHint");
+    if(!btn) return;
+    if(("Notification" in window) && Notification.permission === "granted" && localStorage.getItem("sodhadaf-notif")==="1"){
+      btn.style.display = "none";
+      hint.innerHTML = "✅ ההתראות מופעלות 🔔";
+    }
+  }catch(_){}
+}
+/* === 🔓 בקשת אישור אתר === */
 const ACCESS_REQUEST_TEXT = "שלום, אבקש לאשר לגלישה את האתר sodhadaf.com לכלל המשתמשים. זהו אתר תורני ללימוד יומי: דף יומי, ליקוטי מוהר\"ן, בן איש חי, תהילים, סידור עדות-המזרח, שו\"ת הלכתי, זמני שבת ודפי תפילה לרפואה, להצלחה ולעילוי נשמה. כל התוכן קדוש ומבוסס על מקורות תורניים בלבד, ללא פרסומות או תוכן בעייתי, והאתר אף שומר שבת. תודה רבה!";
 async function copyAccessRequest(){
   const hint = document.getElementById("accessCopyHint");
@@ -3342,6 +3406,61 @@ const COUNTRY_NAMES = {
 async function trackVisit(){
   try{ await fetch(VISIT_URL, {method:"POST", headers:{"content-type":"application/json"}, body:"{}"}); }catch(e){}
 }
+/* קואורדינטות מדינות [lon, lat] למפה */
+const COUNTRY_COORDS = {
+  IL:[35,31], US:[-98,39], GB:[-2,54], FR:[2,46], CA:[-106,56], AU:[133,-25],
+  DE:[10,51], BE:[4.5,50.6], RU:[100,60], UA:[32,49], AR:[-64,-38], BR:[-53,-10],
+  MX:[-102,23], ZA:[25,-29], IT:[13,42], ES:[-4,40], NL:[5.5,52], CH:[8,47],
+  AT:[14,47.5], SE:[18,60], PA:[-80,9], CL:[-71,-35], UY:[-56,-33], IN:[79,22],
+  HU:[19,47], PL:[19,52], TR:[35,39], MA:[-7,32]
+};
+/* בלובים מפושטים של יבשות (רקע מפה) */
+const CONTINENTS = [
+  "M120,90 Q90,150 150,210 Q210,250 280,210 Q300,150 250,110 Q190,70 120,90 Z",
+  "M270,300 Q255,360 300,430 Q345,430 350,360 Q360,300 320,275 Q285,275 270,300 Z",
+  "M460,110 Q450,150 500,175 Q560,170 560,125 Q540,95 490,100 Q465,100 460,110 Z",
+  "M470,200 Q455,290 510,375 Q575,370 590,280 Q595,215 545,195 Q500,185 470,200 Z",
+  "M575,95 Q560,180 640,235 Q760,250 825,180 Q840,110 760,80 Q660,65 575,95 Z",
+  "M790,330 Q780,380 840,395 Q885,385 880,335 Q840,315 790,330 Z"
+];
+function projXY(lon, lat){ return [ (lon+180)/360*1000, (90-lat)/180*500 ]; }
+function renderWorldMap(visits, total){
+  const svg = document.getElementById("worldMapSvg");
+  if(!svg) return;
+  const counts = Object.entries(visits).filter(([c])=>COUNTRY_COORDS[c]);
+  const maxC = counts.reduce((m,[,v])=>Math.max(m,v),1);
+  let h = "";
+  // רקע אוקיינוס + קווי רוחב/אורך
+  h += '<rect x="0" y="0" width="1000" height="500" fill="#0a1428"/>';
+  for(let i=1;i<8;i++) h += `<line x1="0" y1="${i*62.5}" x2="1000" y2="${i*62.5}" stroke="#16233f" stroke-width="1"/>`;
+  for(let i=1;i<12;i++) h += `<line x1="${i*83.3}" y1="0" x2="${i*83.3}" y2="500" stroke="#16233f" stroke-width="1"/>`;
+  // יבשות
+  CONTINENTS.forEach(d=>{ h += `<path d="${d}" fill="#1c3050" stroke="#264066" stroke-width="1.5"/>`; });
+  // נקודות מבקרים
+  counts.sort((a,b)=>a[1]-b[1]).forEach(([code,count])=>{
+    const [lon,lat] = COUNTRY_COORDS[code];
+    const [x,y] = projXY(lon,lat);
+    const rad = 5 + Math.round((count/maxC)*14);
+    const flag = (COUNTRY_NAMES[code]||code).split(" ")[0];
+    h += `<g class="wm-dot" tabindex="0" role="button"
+      onclick="wmShow('${code}',${count})" onmouseenter="wmShow('${code}',${count})">
+      <circle cx="${x}" cy="${y}" r="${rad+8}" fill="#ffc64d" opacity="0.18" class="wm-pulse"/>
+      <circle cx="${x}" cy="${y}" r="${rad}" fill="#ffc64d" stroke="#fff3cf" stroke-width="1.5"/>
+      <text x="${x}" y="${y+5}" text-anchor="middle" font-size="${Math.min(rad*1.4,20)}">${flag}</text>
+    </g>`;
+  });
+  svg.innerHTML = h;
+  const tEl = document.getElementById("wmTotal");
+  if(tEl) tEl.innerHTML = counts.length ? `🌍 <strong>${total.toLocaleString('he-IL')}</strong> ביקורים · <strong>${counts.length}</strong> מדינות על המפה` : "עדיין אין מבקרים על המפה — אתה הראשון! 🌍";
+}
+function wmShow(code, count){
+  const tip = document.getElementById("wmTooltip");
+  if(!tip) return;
+  tip.innerHTML = `${COUNTRY_NAMES[code]||code} — <strong>${count.toLocaleString('he-IL')}</strong> ביקורים`;
+  tip.style.display = "block";
+  clearTimeout(window._wmTipT);
+  window._wmTipT = setTimeout(()=>{ tip.style.display="none"; }, 3500);
+}
 async function loadVisitors(){
   const st = document.getElementById("visitorsStatus");
   const body = document.getElementById("visitorsBody");
@@ -3352,6 +3471,7 @@ async function loadVisitors(){
     const data = await r.json();
     const visits = data.visits || {};
     const total = data.total || 0;
+    renderWorldMap(visits, total);
     const entries = Object.entries(visits).sort((a,b)=>b[1]-a[1]);
     if(!entries.length){
       st.style.display="none"; body.style.display="block";
@@ -4033,6 +4153,7 @@ buildPrayers();
   loadVisitors();                          // 🗺️ מפת מבקרים
   loadNames();                             // 🌟🕯️ שמות הצלחה + עילוי נשמת
   loadHebrewAlerts();                       // 🔔 התראות שבת/ראש חודש/חגים
+  initNotifButton();                        // 🔔 מצב כפתור התראות
   loadPrayersAudit();                      // canonical prayer sources
   loadZmanim();                            // sun & prayer times
   loadCompass();                           // direction to Jerusalem
