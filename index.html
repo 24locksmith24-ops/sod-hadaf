@@ -526,6 +526,20 @@
     border-right:3px solid var(--gold);font-family:'Frank Ruhl Libre',serif;
     font-size:1rem;line-height:1.6;color:var(--ink)}
 
+  /* === 🔔 באנר התראות === */
+  .alert-banner-card{background:linear-gradient(135deg,#fff8e8,#fff)!important;border:2px solid var(--gold)!important}
+  html.dark .alert-banner-card{background:linear-gradient(135deg,#2a2415,#1a1a1f)!important}
+  .al-head{font-family:'Assistant',sans-serif;font-weight:800;color:var(--crimson);font-size:1.1rem;margin-bottom:10px;text-align:center}
+  .al-row{display:flex;align-items:center;gap:10px;padding:9px 12px;margin:6px 0;border-radius:10px;
+    background:var(--card-bg);border:1px solid var(--line)}
+  .al-icon{font-size:1.3rem;flex:0 0 auto}
+  .al-title{flex:1;font-family:'Frank Ruhl Libre',serif;font-size:1.08rem;font-weight:600;color:var(--ink)}
+  .al-when{font-family:'Assistant',sans-serif;font-weight:700;font-size:.9rem;padding:3px 10px;border-radius:12px;
+    background:rgba(176,136,51,.15);color:var(--gold);white-space:nowrap}
+  .al-shabbat .al-when{background:rgba(122,46,46,.12);color:var(--crimson)}
+  .al-cal{flex:0 0 auto;font-size:1.2rem;text-decoration:none;opacity:.7}
+  .al-cal:hover{opacity:1}
+
   /* === 🗺️ מפת מבקרים === */
   .vis-total{text-align:center;font-family:'Frank Ruhl Libre',serif;font-size:1.1rem;color:var(--ink);
     margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
@@ -1023,6 +1037,11 @@
       <div><div class="cal-k">החג הבא</div><div class="cal-v" id="calHoliday">…</div></div>
     </div>
   </div>
+
+  <!-- 🔔 באנר התראות — שבת / ראש חודש / חגים -->
+  <section class="card alert-banner-card" id="alertBannerCard" data-category="today" style="display:none">
+    <div id="alertBanner"></div>
+  </section>
 
   <!-- Monthly calendar (Hebrew + Gregorian) -->
   <section class="card" id="monthCard" data-category="calendar">
@@ -3013,6 +3032,72 @@ function renderQAList(){
   body.innerHTML = h;
   body.style.display="block";
 }
+/* ===== 🔔 התראות לוח עברי — שבת / ראש חודש / חגים ===== */
+function alertWhenText(d){
+  if(d===0) return "היום!";
+  if(d===1) return "מחר!";
+  if(d===7) return "בעוד שבוע";
+  return "בעוד " + d + " ימים";
+}
+function gcalLink(title, isoDate){
+  const d = isoDate.slice(0,10).replace(/-/g,"");
+  const dt = new Date(isoDate.slice(0,10));
+  const next = new Date(dt.getTime()+864e5).toISOString().slice(0,10).replace(/-/g,"");
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" +
+    encodeURIComponent(title) + "&dates=" + d + "/" + next;
+}
+async function loadHebrewAlerts(){
+  const card = document.getElementById("alertBannerCard");
+  const banner = document.getElementById("alertBanner");
+  if(!banner) return;
+  try{
+    const today = new Date();
+    const fmt = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+    const end = new Date(today.getTime() + 32*864e5);
+    const url = "https://www.hebcal.com/hebcal?cfg=json&v=1&maj=on&min=on&mod=on&nx=on&s=on&start="+fmt(today)+"&end="+fmt(end)+"&lg=he";
+    const r = await fetch(url);
+    if(!r.ok) throw new Error("fail");
+    const data = await r.json();
+    const items = data.items || [];
+    const todayMid = new Date(fmt(today));
+    const daysUntil = ds => Math.round((new Date(ds.slice(0,10)) - todayMid)/864e5);
+    const alerts = [];
+    // שבת הקרובה (פרשה)
+    const parsha = items.find(i=>i.category==="parashat");
+    if(parsha){
+      const d = daysUntil(parsha.date);
+      if(d>=0) alerts.push({icon:"🕯️", title:"שבת "+(parsha.hebrew||parsha.title), when:alertWhenText(d), days:d, date:parsha.date, cls:"al-shabbat"});
+    }
+    // ראש חודש
+    const seenRC = {};
+    items.filter(i=>i.category==="roshchodesh").forEach(i=>{
+      const d = daysUntil(i.date);
+      const key = (i.hebrew||i.title);
+      if(d>=0 && d<=8 && !seenRC[key]){ seenRC[key]=1; alerts.push({icon:"🌙", title:i.hebrew||i.title, when:alertWhenText(d), days:d, date:i.date, cls:"al-rc"}); }
+    });
+    // חגים
+    const seenH = {};
+    items.filter(i=>i.category==="holiday").forEach(i=>{
+      const d = daysUntil(i.date);
+      const key = (i.hebrew||i.title);
+      if(d>=0 && d<=8 && !seenH[key]){ seenH[key]=1; alerts.push({icon:"🎉", title:i.hebrew||i.title, when:alertWhenText(d), days:d, date:i.date, cls:"al-holiday"}); }
+    });
+    alerts.sort((a,b)=>a.days-b.days);
+    const show = alerts.slice(0,5);
+    if(!show.length){ card.style.display="none"; return; }
+    let h = '<div class="al-head">🔔 התראות קרובות</div>';
+    show.forEach(a=>{
+      h += `<div class="al-row ${a.cls}">
+        <span class="al-icon">${a.icon}</span>
+        <span class="al-title">${escapeHtml(a.title)}</span>
+        <span class="al-when">${a.when}</span>
+        <a class="al-cal" href="${gcalLink(a.title, a.date)}" target="_blank" rel="noopener" title="הוסף ליומן">📅</a>
+      </div>`;
+    });
+    banner.innerHTML = h;
+    card.style.display = "block";
+  }catch(e){ card.style.display="none"; }
+}
 /* ===== 🔓 בקשת אישור אתר ===== */
 const ACCESS_REQUEST_TEXT = "שלום, אבקש לאשר לגלישה את האתר sodhadaf.com לכלל המשתמשים. זהו אתר תורני ללימוד יומי: דף יומי, ליקוטי מוהר\"ן, בן איש חי, תהילים, סידור עדות-המזרח, שו\"ת הלכתי, זמני שבת ודפי תפילה לרפואה, להצלחה ולעילוי נשמה. כל התוכן קדוש ומבוסס על מקורות תורניים בלבד, ללא פרסומות או תוכן בעייתי, והאתר אף שומר שבת. תודה רבה!";
 async function copyAccessRequest(){
@@ -3947,6 +4032,7 @@ buildPrayers();
   trackVisit();                            // 🗺️ רישום ביקור
   loadVisitors();                          // 🗺️ מפת מבקרים
   loadNames();                             // 🌟🕯️ שמות הצלחה + עילוי נשמת
+  loadHebrewAlerts();                       // 🔔 התראות שבת/ראש חודש/חגים
   loadPrayersAudit();                      // canonical prayer sources
   loadZmanim();                            // sun & prayer times
   loadCompass();                           // direction to Jerusalem
