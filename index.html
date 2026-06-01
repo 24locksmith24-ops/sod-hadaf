@@ -324,13 +324,13 @@
   }
   /* טקסט זהב תלת-מימדי נוצץ */
   .gold-text, .gold-title, .gold-prayer-title, .gold-subtitle, .gold-segula, .gold-divider {
-    background:linear-gradient(180deg, #fff7cc 0%, #ffe066 18%, #f5c518 38%, #d4af37 50%, #f5c518 62%, #ffe066 82%, #fff7cc 100%);
-    background-size:100% 200%;
+    background:linear-gradient(to bottom, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    background-size:100% 220%;
     -webkit-background-clip:text;background-clip:text;
     -webkit-text-fill-color:transparent;color:transparent;
-    text-shadow:0 1px 1px rgba(120,80,0,.4);
+    text-shadow:0 1px 1px rgba(80,55,0,.3);
     filter:drop-shadow(0 2px 3px rgba(0,0,0,.5));
-    animation:goldShine 4s ease-in-out infinite;
+    animation:goldShine 5s ease-in-out infinite;
   }
   @keyframes goldShine{
     0%,100%{background-position:50% 0%}
@@ -367,7 +367,7 @@
   .m-verse{writing-mode:vertical-rl;text-orientation:upright;
     font-family:'Frank Ruhl Libre',serif;font-weight:600;font-size:.82rem;line-height:1.4;
     letter-spacing:.5px;height:300px;text-align:start;
-    background:linear-gradient(180deg,#fff7cc,#ffe066 20%,#d4af37 50%,#ffe066 80%,#fff7cc);
+    background:linear-gradient(to bottom, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
     filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
   .m-center .m-verse{font-size:.88rem;font-weight:700;height:340px}
@@ -3572,6 +3572,15 @@ async function askWorker(mode){
     document.getElementById("qaInput").value = "";
     QA_ARCHIVE.unshift({ ts:new Date().toISOString(), question:q, mode, lesson });
     renderQAList();
+    // שמירה קבועה לשרת — קריאה נפרדת ואמינה (לא תלויה ב-stream)
+    if(full && full.length > 10){
+      try{
+        fetch(QA_WORKER_URL + "/qa-save", {
+          method:"POST", headers:{"content-type":"application/json"},
+          body: JSON.stringify({ question:q, mode, full })
+        });
+      }catch(_){}
+    }
   }catch(e){
     hint.textContent = "⚠️ לא הצלחתי לקרוא את התשובה מה-Worker. נסה שוב.";
   }
