@@ -548,6 +548,15 @@
     box-shadow:0 4px 14px -4px rgba(196,125,31,.6);transition:.2s}
   .notif-btn:hover{transform:translateY(-2px)}
   .notif-btn:disabled{opacity:.6}
+  .notif-help-link{display:block;width:100%;margin-top:8px;background:none;border:none;
+    color:#8a6d3b;font-family:'Assistant',sans-serif;font-size:.92rem;font-weight:600;
+    cursor:pointer;text-decoration:underline;text-align:center}
+  .notif-help{margin-top:10px;padding:14px 16px;background:rgba(232,161,60,.08);
+    border:1px solid rgba(196,125,31,.25);border-radius:12px;text-align:right}
+  .notif-help-title{font-weight:700;color:#9a6a1e;margin:6px 0 4px;font-size:.98rem}
+  .notif-help-steps{margin:0 18px 8px 0;padding:0;line-height:1.9;font-size:.95rem;color:#5a4a30}
+  .notif-help-steps li{margin-bottom:2px}
+  .notif-help-note{margin-top:8px;font-size:.88rem;color:#8a6d3b;text-align:center;font-weight:600}
 
   /* === 🌍 מפת עולם אינטראקטיבית === */
   .worldmap-card{background:radial-gradient(ellipse at top,#0d1b33,#070d1a)!important;border:1px solid rgba(120,160,220,.25)!important}
@@ -1067,6 +1076,23 @@
     <div id="alertBanner"></div>
     <button class="notif-btn" id="notifBtn" onclick="enableNotifications()">🔔 הפעל התראות לטלפון</button>
     <div class="note" id="notifHint" style="text-align:center;margin-top:6px">קבל התראה לטלפון לפני שבת, ראש חודש וחגים — גם כשהאתר סגור</div>
+    <button class="notif-help-link" id="notifHelpLink" onclick="toggleNotifHelp()">❓ איך מפעילים התראות?</button>
+    <div class="notif-help" id="notifHelp" style="display:none">
+      <div class="notif-help-title">📱 באייפון (iPhone):</div>
+      <ol class="notif-help-steps">
+        <li>פתח את האתר ב‑<strong>Safari</strong></li>
+        <li>לחץ על כפתור <strong>שיתוף</strong> (□ עם חץ ↑)</li>
+        <li>בחר <strong>"הוסף למסך הבית"</strong> → הוסף</li>
+        <li>פתח את האתר <strong>מהאייקון החדש</strong> במסך הבית</li>
+        <li>לחץ <strong>🔔 הפעל התראות</strong> → אשר</li>
+      </ol>
+      <div class="notif-help-title">💻 במחשב / אנדרואיד:</div>
+      <ol class="notif-help-steps">
+        <li>לחץ <strong>🔔 הפעל התראות</strong></li>
+        <li>אשר את הבקשה שקופצת</li>
+      </ol>
+      <div class="notif-help-note">ההתראות שומרות שבת — לא יישלחו בשבת ובחג 🕯️</div>
+    </div>
   </section>
 
   <!-- Monthly calendar (Hebrew + Gregorian) -->
@@ -3146,8 +3172,21 @@ function urlB64ToUint8Array(b){
 async function enableNotifications(){
   const hint = document.getElementById("notifHint");
   const btn = document.getElementById("notifBtn");
+  // זיהוי אייפון שלא נפתח ממסך הבית — להראות הוראות מיד במקום להיכשל
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const isStandalone = window.navigator.standalone === true ||
+                       (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
+  if(isIOS && !isStandalone){
+    hint.innerHTML = "📱 באייפון צריך קודם להוסיף את האתר למסך הבית 👇";
+    const help = document.getElementById("notifHelp");
+    if(help) help.style.display = "block";
+    return;
+  }
   if(!("serviceWorker" in navigator) || !("PushManager" in window) || !("Notification" in window)){
     hint.innerHTML = "📱 ב-iPhone: לחץ על <strong>שתף → הוסף למסך הבית</strong>, פתח משם, ואז הפעל התראות.";
+    const help = document.getElementById("notifHelp");
+    if(help) help.style.display = "block";
     return;
   }
   btn.disabled = true; hint.textContent = "מבקש אישור…";
@@ -3177,8 +3216,18 @@ function initNotifButton(){
     if(("Notification" in window) && Notification.permission === "granted" && localStorage.getItem("sodhadaf-notif")==="1"){
       btn.style.display = "none";
       hint.innerHTML = "✅ ההתראות מופעלות 🔔";
+      const link = document.getElementById("notifHelpLink");
+      if(link) link.style.display = "none";
     }
   }catch(_){}
+}
+function toggleNotifHelp(){
+  const help = document.getElementById("notifHelp");
+  const link = document.getElementById("notifHelpLink");
+  if(!help) return;
+  const open = help.style.display !== "none";
+  help.style.display = open ? "none" : "block";
+  if(link) link.textContent = open ? "❓ איך מפעילים התראות?" : "✕ סגור הוראות";
 }
 /* === 🔓 בקשת אישור אתר === */
 const ACCESS_REQUEST_TEXT = "שלום, אבקש לאשר לגלישה את האתר sodhadaf.com לכלל המשתמשים. זהו אתר תורני ללימוד יומי: דף יומי, ליקוטי מוהר\"ן, בן איש חי, תהילים, סידור עדות-המזרח, שו\"ת הלכתי, זמני שבת ודפי תפילה לרפואה, להצלחה ולעילוי נשמה. כל התוכן קדוש ומבוסס על מקורות תורניים בלבד, ללא פרסומות או תוכן בעייתי, והאתר אף שומר שבת. תודה רבה!";
