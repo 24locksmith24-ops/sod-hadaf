@@ -5,16 +5,16 @@
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-09",
-    "count": 16,
+    "count": 17,
     "from": [
-      "חולין כ״ח",
-      "חולין ל״ט",
-      "חולין כ״ז",
-      "חולין ל״ה",
       "חולין ל״ד",
-      "חולין ל״ח",
+      "חולין כ״ח",
+      "חולין כ״ז",
+      "חולין מ׳",
+      "חולין ל״ט",
+      "חולין ל״ה",
       "חולין ל״ג",
-      "חולין ל״ב"
+      "חולין ל״ח"
     ]
   },
   {
@@ -23,16 +23,16 @@
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-09",
-    "count": 16,
+    "count": 17,
     "from": [
-      "חולין כ״ח",
-      "חולין ל״ט",
-      "חולין כ״ז",
-      "חולין ל״ה",
       "חולין ל״ד",
-      "חולין ל״ח",
+      "חולין כ״ח",
+      "חולין כ״ז",
+      "חולין מ׳",
+      "חולין ל״ט",
+      "חולין ל״ה",
       "חולין ל״ג",
-      "חולין ל״ב"
+      "חולין ל״ח"
     ]
   },
   {
@@ -54,6 +54,138 @@
     ]
   },
   {
+    "name": "אשרי — תהילה לדוד — תהילים קמ״ה",
+    "category": "תפילה (מקור)",
+    "ref": "Psalms 145",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-09",
+    "count": 15,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "ה' מלך (לכבוד שבת) — תהילים צ״ג",
+    "category": "תפילה (מקור)",
+    "ref": "Psalms 93",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-09",
+    "count": 15,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "הללויה הללו אל בקדשו — תהילים ק״נ",
+    "category": "תפילה (מקור)",
+    "ref": "Psalms 150",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-09",
+    "count": 15,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "וידוי / י\"ג מידות — שמות ל״ד:ו׳-ז׳",
+    "category": "תפילה (מקור)",
+    "ref": "Exodus 34:6-7",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-09",
+    "count": 15,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "מזמור שיר ליום השבת — תהילים צ״ב",
+    "category": "תפילה (מקור)",
+    "ref": "Psalms 92",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-09",
+    "count": 15,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "עשרת הדברות — שמות כ׳:א׳-י״ד",
+    "category": "תפילה (מקור)",
+    "ref": "Exodus 20:1-14",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-09",
+    "count": 15,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "פרשת העקדה — בראשית כ״ב:א׳-י״ט",
+    "category": "תפילה (מקור)",
+    "ref": "Genesis 22:1-19",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-09",
+    "count": 15,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "פרשת הקרבנות (פתיחה) — במדבר כ״ח:א׳-ח׳",
+    "category": "תפילה (מקור)",
+    "ref": "Numbers 28:1-8",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-09",
+    "count": 15,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "קריאת שמע (שלוש פרשיות) — במדבר ט״ו:ל״ז-מ״א",
+    "category": "תפילה (מקור)",
+    "ref": "Numbers 15:37-41",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-09",
+    "count": 15,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "קריאת שמע (שלוש פרשיות) — דברים ו׳:ד׳-ט׳",
+    "category": "תפילה (מקור)",
+    "ref": "Deuteronomy 6:4-9",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-09",
+    "count": 15,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "קריאת שמע (שלוש פרשיות) — דברים י״א:י״ג-כ״א",
+    "category": "תפילה (מקור)",
+    "ref": "Deuteronomy 11:13-21",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-09",
+    "count": 15,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "שיר המעלות (לפני ברכת המזון) — תהילים קכ״ו",
+    "category": "תפילה (מקור)",
+    "ref": "Psalms 126",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-09",
+    "count": 15,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
     "name": "תוספות",
     "category": "Commentary",
     "ref": "Tosafot on Chullin 27a:1:1",
@@ -69,138 +201,6 @@
       "חולין ל״ג",
       "חולין ל״ב",
       "Chullin 27"
-    ]
-  },
-  {
-    "name": "אשרי — תהילה לדוד — תהילים קמ״ה",
-    "category": "תפילה (מקור)",
-    "ref": "Psalms 145",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-09",
-    "count": 14,
-    "from": [
-      "תפילות"
-    ]
-  },
-  {
-    "name": "ה' מלך (לכבוד שבת) — תהילים צ״ג",
-    "category": "תפילה (מקור)",
-    "ref": "Psalms 93",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-09",
-    "count": 14,
-    "from": [
-      "תפילות"
-    ]
-  },
-  {
-    "name": "הללויה הללו אל בקדשו — תהילים ק״נ",
-    "category": "תפילה (מקור)",
-    "ref": "Psalms 150",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-09",
-    "count": 14,
-    "from": [
-      "תפילות"
-    ]
-  },
-  {
-    "name": "וידוי / י\"ג מידות — שמות ל״ד:ו׳-ז׳",
-    "category": "תפילה (מקור)",
-    "ref": "Exodus 34:6-7",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-09",
-    "count": 14,
-    "from": [
-      "תפילות"
-    ]
-  },
-  {
-    "name": "מזמור שיר ליום השבת — תהילים צ״ב",
-    "category": "תפילה (מקור)",
-    "ref": "Psalms 92",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-09",
-    "count": 14,
-    "from": [
-      "תפילות"
-    ]
-  },
-  {
-    "name": "עשרת הדברות — שמות כ׳:א׳-י״ד",
-    "category": "תפילה (מקור)",
-    "ref": "Exodus 20:1-14",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-09",
-    "count": 14,
-    "from": [
-      "תפילות"
-    ]
-  },
-  {
-    "name": "פרשת העקדה — בראשית כ״ב:א׳-י״ט",
-    "category": "תפילה (מקור)",
-    "ref": "Genesis 22:1-19",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-09",
-    "count": 14,
-    "from": [
-      "תפילות"
-    ]
-  },
-  {
-    "name": "פרשת הקרבנות (פתיחה) — במדבר כ״ח:א׳-ח׳",
-    "category": "תפילה (מקור)",
-    "ref": "Numbers 28:1-8",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-09",
-    "count": 14,
-    "from": [
-      "תפילות"
-    ]
-  },
-  {
-    "name": "קריאת שמע (שלוש פרשיות) — במדבר ט״ו:ל״ז-מ״א",
-    "category": "תפילה (מקור)",
-    "ref": "Numbers 15:37-41",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-09",
-    "count": 14,
-    "from": [
-      "תפילות"
-    ]
-  },
-  {
-    "name": "קריאת שמע (שלוש פרשיות) — דברים ו׳:ד׳-ט׳",
-    "category": "תפילה (מקור)",
-    "ref": "Deuteronomy 6:4-9",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-09",
-    "count": 14,
-    "from": [
-      "תפילות"
-    ]
-  },
-  {
-    "name": "קריאת שמע (שלוש פרשיות) — דברים י״א:י״ג-כ״א",
-    "category": "תפילה (מקור)",
-    "ref": "Deuteronomy 11:13-21",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-09",
-    "count": 14,
-    "from": [
-      "תפילות"
-    ]
-  },
-  {
-    "name": "שיר המעלות (לפני ברכת המזון) — תהילים קכ״ו",
-    "category": "תפילה (מקור)",
-    "ref": "Psalms 126",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-09",
-    "count": 14,
-    "from": [
-      "תפילות"
     ]
   },
   {
@@ -237,29 +237,16 @@
     ]
   },
   {
-    "name": "טור",
-    "category": "Halakhah",
-    "ref": "Tur, Yoreh De'ah 21",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-02",
-    "count": 8,
-    "from": [
-      "חולין כ״ח",
-      "חולין כ״ז",
-      "חולין ל״ב",
-      "Chullin 27"
-    ]
-  },
-  {
     "name": "משנה תורה, הלכות שחיטה",
     "category": "Halakhah",
     "ref": "Mishneh Torah, Ritual Slaughter 1:9",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-02",
-    "count": 8,
+    "last_seen": "2026-06-09",
+    "count": 9,
     "from": [
       "חולין כ״ח",
       "חולין כ״ז",
+      "חולין מ׳",
       "חולין ל״ב",
       "Chullin 27"
     ]
@@ -268,6 +255,21 @@
     "name": "ספר מצוות גדול",
     "category": "Halakhah",
     "ref": "Sefer Mitzvot Gadol, Positive Commandments 63",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-09",
+    "count": 9,
+    "from": [
+      "חולין כ״ח",
+      "חולין כ״ז",
+      "חולין מ׳",
+      "חולין ל״ב",
+      "Chullin 27"
+    ]
+  },
+  {
+    "name": "טור",
+    "category": "Halakhah",
+    "ref": "Tur, Yoreh De'ah 21",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-02",
     "count": 8,
@@ -289,6 +291,19 @@
       "חולין ל״ג",
       "חולין ל״ד",
       "חולין ל״ה"
+    ]
+  },
+  {
+    "name": "Numbers 13:1-15:41",
+    "category": "פרשת השבוע",
+    "ref": "Numbers 13:1-15:41",
+    "first_seen": "2026-06-07",
+    "last_seen": "2026-06-09",
+    "count": 4,
+    "from": [
+      "חולין ל״ח",
+      "חולין מ׳",
+      "חולין ל״ט"
     ]
   },
   {
@@ -325,6 +340,19 @@
     "from": [
       "Chullin 27",
       "חולין כ״ז"
+    ]
+  },
+  {
+    "name": "מאירי",
+    "category": "Commentary",
+    "ref": "Meiri on Chullin 38a:4",
+    "first_seen": "2026-06-07",
+    "last_seen": "2026-06-09",
+    "count": 4,
+    "from": [
+      "חולין ל״ח",
+      "חולין מ׳",
+      "חולין ל״ט"
     ]
   },
   {
@@ -389,18 +417,6 @@
     ]
   },
   {
-    "name": "Numbers 13:1-15:41",
-    "category": "פרשת השבוע",
-    "ref": "Numbers 13:1-15:41",
-    "first_seen": "2026-06-07",
-    "last_seen": "2026-06-09",
-    "count": 3,
-    "from": [
-      "חולין ל״ט",
-      "חולין ל״ח"
-    ]
-  },
-  {
     "name": "Numbers 4:21-7:89",
     "category": "פרשת השבוע",
     "ref": "Numbers 4:21-7:89",
@@ -444,18 +460,6 @@
     "count": 3,
     "from": [
       "חולין ל״ב"
-    ]
-  },
-  {
-    "name": "מאירי",
-    "category": "Commentary",
-    "ref": "Meiri on Chullin 38a:4",
-    "first_seen": "2026-06-07",
-    "last_seen": "2026-06-09",
-    "count": 3,
-    "from": [
-      "חולין ל״ט",
-      "חולין ל״ח"
     ]
   },
   {
@@ -592,6 +596,18 @@
     ]
   },
   {
+    "name": "משנה חולין",
+    "category": "Mishnah",
+    "ref": "Mishnah Chullin 2:6",
+    "first_seen": "2026-06-07",
+    "last_seen": "2026-06-09",
+    "count": 2,
+    "from": [
+      "חולין ל״ח",
+      "חולין מ׳"
+    ]
+  },
+  {
     "name": "משנה פרה",
     "category": "Mishnah",
     "ref": "Mishnah Parah 8:7",
@@ -715,14 +731,14 @@
     ]
   },
   {
-    "name": "משנה חולין",
-    "category": "Mishnah",
-    "ref": "Mishnah Chullin 2:6",
-    "first_seen": "2026-06-07",
-    "last_seen": "2026-06-07",
+    "name": "חולין מ׳",
+    "category": "דף יומי",
+    "ref": "Chullin 40",
+    "first_seen": "2026-06-09",
+    "last_seen": "2026-06-09",
     "count": 1,
     "from": [
-      "חולין ל״ח"
+      "חולין מ׳"
     ]
   },
   {
@@ -792,6 +808,39 @@
     ]
   },
   {
+    "name": "רא\"ש",
+    "category": "Commentary",
+    "ref": "Rosh on Chullin 2:13:1",
+    "first_seen": "2026-06-09",
+    "last_seen": "2026-06-09",
+    "count": 1,
+    "from": [
+      "חולין מ׳"
+    ]
+  },
+  {
+    "name": "רי\"ף",
+    "category": "Commentary",
+    "ref": "Rif Chullin 8b:1",
+    "first_seen": "2026-06-09",
+    "last_seen": "2026-06-09",
+    "count": 1,
+    "from": [
+      "חולין מ׳"
+    ]
+  },
+  {
+    "name": "רשימות שיעורים על בבא קמא",
+    "category": "Quoting Commentary",
+    "ref": "Reshimot Shiurim on Bava Kamma 71b:16",
+    "first_seen": "2026-06-09",
+    "last_seen": "2026-06-09",
+    "count": 1,
+    "from": [
+      "חולין מ׳"
+    ]
+  },
+  {
     "name": "שבת",
     "category": "Talmud",
     "ref": "Shabbat 14a:1",
@@ -803,6 +852,17 @@
     ]
   },
   {
+    "name": "שולחן ערוך, יורה דעה",
+    "category": "Halakhah",
+    "ref": "Shulchan Arukh, Yoreh De'ah 5:3",
+    "first_seen": "2026-06-09",
+    "last_seen": "2026-06-09",
+    "count": 1,
+    "from": [
+      "חולין מ׳"
+    ]
+  },
+  {
     "name": "תהילים ח׳",
     "category": "תוספת לימוד",
     "ref": "",
@@ -811,6 +871,28 @@
     "count": 1,
     "from": [
       "חולין ל״ט"
+    ]
+  },
+  {
+    "name": "תוספות על חולין",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot on Chullin 13b:9:1",
+    "first_seen": "2026-06-09",
+    "last_seen": "2026-06-09",
+    "count": 1,
+    "from": [
+      "חולין מ׳"
+    ]
+  },
+  {
+    "name": "תורת הבית הארוך",
+    "category": "Halakhah",
+    "ref": "Torat HaBayit HaAroch, The First House, The First Gate 2",
+    "first_seen": "2026-06-09",
+    "last_seen": "2026-06-09",
+    "count": 1,
+    "from": [
+      "חולין מ׳"
     ]
   }
 ]
