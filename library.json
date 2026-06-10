@@ -4,17 +4,17 @@
     "category": "Commentary",
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 19,
+    "last_seen": "2026-06-11",
+    "count": 20,
     "from": [
-      "חולין כ״ז",
-      "חולין ל״ה",
-      "חולין ל״ד",
       "חולין ל״ח",
+      "חולין ל״ד",
+      "חולין כ״ז",
       "חולין ל״ג",
-      "חולין מ״א",
       "חולין מ׳",
-      "חולין ל״ט"
+      "חולין ל״ט",
+      "חולין מ״א",
+      "חולין ל״ה"
     ]
   },
   {
@@ -22,17 +22,17 @@
     "category": "Commentary",
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 19,
+    "last_seen": "2026-06-11",
+    "count": 20,
     "from": [
-      "חולין כ״ז",
-      "חולין ל״ה",
-      "חולין ל״ד",
       "חולין ל״ח",
+      "חולין ל״ד",
+      "חולין כ״ז",
       "חולין ל״ג",
-      "חולין מ״א",
       "חולין מ׳",
-      "חולין ל״ט"
+      "חולין ל״ט",
+      "חולין מ״א",
+      "חולין ל״ה"
     ]
   },
   {
@@ -40,8 +40,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 17,
+    "last_seen": "2026-06-11",
+    "count": 18,
     "from": [
       "תפילות"
     ]
@@ -51,8 +51,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 17,
+    "last_seen": "2026-06-11",
+    "count": 18,
     "from": [
       "תפילות"
     ]
@@ -62,8 +62,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 17,
+    "last_seen": "2026-06-11",
+    "count": 18,
     "from": [
       "תפילות"
     ]
@@ -73,8 +73,8 @@
     "category": "תפילה (מקור)",
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 17,
+    "last_seen": "2026-06-11",
+    "count": 18,
     "from": [
       "תפילות"
     ]
@@ -84,8 +84,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 17,
+    "last_seen": "2026-06-11",
+    "count": 18,
     "from": [
       "תפילות"
     ]
@@ -95,8 +95,8 @@
     "category": "תפילה (מקור)",
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 17,
+    "last_seen": "2026-06-11",
+    "count": 18,
     "from": [
       "תפילות"
     ]
@@ -106,8 +106,8 @@
     "category": "תפילה (מקור)",
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 17,
+    "last_seen": "2026-06-11",
+    "count": 18,
     "from": [
       "תפילות"
     ]
@@ -117,8 +117,8 @@
     "category": "תפילה (מקור)",
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 17,
+    "last_seen": "2026-06-11",
+    "count": 18,
     "from": [
       "תפילות"
     ]
@@ -128,8 +128,8 @@
     "category": "תפילה (מקור)",
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 17,
+    "last_seen": "2026-06-11",
+    "count": 18,
     "from": [
       "תפילות"
     ]
@@ -139,8 +139,8 @@
     "category": "תפילה (מקור)",
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 17,
+    "last_seen": "2026-06-11",
+    "count": 18,
     "from": [
       "תפילות"
     ]
@@ -150,8 +150,8 @@
     "category": "תפילה (מקור)",
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 17,
+    "last_seen": "2026-06-11",
+    "count": 18,
     "from": [
       "תפילות"
     ]
@@ -161,10 +161,28 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 17,
+    "last_seen": "2026-06-11",
+    "count": 18,
     "from": [
       "תפילות"
+    ]
+  },
+  {
+    "name": "תוספות",
+    "category": "Commentary",
+    "ref": "Tosafot on Chullin 27a:1:1",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-11",
+    "count": 17,
+    "from": [
+      "חולין ל״ח",
+      "חולין ל״ד",
+      "Chullin 27",
+      "חולין כ״ז",
+      "חולין ל״ג",
+      "חולין מ״א",
+      "חולין ל״ה",
+      "חולין ל״ב"
     ]
   },
   {
@@ -186,38 +204,20 @@
     ]
   },
   {
-    "name": "תוספות",
-    "category": "Commentary",
-    "ref": "Tosafot on Chullin 27a:1:1",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 16,
-    "from": [
-      "חולין ל״ה",
-      "חולין כ״ז",
-      "Chullin 27",
-      "חולין ל״ד",
-      "חולין ל״ח",
-      "חולין ל״ג",
-      "חולין ל״ב",
-      "חולין מ״א"
-    ]
-  },
-  {
     "name": "רבינו גרשום",
     "category": "Commentary",
     "ref": "Rabbeinu Gershom on Chullin 28a:1",
     "first_seen": "2026-05-28",
-    "last_seen": "2026-06-10",
-    "count": 13,
+    "last_seen": "2026-06-11",
+    "count": 14,
     "from": [
-      "חולין ל״ה",
-      "חולין ל״ד",
       "חולין ל״ח",
-      "חולין ל״ג",
-      "חולין ל״ב",
-      "חולין מ״א",
+      "חולין ל״ד",
       "חולין ל״ט",
+      "חולין ל״ג",
+      "חולין מ״א",
+      "חולין ל״ה",
+      "חולין ל״ב",
       "חולין כ״ח"
     ]
   },
@@ -286,12 +286,12 @@
     "category": "פרשת השבוע",
     "ref": "Numbers 13:1-15:41",
     "first_seen": "2026-06-07",
-    "last_seen": "2026-06-10",
-    "count": 6,
+    "last_seen": "2026-06-11",
+    "count": 7,
     "from": [
+      "חולין ל״ח",
       "חולין מ״א",
       "חולין ל״ט",
-      "חולין ל״ח",
       "חולין מ׳"
     ]
   },
@@ -391,6 +391,18 @@
     "from": [
       "חולין ל״ד",
       "חולין ל״ג"
+    ]
+  },
+  {
+    "name": "רשימות שיעורים על בבא קמא",
+    "category": "Quoting Commentary",
+    "ref": "Reshimot Shiurim on Bava Kamma 71b:16",
+    "first_seen": "2026-06-09",
+    "last_seen": "2026-06-11",
+    "count": 4,
+    "from": [
+      "חולין מ״א",
+      "חולין מ׳"
     ]
   },
   {
@@ -511,15 +523,14 @@
     ]
   },
   {
-    "name": "רשימות שיעורים על בבא קמא",
+    "name": "אבן האזל על משנה תורה, הלכות פסולי המוקדשין",
     "category": "Quoting Commentary",
-    "ref": "Reshimot Shiurim on Bava Kamma 71b:16",
-    "first_seen": "2026-06-09",
-    "last_seen": "2026-06-10",
-    "count": 3,
+    "ref": "Even Ha'azel on Mishneh Torah, Sacrifices Rendered Unfit 6:4:1",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-11",
+    "count": 2,
     "from": [
-      "חולין מ״א",
-      "חולין מ׳"
+      "חולין מ״א"
     ]
   },
   {
@@ -611,6 +622,17 @@
     ]
   },
   {
+    "name": "חולין מ״א",
+    "category": "דף יומי",
+    "ref": "Chullin 41",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-11",
+    "count": 2,
+    "from": [
+      "חולין מ״א"
+    ]
+  },
+  {
     "name": "מגיד משנה על משנה תורה, הלכות זכייה ומתנה",
     "category": "Quoting Commentary",
     "ref": "Maggid Mishneh on Mishneh Torah, Ownerless Property and Gifts 4:3:1",
@@ -622,6 +644,17 @@
     ]
   },
   {
+    "name": "מגיד משנה על משנה תורה, הלכות חובל ומזיק",
+    "category": "Quoting Commentary",
+    "ref": "Maggid Mishneh on Mishneh Torah, One Who Injures a Person or Property 7:6:1",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-11",
+    "count": 2,
+    "from": [
+      "חולין מ״א"
+    ]
+  },
+  {
     "name": "מלאכת שלמה על משנה טהרות",
     "category": "Quoting Commentary",
     "ref": "Melekhet Shelomoh on Mishnah Tahorot 2:2:2",
@@ -630,6 +663,17 @@
     "count": 2,
     "from": [
       "חולין ל״ד"
+    ]
+  },
+  {
+    "name": "מעשה רקח על הלכות חובל ומזיק",
+    "category": "Quoting Commentary",
+    "ref": "Maaseh Rokeach on One Who Injures a Person or Property 7:2:1",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-11",
+    "count": 2,
+    "from": [
+      "חולין מ״א"
     ]
   },
   {
@@ -652,6 +696,28 @@
     "count": 2,
     "from": [
       "חולין ל״ג"
+    ]
+  },
+  {
+    "name": "צפנת פענח על משנה תורה, הלכות ערכים וחרמין",
+    "category": "Quoting Commentary",
+    "ref": "Tzafnat Pa'neach on Mishneh Torah, Appraisals and Devoted Property 6:8:1",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-11",
+    "count": 2,
+    "from": [
+      "חולין מ״א"
+    ]
+  },
+  {
+    "name": "ר\"ש משאנץ על משנה כלאים",
+    "category": "Quoting Commentary",
+    "ref": "Rash MiShantz on Mishnah Kilayim 7:4:2",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-11",
+    "count": 2,
+    "from": [
+      "חולין מ״א"
     ]
   },
   {
@@ -685,6 +751,17 @@
     "count": 2,
     "from": [
       "חולין ל״ד"
+    ]
+  },
+  {
+    "name": "שואל ומשיב מהדורא תליתאה",
+    "category": "Responsa",
+    "ref": "Shoel uMeshiv Mahadura III 2:142:3",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-11",
+    "count": 2,
+    "from": [
+      "חולין מ״א"
     ]
   },
   {
@@ -768,6 +845,17 @@
     ]
   },
   {
+    "name": "תוספות על עבודה זרה",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot on Avodah Zarah 54a:10:1",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-11",
+    "count": 2,
+    "from": [
+      "חולין מ״א"
+    ]
+  },
+  {
     "name": "תורת הבית הארוך",
     "category": "Halakhah",
     "ref": "Torat HaBayit HaAroch, The First House, The First Gate 2",
@@ -776,17 +864,6 @@
     "count": 2,
     "from": [
       "חולין מ׳"
-    ]
-  },
-  {
-    "name": "אבן האזל על משנה תורה, הלכות פסולי המוקדשין",
-    "category": "Quoting Commentary",
-    "ref": "Even Ha'azel on Mishneh Torah, Sacrifices Rendered Unfit 6:4:1",
-    "first_seen": "2026-06-10",
-    "last_seen": "2026-06-10",
-    "count": 1,
-    "from": [
-      "חולין מ״א"
     ]
   },
   {
@@ -831,39 +908,6 @@
     "count": 1,
     "from": [
       "חולין ל״ח"
-    ]
-  },
-  {
-    "name": "חולין מ״א",
-    "category": "דף יומי",
-    "ref": "Chullin 41",
-    "first_seen": "2026-06-10",
-    "last_seen": "2026-06-10",
-    "count": 1,
-    "from": [
-      "חולין מ״א"
-    ]
-  },
-  {
-    "name": "מגיד משנה על משנה תורה, הלכות חובל ומזיק",
-    "category": "Quoting Commentary",
-    "ref": "Maggid Mishneh on Mishneh Torah, One Who Injures a Person or Property 7:6:1",
-    "first_seen": "2026-06-10",
-    "last_seen": "2026-06-10",
-    "count": 1,
-    "from": [
-      "חולין מ״א"
-    ]
-  },
-  {
-    "name": "מעשה רקח על הלכות חובל ומזיק",
-    "category": "Quoting Commentary",
-    "ref": "Maaseh Rokeach on One Who Injures a Person or Property 7:2:1",
-    "first_seen": "2026-06-10",
-    "last_seen": "2026-06-10",
-    "count": 1,
-    "from": [
-      "חולין מ״א"
     ]
   },
   {
@@ -933,28 +977,6 @@
     ]
   },
   {
-    "name": "צפנת פענח על משנה תורה, הלכות ערכים וחרמין",
-    "category": "Quoting Commentary",
-    "ref": "Tzafnat Pa'neach on Mishneh Torah, Appraisals and Devoted Property 6:8:1",
-    "first_seen": "2026-06-10",
-    "last_seen": "2026-06-10",
-    "count": 1,
-    "from": [
-      "חולין מ״א"
-    ]
-  },
-  {
-    "name": "ר\"ש משאנץ על משנה כלאים",
-    "category": "Quoting Commentary",
-    "ref": "Rash MiShantz on Mishnah Kilayim 7:4:2",
-    "first_seen": "2026-06-10",
-    "last_seen": "2026-06-10",
-    "count": 1,
-    "from": [
-      "חולין מ״א"
-    ]
-  },
-  {
     "name": "שבת",
     "category": "Talmud",
     "ref": "Shabbat 14a:1",
@@ -963,17 +985,6 @@
     "count": 1,
     "from": [
       "חולין ל״ה"
-    ]
-  },
-  {
-    "name": "שואל ומשיב מהדורא תליתאה",
-    "category": "Responsa",
-    "ref": "Shoel uMeshiv Mahadura III 2:142:3",
-    "first_seen": "2026-06-10",
-    "last_seen": "2026-06-10",
-    "count": 1,
-    "from": [
-      "חולין מ״א"
     ]
   },
   {
@@ -988,11 +999,11 @@
     ]
   },
   {
-    "name": "תוספות על עבודה זרה",
-    "category": "Quoting Commentary",
-    "ref": "Tosafot on Avodah Zarah 54a:10:1",
-    "first_seen": "2026-06-10",
-    "last_seen": "2026-06-10",
+    "name": "תהילים י״א",
+    "category": "תוספת לימוד",
+    "ref": "",
+    "first_seen": "2026-06-11",
+    "last_seen": "2026-06-11",
     "count": 1,
     "from": [
       "חולין מ״א"
