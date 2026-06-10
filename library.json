@@ -5,15 +5,15 @@
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-10",
-    "count": 18,
+    "count": 19,
     "from": [
-      "חולין ל״ד",
-      "חולין מ׳",
-      "חולין כ״ח",
       "חולין כ״ז",
-      "חולין ל״ח",
       "חולין ל״ה",
+      "חולין ל״ד",
+      "חולין ל״ח",
       "חולין ל״ג",
+      "חולין מ״א",
+      "חולין מ׳",
       "חולין ל״ט"
     ]
   },
@@ -23,15 +23,15 @@
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-10",
-    "count": 18,
+    "count": 19,
     "from": [
-      "חולין ל״ד",
-      "חולין מ׳",
-      "חולין כ״ח",
       "חולין כ״ז",
-      "חולין ל״ח",
       "חולין ל״ה",
+      "חולין ל״ד",
+      "חולין ל״ח",
       "חולין ל״ג",
+      "חולין מ״א",
+      "חולין מ׳",
       "חולין ל״ט"
     ]
   },
@@ -41,7 +41,7 @@
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-10",
-    "count": 16,
+    "count": 17,
     "from": [
       "תפילות"
     ]
@@ -52,7 +52,7 @@
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-10",
-    "count": 16,
+    "count": 17,
     "from": [
       "תפילות"
     ]
@@ -63,7 +63,7 @@
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-10",
-    "count": 16,
+    "count": 17,
     "from": [
       "תפילות"
     ]
@@ -74,7 +74,7 @@
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-10",
-    "count": 16,
+    "count": 17,
     "from": [
       "תפילות"
     ]
@@ -85,7 +85,7 @@
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-10",
-    "count": 16,
+    "count": 17,
     "from": [
       "תפילות"
     ]
@@ -96,7 +96,7 @@
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-10",
-    "count": 16,
+    "count": 17,
     "from": [
       "תפילות"
     ]
@@ -107,7 +107,7 @@
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-10",
-    "count": 16,
+    "count": 17,
     "from": [
       "תפילות"
     ]
@@ -118,7 +118,7 @@
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-10",
-    "count": 16,
+    "count": 17,
     "from": [
       "תפילות"
     ]
@@ -129,7 +129,7 @@
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-10",
-    "count": 16,
+    "count": 17,
     "from": [
       "תפילות"
     ]
@@ -140,7 +140,7 @@
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-10",
-    "count": 16,
+    "count": 17,
     "from": [
       "תפילות"
     ]
@@ -151,7 +151,18 @@
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
     "last_seen": "2026-06-10",
-    "count": 16,
+    "count": 17,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "שיר המעלות (לפני ברכת המזון) — תהילים קכ״ו",
+    "category": "תפילה (מקור)",
+    "ref": "Psalms 126",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-06-10",
+    "count": 17,
     "from": [
       "תפילות"
     ]
@@ -175,32 +186,21 @@
     ]
   },
   {
-    "name": "שיר המעלות (לפני ברכת המזון) — תהילים קכ״ו",
-    "category": "תפילה (מקור)",
-    "ref": "Psalms 126",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-06-10",
-    "count": 16,
-    "from": [
-      "תפילות"
-    ]
-  },
-  {
     "name": "תוספות",
     "category": "Commentary",
     "ref": "Tosafot on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-06-09",
-    "count": 15,
+    "last_seen": "2026-06-10",
+    "count": 16,
     "from": [
-      "חולין ל״ט",
-      "חולין כ״ז",
       "חולין ל״ה",
+      "חולין כ״ז",
+      "Chullin 27",
       "חולין ל״ד",
       "חולין ל״ח",
       "חולין ל״ג",
       "חולין ל״ב",
-      "Chullin 27"
+      "חולין מ״א"
     ]
   },
   {
@@ -208,16 +208,17 @@
     "category": "Commentary",
     "ref": "Rabbeinu Gershom on Chullin 28a:1",
     "first_seen": "2026-05-28",
-    "last_seen": "2026-06-09",
-    "count": 12,
+    "last_seen": "2026-06-10",
+    "count": 13,
     "from": [
-      "חולין כ״ח",
-      "חולין ל״ט",
-      "חולין ל״ד",
       "חולין ל״ה",
+      "חולין ל״ד",
       "חולין ל״ח",
       "חולין ל״ג",
-      "חולין ל״ב"
+      "חולין ל״ב",
+      "חולין מ״א",
+      "חולין ל״ט",
+      "חולין כ״ח"
     ]
   },
   {
@@ -286,11 +287,12 @@
     "ref": "Numbers 13:1-15:41",
     "first_seen": "2026-06-07",
     "last_seen": "2026-06-10",
-    "count": 5,
+    "count": 6,
     "from": [
+      "חולין מ״א",
       "חולין ל״ט",
-      "חולין מ׳",
-      "חולין ל״ח"
+      "חולין ל״ח",
+      "חולין מ׳"
     ]
   },
   {
@@ -509,6 +511,18 @@
     ]
   },
   {
+    "name": "רשימות שיעורים על בבא קמא",
+    "category": "Quoting Commentary",
+    "ref": "Reshimot Shiurim on Bava Kamma 71b:16",
+    "first_seen": "2026-06-09",
+    "last_seen": "2026-06-10",
+    "count": 3,
+    "from": [
+      "חולין מ״א",
+      "חולין מ׳"
+    ]
+  },
+  {
     "name": "גליון הש\"ס",
     "category": "Commentary",
     "ref": "Gilyon HaShas on Chullin 33a:1",
@@ -674,17 +688,6 @@
     ]
   },
   {
-    "name": "רשימות שיעורים על בבא קמא",
-    "category": "Quoting Commentary",
-    "ref": "Reshimot Shiurim on Bava Kamma 71b:16",
-    "first_seen": "2026-06-09",
-    "last_seen": "2026-06-10",
-    "count": 2,
-    "from": [
-      "חולין מ׳"
-    ]
-  },
-  {
     "name": "שולחן ערוך, יורה דעה",
     "category": "Halakhah",
     "ref": "Shulchan Arukh, Yoreh De'ah 5:3",
@@ -742,6 +745,18 @@
     ]
   },
   {
+    "name": "תהילים י׳",
+    "category": "תוספת לימוד",
+    "ref": "",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-10",
+    "count": 2,
+    "from": [
+      "חולין מ״א",
+      "חולין מ׳"
+    ]
+  },
+  {
     "name": "תוספות על חולין",
     "category": "Quoting Commentary",
     "ref": "Tosafot on Chullin 13b:9:1",
@@ -761,6 +776,17 @@
     "count": 2,
     "from": [
       "חולין מ׳"
+    ]
+  },
+  {
+    "name": "אבן האזל על משנה תורה, הלכות פסולי המוקדשין",
+    "category": "Quoting Commentary",
+    "ref": "Even Ha'azel on Mishneh Torah, Sacrifices Rendered Unfit 6:4:1",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-10",
+    "count": 1,
+    "from": [
+      "חולין מ״א"
     ]
   },
   {
@@ -805,6 +831,39 @@
     "count": 1,
     "from": [
       "חולין ל״ח"
+    ]
+  },
+  {
+    "name": "חולין מ״א",
+    "category": "דף יומי",
+    "ref": "Chullin 41",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-10",
+    "count": 1,
+    "from": [
+      "חולין מ״א"
+    ]
+  },
+  {
+    "name": "מגיד משנה על משנה תורה, הלכות חובל ומזיק",
+    "category": "Quoting Commentary",
+    "ref": "Maggid Mishneh on Mishneh Torah, One Who Injures a Person or Property 7:6:1",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-10",
+    "count": 1,
+    "from": [
+      "חולין מ״א"
+    ]
+  },
+  {
+    "name": "מעשה רקח על הלכות חובל ומזיק",
+    "category": "Quoting Commentary",
+    "ref": "Maaseh Rokeach on One Who Injures a Person or Property 7:2:1",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-10",
+    "count": 1,
+    "from": [
+      "חולין מ״א"
     ]
   },
   {
@@ -874,6 +933,28 @@
     ]
   },
   {
+    "name": "צפנת פענח על משנה תורה, הלכות ערכים וחרמין",
+    "category": "Quoting Commentary",
+    "ref": "Tzafnat Pa'neach on Mishneh Torah, Appraisals and Devoted Property 6:8:1",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-10",
+    "count": 1,
+    "from": [
+      "חולין מ״א"
+    ]
+  },
+  {
+    "name": "ר\"ש משאנץ על משנה כלאים",
+    "category": "Quoting Commentary",
+    "ref": "Rash MiShantz on Mishnah Kilayim 7:4:2",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-10",
+    "count": 1,
+    "from": [
+      "חולין מ״א"
+    ]
+  },
+  {
     "name": "שבת",
     "category": "Talmud",
     "ref": "Shabbat 14a:1",
@@ -882,6 +963,17 @@
     "count": 1,
     "from": [
       "חולין ל״ה"
+    ]
+  },
+  {
+    "name": "שואל ומשיב מהדורא תליתאה",
+    "category": "Responsa",
+    "ref": "Shoel uMeshiv Mahadura III 2:142:3",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-06-10",
+    "count": 1,
+    "from": [
+      "חולין מ״א"
     ]
   },
   {
@@ -896,14 +988,14 @@
     ]
   },
   {
-    "name": "תהילים י׳",
-    "category": "תוספת לימוד",
-    "ref": "",
+    "name": "תוספות על עבודה זרה",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot on Avodah Zarah 54a:10:1",
     "first_seen": "2026-06-10",
     "last_seen": "2026-06-10",
     "count": 1,
     "from": [
-      "חולין מ׳"
+      "חולין מ״א"
     ]
   }
 ]
