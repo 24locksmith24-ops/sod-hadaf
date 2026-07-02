@@ -5,16 +5,16 @@
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 45,
+    "count": 46,
     "from": [
-      "חולין ס״א",
-      "חולין נ״ו",
       "חולין ס׳",
-      "חולין ס״ג",
+      "חולין נ״ה",
       "חולין ל״ט",
+      "חולין ס״א",
       "חולין ל״ד",
       "חולין מ״ז",
-      "חולין נ״ה"
+      "חולין נ״ו",
+      "חולין ס״ג"
     ]
   },
   {
@@ -23,16 +23,16 @@
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 45,
+    "count": 46,
     "from": [
-      "חולין ס״א",
-      "חולין נ״ו",
       "חולין ס׳",
-      "חולין ס״ג",
+      "חולין נ״ה",
       "חולין ל״ט",
+      "חולין ס״א",
       "חולין ל״ד",
       "חולין מ״ז",
-      "חולין נ״ה"
+      "חולין נ״ו",
+      "חולין ס״ג"
     ]
   },
   {
@@ -41,7 +41,7 @@
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 43,
+    "count": 44,
     "from": [
       "תפילות"
     ]
@@ -52,7 +52,7 @@
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 43,
+    "count": 44,
     "from": [
       "תפילות"
     ]
@@ -63,7 +63,7 @@
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 43,
+    "count": 44,
     "from": [
       "תפילות"
     ]
@@ -74,7 +74,7 @@
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 43,
+    "count": 44,
     "from": [
       "תפילות"
     ]
@@ -85,7 +85,7 @@
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 43,
+    "count": 44,
     "from": [
       "תפילות"
     ]
@@ -96,7 +96,7 @@
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 43,
+    "count": 44,
     "from": [
       "תפילות"
     ]
@@ -107,7 +107,7 @@
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 43,
+    "count": 44,
     "from": [
       "תפילות"
     ]
@@ -118,7 +118,7 @@
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 43,
+    "count": 44,
     "from": [
       "תפילות"
     ]
@@ -129,7 +129,7 @@
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 43,
+    "count": 44,
     "from": [
       "תפילות"
     ]
@@ -140,7 +140,7 @@
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 43,
+    "count": 44,
     "from": [
       "תפילות"
     ]
@@ -151,7 +151,7 @@
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 43,
+    "count": 44,
     "from": [
       "תפילות"
     ]
@@ -162,7 +162,7 @@
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-02",
-    "count": 43,
+    "count": 44,
     "from": [
       "תפילות"
     ]
@@ -299,16 +299,16 @@
     "ref": "Haggahot Ya'avetz on Chullin 28a:2",
     "first_seen": "2026-05-28",
     "last_seen": "2026-07-02",
-    "count": 15,
+    "count": 16,
     "from": [
-      "חולין ל״ב",
-      "חולין ס״א",
-      "חולין ל״ה",
-      "חולין מ״ח",
-      "חולין כ״ח",
-      "חולין ס״ג",
       "חולין ל״ט",
-      "חולין ל״ח"
+      "חולין ל״ה",
+      "חולין כ״ח",
+      "חולין ס״א",
+      "חולין ל״ח",
+      "חולין ס״ג",
+      "חולין מ״ח",
+      "חולין ל״ב"
     ]
   },
   {
@@ -590,6 +590,19 @@
     ]
   },
   {
+    "name": "ספר הערוך",
+    "category": "Reference",
+    "ref": "Sefer HeArukh, Letter Yod 61",
+    "first_seen": "2026-05-28",
+    "last_seen": "2026-07-02",
+    "count": 4,
+    "from": [
+      "חולין מ״ט",
+      "חולין ס״ג",
+      "חולין כ״ח"
+    ]
+  },
+  {
     "name": "פסחים",
     "category": "Talmud",
     "ref": "Pesachim 20a:3",
@@ -623,6 +636,19 @@
     "from": [
       "חולין מ״א",
       "חולין מ׳"
+    ]
+  },
+  {
+    "name": "תהילים ב׳",
+    "category": "תוספת לימוד",
+    "ref": "",
+    "first_seen": "2026-06-02",
+    "last_seen": "2026-07-02",
+    "count": 4,
+    "from": [
+      "חולין ל״ג",
+      "חולין ס״ג",
+      "חולין ל״ב"
     ]
   },
   {
@@ -720,19 +746,6 @@
     ]
   },
   {
-    "name": "ספר הערוך",
-    "category": "Reference",
-    "ref": "Sefer HeArukh, Letter Yod 61",
-    "first_seen": "2026-05-28",
-    "last_seen": "2026-07-02",
-    "count": 3,
-    "from": [
-      "חולין מ״ט",
-      "חולין כ״ח",
-      "חולין ס״ג"
-    ]
-  },
-  {
     "name": "פלתי על שולחן ערוך יורה דעה",
     "category": "Quoting Commentary",
     "ref": "Peleti on Shulchan Arukh, Yoreh De'ah 3:1",
@@ -744,15 +757,14 @@
     ]
   },
   {
-    "name": "תהילים ב׳",
-    "category": "תוספת לימוד",
-    "ref": "",
-    "first_seen": "2026-06-02",
+    "name": "תורה תמימה על התורה",
+    "category": "Quoting Commentary",
+    "ref": "Torah Temimah on Torah, Leviticus 11:2:1",
+    "first_seen": "2026-06-11",
     "last_seen": "2026-07-02",
     "count": 3,
     "from": [
-      "חולין ל״ב",
-      "חולין ל״ג",
+      "חולין מ״ב",
       "חולין ס״ג"
     ]
   },
@@ -768,6 +780,17 @@
     ]
   },
   {
+    "name": "אוצר מדרשים",
+    "category": "Midrash",
+    "ref": "Otzar Midrashim, Perek Shirah ('Chapter of Song') 1:61",
+    "first_seen": "2026-07-02",
+    "last_seen": "2026-07-02",
+    "count": 2,
+    "from": [
+      "חולין ס״ג"
+    ]
+  },
+  {
     "name": "אור החיים על בראשית",
     "category": "Quoting Commentary",
     "ref": "Or HaChaim on Genesis 1:11:1",
@@ -776,6 +799,17 @@
     "count": 2,
     "from": [
       "חולין ס׳"
+    ]
+  },
+  {
+    "name": "אם הבנים שמחה",
+    "category": "Jewish Thought",
+    "ref": "Em HaBanim Semecha, Second Chapter 12:1",
+    "first_seen": "2026-07-02",
+    "last_seen": "2026-07-02",
+    "count": 2,
+    "from": [
+      "חולין ס״ג"
     ]
   },
   {
@@ -823,6 +857,17 @@
     ]
   },
   {
+    "name": "הכתב והקבלה",
+    "category": "Quoting Commentary",
+    "ref": "HaKtav VeHaKabalah, Leviticus 11:18:1",
+    "first_seen": "2026-07-02",
+    "last_seen": "2026-07-02",
+    "count": 2,
+    "from": [
+      "חולין ס״ג"
+    ]
+  },
+  {
     "name": "הלכות גדולות",
     "category": "Halakhah",
     "ref": "Halakhot Gedolot 61:5",
@@ -831,6 +876,17 @@
     "count": 2,
     "from": [
       "חולין נ״ג"
+    ]
+  },
+  {
+    "name": "זכריה",
+    "category": "Tanakh",
+    "ref": "Zechariah 10:8",
+    "first_seen": "2026-07-02",
+    "last_seen": "2026-07-02",
+    "count": 2,
+    "from": [
+      "חולין ס״ג"
     ]
   },
   {
@@ -1032,6 +1088,17 @@
     ]
   },
   {
+    "name": "חולין ס״ג",
+    "category": "דף יומי",
+    "ref": "Chullin 63",
+    "first_seen": "2026-07-02",
+    "last_seen": "2026-07-02",
+    "count": 2,
+    "from": [
+      "חולין ס״ג"
+    ]
+  },
+  {
     "name": "ים של שלמה על חולין",
     "category": "Commentary",
     "ref": "Yam shel Shelomoh on Chullin 3:19:1",
@@ -1142,6 +1209,17 @@
     ]
   },
   {
+    "name": "סדורו של שבת",
+    "category": "Chasidut",
+    "ref": "Sidduro Shel Shabbat, Volume I, Shoresh VI 3:11",
+    "first_seen": "2026-07-02",
+    "last_seen": "2026-07-02",
+    "count": 2,
+    "from": [
+      "חולין ס״ג"
+    ]
+  },
+  {
     "name": "סדר הדורות",
     "category": "Reference",
     "ref": "Seder HaDorot, Tanaim and Amoraim 1137:1",
@@ -1209,6 +1287,17 @@
     ]
   },
   {
+    "name": "פירושים והערות מהרב יהושע הרטמן על באר הגולה",
+    "category": "Quoting Commentary",
+    "ref": "Notes by Rabbi Yehoshua Hartman on Be'er HaGolah, Well 4 11:75",
+    "first_seen": "2026-07-02",
+    "last_seen": "2026-07-02",
+    "count": 2,
+    "from": [
+      "חולין ס״ג"
+    ]
+  },
+  {
     "name": "פרי מגדים על יורה דעה",
     "category": "Quoting Commentary",
     "ref": "Peri Megadim on Yoreh De'ah, Mishbezot Zahav 41:1:1",
@@ -1217,6 +1306,17 @@
     "count": 2,
     "from": [
       "חולין מ״ו"
+    ]
+  },
+  {
+    "name": "פתח עינים",
+    "category": "Commentary",
+    "ref": "Petach Einayim on Chullin 63a:1",
+    "first_seen": "2026-07-02",
+    "last_seen": "2026-07-02",
+    "count": 2,
+    "from": [
+      "חולין ס״ג"
     ]
   },
   {
@@ -1500,18 +1600,6 @@
     ]
   },
   {
-    "name": "תורה תמימה על התורה",
-    "category": "Quoting Commentary",
-    "ref": "Torah Temimah on Torah, Leviticus 11:2:1",
-    "first_seen": "2026-06-11",
-    "last_seen": "2026-07-02",
-    "count": 2,
-    "from": [
-      "חולין מ״ב",
-      "חולין ס״ג"
-    ]
-  },
-  {
     "name": "תורת הבית הארוך",
     "category": "Halakhah",
     "ref": "Torat HaBayit HaAroch, The First House, The First Gate 2",
@@ -1545,39 +1633,6 @@
     ]
   },
   {
-    "name": "אוצר מדרשים",
-    "category": "Midrash",
-    "ref": "Otzar Midrashim, Perek Shirah ('Chapter of Song') 1:61",
-    "first_seen": "2026-07-02",
-    "last_seen": "2026-07-02",
-    "count": 1,
-    "from": [
-      "חולין ס״ג"
-    ]
-  },
-  {
-    "name": "אם הבנים שמחה",
-    "category": "Jewish Thought",
-    "ref": "Em HaBanim Semecha, Second Chapter 12:1",
-    "first_seen": "2026-07-02",
-    "last_seen": "2026-07-02",
-    "count": 1,
-    "from": [
-      "חולין ס״ג"
-    ]
-  },
-  {
-    "name": "הכתב והקבלה",
-    "category": "Quoting Commentary",
-    "ref": "HaKtav VeHaKabalah, Leviticus 11:18:1",
-    "first_seen": "2026-07-02",
-    "last_seen": "2026-07-02",
-    "count": 1,
-    "from": [
-      "חולין ס״ג"
-    ]
-  },
-  {
     "name": "ויקרא",
     "category": "Tanakh",
     "ref": "Leviticus 11:47",
@@ -1586,17 +1641,6 @@
     "count": 1,
     "from": [
       "חולין מ״ב"
-    ]
-  },
-  {
-    "name": "זכריה",
-    "category": "Tanakh",
-    "ref": "Zechariah 10:8",
-    "first_seen": "2026-07-02",
-    "last_seen": "2026-07-02",
-    "count": 1,
-    "from": [
-      "חולין ס״ג"
     ]
   },
   {
@@ -1655,17 +1699,6 @@
     ]
   },
   {
-    "name": "חולין ס״ג",
-    "category": "דף יומי",
-    "ref": "Chullin 63",
-    "first_seen": "2026-07-02",
-    "last_seen": "2026-07-02",
-    "count": 1,
-    "from": [
-      "חולין ס״ג"
-    ]
-  },
-  {
     "name": "כתובות",
     "category": "Talmud",
     "ref": "Ketubot 76b:5",
@@ -1699,17 +1732,6 @@
     ]
   },
   {
-    "name": "סדורו של שבת",
-    "category": "Chasidut",
-    "ref": "Sidduro Shel Shabbat, Volume I, Shoresh VI 3:11",
-    "first_seen": "2026-07-02",
-    "last_seen": "2026-07-02",
-    "count": 1,
-    "from": [
-      "חולין ס״ג"
-    ]
-  },
-  {
     "name": "סוטה",
     "category": "Talmud",
     "ref": "Sotah 30a:6-7",
@@ -1721,17 +1743,6 @@
     ]
   },
   {
-    "name": "פירושים והערות מהרב יהושע הרטמן על באר הגולה",
-    "category": "Quoting Commentary",
-    "ref": "Notes by Rabbi Yehoshua Hartman on Be'er HaGolah, Well 4 11:75",
-    "first_seen": "2026-07-02",
-    "last_seen": "2026-07-02",
-    "count": 1,
-    "from": [
-      "חולין ס״ג"
-    ]
-  },
-  {
     "name": "פניני הלכה, כשרות",
     "category": "Halakhah",
     "ref": "Peninei Halakhah, Kashrut 20:1:4",
@@ -1740,17 +1751,6 @@
     "count": 1,
     "from": [
       "חולין מ״ב"
-    ]
-  },
-  {
-    "name": "פתח עינים",
-    "category": "Commentary",
-    "ref": "Petach Einayim on Chullin 63a:1",
-    "first_seen": "2026-07-02",
-    "last_seen": "2026-07-02",
-    "count": 1,
-    "from": [
-      "חולין ס״ג"
     ]
   },
   {
