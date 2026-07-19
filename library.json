@@ -5,16 +5,16 @@
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 65,
+    "count": 66,
     "from": [
-      "חולין ע״ז",
-      "חולין ע״ד",
       "חולין מ״ז",
+      "חולין פ׳",
+      "חולין ל״ד",
+      "חולין ע״ג",
       "חולין ע״ו",
       "חולין ע׳",
-      "חולין ס״ט",
-      "חולין ע״ג",
-      "חולין ל״ד"
+      "חולין ע״ז",
+      "חולין ס״ט"
     ]
   },
   {
@@ -23,16 +23,16 @@
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 65,
+    "count": 66,
     "from": [
-      "חולין ע״ז",
-      "חולין ע״ד",
       "חולין מ״ז",
+      "חולין פ׳",
+      "חולין ל״ד",
+      "חולין ע״ג",
       "חולין ע״ו",
       "חולין ע׳",
-      "חולין ס״ט",
-      "חולין ע״ג",
-      "חולין ל״ד"
+      "חולין ע״ז",
+      "חולין ס״ט"
     ]
   },
   {
@@ -41,7 +41,7 @@
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 63,
+    "count": 64,
     "from": [
       "תפילות"
     ]
@@ -52,7 +52,7 @@
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 63,
+    "count": 64,
     "from": [
       "תפילות"
     ]
@@ -63,7 +63,7 @@
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 63,
+    "count": 64,
     "from": [
       "תפילות"
     ]
@@ -74,7 +74,7 @@
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 63,
+    "count": 64,
     "from": [
       "תפילות"
     ]
@@ -85,7 +85,7 @@
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 63,
+    "count": 64,
     "from": [
       "תפילות"
     ]
@@ -96,7 +96,7 @@
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 63,
+    "count": 64,
     "from": [
       "תפילות"
     ]
@@ -107,7 +107,7 @@
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 63,
+    "count": 64,
     "from": [
       "תפילות"
     ]
@@ -118,7 +118,7 @@
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 63,
+    "count": 64,
     "from": [
       "תפילות"
     ]
@@ -129,7 +129,7 @@
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 63,
+    "count": 64,
     "from": [
       "תפילות"
     ]
@@ -140,7 +140,7 @@
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 63,
+    "count": 64,
     "from": [
       "תפילות"
     ]
@@ -151,7 +151,7 @@
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 63,
+    "count": 64,
     "from": [
       "תפילות"
     ]
@@ -162,7 +162,7 @@
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 63,
+    "count": 64,
     "from": [
       "תפילות"
     ]
@@ -173,16 +173,16 @@
     "ref": "Tosafot on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-19",
-    "count": 44,
+    "count": 45,
     "from": [
-      "חולין ע״ד",
-      "חולין ל״ב",
       "חולין מ״ז",
-      "חולין ע׳",
-      "חולין ס״ט",
-      "חולין ס״ח",
+      "חולין פ׳",
       "חולין נ״ו",
-      "חולין ס״א"
+      "חולין ע׳",
+      "חולין ס״ח",
+      "חולין ס״ט",
+      "חולין ס״א",
+      "חולין ל״ב"
     ]
   },
   {
@@ -276,6 +276,24 @@
     ]
   },
   {
+    "name": "רש״ש",
+    "category": "Commentary",
+    "ref": "Rashash on Chullin 28a:1",
+    "first_seen": "2026-05-28",
+    "last_seen": "2026-07-19",
+    "count": 23,
+    "from": [
+      "חולין נ״ה",
+      "חולין ל״ה",
+      "חולין פ׳",
+      "חולין ל״ט",
+      "חולין נ״ט",
+      "חולין נ״ו",
+      "חולין ס״א",
+      "חולין ס״ו"
+    ]
+  },
+  {
     "name": "שולחן ערוך, יורה דעה",
     "category": "Halakhah",
     "ref": "Shulchan Arukh, Yoreh De'ah 5:3",
@@ -294,39 +312,21 @@
     ]
   },
   {
-    "name": "רש״ש",
-    "category": "Commentary",
-    "ref": "Rashash on Chullin 28a:1",
-    "first_seen": "2026-05-28",
-    "last_seen": "2026-07-19",
-    "count": 22,
-    "from": [
-      "חולין נ״ט",
-      "חולין ל״ה",
-      "חולין נ״ה",
-      "חולין ל״ט",
-      "חולין נ״ו",
-      "חולין ס״ו",
-      "חולין כ״ח",
-      "חולין ס״א"
-    ]
-  },
-  {
     "name": "הגהות יעב\"ץ",
     "category": "Commentary",
     "ref": "Haggahot Ya'avetz on Chullin 28a:2",
     "first_seen": "2026-05-28",
     "last_seen": "2026-07-19",
-    "count": 19,
+    "count": 20,
     "from": [
+      "חולין ל״ה",
+      "חולין פ׳",
+      "חולין ל״ט",
+      "חולין ס״ט",
       "חולין מ״ח",
       "חולין ל״ב",
-      "חולין ל״ה",
-      "חולין ל״ח",
-      "חולין ס״ט",
-      "חולין ל״ט",
-      "חולין כ״ח",
-      "חולין ס״א"
+      "חולין ס״א",
+      "חולין ל״ח"
     ]
   },
   {
@@ -347,6 +347,23 @@
     ]
   },
   {
+    "name": "מהר\"ם",
+    "category": "Commentary",
+    "ref": "Maharam on Chullin 33a:9",
+    "first_seen": "2026-06-02",
+    "last_seen": "2026-07-19",
+    "count": 14,
+    "from": [
+      "חולין נ״ה",
+      "חולין ל״ג",
+      "חולין פ׳",
+      "חולין נ״ג",
+      "חולין ל״ט",
+      "חולין ע׳",
+      "חולין ע״ד"
+    ]
+  },
+  {
     "name": "רא\"ש",
     "category": "Commentary",
     "ref": "Rosh on Chullin 2:13:1",
@@ -364,37 +381,20 @@
     ]
   },
   {
-    "name": "מהר\"ם",
-    "category": "Commentary",
-    "ref": "Maharam on Chullin 33a:9",
-    "first_seen": "2026-06-02",
-    "last_seen": "2026-07-19",
-    "count": 13,
-    "from": [
-      "חולין ע״ד",
-      "חולין ע׳",
-      "חולין נ״ג",
-      "חולין נ״ה",
-      "חולין ל״ט",
-      "חולין ל״ג",
-      "חולין פ׳"
-    ]
-  },
-  {
     "name": "רשב״א על חולין",
     "category": "Quoting Commentary",
     "ref": "Rashba on Chullin 104b:1",
     "first_seen": "2026-06-03",
     "last_seen": "2026-07-19",
-    "count": 13,
+    "count": 14,
     "from": [
-      "חולין ע״ד",
-      "חולין ע״ו",
+      "חולין פ׳",
       "חולין נ״ג",
-      "חולין ע״ה",
-      "חולין ס״ט",
       "חולין ל״ד",
-      "חולין פ׳"
+      "חולין ע״ו",
+      "חולין ס״ט",
+      "חולין ע״ה",
+      "חולין ע״ד"
     ]
   },
   {
@@ -793,6 +793,19 @@
     ]
   },
   {
+    "name": "שבת",
+    "category": "Talmud",
+    "ref": "Shabbat 14a:1",
+    "first_seen": "2026-06-04",
+    "last_seen": "2026-07-19",
+    "count": 4,
+    "from": [
+      "חולין פ׳",
+      "חולין מ״ט",
+      "חולין ל״ה"
+    ]
+  },
+  {
     "name": "שמות",
     "category": "Tanakh",
     "ref": "Exodus 13:2",
@@ -960,19 +973,6 @@
     ]
   },
   {
-    "name": "שבת",
-    "category": "Talmud",
-    "ref": "Shabbat 14a:1",
-    "first_seen": "2026-06-04",
-    "last_seen": "2026-07-19",
-    "count": 3,
-    "from": [
-      "חולין ל״ה",
-      "חולין מ״ט",
-      "חולין פ׳"
-    ]
-  },
-  {
     "name": "תהילים ח׳",
     "category": "תוספת לימוד",
     "ref": "",
@@ -1006,6 +1006,17 @@
     "from": [
       "חולין מ״ב",
       "חולין ס״ג"
+    ]
+  },
+  {
+    "name": "Deuteronomy 3:23-7:11",
+    "category": "פרשת השבוע",
+    "ref": "Deuteronomy 3:23-7:11",
+    "first_seen": "2026-07-19",
+    "last_seen": "2026-07-19",
+    "count": 2,
+    "from": [
+      "חולין פ׳"
     ]
   },
   {
@@ -1105,6 +1116,17 @@
     "count": 2,
     "from": [
       "חולין ע״ז"
+    ]
+  },
+  {
+    "name": "הון עשיר על משנה ביכורים",
+    "category": "Quoting Commentary",
+    "ref": "Hon Ashir on Mishnah Bikkurim 2:10:3",
+    "first_seen": "2026-07-19",
+    "last_seen": "2026-07-19",
+    "count": 2,
+    "from": [
+      "חולין פ׳"
     ]
   },
   {
@@ -1482,6 +1504,17 @@
     ]
   },
   {
+    "name": "חולין פ׳",
+    "category": "דף יומי",
+    "ref": "Chullin 80",
+    "first_seen": "2026-07-19",
+    "last_seen": "2026-07-19",
+    "count": 2,
+    "from": [
+      "חולין פ׳"
+    ]
+  },
+  {
     "name": "טורי זהב על שולחן ערוך יורה דעה",
     "category": "Quoting Commentary",
     "ref": "Turei Zahav on Shulchan Arukh, Yoreh De'ah 55:6",
@@ -1725,6 +1758,17 @@
     ]
   },
   {
+    "name": "פירוש שלמה סיריליו על תלמוד ירושלמי בכורים",
+    "category": "Quoting Commentary",
+    "ref": "Sirilio on Jerusalem Talmud Bikkurim 2:6:1:7",
+    "first_seen": "2026-07-19",
+    "last_seen": "2026-07-19",
+    "count": 2,
+    "from": [
+      "חולין פ׳"
+    ]
+  },
+  {
     "name": "פירושים והערות מהרב יהושע הרטמן על באר הגולה",
     "category": "Quoting Commentary",
     "ref": "Notes by Rabbi Yehoshua Hartman on Be'er HaGolah, Well 4 11:75",
@@ -1868,6 +1912,17 @@
     ]
   },
   {
+    "name": "רש\"י על נזיר",
+    "category": "Quoting Commentary",
+    "ref": "Rashi on Nazir 34a:8:2",
+    "first_seen": "2026-07-19",
+    "last_seen": "2026-07-19",
+    "count": 2,
+    "from": [
+      "חולין פ׳"
+    ]
+  },
+  {
     "name": "רש\"י על עבודה זרה",
     "category": "Quoting Commentary",
     "ref": "Rashi on Avodah Zarah 37a:14:1",
@@ -1876,6 +1931,17 @@
     "count": 2,
     "from": [
       "חולין ס״ו"
+    ]
+  },
+  {
+    "name": "שאלות ותשובות רמ\"א",
+    "category": "Responsa",
+    "ref": "Responsa of Rema 117:1",
+    "first_seen": "2026-07-19",
+    "last_seen": "2026-07-19",
+    "count": 2,
+    "from": [
+      "חולין פ׳"
     ]
   },
   {
@@ -2000,6 +2066,17 @@
     "count": 2,
     "from": [
       "חולין ע״ג"
+    ]
+  },
+  {
+    "name": "תהילים י״ט",
+    "category": "תוספת לימוד",
+    "ref": "",
+    "first_seen": "2026-07-19",
+    "last_seen": "2026-07-19",
+    "count": 2,
+    "from": [
+      "חולין פ׳"
     ]
   },
   {
@@ -2135,28 +2212,6 @@
     ]
   },
   {
-    "name": "Deuteronomy 3:23-7:11",
-    "category": "פרשת השבוע",
-    "ref": "Deuteronomy 3:23-7:11",
-    "first_seen": "2026-07-19",
-    "last_seen": "2026-07-19",
-    "count": 1,
-    "from": [
-      "חולין פ׳"
-    ]
-  },
-  {
-    "name": "הון עשיר על משנה ביכורים",
-    "category": "Quoting Commentary",
-    "ref": "Hon Ashir on Mishnah Bikkurim 2:10:3",
-    "first_seen": "2026-07-19",
-    "last_seen": "2026-07-19",
-    "count": 1,
-    "from": [
-      "חולין פ׳"
-    ]
-  },
-  {
     "name": "ויקרא",
     "category": "Tanakh",
     "ref": "Leviticus 11:47",
@@ -2223,17 +2278,6 @@
     ]
   },
   {
-    "name": "חולין פ׳",
-    "category": "דף יומי",
-    "ref": "Chullin 80",
-    "first_seen": "2026-07-19",
-    "last_seen": "2026-07-19",
-    "count": 1,
-    "from": [
-      "חולין פ׳"
-    ]
-  },
-  {
     "name": "כתובות",
     "category": "Talmud",
     "ref": "Ketubot 76b:5",
@@ -2278,17 +2322,6 @@
     ]
   },
   {
-    "name": "פירוש שלמה סיריליו על תלמוד ירושלמי בכורים",
-    "category": "Quoting Commentary",
-    "ref": "Sirilio on Jerusalem Talmud Bikkurim 2:6:1:7",
-    "first_seen": "2026-07-19",
-    "last_seen": "2026-07-19",
-    "count": 1,
-    "from": [
-      "חולין פ׳"
-    ]
-  },
-  {
     "name": "פניני הלכה, כשרות",
     "category": "Halakhah",
     "ref": "Peninei Halakhah, Kashrut 20:1:4",
@@ -2297,39 +2330,6 @@
     "count": 1,
     "from": [
       "חולין מ״ב"
-    ]
-  },
-  {
-    "name": "רש\"י על נזיר",
-    "category": "Quoting Commentary",
-    "ref": "Rashi on Nazir 34a:8:2",
-    "first_seen": "2026-07-19",
-    "last_seen": "2026-07-19",
-    "count": 1,
-    "from": [
-      "חולין פ׳"
-    ]
-  },
-  {
-    "name": "שאלות ותשובות רמ\"א",
-    "category": "Responsa",
-    "ref": "Responsa of Rema 117:1",
-    "first_seen": "2026-07-19",
-    "last_seen": "2026-07-19",
-    "count": 1,
-    "from": [
-      "חולין פ׳"
-    ]
-  },
-  {
-    "name": "תהילים י״ט",
-    "category": "תוספת לימוד",
-    "ref": "",
-    "first_seen": "2026-07-19",
-    "last_seen": "2026-07-19",
-    "count": 1,
-    "from": [
-      "חולין פ׳"
     ]
   },
   {
