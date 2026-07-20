@@ -5,16 +5,16 @@
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 67,
+    "count": 68,
     "from": [
       "חולין פ׳",
-      "חולין ע״ג",
-      "חולין ע״ו",
       "חולין ע״ז",
-      "חולין ס״ט",
-      "חולין ע׳",
+      "חולין פ״א",
       "חולין ל״ד",
-      "חולין פ״א"
+      "חולין ע׳",
+      "חולין ס״ט",
+      "חולין ע״ו",
+      "חולין ע״ג"
     ]
   },
   {
@@ -23,16 +23,16 @@
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 67,
+    "count": 68,
     "from": [
       "חולין פ׳",
-      "חולין ע״ג",
-      "חולין ע״ו",
       "חולין ע״ז",
-      "חולין ס״ט",
-      "חולין ע׳",
+      "חולין פ״א",
       "חולין ל״ד",
-      "חולין פ״א"
+      "חולין ע׳",
+      "חולין ס״ט",
+      "חולין ע״ו",
+      "חולין ע״ג"
     ]
   },
   {
@@ -41,7 +41,7 @@
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 65,
+    "count": 66,
     "from": [
       "תפילות"
     ]
@@ -52,7 +52,7 @@
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 65,
+    "count": 66,
     "from": [
       "תפילות"
     ]
@@ -63,7 +63,7 @@
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 65,
+    "count": 66,
     "from": [
       "תפילות"
     ]
@@ -74,7 +74,7 @@
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 65,
+    "count": 66,
     "from": [
       "תפילות"
     ]
@@ -85,7 +85,7 @@
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 65,
+    "count": 66,
     "from": [
       "תפילות"
     ]
@@ -96,7 +96,7 @@
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 65,
+    "count": 66,
     "from": [
       "תפילות"
     ]
@@ -107,7 +107,7 @@
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 65,
+    "count": 66,
     "from": [
       "תפילות"
     ]
@@ -118,7 +118,7 @@
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 65,
+    "count": 66,
     "from": [
       "תפילות"
     ]
@@ -129,7 +129,7 @@
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 65,
+    "count": 66,
     "from": [
       "תפילות"
     ]
@@ -140,7 +140,7 @@
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 65,
+    "count": 66,
     "from": [
       "תפילות"
     ]
@@ -151,7 +151,7 @@
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 65,
+    "count": 66,
     "from": [
       "תפילות"
     ]
@@ -162,7 +162,7 @@
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-20",
-    "count": 65,
+    "count": 66,
     "from": [
       "תפילות"
     ]
@@ -317,16 +317,16 @@
     "ref": "Haggahot Ya'avetz on Chullin 28a:2",
     "first_seen": "2026-05-28",
     "last_seen": "2026-07-20",
-    "count": 21,
+    "count": 22,
     "from": [
+      "חולין ל״ה",
       "חולין פ׳",
-      "חולין ל״ח",
+      "חולין ס״א",
+      "חולין פ״א",
       "חולין ל״ט",
       "חולין ס״ט",
       "חולין ל״ב",
-      "חולין ל״ה",
-      "חולין מ״ח",
-      "חולין ס״א"
+      "חולין מ״ח"
     ]
   },
   {
@@ -551,6 +551,20 @@
     ]
   },
   {
+    "name": "ביאור על ספר המצוות לרס\"ג",
+    "category": "Quoting Commentary",
+    "ref": "Commentary on Sefer Hamitzvot of Rasag, Negative Commandments 76:58",
+    "first_seen": "2026-06-03",
+    "last_seen": "2026-07-20",
+    "count": 7,
+    "from": [
+      "חולין ל״ה",
+      "חולין ס״א",
+      "חולין פ״א",
+      "חולין ל״ד"
+    ]
+  },
+  {
     "name": "משנה תורה, הלכות שאר אבות הטומאות",
     "category": "Halakhah",
     "ref": "Mishneh Torah, Other Sources of Defilement 2:9",
@@ -576,20 +590,6 @@
       "חולין נ״ה",
       "חולין ס״ח",
       "חולין ל״ח"
-    ]
-  },
-  {
-    "name": "ביאור על ספר המצוות לרס\"ג",
-    "category": "Quoting Commentary",
-    "ref": "Commentary on Sefer Hamitzvot of Rasag, Negative Commandments 76:58",
-    "first_seen": "2026-06-03",
-    "last_seen": "2026-07-20",
-    "count": 6,
-    "from": [
-      "חולין ס״א",
-      "חולין פ״א",
-      "חולין ל״ד",
-      "חולין ל״ה"
     ]
   },
   {
@@ -685,6 +685,19 @@
     ]
   },
   {
+    "name": "תוספות על חולין",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot on Chullin 13b:9:1",
+    "first_seen": "2026-06-09",
+    "last_seen": "2026-07-20",
+    "count": 6,
+    "from": [
+      "חולין ע״ד",
+      "חולין פ״א",
+      "חולין מ׳"
+    ]
+  },
+  {
     "name": "משנה חולין",
     "category": "Mishnah",
     "ref": "Mishnah Chullin 2:6",
@@ -698,16 +711,28 @@
     ]
   },
   {
-    "name": "תוספות על חולין",
+    "name": "תורה תמימה על התורה",
     "category": "Quoting Commentary",
-    "ref": "Tosafot on Chullin 13b:9:1",
-    "first_seen": "2026-06-09",
+    "ref": "Torah Temimah on Torah, Leviticus 11:2:1",
+    "first_seen": "2026-06-11",
     "last_seen": "2026-07-20",
     "count": 5,
     "from": [
-      "חולין פ״א",
-      "חולין מ׳",
-      "חולין ע״ד"
+      "חולין מ״ב",
+      "חולין ס״ג",
+      "חולין פ״א"
+    ]
+  },
+  {
+    "name": "Deuteronomy 3:23-7:11",
+    "category": "פרשת השבוע",
+    "ref": "Deuteronomy 3:23-7:11",
+    "first_seen": "2026-07-19",
+    "last_seen": "2026-07-20",
+    "count": 4,
+    "from": [
+      "חולין פ׳",
+      "חולין פ״א"
     ]
   },
   {
@@ -894,19 +919,6 @@
     ]
   },
   {
-    "name": "תורה תמימה על התורה",
-    "category": "Quoting Commentary",
-    "ref": "Torah Temimah on Torah, Leviticus 11:2:1",
-    "first_seen": "2026-06-11",
-    "last_seen": "2026-07-20",
-    "count": 4,
-    "from": [
-      "חולין פ״א",
-      "חולין ס״ג",
-      "חולין מ״ב"
-    ]
-  },
-  {
     "name": "תנא דבי אליהו רבה",
     "category": "Midrash",
     "ref": "Tanna DeBei Eliyahu Rabbah 15:1",
@@ -931,18 +943,6 @@
     ]
   },
   {
-    "name": "Deuteronomy 3:23-7:11",
-    "category": "פרשת השבוע",
-    "ref": "Deuteronomy 3:23-7:11",
-    "first_seen": "2026-07-19",
-    "last_seen": "2026-07-20",
-    "count": 3,
-    "from": [
-      "חולין פ׳",
-      "חולין פ״א"
-    ]
-  },
-  {
     "name": "Numbers 4:21-7:89",
     "category": "פרשת השבוע",
     "ref": "Numbers 4:21-7:89",
@@ -952,6 +952,18 @@
     "from": [
       "חולין כ״ז",
       "חולין כ״ח"
+    ]
+  },
+  {
+    "name": "ויקרא",
+    "category": "Tanakh",
+    "ref": "Leviticus 11:47",
+    "first_seen": "2026-06-11",
+    "last_seen": "2026-07-20",
+    "count": 3,
+    "from": [
+      "חולין מ״ב",
+      "חולין פ״א"
     ]
   },
   {
@@ -1189,18 +1201,6 @@
     ]
   },
   {
-    "name": "ויקרא",
-    "category": "Tanakh",
-    "ref": "Leviticus 11:47",
-    "first_seen": "2026-06-11",
-    "last_seen": "2026-07-20",
-    "count": 2,
-    "from": [
-      "חולין פ״א",
-      "חולין מ״ב"
-    ]
-  },
-  {
     "name": "זבחים",
     "category": "Talmud",
     "ref": "Zevachim 69b:13",
@@ -1209,6 +1209,17 @@
     "count": 2,
     "from": [
       "חולין ע״ד"
+    ]
+  },
+  {
+    "name": "זוהר הרקיע",
+    "category": "Quoting Commentary",
+    "ref": "Zohar HaRakia, Positive Commandments 54:2",
+    "first_seen": "2026-07-20",
+    "last_seen": "2026-07-20",
+    "count": 2,
+    "from": [
+      "חולין פ״א"
     ]
   },
   {
@@ -1531,6 +1542,17 @@
     ]
   },
   {
+    "name": "חולין פ״א",
+    "category": "דף יומי",
+    "ref": "Chullin 81",
+    "first_seen": "2026-07-20",
+    "last_seen": "2026-07-20",
+    "count": 2,
+    "from": [
+      "חולין פ״א"
+    ]
+  },
+  {
     "name": "טורי זהב על שולחן ערוך יורה דעה",
     "category": "Quoting Commentary",
     "ref": "Turei Zahav on Shulchan Arukh, Yoreh De'ah 55:6",
@@ -1542,6 +1564,17 @@
     ]
   },
   {
+    "name": "יין הטוב",
+    "category": "Responsa",
+    "ref": "Yein HaTov, Part I, Orach Chayim 18:7",
+    "first_seen": "2026-07-20",
+    "last_seen": "2026-07-20",
+    "count": 2,
+    "from": [
+      "חולין פ״א"
+    ]
+  },
+  {
     "name": "ים של שלמה על חולין",
     "category": "Commentary",
     "ref": "Yam shel Shelomoh on Chullin 3:19:1",
@@ -1550,6 +1583,17 @@
     "count": 2,
     "from": [
       "חולין נ״ב"
+    ]
+  },
+  {
+    "name": "לחם משנה על משנה תורה, הלכות איסורי המזבח",
+    "category": "Quoting Commentary",
+    "ref": "Lechem Mishneh on Mishneh Torah, Things Forbidden on the Altar 3:7:1",
+    "first_seen": "2026-07-20",
+    "last_seen": "2026-07-20",
+    "count": 2,
+    "from": [
+      "חולין פ״א"
     ]
   },
   {
@@ -1685,6 +1729,17 @@
     ]
   },
   {
+    "name": "משנה תורה, הלכות איסורי המזבח",
+    "category": "Halakhah",
+    "ref": "Mishneh Torah, Things Forbidden on the Altar 3:8",
+    "first_seen": "2026-07-20",
+    "last_seen": "2026-07-20",
+    "count": 2,
+    "from": [
+      "חולין פ״א"
+    ]
+  },
+  {
     "name": "משנה תורה, הלכות בכורות",
     "category": "Halakhah",
     "ref": "Mishneh Torah, Firstlings 4:17",
@@ -1737,6 +1792,17 @@
     "count": 2,
     "from": [
       "חולין ס׳"
+    ]
+  },
+  {
+    "name": "ספר המצוות",
+    "category": "Halakhah",
+    "ref": "Sefer HaMitzvot, Positive Commandments 60:1",
+    "first_seen": "2026-07-20",
+    "last_seen": "2026-07-20",
+    "count": 2,
+    "from": [
+      "חולין פ״א"
     ]
   },
   {
@@ -2228,17 +2294,6 @@
     ]
   },
   {
-    "name": "זוהר הרקיע",
-    "category": "Quoting Commentary",
-    "ref": "Zohar HaRakia, Positive Commandments 54:2",
-    "first_seen": "2026-07-20",
-    "last_seen": "2026-07-20",
-    "count": 1,
-    "from": [
-      "חולין פ״א"
-    ]
-  },
-  {
     "name": "חולין כ״ח",
     "category": "דף יומי",
     "ref": "Chullin 28",
@@ -2294,28 +2349,6 @@
     ]
   },
   {
-    "name": "חולין פ״א",
-    "category": "דף יומי",
-    "ref": "Chullin 81",
-    "first_seen": "2026-07-20",
-    "last_seen": "2026-07-20",
-    "count": 1,
-    "from": [
-      "חולין פ״א"
-    ]
-  },
-  {
-    "name": "יין הטוב",
-    "category": "Responsa",
-    "ref": "Yein HaTov, Part I, Orach Chayim 18:7",
-    "first_seen": "2026-07-20",
-    "last_seen": "2026-07-20",
-    "count": 1,
-    "from": [
-      "חולין פ״א"
-    ]
-  },
-  {
     "name": "כתובות",
     "category": "Talmud",
     "ref": "Ketubot 76b:5",
@@ -2327,17 +2360,6 @@
     ]
   },
   {
-    "name": "לחם משנה על משנה תורה, הלכות איסורי המזבח",
-    "category": "Quoting Commentary",
-    "ref": "Lechem Mishneh on Mishneh Torah, Things Forbidden on the Altar 3:7:1",
-    "first_seen": "2026-07-20",
-    "last_seen": "2026-07-20",
-    "count": 1,
-    "from": [
-      "חולין פ״א"
-    ]
-  },
-  {
     "name": "משנה טהרות",
     "category": "Mishnah",
     "ref": "Mishnah Tahorot 2:2",
@@ -2346,17 +2368,6 @@
     "count": 1,
     "from": [
       "חולין ל״ה"
-    ]
-  },
-  {
-    "name": "משנה תורה, הלכות איסורי המזבח",
-    "category": "Halakhah",
-    "ref": "Mishneh Torah, Things Forbidden on the Altar 3:8",
-    "first_seen": "2026-07-20",
-    "last_seen": "2026-07-20",
-    "count": 1,
-    "from": [
-      "חולין פ״א"
     ]
   },
   {
@@ -2379,17 +2390,6 @@
     "count": 1,
     "from": [
       "חולין ל״ה"
-    ]
-  },
-  {
-    "name": "ספר המצוות",
-    "category": "Halakhah",
-    "ref": "Sefer HaMitzvot, Positive Commandments 60:1",
-    "first_seen": "2026-07-20",
-    "last_seen": "2026-07-20",
-    "count": 1,
-    "from": [
-      "חולין פ״א"
     ]
   },
   {
