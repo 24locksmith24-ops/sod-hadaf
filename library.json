@@ -5,15 +5,15 @@
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 73,
+    "count": 74,
     "from": [
       "חולין פ״א",
       "חולין ס״ט",
       "חולין פ״ז",
       "חולין ע״ג",
+      "חולין ע״ו",
       "חולין פ״ב",
       "חולין פ״ח",
-      "חולין ע״ו",
       "חולין פ׳"
     ]
   },
@@ -23,15 +23,15 @@
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 73,
+    "count": 74,
     "from": [
       "חולין פ״א",
       "חולין ס״ט",
       "חולין פ״ז",
       "חולין ע״ג",
+      "חולין ע״ו",
       "חולין פ״ב",
       "חולין פ״ח",
-      "חולין ע״ו",
       "חולין פ׳"
     ]
   },
@@ -41,7 +41,7 @@
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 71,
+    "count": 72,
     "from": [
       "תפילות"
     ]
@@ -52,7 +52,7 @@
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 71,
+    "count": 72,
     "from": [
       "תפילות"
     ]
@@ -63,7 +63,7 @@
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 71,
+    "count": 72,
     "from": [
       "תפילות"
     ]
@@ -74,7 +74,7 @@
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 71,
+    "count": 72,
     "from": [
       "תפילות"
     ]
@@ -85,7 +85,7 @@
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 71,
+    "count": 72,
     "from": [
       "תפילות"
     ]
@@ -96,7 +96,7 @@
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 71,
+    "count": 72,
     "from": [
       "תפילות"
     ]
@@ -107,7 +107,7 @@
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 71,
+    "count": 72,
     "from": [
       "תפילות"
     ]
@@ -118,7 +118,7 @@
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 71,
+    "count": 72,
     "from": [
       "תפילות"
     ]
@@ -129,7 +129,7 @@
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 71,
+    "count": 72,
     "from": [
       "תפילות"
     ]
@@ -140,7 +140,7 @@
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 71,
+    "count": 72,
     "from": [
       "תפילות"
     ]
@@ -151,7 +151,7 @@
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 71,
+    "count": 72,
     "from": [
       "תפילות"
     ]
@@ -162,7 +162,7 @@
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 71,
+    "count": 72,
     "from": [
       "תפילות"
     ]
@@ -191,16 +191,16 @@
     "ref": "Rabbeinu Gershom on Chullin 28a:1",
     "first_seen": "2026-05-28",
     "last_seen": "2026-07-27",
-    "count": 41,
+    "count": 42,
     "from": [
-      "חולין ל״ג",
-      "חולין ל״ד",
-      "חולין מ״ז",
       "חולין ס״ט",
-      "חולין מ״ו",
       "חולין פ״ז",
+      "חולין ל״ג",
       "חולין פ״ב",
-      "חולין פ״ח"
+      "חולין פ״ח",
+      "חולין מ״ו",
+      "חולין מ״ז",
+      "חולין ל״ד"
     ]
   },
   {
@@ -227,16 +227,16 @@
     "ref": "Mishneh Torah, Ritual Slaughter 1:9",
     "first_seen": "2026-05-27",
     "last_seen": "2026-07-27",
-    "count": 30,
+    "count": 31,
     "from": [
-      "חולין נ״ו",
-      "חולין מ׳",
       "חולין מ״ט",
-      "חולין מ״ז",
-      "חולין מ״ו",
-      "חולין מ״ח",
       "חולין פ״ב",
-      "חולין פ״ח"
+      "חולין פ״ח",
+      "חולין מ״ו",
+      "חולין מ״ז",
+      "חולין מ׳",
+      "חולין נ״ו",
+      "חולין מ״ח"
     ]
   },
   {
@@ -281,16 +281,16 @@
     "ref": "Shulchan Arukh, Yoreh De'ah 5:3",
     "first_seen": "2026-06-09",
     "last_seen": "2026-07-27",
-    "count": 24,
+    "count": 25,
     "from": [
-      "חולין מ״ה",
-      "חולין מ״ט",
-      "חולין מ״ז",
       "חולין נ״ב",
-      "חולין ע״ז",
-      "חולין פ״ח",
       "חולין ע״ו",
-      "חולין ע״ה"
+      "חולין מ״ט",
+      "חולין פ״ח",
+      "חולין ע״ה",
+      "חולין מ״ז",
+      "חולין ע״ז",
+      "חולין מ״ה"
     ]
   },
   {
@@ -495,6 +495,21 @@
     ]
   },
   {
+    "name": "ספרא",
+    "category": "Midrash",
+    "ref": "Sifra, Emor, Section 8 3",
+    "first_seen": "2026-06-07",
+    "last_seen": "2026-07-27",
+    "count": 9,
+    "from": [
+      "חולין פ״ח",
+      "חולין ס״ח",
+      "חולין ס״א",
+      "חולין נ״ה",
+      "חולין ל״ח"
+    ]
+  },
+  {
     "name": "Numbers 13:1-15:41",
     "category": "פרשת השבוע",
     "ref": "Numbers 13:1-15:41",
@@ -553,21 +568,6 @@
       "חולין נ״ט",
       "חולין ע׳",
       "חולין נ״ב"
-    ]
-  },
-  {
-    "name": "ספרא",
-    "category": "Midrash",
-    "ref": "Sifra, Emor, Section 8 3",
-    "first_seen": "2026-06-07",
-    "last_seen": "2026-07-27",
-    "count": 8,
-    "from": [
-      "חולין ל״ח",
-      "חולין ס״ח",
-      "חולין פ״ח",
-      "חולין נ״ה",
-      "חולין ס״א"
     ]
   },
   {
@@ -740,6 +740,18 @@
       "חולין מ״ב",
       "חולין ס״ג",
       "חולין פ״א"
+    ]
+  },
+  {
+    "name": "Deuteronomy 7:12-11:25",
+    "category": "פרשת השבוע",
+    "ref": "Deuteronomy 7:12-11:25",
+    "first_seen": "2026-07-26",
+    "last_seen": "2026-07-27",
+    "count": 4,
+    "from": [
+      "חולין פ״ז",
+      "חולין פ״ח"
     ]
   },
   {
@@ -959,18 +971,6 @@
     "from": [
       "חולין נ״ו",
       "חולין ע״ו"
-    ]
-  },
-  {
-    "name": "Deuteronomy 7:12-11:25",
-    "category": "פרשת השבוע",
-    "ref": "Deuteronomy 7:12-11:25",
-    "first_seen": "2026-07-26",
-    "last_seen": "2026-07-27",
-    "count": 3,
-    "from": [
-      "חולין פ״ח",
-      "חולין פ״ז"
     ]
   },
   {
@@ -1617,6 +1617,17 @@
     ]
   },
   {
+    "name": "חולין פ״ח",
+    "category": "דף יומי",
+    "ref": "Chullin 88",
+    "first_seen": "2026-07-27",
+    "last_seen": "2026-07-27",
+    "count": 2,
+    "from": [
+      "חולין פ״ח"
+    ]
+  },
+  {
     "name": "טורי זהב על שולחן ערוך יורה דעה",
     "category": "Quoting Commentary",
     "ref": "Turei Zahav on Shulchan Arukh, Yoreh De'ah 55:6",
@@ -1669,6 +1680,17 @@
     "count": 2,
     "from": [
       "חולין פ״א"
+    ]
+  },
+  {
+    "name": "מאירי על חגיגה",
+    "category": "Quoting Commentary",
+    "ref": "Meiri on Chagigah 20b:10",
+    "first_seen": "2026-07-27",
+    "last_seen": "2026-07-27",
+    "count": 2,
+    "from": [
+      "חולין פ״ח"
     ]
   },
   {
@@ -1793,6 +1815,17 @@
     ]
   },
   {
+    "name": "משנה טבול יום",
+    "category": "Mishnah",
+    "ref": "Mishnah Tevul Yom 2:1",
+    "first_seen": "2026-07-27",
+    "last_seen": "2026-07-27",
+    "count": 2,
+    "from": [
+      "חולין פ״ח"
+    ]
+  },
+  {
     "name": "משנה כלים",
     "category": "Mishnah",
     "ref": "Mishnah Kelim 2:2",
@@ -1845,6 +1878,17 @@
     "count": 2,
     "from": [
       "חולין ע״ג"
+    ]
+  },
+  {
+    "name": "נדה",
+    "category": "Talmud",
+    "ref": "Niddah 71b:16",
+    "first_seen": "2026-07-27",
+    "last_seen": "2026-07-27",
+    "count": 2,
+    "from": [
+      "חולין פ״ח"
     ]
   },
   {
@@ -2058,6 +2102,17 @@
     ]
   },
   {
+    "name": "קרית ספר על משנה תורה, הלכות שאר אבות הטומאות",
+    "category": "Quoting Commentary",
+    "ref": "Kiryat Sefer on Mishneh Torah, Other Sources of Defilement 10:4:1",
+    "first_seen": "2026-07-27",
+    "last_seen": "2026-07-27",
+    "count": 2,
+    "from": [
+      "חולין פ״ח"
+    ]
+  },
+  {
     "name": "ר\"ן על חולין",
     "category": "Quoting Commentary",
     "ref": "Ran on Chullin 19a:2",
@@ -2066,6 +2121,17 @@
     "count": 2,
     "from": [
       "חולין ע״ד"
+    ]
+  },
+  {
+    "name": "ר\"ש משאנץ על משנה טבול יום",
+    "category": "Quoting Commentary",
+    "ref": "Rash MiShantz on Mishnah Tevul Yom 2:1:3",
+    "first_seen": "2026-07-27",
+    "last_seen": "2026-07-27",
+    "count": 2,
+    "from": [
+      "חולין פ״ח"
     ]
   },
   {
@@ -2110,6 +2176,17 @@
     "count": 2,
     "from": [
       "חולין ס״ו"
+    ]
+  },
+  {
+    "name": "רש\"ש על פסחים",
+    "category": "Quoting Commentary",
+    "ref": "Rashash on Pesachim 17a:5",
+    "first_seen": "2026-07-27",
+    "last_seen": "2026-07-27",
+    "count": 2,
+    "from": [
+      "חולין פ״ח"
     ]
   },
   {
@@ -2490,17 +2567,6 @@
     ]
   },
   {
-    "name": "חולין פ״ח",
-    "category": "דף יומי",
-    "ref": "Chullin 88",
-    "first_seen": "2026-07-27",
-    "last_seen": "2026-07-27",
-    "count": 1,
-    "from": [
-      "חולין פ״ח"
-    ]
-  },
-  {
     "name": "כתובות",
     "category": "Talmud",
     "ref": "Ketubot 76b:5",
@@ -2509,28 +2575,6 @@
     "count": 1,
     "from": [
       "חולין מ״ט"
-    ]
-  },
-  {
-    "name": "מאירי על חגיגה",
-    "category": "Quoting Commentary",
-    "ref": "Meiri on Chagigah 20b:10",
-    "first_seen": "2026-07-27",
-    "last_seen": "2026-07-27",
-    "count": 1,
-    "from": [
-      "חולין פ״ח"
-    ]
-  },
-  {
-    "name": "משנה טבול יום",
-    "category": "Mishnah",
-    "ref": "Mishnah Tevul Yom 2:1",
-    "first_seen": "2026-07-27",
-    "last_seen": "2026-07-27",
-    "count": 1,
-    "from": [
-      "חולין פ״ח"
     ]
   },
   {
@@ -2556,17 +2600,6 @@
     ]
   },
   {
-    "name": "נדה",
-    "category": "Talmud",
-    "ref": "Niddah 71b:16",
-    "first_seen": "2026-07-27",
-    "last_seen": "2026-07-27",
-    "count": 1,
-    "from": [
-      "חולין פ״ח"
-    ]
-  },
-  {
     "name": "סוטה",
     "category": "Talmud",
     "ref": "Sotah 30a:6-7",
@@ -2586,39 +2619,6 @@
     "count": 1,
     "from": [
       "חולין מ״ב"
-    ]
-  },
-  {
-    "name": "קרית ספר על משנה תורה, הלכות שאר אבות הטומאות",
-    "category": "Quoting Commentary",
-    "ref": "Kiryat Sefer on Mishneh Torah, Other Sources of Defilement 10:4:1",
-    "first_seen": "2026-07-27",
-    "last_seen": "2026-07-27",
-    "count": 1,
-    "from": [
-      "חולין פ״ח"
-    ]
-  },
-  {
-    "name": "ר\"ש משאנץ על משנה טבול יום",
-    "category": "Quoting Commentary",
-    "ref": "Rash MiShantz on Mishnah Tevul Yom 2:1:3",
-    "first_seen": "2026-07-27",
-    "last_seen": "2026-07-27",
-    "count": 1,
-    "from": [
-      "חולין פ״ח"
-    ]
-  },
-  {
-    "name": "רש\"ש על פסחים",
-    "category": "Quoting Commentary",
-    "ref": "Rashash on Pesachim 17a:5",
-    "first_seen": "2026-07-27",
-    "last_seen": "2026-07-27",
-    "count": 1,
-    "from": [
-      "חולין פ״ח"
     ]
   },
   {
