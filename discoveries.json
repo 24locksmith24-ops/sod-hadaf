@@ -1,5 +1,122 @@
 [
   {
+    "date": "2026-08-02",
+    "ref": "Chullin 94",
+    "he_ref": "חולין צ״ד",
+    "lesson": {
+      "title": "שיעור חולין צ״ד",
+      "intro": "השיעור המלא ייכתב בריצה הבאה. בינתיים נאספו המקורות, הצפנים, התפילות והקשרים.",
+      "theme": "",
+      "codes": "ראה כרטיס הצפנים.",
+      "takeaway": "",
+      "_error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+    },
+    "theme": "",
+    "shared_words": [
+      "ישראל",
+      "הבריות",
+      "שאינו",
+      "לישראל",
+      "חביות",
+      "ויודע",
+      "לישדר",
+      "אסור",
+      "ואין",
+      "שאין",
+      "מקבל",
+      "אומר"
+    ],
+    "codes_raw": {
+      "els": [
+        {
+          "word": "תורה",
+          "skip": 2,
+          "dir": "→",
+          "start": 8552
+        },
+        {
+          "word": "תורה",
+          "skip": 2,
+          "dir": "→",
+          "start": 17952
+        },
+        {
+          "word": "ישראל",
+          "skip": 2,
+          "dir": "→",
+          "start": 305082
+        },
+        {
+          "word": "ישראל",
+          "skip": 2,
+          "dir": "←",
+          "start": 100205
+        },
+        {
+          "word": "שלום",
+          "skip": 2,
+          "dir": "→",
+          "start": 53956
+        },
+        {
+          "word": "שלום",
+          "skip": 2,
+          "dir": "→",
+          "start": 120470
+        },
+        {
+          "word": "אמת",
+          "skip": 2,
+          "dir": "→",
+          "start": 33712
+        },
+        {
+          "word": "אמת",
+          "skip": 2,
+          "dir": "→",
+          "start": 47740
+        }
+      ],
+      "notarikon": {
+        "initials": "ברבאאהו",
+        "finals": "בתאםתםת"
+      },
+      "atbash": [
+        {
+          "word": "תורה",
+          "atbash": "אפגצ"
+        },
+        {
+          "word": "ישראל",
+          "atbash": "מבגתכ"
+        },
+        {
+          "word": "שבת",
+          "atbash": "בשא"
+        }
+      ],
+      "letters_scanned": 306269
+    },
+    "sources_used": [
+      "רש\"י",
+      "ביאור שטיינזלץ",
+      "רבינו גרשום",
+      "סדר משנה על משנה תורה, הלכות דעות",
+      "תוספתא בבא בתרא",
+      "תוספתא בבא קמא",
+      "מסכת דרך ארץ רבה",
+      "משנה תורה, הלכות דעות",
+      "משנה תורה, הלכות מכירה",
+      "ספר מצוות גדול",
+      "שולחן ערוך, חושן משפט",
+      "אורחות צדיקים"
+    ],
+    "policy": {
+      "strict": true,
+      "hebrew_only": true
+    }
+  },
+  {
     "date": "2026-07-30",
     "ref": "Chullin 91",
     "he_ref": "חולין צ״א",

@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-08-02",
+    "ts": "2026-08-02 09:34",
+    "torah_no": 215,
+    "torah_ref": "Likutei Moharan, Part I.215.1",
+    "advice_topic": "Bitachon",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 215",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+    }
+  },
+  {
     "date": "2026-07-30",
     "ts": "2026-07-30 18:46",
     "torah_no": 212,
