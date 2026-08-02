@@ -5,16 +5,16 @@
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 81,
+    "count": 82,
     "from": [
+      "חולין צ״א",
+      "חולין ע״ו",
+      "חולין פ״ח",
       "חולין צ׳",
       "חולין פ״ט",
-      "חולין פ״ב",
-      "חולין פ״ח",
-      "חולין ע״ו",
       "חולין צ״ד",
-      "חולין פ״א",
-      "חולין צ״א"
+      "חולין פ״ב",
+      "חולין פ״א"
     ]
   },
   {
@@ -23,16 +23,16 @@
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 81,
+    "count": 82,
     "from": [
+      "חולין צ״א",
+      "חולין ע״ו",
+      "חולין פ״ח",
       "חולין צ׳",
       "חולין פ״ט",
-      "חולין פ״ב",
-      "חולין פ״ח",
-      "חולין ע״ו",
       "חולין צ״ד",
-      "חולין פ״א",
-      "חולין צ״א"
+      "חולין פ״ב",
+      "חולין פ״א"
     ]
   },
   {
@@ -41,7 +41,7 @@
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 79,
+    "count": 80,
     "from": [
       "תפילות"
     ]
@@ -52,7 +52,7 @@
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 79,
+    "count": 80,
     "from": [
       "תפילות"
     ]
@@ -63,7 +63,7 @@
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 79,
+    "count": 80,
     "from": [
       "תפילות"
     ]
@@ -74,7 +74,7 @@
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 79,
+    "count": 80,
     "from": [
       "תפילות"
     ]
@@ -85,7 +85,7 @@
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 79,
+    "count": 80,
     "from": [
       "תפילות"
     ]
@@ -96,7 +96,7 @@
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 79,
+    "count": 80,
     "from": [
       "תפילות"
     ]
@@ -107,7 +107,7 @@
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 79,
+    "count": 80,
     "from": [
       "תפילות"
     ]
@@ -118,7 +118,7 @@
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 79,
+    "count": 80,
     "from": [
       "תפילות"
     ]
@@ -129,7 +129,7 @@
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 79,
+    "count": 80,
     "from": [
       "תפילות"
     ]
@@ -140,7 +140,7 @@
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 79,
+    "count": 80,
     "from": [
       "תפילות"
     ]
@@ -151,7 +151,7 @@
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 79,
+    "count": 80,
     "from": [
       "תפילות"
     ]
@@ -162,7 +162,7 @@
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 79,
+    "count": 80,
     "from": [
       "תפילות"
     ]
@@ -191,16 +191,16 @@
     "ref": "Rabbeinu Gershom on Chullin 28a:1",
     "first_seen": "2026-05-28",
     "last_seen": "2026-08-02",
-    "count": 47,
+    "count": 48,
     "from": [
-      "חולין צ׳",
-      "חולין פ״ז",
-      "חולין ל״ג",
-      "חולין ל״ד",
       "חולין צ״א",
+      "חולין ל״ג",
       "חולין פ״ח",
+      "חולין צ׳",
       "חולין צ״ד",
-      "חולין מ״ז"
+      "חולין מ״ז",
+      "חולין פ״ז",
+      "חולין ל״ד"
     ]
   },
   {
@@ -263,14 +263,14 @@
     "ref": "Sefer Mitzvot Gadol, Positive Commandments 63",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-02",
-    "count": 30,
+    "count": 31,
     "from": [
-      "חולין צ׳",
-      "חולין נ״ו",
       "חולין צ״א",
-      "חולין ס״א",
       "חולין ע״ו",
+      "חולין נ״ו",
+      "חולין צ׳",
       "חולין צ״ד",
+      "חולין ס״א",
       "חולין כ״ח",
       "חולין מ״ז"
     ]
@@ -721,6 +721,20 @@
     ]
   },
   {
+    "name": "תהילים ב׳",
+    "category": "תוספת לימוד",
+    "ref": "",
+    "first_seen": "2026-06-02",
+    "last_seen": "2026-08-02",
+    "count": 6,
+    "from": [
+      "חולין ל״ב",
+      "חולין צ״ד",
+      "חולין ל״ג",
+      "חולין ס״ג"
+    ]
+  },
+  {
     "name": "תוספות על חולין",
     "category": "Quoting Commentary",
     "ref": "Tosafot on Chullin 13b:9:1",
@@ -757,20 +771,6 @@
       "חולין ל״ח",
       "חולין ע״ג",
       "חולין מ׳"
-    ]
-  },
-  {
-    "name": "תהילים ב׳",
-    "category": "תוספת לימוד",
-    "ref": "",
-    "first_seen": "2026-06-02",
-    "last_seen": "2026-08-02",
-    "count": 5,
-    "from": [
-      "חולין ל״ג",
-      "חולין צ״ד",
-      "חולין ל״ב",
-      "חולין ס״ג"
     ]
   },
   {
@@ -1187,6 +1187,17 @@
     "count": 2,
     "from": [
       "חולין ס׳"
+    ]
+  },
+  {
+    "name": "אורחות צדיקים",
+    "category": "Musar",
+    "ref": "Orchot Tzadikim 24:24",
+    "first_seen": "2026-08-02",
+    "last_seen": "2026-08-02",
+    "count": 2,
+    "from": [
+      "חולין צ״ד"
     ]
   },
   {
@@ -1762,6 +1773,17 @@
     ]
   },
   {
+    "name": "חולין צ״ד",
+    "category": "דף יומי",
+    "ref": "Chullin 94",
+    "first_seen": "2026-08-02",
+    "last_seen": "2026-08-02",
+    "count": 2,
+    "from": [
+      "חולין צ״ד"
+    ]
+  },
+  {
     "name": "טורי זהב על שולחן ערוך יורה דעה",
     "category": "Quoting Commentary",
     "ref": "Turei Zahav on Shulchan Arukh, Yoreh De'ah 55:6",
@@ -1960,6 +1982,17 @@
     ]
   },
   {
+    "name": "מסכת דרך ארץ רבה",
+    "category": "Talmud",
+    "ref": "Tractate Derekh Eretz Rabbah 8:4",
+    "first_seen": "2026-08-02",
+    "last_seen": "2026-08-02",
+    "count": 2,
+    "from": [
+      "חולין צ״ד"
+    ]
+  },
+  {
     "name": "מעדני יום טוב על מנחות",
     "category": "Quoting Commentary",
     "ref": "Maadaney Yom Tov on Menachot, Hilchot Tuma'a 134",
@@ -2037,6 +2070,28 @@
     ]
   },
   {
+    "name": "משנה תורה, הלכות דעות",
+    "category": "Halakhah",
+    "ref": "Mishneh Torah, Human Dispositions 2:6",
+    "first_seen": "2026-08-02",
+    "last_seen": "2026-08-02",
+    "count": 2,
+    "from": [
+      "חולין צ״ד"
+    ]
+  },
+  {
+    "name": "משנה תורה, הלכות מכירה",
+    "category": "Halakhah",
+    "ref": "Mishneh Torah, Sales 18:1",
+    "first_seen": "2026-08-02",
+    "last_seen": "2026-08-02",
+    "count": 2,
+    "from": [
+      "חולין צ״ד"
+    ]
+  },
+  {
     "name": "משנה תורה, הלכות מעשה הקרבנות",
     "category": "Halakhah",
     "ref": "Mishneh Torah, Sacrificial Procedure 6:2",
@@ -2100,6 +2155,17 @@
     "count": 2,
     "from": [
       "חולין ס״ג"
+    ]
+  },
+  {
+    "name": "סדר משנה על משנה תורה, הלכות דעות",
+    "category": "Quoting Commentary",
+    "ref": "Seder Mishnah on Mishneh Torah, Human Dispositions 2:6:1",
+    "first_seen": "2026-08-02",
+    "last_seen": "2026-08-02",
+    "count": 2,
+    "from": [
+      "חולין צ״ד"
     ]
   },
   {
@@ -2467,6 +2533,17 @@
     ]
   },
   {
+    "name": "שולחן ערוך, חושן משפט",
+    "category": "Halakhah",
+    "ref": "Shulchan Arukh, Choshen Mishpat 228:6",
+    "first_seen": "2026-08-02",
+    "last_seen": "2026-08-02",
+    "count": 2,
+    "from": [
+      "חולין צ״ד"
+    ]
+  },
+  {
     "name": "שם משמואל",
     "category": "Chasidut",
     "ref": "Shem MiShmuel, Vayikra 6:7",
@@ -2668,6 +2745,28 @@
     ]
   },
   {
+    "name": "תוספתא בבא בתרא",
+    "category": "Tosefta",
+    "ref": "Tosefta Bava Batra 6:4",
+    "first_seen": "2026-08-02",
+    "last_seen": "2026-08-02",
+    "count": 2,
+    "from": [
+      "חולין צ״ד"
+    ]
+  },
+  {
+    "name": "תוספתא בבא קמא",
+    "category": "Tosefta",
+    "ref": "Tosefta Bava Kamma 7:3",
+    "first_seen": "2026-08-02",
+    "last_seen": "2026-08-02",
+    "count": 2,
+    "from": [
+      "חולין צ״ד"
+    ]
+  },
+  {
     "name": "תורת הבית הארוך",
     "category": "Halakhah",
     "ref": "Torat HaBayit HaAroch, The First House, The First Gate 2",
@@ -2687,17 +2786,6 @@
     "count": 2,
     "from": [
       "חולין מ״ז"
-    ]
-  },
-  {
-    "name": "אורחות צדיקים",
-    "category": "Musar",
-    "ref": "Orchot Tzadikim 24:24",
-    "first_seen": "2026-08-02",
-    "last_seen": "2026-08-02",
-    "count": 1,
-    "from": [
-      "חולין צ״ד"
     ]
   },
   {
@@ -2756,17 +2844,6 @@
     ]
   },
   {
-    "name": "חולין צ״ד",
-    "category": "דף יומי",
-    "ref": "Chullin 94",
-    "first_seen": "2026-08-02",
-    "last_seen": "2026-08-02",
-    "count": 1,
-    "from": [
-      "חולין צ״ד"
-    ]
-  },
-  {
     "name": "כתובות",
     "category": "Talmud",
     "ref": "Ketubot 76b:5",
@@ -2775,17 +2852,6 @@
     "count": 1,
     "from": [
       "חולין מ״ט"
-    ]
-  },
-  {
-    "name": "מסכת דרך ארץ רבה",
-    "category": "Talmud",
-    "ref": "Tractate Derekh Eretz Rabbah 8:4",
-    "first_seen": "2026-08-02",
-    "last_seen": "2026-08-02",
-    "count": 1,
-    "from": [
-      "חולין צ״ד"
     ]
   },
   {
@@ -2800,28 +2866,6 @@
     ]
   },
   {
-    "name": "משנה תורה, הלכות דעות",
-    "category": "Halakhah",
-    "ref": "Mishneh Torah, Human Dispositions 2:6",
-    "first_seen": "2026-08-02",
-    "last_seen": "2026-08-02",
-    "count": 1,
-    "from": [
-      "חולין צ״ד"
-    ]
-  },
-  {
-    "name": "משנה תורה, הלכות מכירה",
-    "category": "Halakhah",
-    "ref": "Mishneh Torah, Sales 18:1",
-    "first_seen": "2026-08-02",
-    "last_seen": "2026-08-02",
-    "count": 1,
-    "from": [
-      "חולין צ״ד"
-    ]
-  },
-  {
     "name": "משפטי עוזיאל",
     "category": "Responsa",
     "ref": "Mishpetei Uziel, Volume V, Even HaEzer 79:52",
@@ -2830,17 +2874,6 @@
     "count": 1,
     "from": [
       "חולין מ״ב"
-    ]
-  },
-  {
-    "name": "סדר משנה על משנה תורה, הלכות דעות",
-    "category": "Quoting Commentary",
-    "ref": "Seder Mishnah on Mishneh Torah, Human Dispositions 2:6:1",
-    "first_seen": "2026-08-02",
-    "last_seen": "2026-08-02",
-    "count": 1,
-    "from": [
-      "חולין צ״ד"
     ]
   },
   {
@@ -2866,17 +2899,6 @@
     ]
   },
   {
-    "name": "שולחן ערוך, חושן משפט",
-    "category": "Halakhah",
-    "ref": "Shulchan Arukh, Choshen Mishpat 228:6",
-    "first_seen": "2026-08-02",
-    "last_seen": "2026-08-02",
-    "count": 1,
-    "from": [
-      "חולין צ״ד"
-    ]
-  },
-  {
     "name": "תולדות יעקב יוסף",
     "category": "Chasidut",
     "ref": "Toldot Yaakov Yosef, Mishpatim 139",
@@ -2885,28 +2907,6 @@
     "count": 1,
     "from": [
       "חולין מ״ב"
-    ]
-  },
-  {
-    "name": "תוספתא בבא בתרא",
-    "category": "Tosefta",
-    "ref": "Tosefta Bava Batra 6:4",
-    "first_seen": "2026-08-02",
-    "last_seen": "2026-08-02",
-    "count": 1,
-    "from": [
-      "חולין צ״ד"
-    ]
-  },
-  {
-    "name": "תוספתא בבא קמא",
-    "category": "Tosefta",
-    "ref": "Tosefta Bava Kamma 7:3",
-    "first_seen": "2026-08-02",
-    "last_seen": "2026-08-02",
-    "count": 1,
-    "from": [
-      "חולין צ״ד"
     ]
   }
 ]
