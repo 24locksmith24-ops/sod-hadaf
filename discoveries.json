@@ -1,5 +1,122 @@
 [
   {
+    "date": "2026-08-04",
+    "ref": "Chullin 96",
+    "he_ref": "חולין צ״ו",
+    "lesson": {
+      "title": "שיעור חולין צ״ו",
+      "intro": "השיעור המלא ייכתב בריצה הבאה. בינתיים נאספו המקורות, הצפנים, התפילות והקשרים.",
+      "theme": "",
+      "codes": "ראה כרטיס הצפנים.",
+      "takeaway": "",
+      "_error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+    },
+    "theme": "",
+    "shared_words": [
+      "בטביעות",
+      "עינא",
+      "טביעות",
+      "מהדרינן",
+      "אומר",
+      "שמעתתא",
+      "לצורבא",
+      "אמינא",
+      "בלילה",
+      "מרבנן",
+      "היינו",
+      "משקר"
+    ],
+    "codes_raw": {
+      "els": [
+        {
+          "word": "תורה",
+          "skip": 2,
+          "dir": "→",
+          "start": 8552
+        },
+        {
+          "word": "תורה",
+          "skip": 2,
+          "dir": "→",
+          "start": 17952
+        },
+        {
+          "word": "ישראל",
+          "skip": 2,
+          "dir": "→",
+          "start": 305082
+        },
+        {
+          "word": "ישראל",
+          "skip": 2,
+          "dir": "←",
+          "start": 100205
+        },
+        {
+          "word": "שלום",
+          "skip": 2,
+          "dir": "→",
+          "start": 53956
+        },
+        {
+          "word": "שלום",
+          "skip": 2,
+          "dir": "→",
+          "start": 120470
+        },
+        {
+          "word": "אמת",
+          "skip": 2,
+          "dir": "→",
+          "start": 33712
+        },
+        {
+          "word": "אמת",
+          "skip": 2,
+          "dir": "→",
+          "start": 47740
+        }
+      ],
+      "notarikon": {
+        "initials": "ברבאאהו",
+        "finals": "בתאםתםת"
+      },
+      "atbash": [
+        {
+          "word": "תורה",
+          "atbash": "אפגצ"
+        },
+        {
+          "word": "ישראל",
+          "atbash": "מבגתכ"
+        },
+        {
+          "word": "שבת",
+          "atbash": "בשא"
+        }
+      ],
+      "letters_scanned": 306269
+    },
+    "sources_used": [
+      "רשב\"א",
+      "מהר\"ם",
+      "רש\"י",
+      "תוספות",
+      "ביאור שטיינזלץ",
+      "תוספות על גיטין",
+      "רשב״א על גיטין",
+      "רש״ש",
+      "רי\"ף",
+      "פסקי תוספות",
+      "ספר התשב\"ץ",
+      "ריטב\"א"
+    ],
+    "policy": {
+      "strict": true,
+      "hebrew_only": true
+    }
+  },
+  {
     "date": "2026-08-03",
     "ref": "Chullin 95",
     "he_ref": "חולין צ״ה",
