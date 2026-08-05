@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-08-05",
+    "ts": "2026-08-05 09:29",
+    "book": "משלי",
+    "book_en": "Proverbs",
+    "chapter": 1,
+    "content": {
+      "title": "משלי פרק 1",
+      "_error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+    }
+  },
+  {
     "date": "2026-08-04",
     "ts": "2026-08-04 19:08",
     "book": "שיר השירים",

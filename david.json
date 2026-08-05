@@ -1,5 +1,14 @@
 [
   {
+    "date": "2026-08-05",
+    "ts": "2026-08-05 09:29",
+    "psalm_no": 67,
+    "content": {
+      "title": "תהילים פרק 67",
+      "_error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+    }
+  },
+  {
     "date": "2026-08-04",
     "ts": "2026-08-04 19:08",
     "psalm_no": 66,
