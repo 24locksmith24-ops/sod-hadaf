@@ -1,5 +1,122 @@
 [
   {
+    "date": "2026-08-06",
+    "ref": "Chullin 98",
+    "he_ref": "חולין צ״ח",
+    "lesson": {
+      "title": "שיעור חולין צ״ח",
+      "intro": "השיעור המלא ייכתב בריצה הבאה. בינתיים נאספו המקורות, הצפנים, התפילות והקשרים.",
+      "theme": "",
+      "codes": "ראה כרטיס הצפנים.",
+      "takeaway": "",
+      "_error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+    },
+    "theme": "",
+    "shared_words": [
+      "אפרוח",
+      "בביצת",
+      "ביצים",
+      "ביצה",
+      "שהרי",
+      "משום",
+      "ואפילו",
+      "קלופה",
+      "משמע",
+      "היתר",
+      "טמאה",
+      "שהיא"
+    ],
+    "codes_raw": {
+      "els": [
+        {
+          "word": "תורה",
+          "skip": 2,
+          "dir": "→",
+          "start": 8552
+        },
+        {
+          "word": "תורה",
+          "skip": 2,
+          "dir": "→",
+          "start": 17952
+        },
+        {
+          "word": "ישראל",
+          "skip": 2,
+          "dir": "→",
+          "start": 305082
+        },
+        {
+          "word": "ישראל",
+          "skip": 2,
+          "dir": "←",
+          "start": 100205
+        },
+        {
+          "word": "שלום",
+          "skip": 2,
+          "dir": "→",
+          "start": 53956
+        },
+        {
+          "word": "שלום",
+          "skip": 2,
+          "dir": "→",
+          "start": 120470
+        },
+        {
+          "word": "אמת",
+          "skip": 2,
+          "dir": "→",
+          "start": 33712
+        },
+        {
+          "word": "אמת",
+          "skip": 2,
+          "dir": "→",
+          "start": 47740
+        }
+      ],
+      "notarikon": {
+        "initials": "ברבאאהו",
+        "finals": "בתאםתםת"
+      },
+      "atbash": [
+        {
+          "word": "תורה",
+          "atbash": "אפגצ"
+        },
+        {
+          "word": "ישראל",
+          "atbash": "מבגתכ"
+        },
+        {
+          "word": "שבת",
+          "atbash": "בשא"
+        }
+      ],
+      "letters_scanned": 306269
+    },
+    "sources_used": [
+      "רש\"י",
+      "תוספות",
+      "משנה תורה, הלכות מאכלות אסורות",
+      "טור",
+      "שולחן ערוך, יורה דעה",
+      "ביאור שטיינזלץ",
+      "רש״ש",
+      "ספר התשב\"ץ",
+      "ריטב\"א",
+      "אור לישרים על תלמוד ירושלמי ראש השנה",
+      "סדר הדורות",
+      "מהר\"ם"
+    ],
+    "policy": {
+      "strict": true,
+      "hebrew_only": true
+    }
+  },
+  {
     "date": "2026-08-05",
     "ref": "Chullin 97",
     "he_ref": "חולין צ״ז",
