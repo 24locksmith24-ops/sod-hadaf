@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-08-09",
+    "ts": "2026-08-09 17:27",
+    "torah_no": 222,
+    "torah_ref": "Likutei Moharan, Part I.222.1",
+    "advice_topic": "Tefilah",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 222",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+    }
+  },
+  {
     "date": "2026-08-05",
     "ts": "2026-08-05 18:55",
     "torah_no": 218,
