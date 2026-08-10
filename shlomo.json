@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-08-10",
+    "ts": "2026-08-10 08:28",
+    "book": "קֹהֶלֶת",
+    "book_en": "Ecclesiastes",
+    "chapter": 7,
+    "content": {
+      "title": "קֹהֶלֶת פרק 7",
+      "_error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+    }
+  },
+  {
     "date": "2026-08-09",
     "ts": "2026-08-09 17:27",
     "book": "קֹהֶלֶת",

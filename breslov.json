@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-08-10",
+    "ts": "2026-08-10 08:28",
+    "torah_no": 223,
+    "torah_ref": "Likutei Moharan, Part I.223.1",
+    "advice_topic": "Hitbodedut",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 223",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+    }
+  },
+  {
     "date": "2026-08-09",
     "ts": "2026-08-09 17:27",
     "torah_no": 222,
