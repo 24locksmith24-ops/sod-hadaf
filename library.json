@@ -5,16 +5,16 @@
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 92,
+    "count": 93,
     "from": [
-      "חולין ק״א",
+      "חולין צ״ה",
       "חולין צ״ז",
+      "חולין ק״א",
       "חולין ע״ו",
+      "חולין ק״ב",
       "חולין צ״א",
       "חולין פ״א",
-      "חולין צ״ו",
-      "חולין צ״ה",
-      "חולין ק״ב"
+      "חולין צ״ו"
     ]
   },
   {
@@ -23,16 +23,16 @@
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 92,
+    "count": 93,
     "from": [
-      "חולין ק״א",
+      "חולין צ״ה",
       "חולין צ״ז",
+      "חולין ק״א",
       "חולין ע״ו",
+      "חולין ק״ב",
       "חולין צ״א",
       "חולין פ״א",
-      "חולין צ״ו",
-      "חולין צ״ה",
-      "חולין ק״ב"
+      "חולין צ״ו"
     ]
   },
   {
@@ -41,7 +41,7 @@
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 90,
+    "count": 91,
     "from": [
       "תפילות"
     ]
@@ -52,7 +52,7 @@
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 90,
+    "count": 91,
     "from": [
       "תפילות"
     ]
@@ -63,7 +63,7 @@
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 90,
+    "count": 91,
     "from": [
       "תפילות"
     ]
@@ -74,7 +74,7 @@
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 90,
+    "count": 91,
     "from": [
       "תפילות"
     ]
@@ -85,7 +85,7 @@
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 90,
+    "count": 91,
     "from": [
       "תפילות"
     ]
@@ -96,7 +96,7 @@
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 90,
+    "count": 91,
     "from": [
       "תפילות"
     ]
@@ -107,7 +107,7 @@
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 90,
+    "count": 91,
     "from": [
       "תפילות"
     ]
@@ -118,7 +118,7 @@
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 90,
+    "count": 91,
     "from": [
       "תפילות"
     ]
@@ -129,7 +129,7 @@
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 90,
+    "count": 91,
     "from": [
       "תפילות"
     ]
@@ -140,7 +140,7 @@
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 90,
+    "count": 91,
     "from": [
       "תפילות"
     ]
@@ -151,7 +151,7 @@
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 90,
+    "count": 91,
     "from": [
       "תפילות"
     ]
@@ -162,7 +162,7 @@
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-10",
-    "count": 90,
+    "count": 91,
     "from": [
       "תפילות"
     ]
@@ -191,16 +191,16 @@
     "ref": "Rabbeinu Gershom on Chullin 28a:1",
     "first_seen": "2026-05-28",
     "last_seen": "2026-08-10",
-    "count": 51,
+    "count": 52,
     "from": [
-      "חולין צ״א",
-      "חולין פ״ז",
-      "חולין ל״ד",
-      "חולין צ״ד",
-      "חולין ק״ב",
       "חולין צ״ה",
       "חולין מ״ז",
-      "חולין ל״ג"
+      "חולין פ״ז",
+      "חולין ל״ג",
+      "חולין ק״ב",
+      "חולין צ״א",
+      "חולין ל״ד",
+      "חולין צ״ד"
     ]
   },
   {
@@ -240,6 +240,24 @@
     ]
   },
   {
+    "name": "רש״ש",
+    "category": "Commentary",
+    "ref": "Rashash on Chullin 28a:1",
+    "first_seen": "2026-05-28",
+    "last_seen": "2026-08-10",
+    "count": 32,
+    "from": [
+      "חולין צ״ז",
+      "חולין ל״ט",
+      "חולין ל״ה",
+      "חולין ק״א",
+      "חולין פ׳",
+      "חולין ק״ב",
+      "חולין ס״ו",
+      "חולין צ״ו"
+    ]
+  },
+  {
     "name": "משנה תורה, הלכות שחיטה",
     "category": "Halakhah",
     "ref": "Mishneh Torah, Ritual Slaughter 1:9",
@@ -276,24 +294,6 @@
     ]
   },
   {
-    "name": "רש״ש",
-    "category": "Commentary",
-    "ref": "Rashash on Chullin 28a:1",
-    "first_seen": "2026-05-28",
-    "last_seen": "2026-08-10",
-    "count": 31,
-    "from": [
-      "חולין ל״ה",
-      "חולין ק״א",
-      "חולין צ״ז",
-      "חולין ק״ב",
-      "חולין ל״ט",
-      "חולין פ׳",
-      "חולין ס״ו",
-      "חולין צ״ו"
-    ]
-  },
-  {
     "name": "שולחן ערוך, יורה דעה",
     "category": "Halakhah",
     "ref": "Shulchan Arukh, Yoreh De'ah 5:3",
@@ -312,6 +312,24 @@
     ]
   },
   {
+    "name": "דור רביעי",
+    "category": "Commentary",
+    "ref": "Dor Revi'i on Chullin 32a:1:1",
+    "first_seen": "2026-06-01",
+    "last_seen": "2026-08-10",
+    "count": 24,
+    "from": [
+      "חולין ע״ג",
+      "חולין ע׳",
+      "חולין צ׳",
+      "חולין מ״ב",
+      "חולין ק״א",
+      "חולין ל״ב",
+      "חולין ק״ב",
+      "חולין צ״א"
+    ]
+  },
+  {
     "name": "הגהות יעב\"ץ",
     "category": "Commentary",
     "ref": "Haggahot Ya'avetz on Chullin 28a:2",
@@ -327,24 +345,6 @@
       "חולין פ״א",
       "חולין ק״א",
       "חולין פ׳"
-    ]
-  },
-  {
-    "name": "דור רביעי",
-    "category": "Commentary",
-    "ref": "Dor Revi'i on Chullin 32a:1:1",
-    "first_seen": "2026-06-01",
-    "last_seen": "2026-08-10",
-    "count": 23,
-    "from": [
-      "חולין ק״א",
-      "חולין צ׳",
-      "חולין צ״א",
-      "חולין ע׳",
-      "חולין ע״ג",
-      "חולין מ״ב",
-      "חולין ק״ב",
-      "חולין ל״ב"
     ]
   },
   {
@@ -719,6 +719,19 @@
     ]
   },
   {
+    "name": "מגיד משנה על משנה תורה, הלכות מאכלות אסורות",
+    "category": "Quoting Commentary",
+    "ref": "Maggid Mishneh on Mishneh Torah, Forbidden Foods 7:10:2",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-08-10",
+    "count": 6,
+    "from": [
+      "חולין כ״ז",
+      "Chullin 27",
+      "חולין ק״ב"
+    ]
+  },
+  {
     "name": "מהר\"ם שיף",
     "category": "Commentary",
     "ref": "Maharam Schiff on Chullin 52a:4",
@@ -812,19 +825,6 @@
     ]
   },
   {
-    "name": "מגיד משנה על משנה תורה, הלכות מאכלות אסורות",
-    "category": "Quoting Commentary",
-    "ref": "Maggid Mishneh on Mishneh Torah, Forbidden Foods 7:10:2",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-08-10",
-    "count": 5,
-    "from": [
-      "חולין ק״ב",
-      "חולין כ״ז",
-      "Chullin 27"
-    ]
-  },
-  {
     "name": "משנה חולין",
     "category": "Mishnah",
     "ref": "Mishnah Chullin 2:6",
@@ -864,6 +864,18 @@
     ]
   },
   {
+    "name": "Deuteronomy 16:18-21:9",
+    "category": "פרשת השבוע",
+    "ref": "Deuteronomy 16:18-21:9",
+    "first_seen": "2026-08-09",
+    "last_seen": "2026-08-10",
+    "count": 4,
+    "from": [
+      "חולין ק״א",
+      "חולין ק״ב"
+    ]
+  },
+  {
     "name": "אור זרוע",
     "category": "Halakhah",
     "ref": "Ohr Zarua, Volume I 362:1",
@@ -873,6 +885,18 @@
     "from": [
       "חולין ע״ז",
       "חולין ע״ג"
+    ]
+  },
+  {
+    "name": "דברים",
+    "category": "Tanakh",
+    "ref": "Deuteronomy 12:16",
+    "first_seen": "2026-06-02",
+    "last_seen": "2026-08-10",
+    "count": 4,
+    "from": [
+      "חולין ק״ב",
+      "חולין ל״ג"
     ]
   },
   {
@@ -944,6 +968,18 @@
     "count": 4,
     "from": [
       "חולין פ״ז",
+      "חולין מ״ו"
+    ]
+  },
+  {
+    "name": "פרי מגדים על יורה דעה",
+    "category": "Quoting Commentary",
+    "ref": "Peri Megadim on Yoreh De'ah, Mishbezot Zahav 41:1:1",
+    "first_seen": "2026-06-15",
+    "last_seen": "2026-08-10",
+    "count": 4,
+    "from": [
+      "חולין ק״ב",
       "חולין מ״ו"
     ]
   },
@@ -1071,6 +1107,19 @@
     ]
   },
   {
+    "name": "תהילים י׳",
+    "category": "תוספת לימוד",
+    "ref": "",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-08-10",
+    "count": 4,
+    "from": [
+      "חולין מ׳",
+      "חולין מ״א",
+      "חולין ק״ב"
+    ]
+  },
+  {
     "name": "תהילים כ״ט",
     "category": "תוספת לימוד",
     "ref": "",
@@ -1179,18 +1228,6 @@
     ]
   },
   {
-    "name": "Deuteronomy 16:18-21:9",
-    "category": "פרשת השבוע",
-    "ref": "Deuteronomy 16:18-21:9",
-    "first_seen": "2026-08-09",
-    "last_seen": "2026-08-10",
-    "count": 3,
-    "from": [
-      "חולין ק״א",
-      "חולין ק״ב"
-    ]
-  },
-  {
     "name": "Numbers 4:21-7:89",
     "category": "פרשת השבוע",
     "ref": "Numbers 4:21-7:89",
@@ -1200,18 +1237,6 @@
     "from": [
       "חולין כ״ז",
       "חולין כ״ח"
-    ]
-  },
-  {
-    "name": "דברים",
-    "category": "Tanakh",
-    "ref": "Deuteronomy 12:16",
-    "first_seen": "2026-06-02",
-    "last_seen": "2026-08-10",
-    "count": 3,
-    "from": [
-      "חולין ל״ג",
-      "חולין ק״ב"
     ]
   },
   {
@@ -1260,18 +1285,6 @@
     ]
   },
   {
-    "name": "פרי מגדים על יורה דעה",
-    "category": "Quoting Commentary",
-    "ref": "Peri Megadim on Yoreh De'ah, Mishbezot Zahav 41:1:1",
-    "first_seen": "2026-06-15",
-    "last_seen": "2026-08-10",
-    "count": 3,
-    "from": [
-      "חולין מ״ו",
-      "חולין ק״ב"
-    ]
-  },
-  {
     "name": "תהילים ח׳",
     "category": "תוספת לימוד",
     "ref": "",
@@ -1293,19 +1306,6 @@
     "from": [
       "חולין ע״ו",
       "חולין מ״ו"
-    ]
-  },
-  {
-    "name": "תהילים י׳",
-    "category": "תוספת לימוד",
-    "ref": "",
-    "first_seen": "2026-06-10",
-    "last_seen": "2026-08-10",
-    "count": 3,
-    "from": [
-      "חולין מ׳",
-      "חולין מ״א",
-      "חולין ק״ב"
     ]
   },
   {
@@ -1504,6 +1504,17 @@
     "count": 2,
     "from": [
       "חולין ס״ט"
+    ]
+  },
+  {
+    "name": "העמק שאלה על שאילתות דרב אחאי גאון",
+    "category": "Quoting Commentary",
+    "ref": "Haamek Sheilah on Sheiltot d'Rav Achai Gaon 6:1:1",
+    "first_seen": "2026-08-10",
+    "last_seen": "2026-08-10",
+    "count": 2,
+    "from": [
+      "חולין ק״ב"
     ]
   },
   {
@@ -1991,6 +2002,17 @@
     ]
   },
   {
+    "name": "חולין ק״ב",
+    "category": "דף יומי",
+    "ref": "Chullin 102",
+    "first_seen": "2026-08-10",
+    "last_seen": "2026-08-10",
+    "count": 2,
+    "from": [
+      "חולין ק״ב"
+    ]
+  },
+  {
     "name": "טורי זהב על שולחן ערוך יורה דעה",
     "category": "Quoting Commentary",
     "ref": "Turei Zahav on Shulchan Arukh, Yoreh De'ah 55:6",
@@ -2241,6 +2263,17 @@
     "count": 2,
     "from": [
       "חולין מ״א"
+    ]
+  },
+  {
+    "name": "מעשה רקח על הלכות מאכלות אסורות",
+    "category": "Quoting Commentary",
+    "ref": "Maaseh Rokeach on Forbidden Foods 5:1:1",
+    "first_seen": "2026-08-10",
+    "last_seen": "2026-08-10",
+    "count": 2,
+    "from": [
+      "חולין ק״ב"
     ]
   },
   {
@@ -2662,6 +2695,17 @@
     ]
   },
   {
+    "name": "רש\"י על דברים",
+    "category": "Quoting Commentary",
+    "ref": "Rashi on Deuteronomy 12:23:2",
+    "first_seen": "2026-08-10",
+    "last_seen": "2026-08-10",
+    "count": 2,
+    "from": [
+      "חולין ק״ב"
+    ]
+  },
+  {
     "name": "רש\"י על נזיר",
     "category": "Quoting Commentary",
     "ref": "Rashi on Nazir 34a:8:2",
@@ -2971,6 +3015,17 @@
     ]
   },
   {
+    "name": "תועפות ראם",
+    "category": "Quoting Commentary",
+    "ref": "Toafot Re'em 69:5",
+    "first_seen": "2026-08-10",
+    "last_seen": "2026-08-10",
+    "count": 2,
+    "from": [
+      "חולין ק״ב"
+    ]
+  },
+  {
     "name": "תורת הבית הארוך",
     "category": "Halakhah",
     "ref": "Torat HaBayit HaAroch, The First House, The First Gate 2",
@@ -3001,17 +3056,6 @@
     "count": 1,
     "from": [
       "חולין צ״ח"
-    ]
-  },
-  {
-    "name": "העמק שאלה על שאילתות דרב אחאי גאון",
-    "category": "Quoting Commentary",
-    "ref": "Haamek Sheilah on Sheiltot d'Rav Achai Gaon 6:1:1",
-    "first_seen": "2026-08-10",
-    "last_seen": "2026-08-10",
-    "count": 1,
-    "from": [
-      "חולין ק״ב"
     ]
   },
   {
@@ -3081,17 +3125,6 @@
     ]
   },
   {
-    "name": "חולין ק״ב",
-    "category": "דף יומי",
-    "ref": "Chullin 102",
-    "first_seen": "2026-08-10",
-    "last_seen": "2026-08-10",
-    "count": 1,
-    "from": [
-      "חולין ק״ב"
-    ]
-  },
-  {
     "name": "כתובות",
     "category": "Talmud",
     "ref": "Ketubot 76b:5",
@@ -3100,17 +3133,6 @@
     "count": 1,
     "from": [
       "חולין מ״ט"
-    ]
-  },
-  {
-    "name": "מעשה רקח על הלכות מאכלות אסורות",
-    "category": "Quoting Commentary",
-    "ref": "Maaseh Rokeach on Forbidden Foods 5:1:1",
-    "first_seen": "2026-08-10",
-    "last_seen": "2026-08-10",
-    "count": 1,
-    "from": [
-      "חולין ק״ב"
     ]
   },
   {
@@ -3158,17 +3180,6 @@
     ]
   },
   {
-    "name": "רש\"י על דברים",
-    "category": "Quoting Commentary",
-    "ref": "Rashi on Deuteronomy 12:23:2",
-    "first_seen": "2026-08-10",
-    "last_seen": "2026-08-10",
-    "count": 1,
-    "from": [
-      "חולין ק״ב"
-    ]
-  },
-  {
     "name": "תהילים ו׳",
     "category": "תוספת לימוד",
     "ref": "",
@@ -3188,17 +3199,6 @@
     "count": 1,
     "from": [
       "חולין מ״ב"
-    ]
-  },
-  {
-    "name": "תועפות ראם",
-    "category": "Quoting Commentary",
-    "ref": "Toafot Re'em 69:5",
-    "first_seen": "2026-08-10",
-    "last_seen": "2026-08-10",
-    "count": 1,
-    "from": [
-      "חולין ק״ב"
     ]
   }
 ]
