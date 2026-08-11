@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-08-11",
+    "ts": "2026-08-11 08:10",
+    "book": "שיר השירים",
+    "book_en": "Song of Songs",
+    "chapter": 8,
+    "content": {
+      "title": "שיר השירים פרק 8",
+      "_error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+    }
+  },
+  {
     "date": "2026-08-10",
     "ts": "2026-08-10 17:51",
     "book": "קֹהֶלֶת",

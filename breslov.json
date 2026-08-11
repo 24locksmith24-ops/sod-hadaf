@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-08-11",
+    "ts": "2026-08-11 08:10",
+    "torah_no": 224,
+    "torah_ref": "Likutei Moharan, Part I.224.1",
+    "advice_topic": "Simcha",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 224",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purcha"
+    }
+  },
+  {
     "date": "2026-08-10",
     "ts": "2026-08-10 17:51",
     "torah_no": 223,
