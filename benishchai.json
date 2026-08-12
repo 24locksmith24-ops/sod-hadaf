@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-08-12",
-    "ts": "2026-08-12 08:41",
+    "ts": "2026-08-12 17:55",
     "parasha": "שופטים",
     "ref": "Ben Ish Hai, Halachot 1st Year, Shoftim",
     "content": {
@@ -10,7 +10,7 @@
         "title": "בריצה הבאה",
         "explanation": "השיעור ייכתב בריצה הבאה."
       },
-      "_error": "Expecting ',' delimiter: line 5 column 221 (char 325)"
+      "_error": "Expecting ',' delimiter: line 5 column 202 (char 306)"
     }
   },
   {
