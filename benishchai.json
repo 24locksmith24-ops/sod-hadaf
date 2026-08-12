@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-08-12",
+    "ts": "2026-08-12 08:41",
+    "parasha": "שופטים",
+    "ref": "Ben Ish Hai, Halachot 1st Year, Shoftim",
+    "content": {
+      "title": "בן איש חי — פרשת שופטים",
+      "halacha1": {
+        "title": "בריצה הבאה",
+        "explanation": "השיעור ייכתב בריצה הבאה."
+      },
+      "_error": "Expecting ',' delimiter: line 5 column 221 (char 325)"
+    }
+  },
+  {
     "date": "2026-08-11",
     "ts": "2026-08-11 17:55",
     "parasha": "שופטים",
