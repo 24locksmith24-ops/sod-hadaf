@@ -9,7 +9,7 @@
       "theme": "",
       "codes": "ראה כרטיס הצפנים.",
       "takeaway": "",
-      "_error": "Expecting ',' delimiter: line 3 column 25 (char 108)"
+      "_error": "Expecting ',' delimiter: line 3 column 25 (char 101)"
     },
     "theme": "",
     "shared_words": [
@@ -22,8 +22,8 @@
       "אסור",
       "עליו",
       "מעים",
-      "שאין",
       "דעתו",
+      "שאין",
       "חייב"
     ],
     "codes_raw": {

@@ -5,16 +5,16 @@
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 104,
+    "count": 105,
     "from": [
+      "חולין ק״י",
+      "חולין ק״ח",
       "חולין ק״ב",
       "חולין צ״ו",
-      "חולין ק״ג",
       "חולין ע״ו",
-      "חולין ק״ח",
-      "חולין ק״י",
       "חולין ק״ה",
-      "חולין צ״א"
+      "חולין צ״א",
+      "חולין ק״ג"
     ]
   },
   {
@@ -23,16 +23,16 @@
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 104,
+    "count": 105,
     "from": [
+      "חולין ק״י",
+      "חולין ק״ח",
       "חולין ק״ב",
       "חולין צ״ו",
-      "חולין ק״ג",
       "חולין ע״ו",
-      "חולין ק״ח",
-      "חולין ק״י",
       "חולין ק״ה",
-      "חולין צ״א"
+      "חולין צ״א",
+      "חולין ק״ג"
     ]
   },
   {
@@ -41,7 +41,7 @@
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 102,
+    "count": 103,
     "from": [
       "תפילות"
     ]
@@ -52,7 +52,7 @@
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 102,
+    "count": 103,
     "from": [
       "תפילות"
     ]
@@ -63,7 +63,7 @@
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 102,
+    "count": 103,
     "from": [
       "תפילות"
     ]
@@ -74,7 +74,7 @@
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 102,
+    "count": 103,
     "from": [
       "תפילות"
     ]
@@ -85,7 +85,7 @@
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 102,
+    "count": 103,
     "from": [
       "תפילות"
     ]
@@ -96,7 +96,7 @@
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 102,
+    "count": 103,
     "from": [
       "תפילות"
     ]
@@ -107,7 +107,7 @@
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 102,
+    "count": 103,
     "from": [
       "תפילות"
     ]
@@ -118,7 +118,7 @@
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 102,
+    "count": 103,
     "from": [
       "תפילות"
     ]
@@ -129,7 +129,7 @@
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 102,
+    "count": 103,
     "from": [
       "תפילות"
     ]
@@ -140,7 +140,7 @@
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 102,
+    "count": 103,
     "from": [
       "תפילות"
     ]
@@ -151,7 +151,7 @@
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 102,
+    "count": 103,
     "from": [
       "תפילות"
     ]
@@ -162,7 +162,7 @@
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 102,
+    "count": 103,
     "from": [
       "תפילות"
     ]
@@ -191,16 +191,34 @@
     "ref": "Rabbeinu Gershom on Chullin 28a:1",
     "first_seen": "2026-05-28",
     "last_seen": "2026-08-18",
-    "count": 61,
+    "count": 62,
     "from": [
-      "חולין ק״ב",
-      "חולין ק״ג",
-      "חולין פ״ז",
       "חולין ק״י",
-      "חולין צ״ה",
+      "חולין פ״ז",
+      "חולין ק״ב",
       "חולין ק״ה",
       "חולין צ״א",
-      "חולין ל״ד"
+      "חולין ק״ג",
+      "חולין ל״ד",
+      "חולין צ״ה"
+    ]
+  },
+  {
+    "name": "טור",
+    "category": "Halakhah",
+    "ref": "Tur, Yoreh De'ah 21",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-08-18",
+    "count": 38,
+    "from": [
+      "חולין כ״ח",
+      "חולין ק״י",
+      "חולין מ״ז",
+      "חולין נ״ט",
+      "חולין צ״א",
+      "חולין נ״ב",
+      "חולין מ״ט",
+      "חולין מ״ו"
     ]
   },
   {
@@ -219,24 +237,6 @@
       "חולין צ״ז",
       "חולין נ״ג",
       "חולין פ״ז"
-    ]
-  },
-  {
-    "name": "טור",
-    "category": "Halakhah",
-    "ref": "Tur, Yoreh De'ah 21",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-08-18",
-    "count": 37,
-    "from": [
-      "חולין ק״י",
-      "חולין מ״ז",
-      "חולין מ״ו",
-      "חולין צ״א",
-      "חולין כ״ח",
-      "חולין נ״ב",
-      "חולין מ״ט",
-      "חולין נ״ט"
     ]
   },
   {
@@ -263,15 +263,15 @@
     "ref": "Sefer Mitzvot Gadol, Positive Commandments 63",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-18",
-    "count": 32,
+    "count": 33,
     "from": [
-      "חולין צ׳",
-      "חולין צ״ד",
-      "חולין ע״ו",
+      "חולין כ״ח",
       "חולין ק״י",
       "חולין מ״ז",
+      "חולין ע״ו",
+      "חולין צ׳",
       "חולין צ״א",
-      "חולין כ״ח",
+      "חולין צ״ד",
       "חולין ס״א"
     ]
   },
@@ -1028,6 +1028,18 @@
     ]
   },
   {
+    "name": "מחצית השקל על אורח חיים",
+    "category": "Quoting Commentary",
+    "ref": "Machatzit HaShekel on Orach Chayim 534:3:1",
+    "first_seen": "2026-08-16",
+    "last_seen": "2026-08-18",
+    "count": 4,
+    "from": [
+      "חולין ק״י",
+      "חולין ק״ח"
+    ]
+  },
+  {
     "name": "מעשה רקח על הלכות מאכלות אסורות",
     "category": "Quoting Commentary",
     "ref": "Maaseh Rokeach on Forbidden Foods 5:1:1",
@@ -1330,18 +1342,6 @@
     ]
   },
   {
-    "name": "מחצית השקל על אורח חיים",
-    "category": "Quoting Commentary",
-    "ref": "Machatzit HaShekel on Orach Chayim 534:3:1",
-    "first_seen": "2026-08-16",
-    "last_seen": "2026-08-18",
-    "count": 3,
-    "from": [
-      "חולין ק״י",
-      "חולין ק״ח"
-    ]
-  },
-  {
     "name": "מלבי\"ם על ויקרא",
     "category": "Quoting Commentary",
     "ref": "Malbim on Leviticus, Shmini 174:1",
@@ -1606,6 +1606,17 @@
     "count": 2,
     "from": [
       "חולין נ״ג"
+    ]
+  },
+  {
+    "name": "הלכות קטנות לרי\"ף (מנחות)",
+    "category": "Quoting Commentary",
+    "ref": "Rif Halakhot Ketanot (Menachot) 9b:6",
+    "first_seen": "2026-08-18",
+    "last_seen": "2026-08-18",
+    "count": 2,
+    "from": [
+      "חולין ק״י"
     ]
   },
   {
@@ -2181,6 +2192,17 @@
     ]
   },
   {
+    "name": "חולין ק״י",
+    "category": "דף יומי",
+    "ref": "Chullin 110",
+    "first_seen": "2026-08-18",
+    "last_seen": "2026-08-18",
+    "count": 2,
+    "from": [
+      "חולין ק״י"
+    ]
+  },
+  {
     "name": "טורי זהב על שולחן ערוך אורח חיים",
     "category": "Quoting Commentary",
     "ref": "Turei Zahav on Shulchan Arukh, Orach Chayim 534:1",
@@ -2255,6 +2277,17 @@
     "count": 2,
     "from": [
       "חולין ק״ח"
+    ]
+  },
+  {
+    "name": "כסף משנה על משנה תורה, הלכות תפילין ומזוזה וספר תורה",
+    "category": "Quoting Commentary",
+    "ref": "Kessef Mishneh on Mishneh Torah, Tefillin, Mezuzah and the Torah Scroll 4:13:3",
+    "first_seen": "2026-08-18",
+    "last_seen": "2026-08-18",
+    "count": 2,
+    "from": [
+      "חולין ק״י"
     ]
   },
   {
@@ -2376,6 +2409,17 @@
     "count": 2,
     "from": [
       "חולין פ״ט"
+    ]
+  },
+  {
+    "name": "מגן אברהם",
+    "category": "Quoting Commentary",
+    "ref": "Magen Avraham 38:1",
+    "first_seen": "2026-08-18",
+    "last_seen": "2026-08-18",
+    "count": 2,
+    "from": [
+      "חולין ק״י"
     ]
   },
   {
@@ -2610,6 +2654,17 @@
     ]
   },
   {
+    "name": "משנה תורה, הלכות תפילין ומזוזה וספר תורה",
+    "category": "Halakhah",
+    "ref": "Mishneh Torah, Tefillin, Mezuzah and the Torah Scroll 4:13",
+    "first_seen": "2026-08-18",
+    "last_seen": "2026-08-18",
+    "count": 2,
+    "from": [
+      "חולין ק״י"
+    ]
+  },
+  {
     "name": "נדה",
     "category": "Talmud",
     "ref": "Niddah 71b:16",
@@ -2750,6 +2805,17 @@
     "count": 2,
     "from": [
       "חולין ס״ג"
+    ]
+  },
+  {
+    "name": "פסקי הראש על מנחות",
+    "category": "Quoting Commentary",
+    "ref": "Rosh on Menachot, Hilchot Tefilin 29:1",
+    "first_seen": "2026-08-18",
+    "last_seen": "2026-08-18",
+    "count": 2,
+    "from": [
+      "חולין ק״י"
     ]
   },
   {
@@ -3061,6 +3127,17 @@
     ]
   },
   {
+    "name": "שולחן ערוך, אורח חיים",
+    "category": "Halakhah",
+    "ref": "Shulchan Arukh, Orach Chayim 38:1",
+    "first_seen": "2026-08-18",
+    "last_seen": "2026-08-18",
+    "count": 2,
+    "from": [
+      "חולין ק״י"
+    ]
+  },
+  {
     "name": "שולחן ערוך, חושן משפט",
     "category": "Halakhah",
     "ref": "Shulchan Arukh, Choshen Mishpat 228:6",
@@ -3325,17 +3402,6 @@
     ]
   },
   {
-    "name": "הלכות קטנות לרי\"ף (מנחות)",
-    "category": "Quoting Commentary",
-    "ref": "Rif Halakhot Ketanot (Menachot) 9b:6",
-    "first_seen": "2026-08-18",
-    "last_seen": "2026-08-18",
-    "count": 1,
-    "from": [
-      "חולין ק״י"
-    ]
-  },
-  {
     "name": "חולין כ״ח",
     "category": "דף יומי",
     "ref": "Chullin 28",
@@ -3402,28 +3468,6 @@
     ]
   },
   {
-    "name": "חולין ק״י",
-    "category": "דף יומי",
-    "ref": "Chullin 110",
-    "first_seen": "2026-08-18",
-    "last_seen": "2026-08-18",
-    "count": 1,
-    "from": [
-      "חולין ק״י"
-    ]
-  },
-  {
-    "name": "כסף משנה על משנה תורה, הלכות תפילין ומזוזה וספר תורה",
-    "category": "Quoting Commentary",
-    "ref": "Kessef Mishneh on Mishneh Torah, Tefillin, Mezuzah and the Torah Scroll 4:13:3",
-    "first_seen": "2026-08-18",
-    "last_seen": "2026-08-18",
-    "count": 1,
-    "from": [
-      "חולין ק״י"
-    ]
-  },
-  {
     "name": "כתובות",
     "category": "Talmud",
     "ref": "Ketubot 76b:5",
@@ -3435,17 +3479,6 @@
     ]
   },
   {
-    "name": "מגן אברהם",
-    "category": "Quoting Commentary",
-    "ref": "Magen Avraham 38:1",
-    "first_seen": "2026-08-18",
-    "last_seen": "2026-08-18",
-    "count": 1,
-    "from": [
-      "חולין ק״י"
-    ]
-  },
-  {
     "name": "משנה טהרות",
     "category": "Mishnah",
     "ref": "Mishnah Tahorot 2:2",
@@ -3454,17 +3487,6 @@
     "count": 1,
     "from": [
       "חולין ל״ה"
-    ]
-  },
-  {
-    "name": "משנה תורה, הלכות תפילין ומזוזה וספר תורה",
-    "category": "Halakhah",
-    "ref": "Mishneh Torah, Tefillin, Mezuzah and the Torah Scroll 4:13",
-    "first_seen": "2026-08-18",
-    "last_seen": "2026-08-18",
-    "count": 1,
-    "from": [
-      "חולין ק״י"
     ]
   },
   {
@@ -3498,28 +3520,6 @@
     "count": 1,
     "from": [
       "חולין מ״ב"
-    ]
-  },
-  {
-    "name": "פסקי הראש על מנחות",
-    "category": "Quoting Commentary",
-    "ref": "Rosh on Menachot, Hilchot Tefilin 29:1",
-    "first_seen": "2026-08-18",
-    "last_seen": "2026-08-18",
-    "count": 1,
-    "from": [
-      "חולין ק״י"
-    ]
-  },
-  {
-    "name": "שולחן ערוך, אורח חיים",
-    "category": "Halakhah",
-    "ref": "Shulchan Arukh, Orach Chayim 38:1",
-    "first_seen": "2026-08-18",
-    "last_seen": "2026-08-18",
-    "count": 1,
-    "from": [
-      "חולין ק״י"
     ]
   },
   {
