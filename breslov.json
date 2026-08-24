@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-08-24",
+    "ts": "2026-08-24 07:46",
+    "torah_no": 237,
+    "torah_ref": "Likutei Moharan, Part I.237.1",
+    "advice_topic": "Tzaddik",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 237",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-08-23",
     "ts": "2026-08-23 07:38",
     "torah_no": 236,
