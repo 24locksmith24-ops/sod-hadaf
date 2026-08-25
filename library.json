@@ -5,16 +5,16 @@
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 111,
+    "count": 112,
     "from": [
-      "חולין ק״ב",
+      "חולין ק״ה",
       "חולין קי״א",
-      "חולין קי״ז",
       "חולין ק״ג",
       "חולין צ״ו",
       "חולין קט״ז",
-      "חולין ק״ה",
-      "חולין קט״ו"
+      "חולין קט״ו",
+      "חולין קי״ז",
+      "חולין ק״ב"
     ]
   },
   {
@@ -23,16 +23,16 @@
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 111,
+    "count": 112,
     "from": [
-      "חולין ק״ב",
+      "חולין ק״ה",
       "חולין קי״א",
-      "חולין קי״ז",
       "חולין ק״ג",
       "חולין צ״ו",
       "חולין קט״ז",
-      "חולין ק״ה",
-      "חולין קט״ו"
+      "חולין קט״ו",
+      "חולין קי״ז",
+      "חולין ק״ב"
     ]
   },
   {
@@ -41,7 +41,7 @@
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 109,
+    "count": 110,
     "from": [
       "תפילות"
     ]
@@ -52,7 +52,7 @@
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 109,
+    "count": 110,
     "from": [
       "תפילות"
     ]
@@ -63,7 +63,7 @@
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 109,
+    "count": 110,
     "from": [
       "תפילות"
     ]
@@ -74,7 +74,7 @@
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 109,
+    "count": 110,
     "from": [
       "תפילות"
     ]
@@ -85,7 +85,7 @@
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 109,
+    "count": 110,
     "from": [
       "תפילות"
     ]
@@ -96,7 +96,7 @@
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 109,
+    "count": 110,
     "from": [
       "תפילות"
     ]
@@ -107,7 +107,7 @@
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 109,
+    "count": 110,
     "from": [
       "תפילות"
     ]
@@ -118,7 +118,7 @@
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 109,
+    "count": 110,
     "from": [
       "תפילות"
     ]
@@ -129,7 +129,7 @@
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 109,
+    "count": 110,
     "from": [
       "תפילות"
     ]
@@ -140,7 +140,7 @@
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 109,
+    "count": 110,
     "from": [
       "תפילות"
     ]
@@ -151,7 +151,7 @@
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 109,
+    "count": 110,
     "from": [
       "תפילות"
     ]
@@ -162,7 +162,7 @@
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
     "last_seen": "2026-08-25",
-    "count": 109,
+    "count": 110,
     "from": [
       "תפילות"
     ]
@@ -191,16 +191,16 @@
     "ref": "Rabbeinu Gershom on Chullin 28a:1",
     "first_seen": "2026-05-28",
     "last_seen": "2026-08-25",
-    "count": 67,
+    "count": 68,
     "from": [
-      "חולין ק״ב",
+      "חולין ק״ה",
       "חולין קי״א",
-      "חולין פ״ז",
-      "חולין צ״א",
-      "חולין קי״ז",
-      "חולין ל״ד",
       "חולין קט״ז",
-      "חולין ק״ה"
+      "חולין ל״ד",
+      "חולין פ״ז",
+      "חולין קי״ז",
+      "חולין ק״ב",
+      "חולין צ״א"
     ]
   },
   {
@@ -509,6 +509,38 @@
     ]
   },
   {
+    "name": "משנה חולין",
+    "category": "Mishnah",
+    "ref": "Mishnah Chullin 2:6",
+    "first_seen": "2026-06-07",
+    "last_seen": "2026-08-25",
+    "count": 11,
+    "from": [
+      "חולין מ׳",
+      "חולין ק״ד",
+      "חולין ע״ג",
+      "חולין קט״ז",
+      "חולין קי״ז",
+      "חולין ל״ח"
+    ]
+  },
+  {
+    "name": "ספרא",
+    "category": "Midrash",
+    "ref": "Sifra, Emor, Section 8 3",
+    "first_seen": "2026-06-07",
+    "last_seen": "2026-08-25",
+    "count": 11,
+    "from": [
+      "חולין ס״א",
+      "חולין ס״ח",
+      "חולין נ״ה",
+      "חולין פ״ח",
+      "חולין קי״ז",
+      "חולין ל״ח"
+    ]
+  },
+  {
     "name": "Deuteronomy 16:18-21:9",
     "category": "פרשת השבוע",
     "ref": "Deuteronomy 16:18-21:9",
@@ -567,38 +599,6 @@
       "חולין ל״ה",
       "חולין פ״א",
       "חולין ל״ד"
-    ]
-  },
-  {
-    "name": "משנה חולין",
-    "category": "Mishnah",
-    "ref": "Mishnah Chullin 2:6",
-    "first_seen": "2026-06-07",
-    "last_seen": "2026-08-25",
-    "count": 10,
-    "from": [
-      "חולין ק״ד",
-      "חולין ל״ח",
-      "חולין קי״ז",
-      "חולין קט״ז",
-      "חולין ע״ג",
-      "חולין מ׳"
-    ]
-  },
-  {
-    "name": "ספרא",
-    "category": "Midrash",
-    "ref": "Sifra, Emor, Section 8 3",
-    "first_seen": "2026-06-07",
-    "last_seen": "2026-08-25",
-    "count": 10,
-    "from": [
-      "חולין פ״ח",
-      "חולין ל״ח",
-      "חולין נ״ה",
-      "חולין ס״א",
-      "חולין קי״ז",
-      "חולין ס״ח"
     ]
   },
   {
@@ -709,6 +709,20 @@
     ]
   },
   {
+    "name": "ויקרא",
+    "category": "Tanakh",
+    "ref": "Leviticus 11:47",
+    "first_seen": "2026-06-11",
+    "last_seen": "2026-08-25",
+    "count": 7,
+    "from": [
+      "חולין מ״ב",
+      "חולין קי״ז",
+      "חולין פ״א",
+      "חולין צ׳"
+    ]
+  },
+  {
     "name": "חולין",
     "category": "Talmud",
     "ref": "Chullin 36b:10",
@@ -778,20 +792,6 @@
     ]
   },
   {
-    "name": "ויקרא",
-    "category": "Tanakh",
-    "ref": "Leviticus 11:47",
-    "first_seen": "2026-06-11",
-    "last_seen": "2026-08-25",
-    "count": 6,
-    "from": [
-      "חולין מ״ב",
-      "חולין פ״א",
-      "חולין קי״ז",
-      "חולין צ׳"
-    ]
-  },
-  {
     "name": "כסף משנה על משנה תורה, הלכות שחיטה",
     "category": "Quoting Commentary",
     "ref": "Kessef Mishneh on Mishneh Torah, Ritual Slaughter 1:10:2",
@@ -828,6 +828,19 @@
       "חולין כ״ז",
       "Chullin 27",
       "חולין ק״ב"
+    ]
+  },
+  {
+    "name": "משנה תורה, הלכות פסולי המוקדשין",
+    "category": "Halakhah",
+    "ref": "Mishneh Torah, Sacrifices Rendered Unfit 3:16",
+    "first_seen": "2026-07-29",
+    "last_seen": "2026-08-25",
+    "count": 6,
+    "from": [
+      "חולין קי״ז",
+      "חולין צ״ה",
+      "חולין צ׳"
     ]
   },
   {
@@ -964,16 +977,16 @@
     ]
   },
   {
-    "name": "משנה תורה, הלכות פסולי המוקדשין",
-    "category": "Halakhah",
-    "ref": "Mishneh Torah, Sacrifices Rendered Unfit 3:16",
-    "first_seen": "2026-07-29",
+    "name": "תוספתא חולין",
+    "category": "Tosefta",
+    "ref": "Tosefta Chullin 3:4",
+    "first_seen": "2026-06-17",
     "last_seen": "2026-08-25",
-    "count": 5,
+    "count": 6,
     "from": [
+      "חולין ע״ג",
       "חולין קי״ז",
-      "חולין צ״ה",
-      "חולין צ׳"
+      "חולין מ״ח"
     ]
   },
   {
@@ -1003,19 +1016,6 @@
     ]
   },
   {
-    "name": "תוספתא חולין",
-    "category": "Tosefta",
-    "ref": "Tosefta Chullin 3:4",
-    "first_seen": "2026-06-17",
-    "last_seen": "2026-08-25",
-    "count": 5,
-    "from": [
-      "חולין קי״ז",
-      "חולין ע״ג",
-      "חולין מ״ח"
-    ]
-  },
-  {
     "name": "תורה תמימה על התורה",
     "category": "Quoting Commentary",
     "ref": "Torah Temimah on Torah, Leviticus 11:2:1",
@@ -1026,6 +1026,18 @@
       "חולין מ״ב",
       "חולין ס״ג",
       "חולין פ״א"
+    ]
+  },
+  {
+    "name": "אוצר מדרשים",
+    "category": "Midrash",
+    "ref": "Otzar Midrashim, Perek Shirah ('Chapter of Song') 1:61",
+    "first_seen": "2026-07-02",
+    "last_seen": "2026-08-25",
+    "count": 4,
+    "from": [
+      "חולין קי״ז",
+      "חולין ס״ג"
     ]
   },
   {
@@ -1308,6 +1320,18 @@
     ]
   },
   {
+    "name": "תהילים כ״ה",
+    "category": "תוספת לימוד",
+    "ref": "",
+    "first_seen": "2026-06-25",
+    "last_seen": "2026-08-25",
+    "count": 4,
+    "from": [
+      "חולין נ״ו",
+      "חולין קי״ז"
+    ]
+  },
+  {
     "name": "תהילים כ״ט",
     "category": "תוספת לימוד",
     "ref": "",
@@ -1416,18 +1440,6 @@
     ]
   },
   {
-    "name": "אוצר מדרשים",
-    "category": "Midrash",
-    "ref": "Otzar Midrashim, Perek Shirah ('Chapter of Song') 1:61",
-    "first_seen": "2026-07-02",
-    "last_seen": "2026-08-25",
-    "count": 3,
-    "from": [
-      "חולין קי״ז",
-      "חולין ס״ג"
-    ]
-  },
-  {
     "name": "חולין ל״ב",
     "category": "דף יומי",
     "ref": "Chullin 32",
@@ -1494,18 +1506,6 @@
     "from": [
       "חולין ע״ו",
       "חולין מ״ו"
-    ]
-  },
-  {
-    "name": "תהילים כ״ה",
-    "category": "תוספת לימוד",
-    "ref": "",
-    "first_seen": "2026-06-25",
-    "last_seen": "2026-08-25",
-    "count": 3,
-    "from": [
-      "חולין קי״ז",
-      "חולין נ״ו"
     ]
   },
   {
@@ -2246,6 +2246,17 @@
     ]
   },
   {
+    "name": "חולין קי״ז",
+    "category": "דף יומי",
+    "ref": "Chullin 117",
+    "first_seen": "2026-08-25",
+    "last_seen": "2026-08-25",
+    "count": 2,
+    "from": [
+      "חולין קי״ז"
+    ]
+  },
+  {
     "name": "חולין ק״א",
     "category": "דף יומי",
     "ref": "Chullin 101",
@@ -2752,6 +2763,17 @@
     ]
   },
   {
+    "name": "משנה תורה, הלכות מעילה",
+    "category": "Halakhah",
+    "ref": "Mishneh Torah, Trespass 3:1",
+    "first_seen": "2026-08-25",
+    "last_seen": "2026-08-25",
+    "count": 2,
+    "from": [
+      "חולין קי״ז"
+    ]
+  },
+  {
     "name": "משנה תורה, הלכות מעשה הקרבנות",
     "category": "Halakhah",
     "ref": "Mishneh Torah, Sacrificial Procedure 6:2",
@@ -3126,6 +3148,17 @@
     ]
   },
   {
+    "name": "רבינו גרשום על מעילה",
+    "category": "Quoting Commentary",
+    "ref": "Rabbeinu Gershom on Meilah 15b:4",
+    "first_seen": "2026-08-25",
+    "last_seen": "2026-08-25",
+    "count": 2,
+    "from": [
+      "חולין קי״ז"
+    ]
+  },
+  {
     "name": "רד\"ק על בראשית",
     "category": "Quoting Commentary",
     "ref": "Radak on Genesis 1:11:5",
@@ -3379,6 +3412,17 @@
     ]
   },
   {
+    "name": "תוספות על מנחות",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot on Menachot 20b:1:2",
+    "first_seen": "2026-08-25",
+    "last_seen": "2026-08-25",
+    "count": 2,
+    "from": [
+      "חולין קי״ז"
+    ]
+  },
+  {
     "name": "תוספות על נזיר",
     "category": "Quoting Commentary",
     "ref": "Tosafot on Nazir 35b:8:1",
@@ -3588,17 +3632,6 @@
     ]
   },
   {
-    "name": "חולין קי״ז",
-    "category": "דף יומי",
-    "ref": "Chullin 117",
-    "first_seen": "2026-08-25",
-    "last_seen": "2026-08-25",
-    "count": 1,
-    "from": [
-      "חולין קי״ז"
-    ]
-  },
-  {
     "name": "כתובות",
     "category": "Talmud",
     "ref": "Ketubot 76b:5",
@@ -3618,17 +3651,6 @@
     "count": 1,
     "from": [
       "חולין ל״ה"
-    ]
-  },
-  {
-    "name": "משנה תורה, הלכות מעילה",
-    "category": "Halakhah",
-    "ref": "Mishneh Torah, Trespass 3:1",
-    "first_seen": "2026-08-25",
-    "last_seen": "2026-08-25",
-    "count": 1,
-    "from": [
-      "חולין קי״ז"
     ]
   },
   {
@@ -3665,17 +3687,6 @@
     ]
   },
   {
-    "name": "רבינו גרשום על מעילה",
-    "category": "Quoting Commentary",
-    "ref": "Rabbeinu Gershom on Meilah 15b:4",
-    "first_seen": "2026-08-25",
-    "last_seen": "2026-08-25",
-    "count": 1,
-    "from": [
-      "חולין קי״ז"
-    ]
-  },
-  {
     "name": "תהילים ו׳",
     "category": "תוספת לימוד",
     "ref": "",
@@ -3706,17 +3717,6 @@
     "count": 1,
     "from": [
       "חולין קט״ו"
-    ]
-  },
-  {
-    "name": "תוספות על מנחות",
-    "category": "Quoting Commentary",
-    "ref": "Tosafot on Menachot 20b:1:2",
-    "first_seen": "2026-08-25",
-    "last_seen": "2026-08-25",
-    "count": 1,
-    "from": [
-      "חולין קי״ז"
     ]
   }
 ]
