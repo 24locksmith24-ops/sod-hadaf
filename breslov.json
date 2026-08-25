@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-08-25",
+    "ts": "2026-08-25 07:40",
+    "torah_no": 238,
+    "torah_ref": "Likutei Moharan, Part I.238.1",
+    "advice_topic": "Emunah",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 238",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-08-24",
     "ts": "2026-08-24 17:33",
     "torah_no": 237,
