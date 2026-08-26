@@ -4,17 +4,17 @@
     "category": "Commentary",
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 112,
+    "last_seen": "2026-08-26",
+    "count": 113,
     "from": [
-      "חולין ק״ה",
-      "חולין קי״א",
-      "חולין ק״ג",
-      "חולין צ״ו",
       "חולין קט״ז",
+      "חולין ק״ה",
       "חולין קט״ו",
       "חולין קי״ז",
-      "חולין ק״ב"
+      "חולין צ״ו",
+      "חולין קי״א",
+      "חולין ק״ב",
+      "חולין ק״ג"
     ]
   },
   {
@@ -22,17 +22,17 @@
     "category": "Commentary",
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 112,
+    "last_seen": "2026-08-26",
+    "count": 113,
     "from": [
-      "חולין ק״ה",
-      "חולין קי״א",
-      "חולין ק״ג",
-      "חולין צ״ו",
       "חולין קט״ז",
+      "חולין ק״ה",
       "חולין קט״ו",
       "חולין קי״ז",
-      "חולין ק״ב"
+      "חולין צ״ו",
+      "חולין קי״א",
+      "חולין ק״ב",
+      "חולין ק״ג"
     ]
   },
   {
@@ -40,8 +40,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 110,
+    "last_seen": "2026-08-26",
+    "count": 111,
     "from": [
       "תפילות"
     ]
@@ -51,8 +51,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 110,
+    "last_seen": "2026-08-26",
+    "count": 111,
     "from": [
       "תפילות"
     ]
@@ -62,8 +62,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 110,
+    "last_seen": "2026-08-26",
+    "count": 111,
     "from": [
       "תפילות"
     ]
@@ -73,8 +73,8 @@
     "category": "תפילה (מקור)",
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 110,
+    "last_seen": "2026-08-26",
+    "count": 111,
     "from": [
       "תפילות"
     ]
@@ -84,8 +84,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 110,
+    "last_seen": "2026-08-26",
+    "count": 111,
     "from": [
       "תפילות"
     ]
@@ -95,8 +95,8 @@
     "category": "תפילה (מקור)",
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 110,
+    "last_seen": "2026-08-26",
+    "count": 111,
     "from": [
       "תפילות"
     ]
@@ -106,8 +106,8 @@
     "category": "תפילה (מקור)",
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 110,
+    "last_seen": "2026-08-26",
+    "count": 111,
     "from": [
       "תפילות"
     ]
@@ -117,8 +117,8 @@
     "category": "תפילה (מקור)",
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 110,
+    "last_seen": "2026-08-26",
+    "count": 111,
     "from": [
       "תפילות"
     ]
@@ -128,8 +128,8 @@
     "category": "תפילה (מקור)",
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 110,
+    "last_seen": "2026-08-26",
+    "count": 111,
     "from": [
       "תפילות"
     ]
@@ -139,8 +139,8 @@
     "category": "תפילה (מקור)",
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 110,
+    "last_seen": "2026-08-26",
+    "count": 111,
     "from": [
       "תפילות"
     ]
@@ -150,8 +150,8 @@
     "category": "תפילה (מקור)",
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 110,
+    "last_seen": "2026-08-26",
+    "count": 111,
     "from": [
       "תפילות"
     ]
@@ -161,8 +161,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-25",
-    "count": 110,
+    "last_seen": "2026-08-26",
+    "count": 111,
     "from": [
       "תפילות"
     ]
@@ -172,17 +172,17 @@
     "category": "Commentary",
     "ref": "Tosafot on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-08-24",
-    "count": 69,
+    "last_seen": "2026-08-26",
+    "count": 70,
     "from": [
-      "חולין קט״ו",
       "חולין ק״ט",
       "חולין קט״ז",
+      "חולין קי״ח",
+      "חולין ק״א",
       "חולין ל״ב",
       "חולין צ״א",
-      "חולין ק״א",
       "חולין ק״ה",
-      "חולין ע׳"
+      "חולין קט״ו"
     ]
   },
   {
@@ -190,17 +190,17 @@
     "category": "Commentary",
     "ref": "Rabbeinu Gershom on Chullin 28a:1",
     "first_seen": "2026-05-28",
-    "last_seen": "2026-08-25",
-    "count": 68,
+    "last_seen": "2026-08-26",
+    "count": 69,
     "from": [
-      "חולין ק״ה",
-      "חולין קי״א",
       "חולין קט״ז",
       "חולין ל״ד",
-      "חולין פ״ז",
+      "חולין צ״א",
+      "חולין ק״ה",
       "חולין קי״ז",
-      "חולין ק״ב",
-      "חולין צ״א"
+      "חולין קי״א",
+      "חולין פ״ז",
+      "חולין ק״ב"
     ]
   },
   {
@@ -244,16 +244,16 @@
     "category": "Commentary",
     "ref": "Rashash on Chullin 28a:1",
     "first_seen": "2026-05-28",
-    "last_seen": "2026-08-17",
-    "count": 34,
+    "last_seen": "2026-08-26",
+    "count": 35,
     "from": [
-      "חולין ל״ה",
       "חולין ק״ט",
-      "חולין ק״ב",
       "חולין ל״ט",
-      "חולין צ״ו",
       "חולין ק״א",
+      "חולין צ״ו",
       "חולין פ׳",
+      "חולין ק״ב",
+      "חולין ל״ה",
       "חולין ס״ו"
     ]
   },
@@ -316,17 +316,17 @@
     "category": "Commentary",
     "ref": "Dor Revi'i on Chullin 32a:1:1",
     "first_seen": "2026-06-01",
-    "last_seen": "2026-08-23",
-    "count": 29,
+    "last_seen": "2026-08-26",
+    "count": 30,
     "from": [
-      "חולין ע׳",
+      "חולין קי״ח",
+      "חולין ל״ב",
+      "חולין צ״א",
+      "חולין קט״ו",
+      "חולין ק״ח",
       "חולין ק״ד",
       "חולין צ׳",
-      "חולין קט״ו",
-      "חולין ל״ב",
-      "חולין ק״ב",
-      "חולין צ״א",
-      "חולין ק״ח"
+      "חולין ק״ב"
     ]
   },
   {
@@ -509,6 +509,23 @@
     ]
   },
   {
+    "name": "ספרא",
+    "category": "Midrash",
+    "ref": "Sifra, Emor, Section 8 3",
+    "first_seen": "2026-06-07",
+    "last_seen": "2026-08-26",
+    "count": 12,
+    "from": [
+      "חולין ס״א",
+      "חולין קי״ז",
+      "חולין פ״ח",
+      "חולין נ״ה",
+      "חולין ס״ח",
+      "חולין קי״ח",
+      "חולין ל״ח"
+    ]
+  },
+  {
     "name": "משנה חולין",
     "category": "Mishnah",
     "ref": "Mishnah Chullin 2:6",
@@ -520,22 +537,6 @@
       "חולין ק״ד",
       "חולין ע״ג",
       "חולין קט״ז",
-      "חולין קי״ז",
-      "חולין ל״ח"
-    ]
-  },
-  {
-    "name": "ספרא",
-    "category": "Midrash",
-    "ref": "Sifra, Emor, Section 8 3",
-    "first_seen": "2026-06-07",
-    "last_seen": "2026-08-25",
-    "count": 11,
-    "from": [
-      "חולין ס״א",
-      "חולין ס״ח",
-      "חולין נ״ה",
-      "חולין פ״ח",
       "חולין קי״ז",
       "חולין ל״ח"
     ]
@@ -694,6 +695,21 @@
     ]
   },
   {
+    "name": "ויקרא",
+    "category": "Tanakh",
+    "ref": "Leviticus 11:47",
+    "first_seen": "2026-06-11",
+    "last_seen": "2026-08-26",
+    "count": 8,
+    "from": [
+      "חולין פ״א",
+      "חולין קי״ז",
+      "חולין צ׳",
+      "חולין קי״ח",
+      "חולין מ״ב"
+    ]
+  },
+  {
     "name": "ספר הערוך",
     "category": "Reference",
     "ref": "Sefer HeArukh, Letter Yod 61",
@@ -706,20 +722,6 @@
       "חולין מ״ט",
       "חולין כ״ח",
       "חולין ק״ה"
-    ]
-  },
-  {
-    "name": "ויקרא",
-    "category": "Tanakh",
-    "ref": "Leviticus 11:47",
-    "first_seen": "2026-06-11",
-    "last_seen": "2026-08-25",
-    "count": 7,
-    "from": [
-      "חולין מ״ב",
-      "חולין קי״ז",
-      "חולין פ״א",
-      "חולין צ׳"
     ]
   },
   {
@@ -1485,6 +1487,18 @@
     ]
   },
   {
+    "name": "רש\"י על חולין",
+    "category": "Quoting Commentary",
+    "ref": "Rashi on Chullin 113b:8:2",
+    "first_seen": "2026-08-24",
+    "last_seen": "2026-08-26",
+    "count": 3,
+    "from": [
+      "חולין קט״ז",
+      "חולין קי״ח"
+    ]
+  },
+  {
     "name": "תהילים ח׳",
     "category": "תוספת לימוד",
     "ref": "",
@@ -1506,6 +1520,18 @@
     "from": [
       "חולין ע״ו",
       "חולין מ״ו"
+    ]
+  },
+  {
+    "name": "תוספות על שבת",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot on Shabbat 138a:12:1",
+    "first_seen": "2026-06-22",
+    "last_seen": "2026-08-26",
+    "count": 3,
+    "from": [
+      "חולין קי״ח",
+      "חולין נ״ג"
     ]
   },
   {
@@ -3192,17 +3218,6 @@
     ]
   },
   {
-    "name": "רש\"י על חולין",
-    "category": "Quoting Commentary",
-    "ref": "Rashi on Chullin 113b:8:2",
-    "first_seen": "2026-08-24",
-    "last_seen": "2026-08-24",
-    "count": 2,
-    "from": [
-      "חולין קט״ז"
-    ]
-  },
-  {
     "name": "רש\"י על נזיר",
     "category": "Quoting Commentary",
     "ref": "Rashi on Nazir 34a:8:2",
@@ -3467,17 +3482,6 @@
     ]
   },
   {
-    "name": "תוספות על שבת",
-    "category": "Quoting Commentary",
-    "ref": "Tosafot on Shabbat 138a:12:1",
-    "first_seen": "2026-06-22",
-    "last_seen": "2026-06-22",
-    "count": 2,
-    "from": [
-      "חולין נ״ג"
-    ]
-  },
-  {
     "name": "תוספתא בבא בתרא",
     "category": "Tosefta",
     "ref": "Tosefta Bava Batra 6:4",
@@ -3632,6 +3636,17 @@
     ]
   },
   {
+    "name": "חולין קי״ח",
+    "category": "דף יומי",
+    "ref": "Chullin 118",
+    "first_seen": "2026-08-26",
+    "last_seen": "2026-08-26",
+    "count": 1,
+    "from": [
+      "חולין קי״ח"
+    ]
+  },
+  {
     "name": "כתובות",
     "category": "Talmud",
     "ref": "Ketubot 76b:5",
@@ -3676,6 +3691,17 @@
     ]
   },
   {
+    "name": "פני יהושע על שבת",
+    "category": "Quoting Commentary",
+    "ref": "Penei Yehoshua on Shabbat 48b:6",
+    "first_seen": "2026-08-26",
+    "last_seen": "2026-08-26",
+    "count": 1,
+    "from": [
+      "חולין קי״ח"
+    ]
+  },
+  {
     "name": "פניני הלכה, כשרות",
     "category": "Halakhah",
     "ref": "Peninei Halakhah, Kashrut 20:1:4",
@@ -3717,6 +3743,17 @@
     "count": 1,
     "from": [
       "חולין קט״ו"
+    ]
+  },
+  {
+    "name": "תוספות על נדה",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot on Niddah 26a:19:1",
+    "first_seen": "2026-08-26",
+    "last_seen": "2026-08-26",
+    "count": 1,
+    "from": [
+      "חולין קי״ח"
     ]
   }
 ]

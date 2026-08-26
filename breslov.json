@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-08-26",
+    "ts": "2026-08-26 07:41",
+    "torah_no": 239,
+    "torah_ref": "Likutei Moharan, Part I.239.1",
+    "advice_topic": "Torah",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 239",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-08-25",
     "ts": "2026-08-25 07:40",
     "torah_no": 238,

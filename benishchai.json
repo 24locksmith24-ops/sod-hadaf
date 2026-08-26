@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-08-26",
+    "ts": "2026-08-26 07:41",
+    "parasha": "כי תבוא",
+    "ref": "Ben Ish Hai, Halachot 1st Year, Ki Tavo",
+    "content": {
+      "title": "בן איש חי — פרשת כי תבוא",
+      "halacha1": {
+        "title": "בריצה הבאה",
+        "explanation": "השיעור ייכתב בריצה הבאה."
+      },
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-08-25",
     "ts": "2026-08-25 17:35",
     "parasha": "כי תבוא",
