@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-08-31",
+    "ts": "2026-08-31 13:39",
+    "parasha": "נצבים-וילך",
+    "ref": "Ben Ish Hai, Halachot 1st Year, Bereshit",
+    "content": {
+      "title": "בן איש חי — פרשת נצבים-וילך",
+      "halacha1": {
+        "title": "בריצה הבאה",
+        "explanation": "השיעור ייכתב בריצה הבאה."
+      },
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-08-27",
     "ts": "2026-08-27 18:02",
     "parasha": "כי תבוא",
