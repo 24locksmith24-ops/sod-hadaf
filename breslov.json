@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-09-02",
+    "ts": "2026-09-02 20:31",
+    "torah_no": 246,
+    "torah_ref": "Likutei Moharan, Part I.246.1",
+    "advice_topic": "Teshuvah",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 246",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-08-31",
     "ts": "2026-08-31 22:45",
     "torah_no": 244,
