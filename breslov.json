@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-09-10",
+    "ts": "2026-09-10 20:24",
+    "torah_no": 254,
+    "torah_ref": "Likutei Moharan, Part I.254.1",
+    "advice_topic": "Simcha",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 254",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-09-09",
     "ts": "2026-09-09 20:27",
     "torah_no": 253,
