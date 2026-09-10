@@ -1,5 +1,14 @@
 [
   {
+    "date": "2026-09-10",
+    "ts": "2026-09-10 11:44",
+    "psalm_no": 103,
+    "content": {
+      "title": "תהילים פרק 103",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-09-09",
     "ts": "2026-09-09 20:27",
     "psalm_no": 102,
