@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-09-14",
+    "ts": "2026-09-14 12:40",
+    "book": "קֹהֶלֶת",
+    "book_en": "Ecclesiastes",
+    "chapter": 6,
+    "content": {
+      "title": "קֹהֶלֶת פרק 6",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-09-10",
     "ts": "2026-09-10 20:25",
     "book": "משלי",
