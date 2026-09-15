@@ -5,16 +5,16 @@
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 134,
+    "count": 135,
     "from": [
-      "חולין צ״ו",
-      "חולין קל״ח",
-      "חולין קל״ב",
-      "חולין קכ״ו",
-      "חולין ק״ל",
+      "חולין קט״ז",
       "חולין קל״ז",
+      "חולין קל״ב",
+      "חולין ק״ל",
+      "חולין צ״ו",
       "חולין קי״ט",
-      "חולין קט״ז"
+      "חולין קכ״ו",
+      "חולין קל״ח"
     ]
   },
   {
@@ -23,16 +23,16 @@
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 134,
+    "count": 135,
     "from": [
-      "חולין צ״ו",
-      "חולין קל״ח",
-      "חולין קל״ב",
-      "חולין קכ״ו",
-      "חולין ק״ל",
+      "חולין קט״ז",
       "חולין קל״ז",
+      "חולין קל״ב",
+      "חולין ק״ל",
+      "חולין צ״ו",
       "חולין קי״ט",
-      "חולין קט״ז"
+      "חולין קכ״ו",
+      "חולין קל״ח"
     ]
   },
   {
@@ -41,7 +41,7 @@
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 132,
+    "count": 133,
     "from": [
       "תפילות"
     ]
@@ -52,7 +52,7 @@
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 132,
+    "count": 133,
     "from": [
       "תפילות"
     ]
@@ -63,7 +63,7 @@
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 132,
+    "count": 133,
     "from": [
       "תפילות"
     ]
@@ -74,7 +74,7 @@
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 132,
+    "count": 133,
     "from": [
       "תפילות"
     ]
@@ -85,7 +85,7 @@
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 132,
+    "count": 133,
     "from": [
       "תפילות"
     ]
@@ -96,7 +96,7 @@
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 132,
+    "count": 133,
     "from": [
       "תפילות"
     ]
@@ -107,7 +107,7 @@
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 132,
+    "count": 133,
     "from": [
       "תפילות"
     ]
@@ -118,7 +118,7 @@
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 132,
+    "count": 133,
     "from": [
       "תפילות"
     ]
@@ -129,7 +129,7 @@
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 132,
+    "count": 133,
     "from": [
       "תפילות"
     ]
@@ -140,7 +140,7 @@
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 132,
+    "count": 133,
     "from": [
       "תפילות"
     ]
@@ -151,7 +151,7 @@
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 132,
+    "count": 133,
     "from": [
       "תפילות"
     ]
@@ -162,7 +162,7 @@
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
     "last_seen": "2026-09-15",
-    "count": 132,
+    "count": 133,
     "from": [
       "תפילות"
     ]
@@ -209,16 +209,16 @@
     "ref": "Rashash on Chullin 28a:1",
     "first_seen": "2026-05-28",
     "last_seen": "2026-09-15",
-    "count": 48,
+    "count": 49,
     "from": [
       "חולין קכ״ג",
-      "חולין קל״ח",
+      "חולין קל״ז",
       "חולין קל״ב",
+      "חולין קי״ח",
+      "חולין ל״ט",
       "חולין ק״א",
       "חולין קכ״ו",
-      "חולין קי״ח",
-      "חולין קל״ז",
-      "חולין ל״ט"
+      "חולין קל״ח"
     ]
   },
   {
@@ -276,6 +276,24 @@
     ]
   },
   {
+    "name": "דור רביעי",
+    "category": "Commentary",
+    "ref": "Dor Revi'i on Chullin 32a:1:1",
+    "first_seen": "2026-06-01",
+    "last_seen": "2026-09-15",
+    "count": 35,
+    "from": [
+      "חולין ק״ד",
+      "חולין ק״ב",
+      "חולין ל״ב",
+      "חולין קט״ו",
+      "חולין קי״ח",
+      "חולין צ׳",
+      "חולין קכ״ו",
+      "חולין קל״ח"
+    ]
+  },
+  {
     "name": "ספר מצוות גדול",
     "category": "Halakhah",
     "ref": "Sefer Mitzvot Gadol, Positive Commandments 63",
@@ -294,39 +312,21 @@
     ]
   },
   {
-    "name": "דור רביעי",
-    "category": "Commentary",
-    "ref": "Dor Revi'i on Chullin 32a:1:1",
-    "first_seen": "2026-06-01",
-    "last_seen": "2026-09-15",
-    "count": 34,
-    "from": [
-      "חולין ק״ד",
-      "חולין ל״ב",
-      "חולין ק״ב",
-      "חולין קל״ח",
-      "חולין קכ״ו",
-      "חולין צ׳",
-      "חולין קי״ח",
-      "חולין קט״ו"
-    ]
-  },
-  {
     "name": "הגהות יעב\"ץ",
     "category": "Commentary",
     "ref": "Haggahot Ya'avetz on Chullin 28a:2",
     "first_seen": "2026-05-28",
     "last_seen": "2026-09-15",
-    "count": 31,
+    "count": 32,
     "from": [
-      "חולין ל״ב",
       "חולין ס״ט",
-      "חולין פ׳",
-      "חולין קל״ח",
       "חולין קל״א",
+      "חולין ל״ב",
       "חולין קט״ו",
+      "חולין פ׳",
       "חולין ל״ט",
-      "חולין קי״ט"
+      "חולין קי״ט",
+      "חולין קל״ח"
     ]
   },
   {
@@ -366,6 +366,24 @@
     ]
   },
   {
+    "name": "ריטב\"א",
+    "category": "Commentary",
+    "ref": "Ritva on Chullin 90a:5",
+    "first_seen": "2026-07-29",
+    "last_seen": "2026-09-15",
+    "count": 20,
+    "from": [
+      "חולין ק״ה",
+      "חולין קט״ו",
+      "חולין צ״ח",
+      "חולין קל״ז",
+      "חולין ק״ט",
+      "חולין צ״ו",
+      "חולין צ׳",
+      "חולין קל״ח"
+    ]
+  },
+  {
     "name": "רי\"ף",
     "category": "Commentary",
     "ref": "Rif Chullin 8b:1",
@@ -381,24 +399,6 @@
       "חולין נ״ג",
       "חולין צ׳",
       "חולין מ״ח"
-    ]
-  },
-  {
-    "name": "ריטב\"א",
-    "category": "Commentary",
-    "ref": "Ritva on Chullin 90a:5",
-    "first_seen": "2026-07-29",
-    "last_seen": "2026-09-15",
-    "count": 19,
-    "from": [
-      "חולין ק״ט",
-      "חולין צ״ו",
-      "חולין צ״ח",
-      "חולין קל״ח",
-      "חולין צ׳",
-      "חולין קט״ו",
-      "חולין קל״ז",
-      "חולין ק״ה"
     ]
   },
   {
@@ -785,6 +785,21 @@
     ]
   },
   {
+    "name": "סדר הדורות",
+    "category": "Reference",
+    "ref": "Seder HaDorot, Tanaim and Amoraim 1137:1",
+    "first_seen": "2026-06-21",
+    "last_seen": "2026-09-15",
+    "count": 9,
+    "from": [
+      "חולין ע״ג",
+      "חולין נ״ב",
+      "חולין צ״ח",
+      "חולין קכ״ה",
+      "חולין קל״ח"
+    ]
+  },
+  {
     "name": "תורה תמימה על התורה",
     "category": "Quoting Commentary",
     "ref": "Torah Temimah on Torah, Leviticus 11:2:1",
@@ -840,21 +855,6 @@
       "חולין קל״א",
       "חולין קכ״ה",
       "חולין צ״ה"
-    ]
-  },
-  {
-    "name": "סדר הדורות",
-    "category": "Reference",
-    "ref": "Seder HaDorot, Tanaim and Amoraim 1137:1",
-    "first_seen": "2026-06-21",
-    "last_seen": "2026-09-15",
-    "count": 8,
-    "from": [
-      "חולין ע״ג",
-      "חולין צ״ח",
-      "חולין קל״ח",
-      "חולין קכ״ה",
-      "חולין נ״ב"
     ]
   },
   {
@@ -993,6 +993,19 @@
     ]
   },
   {
+    "name": "מבואות לספרות התנאים",
+    "category": "Talmud",
+    "ref": "Introductions to Tanaitic Literature, Introduction to Halakhic Midrashim, Remains from the Midrash attributed to Rabbi Ishmael's School to Leviticus 4",
+    "first_seen": "2026-07-05",
+    "last_seen": "2026-09-15",
+    "count": 6,
+    "from": [
+      "חולין ק״ט",
+      "חולין ס״ו",
+      "חולין קל״ח"
+    ]
+  },
+  {
     "name": "מגיד משנה על משנה תורה, הלכות מאכלות אסורות",
     "category": "Quoting Commentary",
     "ref": "Maggid Mishneh on Mishneh Torah, Forbidden Foods 7:10:2",
@@ -1029,6 +1042,19 @@
       "חולין קי״ז",
       "חולין צ״ה",
       "חולין צ׳"
+    ]
+  },
+  {
+    "name": "צפנת פענח על משנה תורה, הלכות מתנות עניים",
+    "category": "Quoting Commentary",
+    "ref": "Tzafnat Pa'neach on Mishneh Torah, Gifts to the Poor 10:4:1",
+    "first_seen": "2026-06-14",
+    "last_seen": "2026-09-15",
+    "count": 6,
+    "from": [
+      "חולין מ״ה",
+      "חולין קל״א",
+      "חולין קל״ח"
     ]
   },
   {
@@ -1165,32 +1191,6 @@
     ]
   },
   {
-    "name": "מבואות לספרות התנאים",
-    "category": "Talmud",
-    "ref": "Introductions to Tanaitic Literature, Introduction to Halakhic Midrashim, Remains from the Midrash attributed to Rabbi Ishmael's School to Leviticus 4",
-    "first_seen": "2026-07-05",
-    "last_seen": "2026-09-15",
-    "count": 5,
-    "from": [
-      "חולין ק״ט",
-      "חולין ס״ו",
-      "חולין קל״ח"
-    ]
-  },
-  {
-    "name": "צפנת פענח על משנה תורה, הלכות מתנות עניים",
-    "category": "Quoting Commentary",
-    "ref": "Tzafnat Pa'neach on Mishneh Torah, Gifts to the Poor 10:4:1",
-    "first_seen": "2026-06-14",
-    "last_seen": "2026-09-15",
-    "count": 5,
-    "from": [
-      "חולין קל״א",
-      "חולין מ״ה",
-      "חולין קל״ח"
-    ]
-  },
-  {
     "name": "שמות",
     "category": "Tanakh",
     "ref": "Exodus 13:2",
@@ -1214,6 +1214,19 @@
       "חולין ס״ט",
       "חולין קל״א",
       "חולין ל״ט"
+    ]
+  },
+  {
+    "name": "תהילים ט״ו",
+    "category": "תוספת לימוד",
+    "ref": "",
+    "first_seen": "2026-06-15",
+    "last_seen": "2026-09-15",
+    "count": 5,
+    "from": [
+      "חולין מ״ו",
+      "חולין ע״ו",
+      "חולין קל״ח"
     ]
   },
   {
@@ -1455,19 +1468,6 @@
     "from": [
       "חולין צ״ז",
       "חולין ס״ו"
-    ]
-  },
-  {
-    "name": "תהילים ט״ו",
-    "category": "תוספת לימוד",
-    "ref": "",
-    "first_seen": "2026-06-15",
-    "last_seen": "2026-09-15",
-    "count": 4,
-    "from": [
-      "חולין מ״ו",
-      "חולין קל״ח",
-      "חולין ע״ו"
     ]
   },
   {
@@ -2591,6 +2591,17 @@
     ]
   },
   {
+    "name": "חולין קל״ח",
+    "category": "דף יומי",
+    "ref": "Chullin 138",
+    "first_seen": "2026-09-15",
+    "last_seen": "2026-09-15",
+    "count": 2,
+    "from": [
+      "חולין קל״ח"
+    ]
+  },
+  {
     "name": "חולין ק״א",
     "category": "דף יומי",
     "ref": "Chullin 101",
@@ -2951,6 +2962,17 @@
     "count": 2,
     "from": [
       "חולין ל״ד"
+    ]
+  },
+  {
+    "name": "מלאכת שלמה על משנה עדיות",
+    "category": "Quoting Commentary",
+    "ref": "Melekhet Shelomoh on Mishnah Eduyot 3:3:3",
+    "first_seen": "2026-09-15",
+    "last_seen": "2026-09-15",
+    "count": 2,
+    "from": [
+      "חולין קל״ח"
     ]
   },
   {
@@ -3548,6 +3570,17 @@
     ]
   },
   {
+    "name": "ר\"ש משאנץ על משנה כלים",
+    "category": "Quoting Commentary",
+    "ref": "Rash MiShantz on Mishnah Kelim 17:2:3",
+    "first_seen": "2026-09-15",
+    "last_seen": "2026-09-15",
+    "count": 2,
+    "from": [
+      "חולין קל״ח"
+    ]
+  },
+  {
     "name": "ר\"ש משאנץ על משנה תרומות",
     "category": "Quoting Commentary",
     "ref": "Rash MiShantz on Mishnah Terumot 10:11:5",
@@ -3977,6 +4010,17 @@
     ]
   },
   {
+    "name": "תוספתא כלים מציעא",
+    "category": "Tosefta",
+    "ref": "Tosefta Kelim Metzia 6:2",
+    "first_seen": "2026-09-15",
+    "last_seen": "2026-09-15",
+    "count": 2,
+    "from": [
+      "חולין קל״ח"
+    ]
+  },
+  {
     "name": "תוספתא נדרים",
     "category": "Tosefta",
     "ref": "Tosefta Nedarim 3:5",
@@ -4109,17 +4153,6 @@
     ]
   },
   {
-    "name": "חולין קל״ח",
-    "category": "דף יומי",
-    "ref": "Chullin 138",
-    "first_seen": "2026-09-15",
-    "last_seen": "2026-09-15",
-    "count": 1,
-    "from": [
-      "חולין קל״ח"
-    ]
-  },
-  {
     "name": "כתובות",
     "category": "Talmud",
     "ref": "Ketubot 76b:5",
@@ -4128,17 +4161,6 @@
     "count": 1,
     "from": [
       "חולין מ״ט"
-    ]
-  },
-  {
-    "name": "מלאכת שלמה על משנה עדיות",
-    "category": "Quoting Commentary",
-    "ref": "Melekhet Shelomoh on Mishnah Eduyot 3:3:3",
-    "first_seen": "2026-09-15",
-    "last_seen": "2026-09-15",
-    "count": 1,
-    "from": [
-      "חולין קל״ח"
     ]
   },
   {
@@ -4208,17 +4230,6 @@
     ]
   },
   {
-    "name": "ר\"ש משאנץ על משנה כלים",
-    "category": "Quoting Commentary",
-    "ref": "Rash MiShantz on Mishnah Kelim 17:2:3",
-    "first_seen": "2026-09-15",
-    "last_seen": "2026-09-15",
-    "count": 1,
-    "from": [
-      "חולין קל״ח"
-    ]
-  },
-  {
     "name": "תולדות יעקב יוסף",
     "category": "Chasidut",
     "ref": "Toldot Yaakov Yosef, Mishpatim 139",
@@ -4249,17 +4260,6 @@
     "count": 1,
     "from": [
       "חולין קט״ו"
-    ]
-  },
-  {
-    "name": "תוספתא כלים מציעא",
-    "category": "Tosefta",
-    "ref": "Tosefta Kelim Metzia 6:2",
-    "first_seen": "2026-09-15",
-    "last_seen": "2026-09-15",
-    "count": 1,
-    "from": [
-      "חולין קל״ח"
     ]
   }
 ]
