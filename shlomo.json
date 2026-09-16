@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-09-16",
+    "ts": "2026-09-16 12:08",
+    "book": "משלי",
+    "book_en": "Proverbs",
+    "chapter": 12,
+    "content": {
+      "title": "משלי פרק 12",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-09-15",
     "ts": "2026-09-15 20:51",
     "book": "שיר השירים",
