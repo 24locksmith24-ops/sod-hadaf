@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-09-17",
+    "ts": "2026-09-17 12:17",
+    "parasha": "האזינו",
+    "ref": "Ben Ish Hai, Halachot 1st Year, Haazinu",
+    "content": {
+      "title": "בן איש חי — פרשת האזינו",
+      "halacha1": {
+        "title": "בריצה הבאה",
+        "explanation": "השיעור ייכתב בריצה הבאה."
+      },
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-09-16",
     "ts": "2026-09-16 20:53",
     "parasha": "האזינו",
