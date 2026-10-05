@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-10-05",
+    "ts": "2026-10-05 14:15",
+    "torah_no": 279,
+    "torah_ref": "Likutei Moharan, Part I.279.1",
+    "advice_topic": "Torah",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 279",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-09-22",
     "ts": "2026-09-22 20:50",
     "torah_no": 266,
