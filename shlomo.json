@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-10-06",
+    "ts": "2026-10-06 00:28",
+    "book": "שיר השירים",
+    "book_en": "Song of Songs",
+    "chapter": 8,
+    "content": {
+      "title": "שיר השירים פרק 8",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-10-05",
     "ts": "2026-10-05 14:15",
     "book": "קֹהֶלֶת",

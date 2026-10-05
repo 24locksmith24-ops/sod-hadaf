@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-10-06",
+    "ts": "2026-10-06 00:28",
+    "torah_no": 280,
+    "torah_ref": "Likutei Moharan, Part I.280.1",
+    "advice_topic": "Yirat Shamayim",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 280",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-10-05",
     "ts": "2026-10-05 14:15",
     "torah_no": 279,
