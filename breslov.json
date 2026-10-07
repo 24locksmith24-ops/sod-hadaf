@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-10-07",
+    "ts": "2026-10-07 22:39",
+    "torah_no": 281,
+    "torah_ref": "Likutei Moharan, Part I.281.1",
+    "advice_topic": "Emet",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 281",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-10-06",
     "ts": "2026-10-06 22:15",
     "torah_no": 280,
