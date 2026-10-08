@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-10-08",
+    "ts": "2026-10-08 14:11",
+    "parasha": "בראשית",
+    "ref": "Ben Ish Hai, Halachot 1st Year, Bereshit",
+    "content": {
+      "title": "בן איש חי — פרשת בראשית",
+      "halacha1": {
+        "title": "בריצה הבאה",
+        "explanation": "השיעור ייכתב בריצה הבאה."
+      },
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-10-07",
     "ts": "2026-10-07 22:40",
     "parasha": "בראשית",

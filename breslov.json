@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-10-08",
+    "ts": "2026-10-08 14:11",
+    "torah_no": 282,
+    "torah_ref": "Likutei Moharan, Part I.282.1",
+    "advice_topic": "Tefilah",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 282",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-10-07",
     "ts": "2026-10-07 22:39",
     "torah_no": 281,
