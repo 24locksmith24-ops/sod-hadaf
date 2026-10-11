@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-10-11",
+    "ts": "2026-10-11 17:05",
+    "torah_no": 285,
+    "torah_ref": "Likutei Moharan, Part I.285.1",
+    "advice_topic": "Bitachon",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 285",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-10-08",
     "ts": "2026-10-08 17:06",
     "torah_no": 282,
