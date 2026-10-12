@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-10-12",
+    "ts": "2026-10-12 07:25",
+    "parasha": "נח",
+    "ref": "Ben Ish Hai, Halachot 1st Year, Noach",
+    "content": {
+      "title": "בן איש חי — פרשת נח",
+      "halacha1": {
+        "title": "בריצה הבאה",
+        "explanation": "השיעור ייכתב בריצה הבאה."
+      },
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-10-11",
     "ts": "2026-10-11 17:05",
     "parasha": "נח",
