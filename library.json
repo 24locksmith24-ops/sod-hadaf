@@ -5,16 +5,16 @@
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 156,
+    "count": 157,
     "from": [
-      "בכורות ד׳",
-      "בכורות כ״ד",
-      "בכורות כ״ה",
+      "בכורות כ׳",
       "חולין ק״מ",
-      "בכורות י״ט",
       "בכורות י״ז",
+      "בכורות י״ט",
+      "בכורות כ״ה",
       "חולין ק״ל",
-      "בכורות כ׳"
+      "בכורות ד׳",
+      "בכורות כ״ד"
     ]
   },
   {
@@ -23,16 +23,16 @@
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 156,
+    "count": 157,
     "from": [
-      "בכורות ד׳",
-      "בכורות כ״ד",
-      "בכורות כ״ה",
+      "בכורות כ׳",
       "חולין ק״מ",
-      "בכורות י״ט",
       "בכורות י״ז",
+      "בכורות י״ט",
+      "בכורות כ״ה",
       "חולין ק״ל",
-      "בכורות כ׳"
+      "בכורות ד׳",
+      "בכורות כ״ד"
     ]
   },
   {
@@ -41,7 +41,7 @@
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 154,
+    "count": 155,
     "from": [
       "תפילות"
     ]
@@ -52,7 +52,7 @@
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 154,
+    "count": 155,
     "from": [
       "תפילות"
     ]
@@ -63,7 +63,7 @@
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 154,
+    "count": 155,
     "from": [
       "תפילות"
     ]
@@ -74,7 +74,7 @@
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 154,
+    "count": 155,
     "from": [
       "תפילות"
     ]
@@ -85,7 +85,7 @@
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 154,
+    "count": 155,
     "from": [
       "תפילות"
     ]
@@ -96,7 +96,7 @@
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 154,
+    "count": 155,
     "from": [
       "תפילות"
     ]
@@ -107,7 +107,7 @@
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 154,
+    "count": 155,
     "from": [
       "תפילות"
     ]
@@ -118,7 +118,7 @@
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 154,
+    "count": 155,
     "from": [
       "תפילות"
     ]
@@ -129,7 +129,7 @@
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 154,
+    "count": 155,
     "from": [
       "תפילות"
     ]
@@ -140,7 +140,7 @@
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 154,
+    "count": 155,
     "from": [
       "תפילות"
     ]
@@ -151,7 +151,7 @@
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 154,
+    "count": 155,
     "from": [
       "תפילות"
     ]
@@ -162,7 +162,7 @@
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
     "last_seen": "2026-10-13",
-    "count": 153,
+    "count": 154,
     "from": [
       "תפילות"
     ]
@@ -191,16 +191,16 @@
     "ref": "Rabbeinu Gershom on Chullin 28a:1",
     "first_seen": "2026-05-28",
     "last_seen": "2026-10-13",
-    "count": 88,
+    "count": 89,
     "from": [
-      "חולין קי״ח",
-      "בכורות כ״ד",
-      "בכורות כ״ה",
       "חולין קי״א",
+      "בכורות כ׳",
+      "בכורות י״ז",
       "חולין ק״ה",
       "בכורות י״ט",
-      "בכורות י״ז",
-      "בכורות כ׳"
+      "בכורות כ״ה",
+      "בכורות כ״ד",
+      "חולין קי״ח"
     ]
   },
   {
@@ -647,6 +647,22 @@
     ]
   },
   {
+    "name": "תוספות על חולין",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot on Chullin 13b:9:1",
+    "first_seen": "2026-06-09",
+    "last_seen": "2026-10-13",
+    "count": 12,
+    "from": [
+      "חולין קל״ז",
+      "חולין קכ״ט",
+      "חולין פ״א",
+      "חולין ע״ד",
+      "חולין מ׳",
+      "בכורות כ״ה"
+    ]
+  },
+  {
     "name": "אוצר לעזי רש\"י",
     "category": "Reference",
     "ref": "Otzar La'azei Rashi, Talmud, Chullin 44",
@@ -694,22 +710,6 @@
       "חולין קכ״ה",
       "חולין ע״ג",
       "חולין קל״ח"
-    ]
-  },
-  {
-    "name": "תוספות על חולין",
-    "category": "Quoting Commentary",
-    "ref": "Tosafot on Chullin 13b:9:1",
-    "first_seen": "2026-06-09",
-    "last_seen": "2026-10-13",
-    "count": 11,
-    "from": [
-      "חולין פ״א",
-      "חולין מ׳",
-      "בכורות כ״ה",
-      "חולין קל״ז",
-      "חולין ע״ד",
-      "חולין קכ״ט"
     ]
   },
   {
@@ -1052,6 +1052,19 @@
     ]
   },
   {
+    "name": "Genesis 6:9-11:32",
+    "category": "פרשת השבוע",
+    "ref": "Genesis 6:9-11:32",
+    "first_seen": "2026-10-11",
+    "last_seen": "2026-10-13",
+    "count": 6,
+    "from": [
+      "בכורות כ״ג",
+      "בכורות כ״ד",
+      "בכורות כ״ה"
+    ]
+  },
+  {
     "name": "אור זרוע",
     "category": "Halakhah",
     "ref": "Ohr Zarua, Volume I 362:1",
@@ -1208,6 +1221,19 @@
     ]
   },
   {
+    "name": "צפנת פענח על משנה תורה, הלכות ערכים וחרמין",
+    "category": "Quoting Commentary",
+    "ref": "Tzafnat Pa'neach on Mishneh Torah, Appraisals and Devoted Property 6:8:1",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-10-13",
+    "count": 6,
+    "from": [
+      "חולין מ״א",
+      "חולין קל״ב",
+      "בכורות כ״ה"
+    ]
+  },
+  {
     "name": "שבת",
     "category": "Talmud",
     "ref": "Shabbat 14a:1",
@@ -1219,6 +1245,19 @@
       "חולין פ׳",
       "חולין ל״ה",
       "חולין מ״ט"
+    ]
+  },
+  {
+    "name": "שואל ומשיב מהדורא תנינא",
+    "category": "Responsa",
+    "ref": "Shoel uMeshiv Mahadura II 2:78:4",
+    "first_seen": "2026-07-08",
+    "last_seen": "2026-10-13",
+    "count": 6,
+    "from": [
+      "חולין ס״ט",
+      "בכורות כ״ה",
+      "חולין ק״א"
     ]
   },
   {
@@ -1352,45 +1391,6 @@
       "בכורות כ״ד",
       "חולין מ״ז",
       "חולין קי״א"
-    ]
-  },
-  {
-    "name": "Genesis 6:9-11:32",
-    "category": "פרשת השבוע",
-    "ref": "Genesis 6:9-11:32",
-    "first_seen": "2026-10-11",
-    "last_seen": "2026-10-13",
-    "count": 5,
-    "from": [
-      "בכורות כ״ה",
-      "בכורות כ״ד",
-      "בכורות כ״ג"
-    ]
-  },
-  {
-    "name": "צפנת פענח על משנה תורה, הלכות ערכים וחרמין",
-    "category": "Quoting Commentary",
-    "ref": "Tzafnat Pa'neach on Mishneh Torah, Appraisals and Devoted Property 6:8:1",
-    "first_seen": "2026-06-10",
-    "last_seen": "2026-10-13",
-    "count": 5,
-    "from": [
-      "חולין קל״ב",
-      "חולין מ״א",
-      "בכורות כ״ה"
-    ]
-  },
-  {
-    "name": "שואל ומשיב מהדורא תנינא",
-    "category": "Responsa",
-    "ref": "Shoel uMeshiv Mahadura II 2:78:4",
-    "first_seen": "2026-07-08",
-    "last_seen": "2026-10-13",
-    "count": 5,
-    "from": [
-      "חולין ס״ט",
-      "בכורות כ״ה",
-      "חולין ק״א"
     ]
   },
   {
@@ -1528,6 +1528,18 @@
     ]
   },
   {
+    "name": "מנחת חינוך",
+    "category": "Quoting Commentary",
+    "ref": "Minchat Chinukh 279:1:1",
+    "first_seen": "2026-08-09",
+    "last_seen": "2026-10-13",
+    "count": 4,
+    "from": [
+      "בכורות כ״ה",
+      "חולין ק״א"
+    ]
+  },
+  {
     "name": "מעשה רקח על הלכות מאכלות אסורות",
     "category": "Quoting Commentary",
     "ref": "Maaseh Rokeach on Forbidden Foods 5:1:1",
@@ -1573,6 +1585,18 @@
     "from": [
       "חולין ע״ג",
       "חולין ל״ג"
+    ]
+  },
+  {
+    "name": "משנה תורה, הלכות מעילה",
+    "category": "Halakhah",
+    "ref": "Mishneh Torah, Trespass 3:1",
+    "first_seen": "2026-08-25",
+    "last_seen": "2026-10-13",
+    "count": 4,
+    "from": [
+      "בכורות כ״ה",
+      "חולין קי״ז"
     ]
   },
   {
@@ -1924,30 +1948,6 @@
     ]
   },
   {
-    "name": "מנחת חינוך",
-    "category": "Quoting Commentary",
-    "ref": "Minchat Chinukh 279:1:1",
-    "first_seen": "2026-08-09",
-    "last_seen": "2026-10-13",
-    "count": 3,
-    "from": [
-      "בכורות כ״ה",
-      "חולין ק״א"
-    ]
-  },
-  {
-    "name": "משנה תורה, הלכות מעילה",
-    "category": "Halakhah",
-    "ref": "Mishneh Torah, Trespass 3:1",
-    "first_seen": "2026-08-25",
-    "last_seen": "2026-10-13",
-    "count": 3,
-    "from": [
-      "חולין קי״ז",
-      "בכורות כ״ה"
-    ]
-  },
-  {
     "name": "משנה תורה, הלכות פרה אדומה",
     "category": "Halakhah",
     "ref": "Mishneh Torah, Red Heifer 4:18",
@@ -2011,6 +2011,17 @@
     "count": 2,
     "from": [
       "חולין צ״ה"
+    ]
+  },
+  {
+    "name": "אור שמח על משנה תורה, הלכות פרה אדומה",
+    "category": "Quoting Commentary",
+    "ref": "Ohr Sameach on Mishneh Torah, Red Heifer 1:7:1",
+    "first_seen": "2026-10-13",
+    "last_seen": "2026-10-13",
+    "count": 2,
+    "from": [
+      "בכורות כ״ה"
     ]
   },
   {
@@ -2132,6 +2143,17 @@
     "count": 2,
     "from": [
       "בכורות כ״ד"
+    ]
+  },
+  {
+    "name": "בכורות כ״ה",
+    "category": "דף יומי",
+    "ref": "Bekhorot 25",
+    "first_seen": "2026-10-13",
+    "last_seen": "2026-10-13",
+    "count": 2,
+    "from": [
+      "בכורות כ״ה"
     ]
   },
   {
@@ -3155,6 +3177,17 @@
     "count": 2,
     "from": [
       "חולין צ״ז"
+    ]
+  },
+  {
+    "name": "כסף משנה על משנה תורה, הלכות מעילה",
+    "category": "Quoting Commentary",
+    "ref": "Kessef Mishneh on Mishneh Torah, Trespass 1:7:1",
+    "first_seen": "2026-10-13",
+    "last_seen": "2026-10-13",
+    "count": 2,
+    "from": [
+      "בכורות כ״ה"
     ]
   },
   {
@@ -4357,6 +4390,17 @@
     ]
   },
   {
+    "name": "תוספות יום טוב על משנה חולין",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot Yom Tov on Mishnah Chullin 10:2:3",
+    "first_seen": "2026-10-13",
+    "last_seen": "2026-10-13",
+    "count": 2,
+    "from": [
+      "בכורות כ״ה"
+    ]
+  },
+  {
     "name": "תוספות יום טוב על משנה טהרות",
     "category": "Quoting Commentary",
     "ref": "Tosafot Yom Tov on Mishnah Tahorot 2:1:10",
@@ -4387,6 +4431,17 @@
     "count": 2,
     "from": [
       "חולין קכ״ט"
+    ]
+  },
+  {
+    "name": "תוספות ישנים על יומא",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot Yeshanim on Yoma 42a:7",
+    "first_seen": "2026-10-13",
+    "last_seen": "2026-10-13",
+    "count": 2,
+    "from": [
+      "בכורות כ״ה"
     ]
   },
   {
@@ -4577,17 +4632,6 @@
     ]
   },
   {
-    "name": "אור שמח על משנה תורה, הלכות פרה אדומה",
-    "category": "Quoting Commentary",
-    "ref": "Ohr Sameach on Mishneh Torah, Red Heifer 1:7:1",
-    "first_seen": "2026-10-13",
-    "last_seen": "2026-10-13",
-    "count": 1,
-    "from": [
-      "בכורות כ״ה"
-    ]
-  },
-  {
     "name": "ארץ חמדה",
     "category": "Quoting Commentary",
     "ref": "Eretz Chemdah, Ha'Azinu 1:14",
@@ -4596,17 +4640,6 @@
     "count": 1,
     "from": [
       "חולין קט״ו"
-    ]
-  },
-  {
-    "name": "בכורות כ״ה",
-    "category": "דף יומי",
-    "ref": "Bekhorot 25",
-    "first_seen": "2026-10-13",
-    "last_seen": "2026-10-13",
-    "count": 1,
-    "from": [
-      "בכורות כ״ה"
     ]
   },
   {
@@ -4698,17 +4731,6 @@
     ]
   },
   {
-    "name": "כסף משנה על משנה תורה, הלכות מעילה",
-    "category": "Quoting Commentary",
-    "ref": "Kessef Mishneh on Mishneh Torah, Trespass 1:7:1",
-    "first_seen": "2026-10-13",
-    "last_seen": "2026-10-13",
-    "count": 1,
-    "from": [
-      "בכורות כ״ה"
-    ]
-  },
-  {
     "name": "כתובות",
     "category": "Talmud",
     "ref": "Ketubot 76b:5",
@@ -4797,17 +4819,6 @@
     ]
   },
   {
-    "name": "תוספות יום טוב על משנה חולין",
-    "category": "Quoting Commentary",
-    "ref": "Tosafot Yom Tov on Mishnah Chullin 10:2:3",
-    "first_seen": "2026-10-13",
-    "last_seen": "2026-10-13",
-    "count": 1,
-    "from": [
-      "בכורות כ״ה"
-    ]
-  },
-  {
     "name": "תוספות יום טוב על משנה עוקצים",
     "category": "Quoting Commentary",
     "ref": "Tosafot Yom Tov on Mishnah Oktzin 1:5:6",
@@ -4816,17 +4827,6 @@
     "count": 1,
     "from": [
       "חולין קי״ט"
-    ]
-  },
-  {
-    "name": "תוספות ישנים על יומא",
-    "category": "Quoting Commentary",
-    "ref": "Tosafot Yeshanim on Yoma 42a:7",
-    "first_seen": "2026-10-13",
-    "last_seen": "2026-10-13",
-    "count": 1,
-    "from": [
-      "בכורות כ״ה"
     ]
   },
   {
