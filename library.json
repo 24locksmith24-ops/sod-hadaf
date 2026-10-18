@@ -4,17 +4,17 @@
     "category": "Commentary",
     "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 159,
+    "last_seen": "2026-10-18",
+    "count": 160,
     "from": [
-      "בכורות י״ז",
-      "בכורות כ״ד",
-      "חולין ק״מ",
-      "חולין ק״ל",
       "בכורות כ׳",
+      "בכורות כ״ד",
       "בכורות י״ט",
-      "בכורות ד׳",
-      "בכורות כ״ו"
+      "בכורות כ״ו",
+      "חולין ק״ל",
+      "בכורות י״ז",
+      "בכורות ל׳",
+      "חולין ק״מ"
     ]
   },
   {
@@ -22,17 +22,17 @@
     "category": "Commentary",
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 159,
+    "last_seen": "2026-10-18",
+    "count": 160,
     "from": [
-      "בכורות י״ז",
-      "בכורות כ״ד",
-      "חולין ק״מ",
-      "חולין ק״ל",
       "בכורות כ׳",
+      "בכורות כ״ד",
       "בכורות י״ט",
-      "בכורות ד׳",
-      "בכורות כ״ו"
+      "בכורות כ״ו",
+      "חולין ק״ל",
+      "בכורות י״ז",
+      "בכורות ל׳",
+      "חולין ק״מ"
     ]
   },
   {
@@ -40,8 +40,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 157,
+    "last_seen": "2026-10-18",
+    "count": 158,
     "from": [
       "תפילות"
     ]
@@ -51,8 +51,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 157,
+    "last_seen": "2026-10-18",
+    "count": 158,
     "from": [
       "תפילות"
     ]
@@ -62,8 +62,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 157,
+    "last_seen": "2026-10-18",
+    "count": 158,
     "from": [
       "תפילות"
     ]
@@ -73,8 +73,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 157,
+    "last_seen": "2026-10-18",
+    "count": 158,
     "from": [
       "תפילות"
     ]
@@ -84,8 +84,8 @@
     "category": "תפילה (מקור)",
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 157,
+    "last_seen": "2026-10-18",
+    "count": 158,
     "from": [
       "תפילות"
     ]
@@ -95,8 +95,8 @@
     "category": "תפילה (מקור)",
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 157,
+    "last_seen": "2026-10-18",
+    "count": 158,
     "from": [
       "תפילות"
     ]
@@ -106,8 +106,8 @@
     "category": "תפילה (מקור)",
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 157,
+    "last_seen": "2026-10-18",
+    "count": 158,
     "from": [
       "תפילות"
     ]
@@ -117,8 +117,8 @@
     "category": "תפילה (מקור)",
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 157,
+    "last_seen": "2026-10-18",
+    "count": 158,
     "from": [
       "תפילות"
     ]
@@ -128,8 +128,8 @@
     "category": "תפילה (מקור)",
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 157,
+    "last_seen": "2026-10-18",
+    "count": 158,
     "from": [
       "תפילות"
     ]
@@ -139,8 +139,8 @@
     "category": "תפילה (מקור)",
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 157,
+    "last_seen": "2026-10-18",
+    "count": 158,
     "from": [
       "תפילות"
     ]
@@ -150,8 +150,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 157,
+    "last_seen": "2026-10-18",
+    "count": 158,
     "from": [
       "תפילות"
     ]
@@ -161,8 +161,8 @@
     "category": "תפילה (מקור)",
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 156,
+    "last_seen": "2026-10-18",
+    "count": 157,
     "from": [
       "תפילות"
     ]
@@ -172,17 +172,17 @@
     "category": "Commentary",
     "ref": "Tosafot on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-10-14",
-    "count": 106,
+    "last_seen": "2026-10-18",
+    "count": 107,
     "from": [
-      "בכורות י״ז",
-      "בכורות כ״ד",
-      "בכורות ה׳",
-      "חולין קכ״ו",
-      "בכורות כ״ג",
       "בכורות כ׳",
+      "בכורות כ״ד",
       "בכורות י״ט",
-      "בכורות כ״ו"
+      "בכורות כ״ו",
+      "חולין קכ״ו",
+      "בכורות ה׳",
+      "בכורות י״ז",
+      "בכורות ל׳"
     ]
   },
   {
@@ -190,17 +190,17 @@
     "category": "Commentary",
     "ref": "Rabbeinu Gershom on Chullin 28a:1",
     "first_seen": "2026-05-28",
-    "last_seen": "2026-10-14",
-    "count": 91,
+    "last_seen": "2026-10-18",
+    "count": 92,
     "from": [
-      "בכורות י״ז",
-      "בכורות כ״ד",
-      "בכורות כ״ה",
-      "חולין ק״ה",
-      "חולין קי״ח",
       "בכורות כ׳",
+      "בכורות כ״ד",
       "בכורות י״ט",
-      "בכורות כ״ו"
+      "בכורות כ״ה",
+      "בכורות כ״ו",
+      "בכורות י״ז",
+      "חולין ק״ה",
+      "בכורות ל׳"
     ]
   },
   {
@@ -546,6 +546,24 @@
     ]
   },
   {
+    "name": "חולין",
+    "category": "Talmud",
+    "ref": "Chullin 36b:10",
+    "first_seen": "2026-06-02",
+    "last_seen": "2026-10-18",
+    "count": 14,
+    "from": [
+      "חולין ע״ד",
+      "חולין ע״ג",
+      "חולין קל״ט",
+      "חולין קט״ו",
+      "חולין ק״ל",
+      "בכורות י״ח",
+      "חולין ל״ג",
+      "בכורות ל׳"
+    ]
+  },
+  {
     "name": "מהר\"ם שיף",
     "category": "Commentary",
     "ref": "Maharam Schiff on Chullin 52a:4",
@@ -595,23 +613,6 @@
       "חולין קי״ז",
       "חולין קל״ג",
       "חולין מ״ב"
-    ]
-  },
-  {
-    "name": "חולין",
-    "category": "Talmud",
-    "ref": "Chullin 36b:10",
-    "first_seen": "2026-06-02",
-    "last_seen": "2026-10-06",
-    "count": 13,
-    "from": [
-      "חולין קל״ט",
-      "חולין קט״ו",
-      "חולין ק״ל",
-      "חולין ע״ד",
-      "בכורות י״ח",
-      "חולין ל״ג",
-      "חולין ע״ג"
     ]
   },
   {
@@ -695,6 +696,24 @@
       "חולין צ״ז",
       "חולין נ״ט",
       "חולין מ״ח"
+    ]
+  },
+  {
+    "name": "אוצר לעזי רש\"י",
+    "category": "Reference",
+    "ref": "Otzar La'azei Rashi, Talmud, Chullin 44",
+    "first_seen": "2026-05-28",
+    "last_seen": "2026-10-18",
+    "count": 11,
+    "from": [
+      "חולין ע׳",
+      "חולין נ״ט",
+      "Chullin 27",
+      "חולין מ״ט",
+      "חולין קי״ט",
+      "חולין כ״ח",
+      "בכורות ל׳",
+      "חולין נ״ב"
     ]
   },
   {
@@ -787,24 +806,6 @@
       "חולין ק״ל",
       "חולין קל״ג",
       "חולין קל״א"
-    ]
-  },
-  {
-    "name": "אוצר לעזי רש\"י",
-    "category": "Reference",
-    "ref": "Otzar La'azei Rashi, Talmud, Chullin 44",
-    "first_seen": "2026-05-28",
-    "last_seen": "2026-08-27",
-    "count": 10,
-    "from": [
-      "חולין קי״ט",
-      "חולין ע׳",
-      "חולין מ״ט",
-      "חולין צ״ז",
-      "חולין כ״ח",
-      "Chullin 27",
-      "חולין נ״ב",
-      "חולין נ״ט"
     ]
   },
   {
@@ -1397,6 +1398,32 @@
     ]
   },
   {
+    "name": "טורי זהב על שולחן ערוך יורה דעה",
+    "category": "Quoting Commentary",
+    "ref": "Turei Zahav on Shulchan Arukh, Yoreh De'ah 55:6",
+    "first_seen": "2026-07-13",
+    "last_seen": "2026-10-18",
+    "count": 5,
+    "from": [
+      "בכורות ל׳",
+      "חולין ע״ד",
+      "בכורות י״ח"
+    ]
+  },
+  {
+    "name": "שואל ומשיב מהדורא קמא",
+    "category": "Responsa",
+    "ref": "Shoel uMeshiv Mahadura I 2:156:3",
+    "first_seen": "2026-09-17",
+    "last_seen": "2026-10-18",
+    "count": 5,
+    "from": [
+      "בכורות כ״ו",
+      "חולין ק״מ",
+      "בכורות ל׳"
+    ]
+  },
+  {
     "name": "תהילים ה׳",
     "category": "תוספת לימוד",
     "ref": "",
@@ -1468,18 +1495,6 @@
     "from": [
       "חולין קל״ג",
       "חולין פ״א"
-    ]
-  },
-  {
-    "name": "טורי זהב על שולחן ערוך יורה דעה",
-    "category": "Quoting Commentary",
-    "ref": "Turei Zahav on Shulchan Arukh, Yoreh De'ah 55:6",
-    "first_seen": "2026-07-13",
-    "last_seen": "2026-10-06",
-    "count": 4,
-    "from": [
-      "חולין ע״ד",
-      "בכורות י״ח"
     ]
   },
   {
@@ -1747,18 +1762,6 @@
     ]
   },
   {
-    "name": "שואל ומשיב מהדורא קמא",
-    "category": "Responsa",
-    "ref": "Shoel uMeshiv Mahadura I 2:156:3",
-    "first_seen": "2026-09-17",
-    "last_seen": "2026-10-14",
-    "count": 4,
-    "from": [
-      "חולין ק״מ",
-      "בכורות כ״ו"
-    ]
-  },
-  {
     "name": "שואל ומשיב מהדורא רביעאה",
     "category": "Responsa",
     "ref": "Shoel uMeshiv Mahadura IV 3:103:2",
@@ -1952,6 +1955,18 @@
     ]
   },
   {
+    "name": "הלכות גדולות",
+    "category": "Halakhah",
+    "ref": "Halakhot Gedolot 61:5",
+    "first_seen": "2026-06-22",
+    "last_seen": "2026-10-18",
+    "count": 3,
+    "from": [
+      "בכורות ל׳",
+      "חולין נ״ג"
+    ]
+  },
+  {
     "name": "חולין ל״ב",
     "category": "דף יומי",
     "ref": "Chullin 32",
@@ -1960,6 +1975,18 @@
     "count": 3,
     "from": [
       "חולין ל״ב"
+    ]
+  },
+  {
+    "name": "מגילה",
+    "category": "Talmud",
+    "ref": "Megillah 28a:13",
+    "first_seen": "2026-06-14",
+    "last_seen": "2026-10-18",
+    "count": 3,
+    "from": [
+      "חולין מ״ה",
+      "בכורות ל׳"
     ]
   },
   {
@@ -1994,6 +2021,18 @@
     "count": 3,
     "from": [
       "חולין ל״ב"
+    ]
+  },
+  {
+    "name": "תוספות על סנהדרין",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot on Sanhedrin 83b:1:1",
+    "first_seen": "2026-08-09",
+    "last_seen": "2026-10-18",
+    "count": 3,
+    "from": [
+      "בכורות ל׳",
+      "חולין ק״א"
     ]
   },
   {
@@ -2335,17 +2374,6 @@
     "count": 2,
     "from": [
       "חולין ס״ג"
-    ]
-  },
-  {
-    "name": "הלכות גדולות",
-    "category": "Halakhah",
-    "ref": "Halakhot Gedolot 61:5",
-    "first_seen": "2026-06-22",
-    "last_seen": "2026-06-22",
-    "count": 2,
-    "from": [
-      "חולין נ״ג"
     ]
   },
   {
@@ -3380,17 +3408,6 @@
     "count": 2,
     "from": [
       "חולין ע״ו"
-    ]
-  },
-  {
-    "name": "מגילה",
-    "category": "Talmud",
-    "ref": "Megillah 28a:13",
-    "first_seen": "2026-06-14",
-    "last_seen": "2026-06-14",
-    "count": 2,
-    "from": [
-      "חולין מ״ה"
     ]
   },
   {
@@ -4560,17 +4577,6 @@
     ]
   },
   {
-    "name": "תוספות על סנהדרין",
-    "category": "Quoting Commentary",
-    "ref": "Tosafot on Sanhedrin 83b:1:1",
-    "first_seen": "2026-08-09",
-    "last_seen": "2026-08-09",
-    "count": 2,
-    "from": [
-      "חולין ק״א"
-    ]
-  },
-  {
     "name": "תוספתא אהלות",
     "category": "Tosefta",
     "ref": "Tosefta Oholot 4:1",
@@ -4692,6 +4698,17 @@
     ]
   },
   {
+    "name": "בכורות ל׳",
+    "category": "דף יומי",
+    "ref": "Bekhorot 30",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "count": 1,
+    "from": [
+      "בכורות ל׳"
+    ]
+  },
+  {
     "name": "חולין כ״ח",
     "category": "דף יומי",
     "ref": "Chullin 28",
@@ -4799,6 +4816,17 @@
     "count": 1,
     "from": [
       "חולין קי״ט"
+    ]
+  },
+  {
+    "name": "מעשה רקח על הלכות מטמאי משכב ומושב",
+    "category": "Quoting Commentary",
+    "ref": "Maaseh Rokeach on Those Who Defile Bed or Seat 10:10:1",
+    "first_seen": "2026-10-18",
+    "last_seen": "2026-10-18",
+    "count": 1,
+    "from": [
+      "בכורות ל׳"
     ]
   },
   {

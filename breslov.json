@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-10-18",
+    "ts": "2026-10-18 07:15",
+    "torah_no": 6,
+    "torah_ref": "Likutei Moharan, Part I.6.1",
+    "advice_topic": "Tefilah",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 6",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-10-14",
     "ts": "2026-10-14 17:05",
     "torah_no": 2,
