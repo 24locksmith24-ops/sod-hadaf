@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: התקנת תלויות
-        run: pip install anthropic requests
+        run: pip install -r requirements.txt
       - name: הסוכן עונה על השאלה
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
