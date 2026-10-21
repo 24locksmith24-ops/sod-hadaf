@@ -1,0 +1,4 @@
+# Pinned on purpose. anthropic 1.0.0 (2026-08-20) removed temperature= from Messages.create; an unpinned install turned every lesson since 2026-08-23 into a stub.
+# engine.py runs a preflight (preflight_sdk) that fails the run immediately if the installed SDK does not accept temperature=.
+anthropic==0.125.0
+requests>=2.31,<3

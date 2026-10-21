@@ -37,9 +37,12 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install anthropic requests
+        run: pip install -r requirements.txt
 
       - name: Run engine
+        id: engine
+        # continue-on-error so every NON-stub result is still committed below; the last step then turns the run RED if the engine reported any failure
+        continue-on-error: true
         run: python engine.py
 
       - name: Commit and push (with race-condition protection)
@@ -88,4 +91,10 @@ jobs:
           done
 
           echo "ERROR: Push failed after 5 attempts"
+          exit 1
+
+      - name: Fail the run if the engine failed (no silent stubs)
+        if: steps.engine.outcome == 'failure'
+        run: |
+          echo "engine.py reported failures (see the 'Run engine' log). Non-stub results were committed; failed ones were not."
           exit 1

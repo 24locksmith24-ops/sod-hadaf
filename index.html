@@ -1741,14 +1741,32 @@ const SEFARIA = "https://www.sefaria.org";
 let dafRefGlobal = null;
 let dafTextGlobal = "";
 
-// === Guardrail: the forbidden name (Hebrew + English). Mirrors the backend. ===
-const FORBIDDEN = ["ישו","ישוע","ישובע","יזוס","הנוצרי","אותו האיש","אותו איש","jesus","christ","yeshu","jesu"];
-function normHe(s){ return (s||"").replace(/[\u0591-\u05C7]/g,"").replace(/["'\u05F3\u05F4\u2018\u2019]/g,"").toLowerCase(); }
+// === Guardrail: the forbidden name (Hebrew + English). WHOLE-WORD matching, mirror of forbidden.py (tests/test_filter_js.py keeps them identical). ===
+// FORBIDDEN-BEGIN
+const FORBIDDEN_HE = ["ישו","ישוע","ישובע","יזוס","הנוצרי","הנוצרים"];
+const FORBIDDEN_LATIN = ["jesus","christ","yeshu","jesu"];
+const FORBIDDEN_PHRASES = [["אותו","האיש"],["אותו","איש"]];
+const FORBIDDEN_PREFIX = "ובכלמשה";
+const EUPHEMISM_PHRASES_BLOCK = true;
+function normHe(s){ return (s||"").replace(/\u05BE/g," ").replace(/[\u0591-\u05C7]/g,"").replace(/["'\u05F3\u05F4\u2018\u2019]/g,"").toLowerCase(); }
+function prefixForms(tok){
+  const out=[tok]; let t=tok;
+  for(let i=0;i<3;i++){ if(t.length>1 && FORBIDDEN_PREFIX.indexOf(t[0])>=0){ t=t.slice(1); out.push(t); } else break; }
+  return out;
+}
 function forbiddenHit(text){
   const n = normHe(text);
-  for(const t of FORBIDDEN){ if(n.includes(normHe(t))) return t; }
+  for(const w of FORBIDDEN_LATIN){ if(n.includes(w)) return w; }
+  const toks = n.match(/[\u05D0-\u05EA]+/g) || [];
+  for(let i=0;i<toks.length;i++){
+    for(const b of prefixForms(toks[i])){ if(FORBIDDEN_HE.includes(b)) return b; }
+    if(EUPHEMISM_PHRASES_BLOCK && i+1<toks.length){
+      for(const [a,b] of FORBIDDEN_PHRASES){ if(toks[i+1]===b && prefixForms(toks[i]).includes(a)) return a+" "+b; }
+    }
+  }
   return null;
 }
+// FORBIDDEN-END
 function hasHebrew(s){ return /[\u05D0-\u05EA]/.test(s||""); }
 
 function stripHtml(s){

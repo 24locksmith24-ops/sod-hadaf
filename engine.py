@@ -17,11 +17,42 @@ engine.py — סוֹד הַדַּף, מנוע בקובץ אחד.
 import os, re, json, datetime, sys
 import requests
 import anthropic
+from forbidden import forbidden_hit   # whole-word guard, shared algorithm with index.html (see forbidden.py)
 
 MODEL = os.environ.get("TORAH_MODEL", "claude-sonnet-4-6")
 SEF = "https://www.sefaria.org/api"
 HEBCAL = "https://www.hebcal.com/hebcal"
 OUT = "discoveries.json"
+
+# ---------- כשלים בקול רם: שום "שיעור ריק" לא נשמר ולא נחשב הצלחה ----------
+FAILURES = []   # every model/stub failure of this run; the process exits non-zero at the end if any
+
+
+def note_failure(where, err):
+    FAILURES.append({"where": where, "error": str(err)[:300]})
+    print("❌ FAILURE [%s]: %s" % (where, str(err)[:300]))
+
+
+def preflight_sdk():
+    """The six model calls pass temperature=. anthropic 1.0.0 (2026-08-20) removed it and every lesson since 2026-08-23 was a stub.
+    requirements.txt pins 0.125.0; this check makes any future drift fail on the first line of the run instead of silently."""
+    import inspect
+    p = inspect.signature(anthropic.Anthropic(api_key="x").messages.create).parameters
+    if "temperature" not in p:
+        note_failure("preflight", "installed anthropic %s does not accept temperature=; install the pinned version from requirements.txt"
+                     % getattr(anthropic, "__version__", "?"))
+        return False
+    return True
+
+
+def llm_create(client, **kw):
+    """the ONLY place a model call is made; a failure is recorded (and re-raised for the caller's own handling)"""
+    try:
+        return client.messages.create(**kw)
+    except Exception as ex:
+        note_failure("model call (max_tokens=%s)" % kw.get("max_tokens"), ex)
+        raise
+
 
 # ---------- גימטריה (חישוב ודאי) ----------
 GEM = {"א":1,"ב":2,"ג":3,"ד":4,"ה":5,"ו":6,"ז":7,"ח":8,"ט":9,"י":10,"כ":20,"ך":20,
@@ -180,11 +211,6 @@ def append_log(entry):
 APPROVED = {"Tanakh","Targum","Mishnah","Talmud","Tosefta","Midrash","Halakhah",
             "Kabbalah","Liturgy","Jewish Thought","Chasidut","Musar","Responsa",
             "Commentary","Quoting Commentary","Reference"}
-FORBIDDEN = {"ישו","ישוע","יזוס","הנוצרי","אותו האיש","jesus","christ","yeshu","jesu"}
-def _norm(s): return re.sub(r"[\"'\u05F3\u05F4\u2018\u2019]","",_NIK.sub("",s or "")).lower()
-def forbidden_hit(text):
-    n = _norm(text)
-    return next((t for t in FORBIDDEN if _norm(t) in n), None)
 def has_hebrew(s): return bool(re.search(r"[\u05D0-\u05EA]", s or ""))
 
 # ---------- שומר מנוחה (שבת/חג) ----------
@@ -373,12 +399,13 @@ def connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior):
             '"links":[{"a":"מקור","b":"מקור","point":"הקשר ביניהם, בסגנון לימוד"}],'
             '"thread":"פסקה שמסבירה איך הכל מתחבר, כדרך הסוגיה"}')
     try:
-        msg = client.messages.create(model=MODEL, max_tokens=1800, temperature=0.6,
+        msg = llm_create(client, model=MODEL, max_tokens=1800, temperature=0.6,
                 system=sysmsg, messages=[{"role":"user","content":user}])
         raw = "".join(b.text for b in msg.content if b.type=="text").strip()
         raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
         return json.loads(raw)
-    except Exception:
+    except Exception as ex:
+        note_failure("connector_agent", ex)
         return {"theme":"", "method":"", "aramaic":"", "links":[], "thread":""}
 
 # ---------- סוכן מגיד (Claude): כותב את השיעור ----------
@@ -438,7 +465,7 @@ def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn,
             '"codes":"פסקת צפנים בתורה: תאר ביושר את הממצאים שסופקו (דילוגים/אתב\\"ש/נוטריקון), עם הסתייגות מפורשת שאינם הוכחה. אם לא נמצא דבר, כתוב זאת.",'
             '"question":"שאלה למחשבה","takeaway":"לקח ליום"}\n'
             "חשוב: כלול פסקה לכל אחת משתי המשניות, 3-5 מפרשים, ו-4-6 קשרים.")
-    msg = client.messages.create(model=MODEL, max_tokens=8000, temperature=0.5,
+    msg = llm_create(client, model=MODEL, max_tokens=8000, temperature=0.5,
             system=sysmsg, messages=[{"role":"user","content":user}])
     raw = "".join(b.text for b in msg.content if b.type=="text").strip()
     raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
@@ -461,10 +488,15 @@ def _save_archive(path, record, cap=400):
     if os.path.exists(path):
         try: data = json.load(open(path, encoding="utf-8"))
         except Exception: data = []
+    c = record.get("content")
+    if isinstance(c, dict) and c.get("_error"):          # a failed generation is a FAILURE, not an archive entry
+        note_failure("archive " + path, c["_error"])
+        return False
     today_key = record.get("date")
     data = [r for r in data if r.get("date") != today_key]
     data.insert(0, record)
     json.dump(data[:cap], open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    return True
 
 # ---------- סוכן ליקוטי מוהר"ן + עצות (רבי נחמן מברסלב) ----------
 BRESLOV_OUT = "breslov.json"
@@ -512,7 +544,7 @@ def breslov_agent(today):
             '"hitbodedut":"שאלה לדמיין בהתבודדות / שיחה עם הקב\\"ה"}')
     try:
         client = anthropic.Anthropic()
-        msg = client.messages.create(model=MODEL, max_tokens=2000, temperature=0.6,
+        msg = llm_create(client, model=MODEL, max_tokens=2000, temperature=0.6,
                 system=sysmsg, messages=[{"role":"user","content":user}])
         raw = "".join(b.text for b in msg.content if b.type=="text").strip()
         raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
@@ -580,7 +612,7 @@ def benishchai_agent(today, parasha_name):
             '"disclaimer":"לימוד בלבד; להוראה למעשה — פנו לרב מוסמך"}')
     try:
         client = anthropic.Anthropic()
-        msg = client.messages.create(model=MODEL, max_tokens=2000, temperature=0.4,
+        msg = llm_create(client, model=MODEL, max_tokens=2000, temperature=0.4,
                 system=sysmsg, messages=[{"role":"user","content":user}])
         raw = "".join(b.text for b in msg.content if b.type=="text").strip()
         raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
@@ -625,7 +657,7 @@ def david_agent(today):
             '"advice":"עצה מעשית להיום הנובעת מן הפרק"}')
     try:
         client = anthropic.Anthropic()
-        msg = client.messages.create(model=MODEL, max_tokens=1500, temperature=0.7,
+        msg = llm_create(client, model=MODEL, max_tokens=1500, temperature=0.7,
                 system=sysmsg, messages=[{"role":"user","content":user}])
         raw = "".join(b.text for b in msg.content if b.type=="text").strip()
         raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
@@ -679,7 +711,7 @@ def shlomo_agent(today):
             '"reflection":"שאלה למחשבה לעצמך"}')
     try:
         client = anthropic.Anthropic()
-        msg = client.messages.create(model=MODEL, max_tokens=1500, temperature=0.5,
+        msg = llm_create(client, model=MODEL, max_tokens=1500, temperature=0.5,
                 system=sysmsg, messages=[{"role":"user","content":user}])
         raw = "".join(b.text for b in msg.content if b.type=="text").strip()
         raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
@@ -793,11 +825,12 @@ def yerushalmi_agent(today):
                   "בעברית בלבד. הטקסט עשוי להיות בארמית גלילית — תרגם והבן. "
                   "כתוב במילים שלך, ב-3-5 משפטים — מה הסוגיה המרכזית של הדף.")
         user = f"דף ירושלמי {daf['he_ref']}:\n{daf['hebrew'][:3000]}\n\nכתוב תקציר קצר."
-        msg = client.messages.create(model=MODEL, max_tokens=800, temperature=0.4,
+        msg = llm_create(client, model=MODEL, max_tokens=800, temperature=0.4,
                 system=sysmsg, messages=[{"role":"user","content":user}])
         summary = "".join(b.text for b in msg.content if b.type=="text").strip()
-    except Exception:
-        summary = "תקציר ייווצר בריצה הבאה."
+    except Exception as ex:
+        note_failure("yerushalmi summary", ex)
+        summary = ""
     rec = {"date": today.isoformat(),
            "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
            "he_ref": daf["he_ref"], "ref": daf["ref"],
@@ -998,11 +1031,12 @@ def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
                   "התקציר יראה כיצד 8 הקטגוריות שלמדנו היום מתחברות ביניהן או "
                   "מה החוט המקשר. 3-5 משפטים. בטון של חיבה ולימוד.")
         user = f"קטגוריות שלמדנו היום בחוק לישראל:\n{bullets}\n\nכתוב תקציר חיבור קצר."
-        msg = client.messages.create(model=MODEL, max_tokens=600, temperature=0.5,
+        msg = llm_create(client, model=MODEL, max_tokens=600, temperature=0.5,
                 system=sysmsg, messages=[{"role":"user","content":user}])
         overview = "".join(b.text for b in msg.content if b.type=="text").strip()
-    except Exception:
-        overview = "תקציר יתווסף בריצה הבאה."
+    except Exception as ex:
+        note_failure("chok overview", ex)
+        overview = ""
 
     rec = {"date": today.isoformat(),
            "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
@@ -1014,6 +1048,9 @@ def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
 
 # ---------- שמירה ----------
 def save(record):
+    if isinstance(record.get("lesson"), dict) and record["lesson"].get("_error"):
+        note_failure("lesson " + str(record.get("date")), record["lesson"]["_error"])
+        return False
     data = []
     if os.path.exists(OUT):
         try: data = json.load(open(OUT, encoding="utf-8"))
@@ -1021,10 +1058,14 @@ def save(record):
     data = [r for r in data if r.get("date") != record["date"]]
     data.insert(0, record)
     json.dump(data, open(OUT,"w",encoding="utf-8"), ensure_ascii=False, indent=2)
+    return True
 
 # ---------- שו"ת: שיעור לפי שאלה (סוכן על-פי שאילתא) ----------
 QA_OUT = "qa.json"
 def save_qa(record):
+    if isinstance(record.get("lesson"), dict) and record["lesson"].get("_error"):
+        note_failure("qa answer", record["lesson"]["_error"])
+        return False
     data = []
     if os.path.exists(QA_OUT):
         try: data = json.load(open(QA_OUT, encoding="utf-8"))
@@ -1085,7 +1126,7 @@ def answer_question(question, mode="full"):
         max_tok = 6000
     lesson = {}
     try:
-        msg = client.messages.create(model=MODEL, max_tokens=max_tok, temperature=0.5,
+        msg = llm_create(client, model=MODEL, max_tokens=max_tok, temperature=0.5,
                 system=sysmsg, messages=[{"role":"user","content":user}])
         raw = "".join(b.text for b in msg.content if b.type=="text").strip()
         raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
@@ -1248,6 +1289,7 @@ def main():
     try:
         lesson = write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior)
     except Exception as ex:
+        note_failure("write_lesson", ex)
         print("⚠️ המגיד נכשל (כנראה API/JSON) — נשמרים שאר הקבצים:", ex)
         lesson = {
             "title": f"שיעור {daf['he_ref']}",
@@ -1380,7 +1422,19 @@ def main():
 
     print("✅ נשמר השיעור:", lesson.get("title",""))
 
+def finish():
+    """exit code of the run: 1 if ANY model call / stub failed (workflow turns red), else 0"""
+    if not FAILURES:
+        return 0
+    print("❌ %d failure(s) in this run; non-stub results were saved, failed ones were NOT:" % len(FAILURES))
+    for f in FAILURES:
+        print("   -", f["where"], "|", f["error"][:160])
+    return 1
+
+
 if __name__ == "__main__":
+    if not preflight_sdk():
+        sys.exit(1)
     _q = os.environ.get("QA_QUESTION", "").strip()
     if _q:
         _body = os.environ.get("QA_BODY", "")
@@ -1388,3 +1442,4 @@ if __name__ == "__main__":
         answer_question(_q, _mode)
     else:
         main()
+    sys.exit(finish())
