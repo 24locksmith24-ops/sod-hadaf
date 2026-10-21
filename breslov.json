@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-10-21",
+    "ts": "2026-10-21 07:17",
+    "torah_no": 9,
+    "torah_ref": "Likutei Moharan, Part I.9.1",
+    "advice_topic": "Bitachon",
+    "content": {
+      "title": "ליקוטי מוהר\"ן ח\"א, תורה 9",
+      "torah_summary": "השיעור ייכתב בריצה הבאה.",
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-10-18",
     "ts": "2026-10-18 07:15",
     "torah_no": 6,

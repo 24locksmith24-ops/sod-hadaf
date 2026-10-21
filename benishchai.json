@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-10-21",
+    "ts": "2026-10-21 07:17",
+    "parasha": "לך לך",
+    "ref": "Ben Ish Hai, Halachot 1st Year, Lech Lecha",
+    "content": {
+      "title": "בן איש חי — פרשת לך לך",
+      "halacha1": {
+        "title": "בריצה הבאה",
+        "explanation": "השיעור ייכתב בריצה הבאה."
+      },
+      "_error": "Messages.create() got an unexpected keyword argument 'temperature'"
+    }
+  },
+  {
     "date": "2026-10-18",
     "ts": "2026-10-18 17:04",
     "parasha": "לך לך",
