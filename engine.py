@@ -17,6 +17,7 @@ engine.py — סוֹד הַדַּף, מנוע בקובץ אחד.
 import os, re, json, datetime, sys
 import requests
 import anthropic
+import sections as SEC                       # the whole daf + every commentary, read in sections (R1116)
 from forbidden import forbidden_hit   # whole-word guard, shared algorithm with index.html (see forbidden.py)
 
 MODEL = os.environ.get("TORAH_MODEL", "claude-sonnet-4-6")
@@ -369,13 +370,11 @@ def prayers_audit():
     return rec
 
 # ---------- סוכן מקשר (Claude): מוצא קשרים בין כל המקורות ----------
-def connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior):
+def connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior, notes):
     client = anthropic.Anthropic()
-    pool = [f"דף: {daf['hebrew'][:900]}"]
-    for m in mishnayot: pool.append(f"משנה: {m['hebrew'][:500]}")
+    pool = ["הערות מכל חלקי הדף, המשניות והמפרשים (כולם נקראו במלואם, בחלקים; ארמית כבר תורגמה):", SEC.notes_digest(notes)]
     if parasha: pool.append(f"פרשה: {parasha['hebrew'][:800]}")
     for e in extras: pool.append(f"{e['he_ref']}: {e['hebrew'][:500]}")
-    for c in comms[:8]: pool.append(f"{c['name']}: {c['text'][:300]}")
     sw = "; ".join(f"{w} ({'/'.join(ls)})" for w, ls in shared) or "אין"
     pr = "; ".join(p.get("theme","") for p in prior if p.get("theme")) or "אין"
     prl = "; ".join(l for p in prior for l in p.get("links_pts", [])[:2]) or "אין"
@@ -409,11 +408,11 @@ def connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior):
         return {"theme":"", "method":"", "aramaic":"", "links":[], "thread":""}
 
 # ---------- סוכן מגיד (Claude): כותב את השיעור ----------
-def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior):
+def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior, notes):
     client = anthropic.Anthropic()
-    mish = "\n".join(f"[משנה {i+1} · {m['he_ref']}] {m['hebrew'][:900]}"
-                     for i, m in enumerate(mishnayot)) or "(אין)"
-    src  = "\n".join(f"[{c['name']}] {c['text'][:400]}" for c in comms[:10]) or "(אין)"
+    daf_text = SEC.notes_digest(notes)          # the WHOLE daf, both mishnayot and every commentary in full, read in sections
+    mish = "(נקראו במלואן — ראה ההערות למעלה)"
+    src  = "(נקראו במלואם — ראה ההערות למעלה; שמות המפרשים: " + "; ".join(c["name"] for c in comms) + ")"
     par  = (f"פרשת השבוע ({parasha['he_ref']}):\n{parasha['hebrew'][:1400]}"
             if parasha else "(אין)")
     ext  = "\n".join(f"[{e['he_ref']}] {e['hebrew'][:900]}" for e in extras) or "(אין)"
@@ -431,7 +430,7 @@ def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn,
               "בקטע הצפנים הצג את הממצאים בענווה וביושר: כדבר ללימוד והתבוננות, "
               "תוך ציון מפורש שדפוסי דילוג מופיעים גם במקרה ובכל טקסט ארוך, ושאין בכך הוכחה.")
     chain = "; ".join(f"{c['name']} (מתוך {c.get('from','')})" for c in comms[:10]) or "אין"
-    user = (f"הדף היומי: {daf['he_ref']}\nטקסט הדף (יתכן ארמית — תרגם והבן):\n{daf['hebrew'][:3200]}\n\n"
+    user = (f"הדף היומי: {daf['he_ref']}\nהערות מכל חלקי הדף, המשניות והמפרשים — הכל נקרא במלואו, בחלקים (הארמית כבר תורגמה):\n{daf_text}\n\n"
             f"שתי המשניות היומיות:\n{mish}\n\n"
             f"מפרשים מאושרים (לבסס עליהם את דברי המפרשים):\n{src}\n\n"
             f"{par}\n\n"
@@ -1282,12 +1281,23 @@ def main():
     shared = shared_words(pool)
     prior = load_insights()
 
+    print("📚 קורא את הדף והמפרשים במלואם, בחלקים…")
+    units = SEC.make_units(daf, mishnayot, comms)
+    _client = anthropic.Anthropic()
+    try:
+        notes = SEC.read_in_sections(lambda **kw: llm_create(_client, **kw), units, MODEL)
+    except Exception as ex:
+        note_failure("read_in_sections", ex)
+        print("❌ קריאת הדף בחלקים נכשלה — לא נכתב שיעור:", ex)
+        sys.exit(finish())
+    print("   %d חלקים נקראו (%d תווים בסך הכל)" % (len(units), sum(len(t) for _, t in units)))
+
     print("🔗 סוכן מקשר מחפש קשרים…")
-    conn = connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior)
+    conn = connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior, notes)
 
     print("📖 סוכן מגיד כותב שיעור עבור", daf["he_ref"], "…")
     try:
-        lesson = write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior)
+        lesson = write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior, notes)
     except Exception as ex:
         note_failure("write_lesson", ex)
         print("⚠️ המגיד נכשל (כנראה API/JSON) — נשמרים שאר הקבצים:", ex)

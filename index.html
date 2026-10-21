@@ -1931,7 +1931,7 @@ async function generateInsight(){
   body.style.display="none";
   btn.disabled = true;
 
-  const snippet = dafTextGlobal.slice(0, 3500);
+  const snippet = dafTextGlobal;   // the whole daf (R1116: the 3,500-character slice is gone)
   const prompt =
 `להלן קטע מתוך הדף יומי (${dafRefGlobal}):
 
