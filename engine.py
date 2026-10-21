@@ -17,6 +17,7 @@ engine.py — סוֹד הַדַּף, מנוע בקובץ אחד.
 import os, re, json, datetime, sys
 import requests
 import anthropic
+import lessons_store as LS                  # Sifria: one permanent file per lesson + index (R1116)
 import sections as SEC                       # the whole daf + every commentary, read in sections (R1116)
 from forbidden import forbidden_hit   # whole-word guard, shared algorithm with index.html (see forbidden.py)
 
@@ -238,9 +239,19 @@ def _clean(x):
         elif v: out.append(re.sub(r"\s+"," ", re.sub(r"<[^>]+>"," ", v)).strip())
     walk(x); return [s for s in out if s]
 
-def daily_items():
-    return {(i.get("title") or {}).get("en"): i for i in
-            requests.get(f"{SEF}/calendars", timeout=25).json().get("calendar_items", [])}
+def daily_items(on=None):
+    """Sefaria's calendar for today (or for the day `on`). Retried: the API sometimes answers a non-JSON page under load."""
+    import time
+    params = {"year": on.year, "month": on.month, "day": on.day} if on else None
+    last = None
+    for attempt in (1, 2, 3, 4):
+        try:
+            items = requests.get(f"{SEF}/calendars", timeout=25, params=params).json().get("calendar_items", [])
+            return {(i.get("title") or {}).get("en"): i for i in items}
+        except Exception as ex:           # noqa: BLE001
+            last = ex
+            time.sleep(2 * attempt)
+    raise last
 
 TORAH_BOOKS = ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy"]
 def fetch_full_torah():
@@ -1047,16 +1058,17 @@ def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
 
 # ---------- שמירה ----------
 def save(record):
+    """a FULL lesson -> its permanent file (lessons/<Masechet>/<DDD>.json, created exclusively) + the by-date view the page reads. A stub is a failure."""
     if isinstance(record.get("lesson"), dict) and record["lesson"].get("_error"):
         note_failure("lesson " + str(record.get("date")), record["lesson"]["_error"])
         return False
-    data = []
-    if os.path.exists(OUT):
-        try: data = json.load(open(OUT, encoding="utf-8"))
-        except Exception: data = []
-    data = [r for r in data if r.get("date") != record["date"]]
-    data.insert(0, record)
-    json.dump(data, open(OUT,"w",encoding="utf-8"), ensure_ascii=False, indent=2)
+    try:
+        status, path = LS.save_lesson(record)
+    except LS.StubRefused as ex:                 # too short / not a lesson: a failure, never a file
+        note_failure("lesson " + str(record.get("date")), ex)
+        return False
+    print("📚 Sifria:", status, path)
+    LS.sync_view(record, OUT)
     return True
 
 # ---------- שו"ת: שיעור לפי שאלה (סוכן על-פי שאילתא) ----------
@@ -1148,6 +1160,31 @@ def answer_question(question, mode="full"):
     print("✅ נשמרה תשובה לשו\"ת:", lesson.get("title",""))
 
 # ---------- main ----------
+def generate_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, prior, shared):
+    """sections -> connector -> lesson. -> (lesson, conn). On failure the lesson is a stub carrying _error (never saved, see save())."""
+    print("📚 קורא את הדף והמפרשים במלואם, בחלקים…")
+    units = SEC.make_units(daf, mishnayot, comms)
+    _client = anthropic.Anthropic()
+    try:
+        notes = SEC.read_in_sections(lambda **kw: llm_create(_client, **kw), units, MODEL)
+    except Exception as ex:
+        note_failure("read_in_sections", ex)
+        return {"title": f"שיעור {daf['he_ref']}", "_error": "read_in_sections: " + str(ex)[:180]}, {}
+    print("   %d חלקים נקראו (%d תווים בסך הכל)" % (len(units), sum(len(t) for _, t in units)))
+
+    print("🔗 סוכן מקשר מחפש קשרים…")
+    conn = connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior, notes)
+
+    print("📖 סוכן מגיד כותב שיעור עבור", daf["he_ref"], "…")
+    try:
+        lesson = write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior, notes)
+    except Exception as ex:
+        note_failure("write_lesson", ex)
+        print("⚠️ המגיד נכשל (כנראה API/JSON) — נשמרים שאר הקבצים:", ex)
+        lesson = {"title": f"שיעור {daf['he_ref']}", "_error": str(ex)[:200]}
+    return lesson, conn
+
+
 def main():
     today = datetime.date.today()
     reason = resting_reason(today)
@@ -1157,6 +1194,8 @@ def main():
     if reason and force:
         print(f"⚠️  מצב בדיקה: עוקף את {reason} (FORCE_RUN=1) — לבדיקה בלבד")
 
+    for _p in LS.import_from_view(OUT):
+        print("📚 Sifria: קובץ קבוע נוצר לשיעור קיים:", _p)
     items = daily_items()
     daf_item = items.get("Daf Yomi")
     if not daf_item or not daf_item.get("ref"):
@@ -1281,44 +1320,24 @@ def main():
     shared = shared_words(pool)
     prior = load_insights()
 
-    print("📚 קורא את הדף והמפרשים במלואם, בחלקים…")
-    units = SEC.make_units(daf, mishnayot, comms)
-    _client = anthropic.Anthropic()
-    try:
-        notes = SEC.read_in_sections(lambda **kw: llm_create(_client, **kw), units, MODEL)
-    except Exception as ex:
-        note_failure("read_in_sections", ex)
-        print("❌ קריאת הדף בחלקים נכשלה — לא נכתב שיעור:", ex)
-        sys.exit(finish())
-    print("   %d חלקים נקראו (%d תווים בסך הכל)" % (len(units), sum(len(t) for _, t in units)))
-
-    print("🔗 סוכן מקשר מחפש קשרים…")
-    conn = connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior, notes)
-
-    print("📖 סוכן מגיד כותב שיעור עבור", daf["he_ref"], "…")
-    try:
-        lesson = write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior, notes)
-    except Exception as ex:
-        note_failure("write_lesson", ex)
-        print("⚠️ המגיד נכשל (כנראה API/JSON) — נשמרים שאר הקבצים:", ex)
-        lesson = {
-            "title": f"שיעור {daf['he_ref']}",
-            "intro": ("השיעור המלא ייכתב בריצה הבאה. בינתיים נאספו המקורות, "
-                      "הצפנים, התפילות והקשרים."),
-            "theme": conn.get("theme",""),
-            "codes": "ראה כרטיס הצפנים.",
-            "takeaway": conn.get("thread",""),
-            "_error": str(ex)[:200],
-        }
+    _have = LS.exists(daf["ref"])
+    if _have:
+        # Sifria: this daf already has its permanent lesson -> no second (paid) generation, nothing is overwritten
+        print("📚 קיים כבר שיעור קבוע לדף", daf["ref"], "— לא נכתב שוב")
+        _old = json.load(open(LS.path_for(daf["ref"]), encoding="utf-8"))
+        lesson, conn = _old["lesson"], {"theme": _old.get("theme", ""), "links": []}
+    else:
+        lesson, conn = generate_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, prior, shared)
 
     # זיכרון משותף: שומרים את החוט, הקשרים, דרך הלימוד והתרגום — כדי שמחר יבנו עליו
-    save_insight({"ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
-                  "date": today.isoformat(), "ref": daf["he_ref"],
-                  "theme": conn.get("theme",""), "thread": conn.get("thread",""),
-                  "method": conn.get("method",""), "aramaic": conn.get("aramaic",""),
-                  "links_pts": [l.get("point","") for l in conn.get("links",[])]})
+    if not _have and not lesson.get("_error"):
+        save_insight({"ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+                      "date": today.isoformat(), "ref": daf["he_ref"],
+                      "theme": conn.get("theme",""), "thread": conn.get("thread",""),
+                      "method": conn.get("method",""), "aramaic": conn.get("aramaic",""),
+                      "links_pts": [l.get("point","") for l in conn.get("links",[])]})
 
-    save({
+    if not _have: save({
         "date": today.isoformat(),
         "ref": daf["ref"], "he_ref": daf["he_ref"],
         "lesson": lesson,

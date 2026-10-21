@@ -77,7 +77,7 @@ class NoStubsSaved(InTmp):
         self.assertEqual(len(E.FAILURES), 1)
 
     def test_good_lesson_is_saved(self):
-        self.assertTrue(E.save({"date": "2026-10-21", "ref": "Bekhorot 33", "he_ref": "x", "lesson": {"title": "t", "intro": "i"}}))
+        self.assertTrue(E.save({"date": "2026-10-21", "ref": "Bekhorot 33", "he_ref": "x", "lesson": {"title": "t", "intro": "i" * 1200}}))
         self.assertEqual(json.load(open(E.OUT, encoding="utf-8"))[0]["date"], "2026-10-21")
         self.assertEqual(E.FAILURES, [])
 

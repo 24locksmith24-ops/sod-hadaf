@@ -1,0 +1,109 @@
+name: Sod HaDaf - Backfill lessons
+
+# Manual only. Writes the lessons that are missing or are stubs into Sifria (lessons/) and the by-date view (discoveries.json).
+# Default is a DRY RUN (no model call). Costs money when dry_run = no: about 7 model calls per lesson.
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'List only, no model call (yes/no)'
+        required: true
+        default: 'yes'
+        type: choice
+        options: ['yes', 'no']
+      limit:
+        description: 'Max lessons to write in this run'
+        required: true
+        default: '10'
+      date_from:
+        description: 'First date YYYY-MM-DD (empty = start of the archive)'
+        required: false
+        default: ''
+      date_to:
+        description: 'Last date YYYY-MM-DD (empty = yesterday)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sod-hadaf-data
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Jerusalem
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Backfill
+        id: engine
+        continue-on-error: true
+        run: |
+          ARGS="--limit ${{ github.event.inputs.limit }}"
+          if [ "${{ github.event.inputs.dry_run }}" = "yes" ]; then ARGS="$ARGS --dry-run"; fi
+          if [ -n "${{ github.event.inputs.date_from }}" ]; then ARGS="$ARGS --from ${{ github.event.inputs.date_from }}"; fi
+          if [ -n "${{ github.event.inputs.date_to }}" ]; then ARGS="$ARGS --to ${{ github.event.inputs.date_to }}"; fi
+          python backfill_lessons.py $ARGS
+
+      - name: Commit and push (with race-condition protection)
+        run: |
+          set +e
+
+          git config user.name "Sod HaDaf Bot"
+          git config user.email "bot@users.noreply.github.com"
+
+          # Add all agent files
+          git add discoveries.json codes.json library.json insights.json prayers_audit.json log.json 2>/dev/null
+          git add breslov.json benishchai.json david.json shlomo.json 2>/dev/null
+          git add shnayim.json yerushalmi.json hilulot.json chok.json 2>/dev/null
+          git add lessons 2>/dev/null
+
+          # Check if there are changes
+          git diff --staged --quiet
+          if [ $? -eq 0 ]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Backfill lessons (R1116)"
+
+          # Retry push up to 5 times with rebase
+          for attempt in 1 2 3 4 5; do
+            echo ""
+            echo "===== Push attempt $attempt of 5 ====="
+
+            git push origin main
+            if [ $? -eq 0 ]; then
+              echo "SUCCESS: Push completed on attempt $attempt"
+              exit 0
+            fi
+
+            echo "Push failed. Pulling latest changes with rebase..."
+            git rebase --abort 2>/dev/null
+
+            git pull --rebase --autostash origin main
+            if [ $? -ne 0 ]; then
+              echo "Rebase failed. Retrying with theirs strategy..."
+              git rebase --abort 2>/dev/null
+              git pull --rebase --strategy-option=theirs --autostash origin main
+            fi
+
+            sleep $((attempt * 2))
+          done
+
+          echo "ERROR: Push failed after 5 attempts"
+          exit 1
+
+      - name: Fail the run if the backfill reported failures
+        if: steps.engine.outcome == 'failure'
+        run: exit 1
