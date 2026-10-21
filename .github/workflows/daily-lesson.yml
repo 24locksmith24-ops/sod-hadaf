@@ -18,6 +18,11 @@ on:
 permissions:
   contents: write
 
+# one writer of the data files at a time (daily run and backfill queue behind each other)
+concurrency:
+  group: sod-hadaf-data
+  cancel-in-progress: false
+
 jobs:
   lesson:
     runs-on: ubuntu-latest
@@ -56,6 +61,7 @@ jobs:
           git add discoveries.json codes.json library.json insights.json prayers_audit.json log.json 2>/dev/null
           git add breslov.json benishchai.json david.json shlomo.json 2>/dev/null
           git add shnayim.json yerushalmi.json hilulot.json chok.json 2>/dev/null
+          git add lessons 2>/dev/null
 
           # Check if there are changes
           git diff --staged --quiet
