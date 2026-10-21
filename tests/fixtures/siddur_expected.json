@@ -1,0 +1,173 @@
+{
+ "shacharit": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Petichat Eliyahu",
+    "words": 1005,
+    "segments": 11,
+    "sha256": "3529335096e9d6a503c62d023665c3e5f0a777640c0651cc6517e1a515673aa7"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Order of Talit",
+    "words": 117,
+    "segments": 3,
+    "sha256": "f7aef70f1701745b1db6c434e7a5307cf62e32db7ae0bfce4a5a288a4965e6e7"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Order of Tefillin",
+    "words": 464,
+    "segments": 10,
+    "sha256": "56b61f3634f4f02518536d191ed36be706b4929f193ca1dc4fe097db13207da9"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Hanna's Prayer",
+    "words": 191,
+    "segments": 2,
+    "sha256": "590f50e3568a2d51494b0472371caf3858bd5cd9420d31601304c0d8a59066d9"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Morning Prayer",
+    "words": 1534,
+    "segments": 22,
+    "sha256": "417df8ea4d477070fd69828e56b3b2e13b6f3895caf644f97adb97f5274dba65"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Incense Offering",
+    "words": 1293,
+    "segments": 36,
+    "sha256": "793b32a56348b62ba4ad1541cfbc062e25e92ff3a5abb291005a83a7318425f8"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Hodu",
+    "words": 587,
+    "segments": 15,
+    "sha256": "faacf700408648b124c35968c53c0ba4e449999b4d2e0ce8ee793545727f7369"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Pesukei D'Zimra",
+    "words": 1573,
+    "segments": 28,
+    "sha256": "3109a0c39ddf98754b02f28a912a2c0853b5dbcae8013ab10f6edd50333ae6e6"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, The Shema",
+    "words": 1146,
+    "segments": 22,
+    "sha256": "7b4cfa7d08f627c2349a8d499f7424e31770acd972884ff02b52a11b0cbc79fc"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Amida",
+    "words": 2171,
+    "segments": 116,
+    "sha256": "607c642e9584ca13f53c962d8ae2c86066b844919b2ed409381f1f21a4fc5084"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Vidui",
+    "words": 1644,
+    "segments": 35,
+    "sha256": "f1a574a759ec8cfb585422c4d3102a5aa98cdad8361672215321674d37f9ef46"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Torah Reading",
+    "words": 365,
+    "segments": 22,
+    "sha256": "a75ca63d09783c23251e53fa6464f4ba16e60e9ec7e9881ec2d193dae268a077"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Ashrei",
+    "words": 235,
+    "segments": 6,
+    "sha256": "9faa253843173297719ef84c9d924d47166f51994a7568f56a3fcb770ef9afa8"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Uva LeSion",
+    "words": 445,
+    "segments": 11,
+    "sha256": "cc1e5b2c11b8ac3349e23d57368f2175a34f70ab89032d4e5c2b8b9060549024"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Beit Yaakov",
+    "words": 268,
+    "segments": 5,
+    "sha256": "aeb646062bd7156b7dc5ae739f99694b7666bbf8f9e396466e2369bb7b1ad217"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Song of the Day",
+    "words": 1646,
+    "segments": 33,
+    "sha256": "d559e2297902770d5a5b4acd50a40854565ce3883a5e5ed3d1525bde329fc405"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Kaveh",
+    "words": 689,
+    "segments": 20,
+    "sha256": "0802662a135e8ce2d69153c4f9903ea3a53eea1ebac7bd6eac89f360fadc3dd2"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Shacharit, Alenu",
+    "words": 349,
+    "segments": 6,
+    "sha256": "14693e53d7d1c007196d4561a2fe22de1f7dc4757bcb33033b7fc35cd34d7fd4"
+   }
+  ]
+ },
+ "mincha": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Mincha, Offerings",
+    "words": 853,
+    "segments": 16,
+    "sha256": "0ddfe0870f5e1dd67526e92b2b055f61bf01f5c3bd3cffdeb2147bcd8d197f37"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Mincha, Amida",
+    "words": 2385,
+    "segments": 124,
+    "sha256": "43b40b3313764aec0e513f36f2811ee45e5cef288f33058533cf65350643c1b7"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Mincha, Vidui",
+    "words": 936,
+    "segments": 27,
+    "sha256": "59caa7987dca265029705b430f26072a50782b174e509eea1768e488dce03514"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Mincha, Alenu",
+    "words": 181,
+    "segments": 4,
+    "sha256": "92f4a024f3a5f31c2edb47541f09aed0d5e247fab31143712b595079e8b5e216"
+   }
+  ]
+ },
+ "arvit": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Arvit, Barchu",
+    "words": 429,
+    "segments": 11,
+    "sha256": "ab33afe21a6a9846dc5732f4b3f293e94c0effd3f8c1350106f9c68b2124c917"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Arvit, The Shema",
+    "words": 692,
+    "segments": 14,
+    "sha256": "c7e424e232a7bdd3532ad2896d7a9c9ed85ede2ecb6bc7cf838b15038cccbd12"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Arvit, Amidah",
+    "words": 2334,
+    "segments": 78,
+    "sha256": "2089628b2f78f8f6865111662b8ab1725fce5575e3c8dbd674822e07ab89d8bc"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Weekday Arvit, Alenu",
+    "words": 173,
+    "segments": 4,
+    "sha256": "374f556e7bc36231e70cdb208dc609a98efc7400fa918426abcf3e2317ec0209"
+   }
+  ]
+ }
+}

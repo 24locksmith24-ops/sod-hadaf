@@ -1,0 +1,26 @@
+name: siddur-check
+
+# Weekly (and on demand): re-fetch the three siddur pages from Sefaria and compare with the published files. Red = a difference or a missing/extra section.
+on:
+  schedule:
+    - cron: "30 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "requests>=2.31,<3"
+      - name: Compare the published siddur with Sefaria now
+        run: python siddur_import.py --check
+      - name: Offline + live completeness tests
+        env:
+          SEFARIA_LIVE: "1"
+        run: python -m unittest tests.test_siddur -v
