@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "generated_utc": "2026-10-21T08:07:52Z",
+  "generated_utc": "2026-10-25T04:24:04Z",
   "masechtot": {
     "Bekhorot": {
       "he": "בכורות",
-      "count": 3,
+      "count": 4,
       "dafim": {
         "5": {
           "file": "lessons/Bekhorot/005.json",
@@ -25,6 +25,13 @@
           "date": "2026-10-11",
           "title": "מצא מין את מינו וניעור — על כוח ההתעוררות שבתוך הביטול",
           "he_ref": "בכורות כ״ג",
+          "revisions": []
+        },
+        "37": {
+          "file": "lessons/Bekhorot/037.json",
+          "date": "2026-10-25",
+          "title": "מי יכול להתיר? — על חכמה, ענווה, והסמכות לפתוח שערי נדרים",
+          "he_ref": "בכורות ל״ז",
           "revisions": []
         }
       }
