@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "generated_utc": "2026-10-25T04:24:04Z",
+  "generated_utc": "2026-10-29T04:18:29Z",
   "masechtot": {
     "Bekhorot": {
       "he": "בכורות",
-      "count": 4,
+      "count": 5,
       "dafim": {
         "5": {
           "file": "lessons/Bekhorot/005.json",
@@ -32,6 +32,13 @@
           "date": "2026-10-25",
           "title": "מי יכול להתיר? — על חכמה, ענווה, והסמכות לפתוח שערי נדרים",
           "he_ref": "בכורות ל״ז",
+          "revisions": []
+        },
+        "41": {
+          "file": "lessons/Bekhorot/041.json",
+          "date": "2026-10-29",
+          "title": "היכן נמצא הפגם? — על מומים נסתרים ונגלים, בבהמה ובנפש",
+          "he_ref": "בכורות מ״א",
           "revisions": []
         }
       }
