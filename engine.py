@@ -290,6 +290,12 @@ def _clean(x):
         elif v: out.append(re.sub(r"\s+"," ", re.sub(r"<[^>]+>"," ", v)).strip())
     walk(x); return [s for s in out if s]
 
+def daily_mishnah_item(items):
+    """the day's Mishnah from the calendar: Sefaria's title is "Daily Mishnah"; the code asked for "Mishnah Yomi", which the calendar
+    never returns, so the lesson's mishnayot and Chok's 'משנה' were always empty (R1549/R1552). The old key stays as a fallback."""
+    return items.get("Daily Mishnah") or items.get("Mishnah Yomi")
+
+
 def daily_items(on=None):
     """Sefaria's calendar for today (or for the day `on`). Retried: the API sometimes answers a non-JSON page under load."""
     params = {"year": on.year, "month": on.month, "day": on.day} if on else None
@@ -987,7 +993,7 @@ def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
     # 4. משנה — משנה יומית (אם קיימת)
     try:
         items = daily_items()
-        my = items.get("Daily Mishnah") or items.get("Mishnah Yomi")     # Sefaria's calendar title is "Daily Mishnah"
+        my = daily_mishnah_item(items)
         if my and my.get("ref"):
             t = get_text(my["ref"])
             sections["משנה"] = {"ref": t.get("he_ref",""), "text": t.get("hebrew","")[:900]}
@@ -1213,7 +1219,7 @@ def main():
 
     # שתי המשניות היומיות — בנפרד
     mishnayot = []
-    my = items.get("Mishnah Yomi")
+    my = daily_mishnah_item(items)
     if my and my.get("ref"):
         mt = get_text(my["ref"])
         if not forbidden_hit(mt["hebrew"]):

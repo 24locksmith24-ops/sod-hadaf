@@ -243,5 +243,50 @@ class Chok(Base):
         self.assertIn('note_failure("yerushalmi", ex)', src)
 
 
+# the calendar titles Sefaria actually returned on 2026-10-30 (GET /api/calendars), with the two refs this suite needs
+REAL_CALENDAR_TITLES = ["Parashat Hashavua", "Haftarah", "Daf Yomi", "929", "Daily Mishnah", "Daily Rambam", "Daily Rambam (3 Chapters)",
+                        "Daf a Week", "Halakhah Yomit", "Arukh HaShulchan Yomi", "Tanakh Yomi", "Chok LeYisrael", "Tanya Yomi", "Yerushalmi Yomi"]
+
+
+class _StopAfterMishnayot(BaseException):
+    """BaseException on purpose: main()'s own `except Exception` blocks must not swallow it"""
+
+
+class MainLessonMishnah(Base):
+    """R1552: main()'s lesson asked the calendar for "Mishnah Yomi" (never returned), so every lesson had NO mishnayot."""
+
+    def test_helper_finds_the_real_calendar_title(self):
+        items = {t: {"ref": "R:" + t} for t in REAL_CALENDAR_TITLES}
+        self.assertNotIn("Mishnah Yomi", items)
+        self.assertEqual(E.daily_mishnah_item(items)["ref"], "R:Daily Mishnah")
+        self.assertEqual(E.daily_mishnah_item({"Mishnah Yomi": {"ref": "old"}})["ref"], "old")
+        self.assertIsNone(E.daily_mishnah_item({}))
+
+    def test_main_fetches_the_days_mishnah_from_the_real_calendar(self):
+        fetched = []
+        items = {t: {"ref": "R:" + t} for t in REAL_CALENDAR_TITLES}
+        items["Daf Yomi"] = {"ref": "Shabbat 2a"}
+        items["Daily Mishnah"] = {"ref": "Mishnah Oholot 14:1-2"}
+        items["Parashat Hashavua"] = {"ref": "Genesis 18:1-22:24", "displayValue": {"he": "וירא"}}
+
+        def get_text(ref):
+            fetched.append(ref)
+            if ref == "Genesis 18:1-22:24":            # the first fetch after the mishnayot: stop main() here
+                raise _StopAfterMishnayot()
+            return {"ref": ref, "he_ref": ref, "hebrew": HE, "segments": [HE, HE + " ב"]}
+        saved = {n: getattr(E, n) for n in ("resting_reason", "main")}
+        E.resting_reason = lambda d: None
+        E.daily_items = lambda on=None: items
+        E.get_text = get_text
+        E.get_commentaries = lambda ref, cap=10: []
+        try:
+            with self.assertRaises(_StopAfterMishnayot):
+                E.main()
+        finally:
+            for n, v in saved.items():
+                setattr(E, n, v)
+        self.assertEqual(fetched, ["Shabbat 2a", "Mishnah Oholot 14:1-2", "Genesis 18:1-22:24"])
+
+
 if __name__ == "__main__":
     unittest.main()
