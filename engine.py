@@ -35,19 +35,35 @@ _sleep = __import__("time").sleep     # tests replace it
 
 
 def sef_json(url, timeout=25, params=None, attempts=4):
-    """the ONLY Sefaria GET: an empty body or a non-JSON page (seen 2026-10-22: get_commentaries' /links answered "", .json() crashed
-    the run) is retried; after the last attempt it raises SefariaUnavailable, which main() records as a failure (no save, run red)."""
+    """the ONLY Sefaria GET. Retry policy (Codex PR8 P2-3), and nothing else is retried:
+      RETRIED  -- a timeout or a connection error, a 5xx, an empty body, a non-JSON page (seen 2026-10-22: /links answered "", and
+                  .json() crashed the run), up to `attempts` times;
+      NEVER    -- a 4xx: its JSON body (Sefaria's {"error": ...} for an unknown ref) is returned at once, a non-JSON 4xx raises at once;
+                  any other requests error (bad URL, too many redirects, ...) raises at once.
+    Every give-up is SefariaUnavailable, which run_daily() records as a failure (the run turns red)."""
     last = None
     for attempt in range(1, attempts + 1):
         try:
             r = requests.get(url, timeout=timeout, params=params)
-            if r.status_code >= 500 or not (r.text or "").strip():
-                raise SefariaUnavailable("HTTP %s, %d bytes" % (r.status_code, len(r.text or "")))
-            return r.json()
-        except (requests.RequestException, ValueError, SefariaUnavailable) as ex:
+        except (requests.Timeout, requests.ConnectionError) as ex:
             last = ex
-            if attempt < attempts:
-                _sleep(2 * attempt)
+        except requests.RequestException as ex:
+            raise SefariaUnavailable("%s: %s" % (url, ex))
+        else:
+            if 400 <= r.status_code < 500:
+                try:
+                    return r.json()
+                except ValueError:
+                    raise SefariaUnavailable("%s: HTTP %s, not JSON (a 4xx is never retried)" % (url, r.status_code))
+            if r.status_code >= 500 or not (r.text or "").strip():
+                last = SefariaUnavailable("HTTP %s, %d bytes" % (r.status_code, len(r.text or "")))
+            else:
+                try:
+                    return r.json()
+                except ValueError as ex:
+                    last = ex
+        if attempt < attempts:
+            _sleep(2 * attempt)
     raise SefariaUnavailable("%s: %s" % (url, last))
 
 # ---------- כשלים בקול רם: שום "שיעור ריק" לא נשמר ולא נחשב הצלחה ----------

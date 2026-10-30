@@ -243,6 +243,97 @@ class Chok(Base):
         self.assertIn('note_failure("yerushalmi", ex)', src)
 
 
+class SefariaRetryPolicy(Base):
+    """Codex PR8 P2-3: retried = timeout / connection error / 5xx / empty / non-JSON; NEVER a 4xx or any other requests error"""
+
+    def test_a_4xx_is_never_retried(self):
+        calls = []
+        requests.get = lambda url, timeout=None, params=None: calls.append(url) or Resp(404, "")
+        with self.assertRaises(E.SefariaUnavailable):
+            E.sef_json("u")
+        self.assertEqual(len(calls), 1)
+
+    def test_a_4xx_json_error_is_returned_after_one_call(self):
+        calls = []
+        requests.get = lambda url, timeout=None, params=None: calls.append(url) or Resp(400, '{"error": "Could not find title"}')
+        self.assertEqual(E.sef_json("u"), {"error": "Could not find title"})
+        self.assertEqual(len(calls), 1)
+
+    def test_a_timeout_is_retried(self):
+        answers = [requests.Timeout("read timed out"), requests.ConnectionError("reset"), Resp(200, '{"ok": 1}')]
+
+        def get(url, timeout=None, params=None):
+            a = answers.pop(0)
+            if isinstance(a, Exception):
+                raise a
+            return a
+        requests.get = get
+        self.assertEqual(E.sef_json("u"), {"ok": 1})
+        self.assertEqual(answers, [])
+
+    def test_another_requests_error_is_not_retried(self):
+        calls = []
+
+        def get(url, timeout=None, params=None):
+            calls.append(url)
+            raise requests.exceptions.InvalidURL("bad url")
+        requests.get = get
+        with self.assertRaises(E.SefariaUnavailable):
+            E.sef_json("u")
+        self.assertEqual(len(calls), 1)
+
+
+class LessonCompleteness(Base):
+    """Codex PR8 P1-1: a permanent lesson needs its required fields with real text and no placeholder; length alone is not enough"""
+
+    def lesson(self, **over):
+        long = "דברי תורה ארוכים " * 60
+        L = {"title": "כותרת", "intro": long, "daf": {"ref": "שבת ב.", "teaching": long}, "mishnayot": [],
+             "connections": [{"a": "x", "b": "y", "point": "z"}], "gematria_note": "גימטריה", "question": "שאלה", "takeaway": "לקח"}
+        L.update(over)
+        return L
+
+    def save(self, lesson):
+        import lessons_store as LS
+        return LS.save_lesson({"date": "2026-10-30", "ref": "Shabbat 2", "he_ref": "שבת ב", "lesson": lesson}, root=os.path.join(self.tmp, "lessons"))
+
+    def test_complete_lesson_is_saved(self):
+        st, path = self.save(self.lesson())
+        self.assertEqual(st, "created")
+        self.assertTrue(os.path.exists(path))
+
+    def test_long_but_placeholder_lesson_is_refused_and_not_written(self):
+        import lessons_store as LS
+        L = self.lesson(takeaway="תקציר יתווסף בריצה הבאה.")          # the real placeholder text
+        self.assertGreater(len(json.dumps(L, ensure_ascii=False)), 1000)
+        with self.assertRaises(LS.StubRefused) as cm:
+            self.save(L)
+        self.assertIn("placeholder", str(cm.exception))
+        self.assertFalse(os.path.exists(os.path.join(self.tmp, "lessons")))
+
+    def test_long_lesson_missing_a_required_field_is_refused(self):
+        import lessons_store as LS
+        for k in ("title", "intro", "gematria_note", "question", "takeaway"):
+            with self.assertRaises(LS.StubRefused, msg=k):
+                self.save(self.lesson(**{k: "  "}))
+        with self.assertRaises(LS.StubRefused):
+            self.save(self.lesson(daf={"ref": "x", "teaching": ""}))
+        with self.assertRaises(LS.StubRefused):
+            self.save(self.lesson(connections=[]))
+        L = self.lesson(); del L["mishnayot"]
+        with self.assertRaises(LS.StubRefused):
+            self.save(L)
+        self.assertFalse(os.path.exists(os.path.join(self.tmp, "lessons")))
+
+    def test_every_real_permanent_lesson_is_still_complete(self):
+        import glob
+        import lessons_store as LS
+        files = [f for f in sorted(glob.glob(os.path.join(ROOT, "lessons", "*", "*.json"))) if not f.endswith("index.json")]
+        self.assertTrue(files)
+        bad = [(f, LS.incomplete_reason(json.load(open(f, encoding="utf-8"))["lesson"])) for f in files]
+        self.assertEqual([b for b in bad if b[1]], [])
+
+
 # the calendar titles Sefaria actually returned on 2026-10-30 (GET /api/calendars), with the two refs this suite needs
 REAL_CALENDAR_TITLES = ["Parashat Hashavua", "Haftarah", "Daf Yomi", "929", "Daily Mishnah", "Daily Rambam", "Daily Rambam (3 Chapters)",
                         "Daf a Week", "Halakhah Yomit", "Arukh HaShulchan Yomi", "Tanakh Yomi", "Chok LeYisrael", "Tanya Yomi", "Yerushalmi Yomi"]
