@@ -56,6 +56,33 @@ def llm_create(client, **kw):
         raise
 
 
+REASK = "Return ONLY valid JSON"
+
+
+def _answer_json(msg, extract=True, empty_ok=False):
+    """the existing parse of a model answer, unchanged: strip fences, json.loads, then the {...} slice (extract) or {} (empty_ok)"""
+    raw = "".join(b.text for b in msg.content if b.type=="text").strip()
+    raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        i, j = raw.find("{"), raw.rfind("}")
+        if extract and i != -1 and j > i:
+            return json.loads(raw[i:j+1])
+        if empty_ok:
+            return {}
+        raise
+
+
+def llm_json(client, parse, **kw):
+    """R1533: model call + parse; on json.JSONDecodeError ask ONCE more with REASK. A second failure raises as before."""
+    try:
+        return parse(llm_create(client, **kw))
+    except json.JSONDecodeError:
+        last = dict(kw["messages"][-1], content=kw["messages"][-1]["content"] + "\n\n" + REASK)
+        return parse(llm_create(client, **dict(kw, messages=kw["messages"][:-1] + [last])))
+
+
 # ---------- גימטריה (חישוב ודאי) ----------
 GEM = {"א":1,"ב":2,"ג":3,"ד":4,"ה":5,"ו":6,"ז":7,"ח":8,"ט":9,"י":10,"כ":20,"ך":20,
        "ל":30,"מ":40,"ם":40,"נ":50,"ן":50,"ס":60,"ע":70,"פ":80,"ף":80,"צ":90,"ץ":90,
@@ -409,11 +436,8 @@ def connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior, notes
             '"links":[{"a":"מקור","b":"מקור","point":"הקשר ביניהם, בסגנון לימוד"}],'
             '"thread":"פסקה שמסבירה איך הכל מתחבר, כדרך הסוגיה"}')
     try:
-        msg = llm_create(client, model=MODEL, max_tokens=1800, temperature=0.6,
+        return llm_json(client, lambda m: _answer_json(m, extract=False), model=MODEL, max_tokens=1800, temperature=0.6,
                 system=sysmsg, messages=[{"role":"user","content":user}])
-        raw = "".join(b.text for b in msg.content if b.type=="text").strip()
-        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-        return json.loads(raw)
     except Exception as ex:
         note_failure("connector_agent", ex)
         return {"theme":"", "method":"", "aramaic":"", "links":[], "thread":""}
@@ -475,17 +499,8 @@ def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn,
             '"codes":"פסקת צפנים בתורה: תאר ביושר את הממצאים שסופקו (דילוגים/אתב\\"ש/נוטריקון), עם הסתייגות מפורשת שאינם הוכחה. אם לא נמצא דבר, כתוב זאת.",'
             '"question":"שאלה למחשבה","takeaway":"לקח ליום"}\n'
             "חשוב: כלול פסקה לכל אחת משתי המשניות, 3-5 מפרשים, ו-4-6 קשרים.")
-    msg = llm_create(client, model=MODEL, max_tokens=8000, temperature=0.5,
+    return llm_json(client, _answer_json, model=MODEL, max_tokens=8000, temperature=0.5,
             system=sysmsg, messages=[{"role":"user","content":user}])
-    raw = "".join(b.text for b in msg.content if b.type=="text").strip()
-    raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-    try:
-        return json.loads(raw)
-    except Exception:
-        i, j = raw.find("{"), raw.rfind("}")    # חילוץ גוש ה-JSON אם נוסף טקסט מסביב
-        if i != -1 and j != -1 and j > i:
-            return json.loads(raw[i:j+1])
-        raise
 
 # ============================================================
 # סוכני לימוד יומי נפרדים — כל אחד שומר לקובץ JSON משלו
@@ -554,15 +569,8 @@ def breslov_agent(today):
             '"hitbodedut":"שאלה לדמיין בהתבודדות / שיחה עם הקב\\"ה"}')
     try:
         client = anthropic.Anthropic()
-        msg = llm_create(client, model=MODEL, max_tokens=2000, temperature=0.6,
+        content = llm_json(client, lambda m: _answer_json(m, empty_ok=True), model=MODEL, max_tokens=2000, temperature=0.6,
                 system=sysmsg, messages=[{"role":"user","content":user}])
-        raw = "".join(b.text for b in msg.content if b.type=="text").strip()
-        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-        try:
-            content = json.loads(raw)
-        except Exception:
-            i, j = raw.find("{"), raw.rfind("}")
-            content = json.loads(raw[i:j+1]) if (i!=-1 and j>i) else {}
     except Exception as ex:
         content = {"title": f"ליקוטי מוהר\"ן ח\"א, תורה {torah_no}",
                    "torah_summary": "השיעור ייכתב בריצה הבאה.", "_error": str(ex)[:200]}
@@ -622,15 +630,8 @@ def benishchai_agent(today, parasha_name):
             '"disclaimer":"לימוד בלבד; להוראה למעשה — פנו לרב מוסמך"}')
     try:
         client = anthropic.Anthropic()
-        msg = llm_create(client, model=MODEL, max_tokens=2000, temperature=0.4,
+        content = llm_json(client, lambda m: _answer_json(m, empty_ok=True), model=MODEL, max_tokens=2000, temperature=0.4,
                 system=sysmsg, messages=[{"role":"user","content":user}])
-        raw = "".join(b.text for b in msg.content if b.type=="text").strip()
-        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-        try:
-            content = json.loads(raw)
-        except Exception:
-            i, j = raw.find("{"), raw.rfind("}")
-            content = json.loads(raw[i:j+1]) if (i!=-1 and j>i) else {}
     except Exception as ex:
         content = {"title": f"בן איש חי — פרשת {parasha_name}",
                    "halacha1": {"title": "בריצה הבאה", "explanation": "השיעור ייכתב בריצה הבאה."},
@@ -667,15 +668,8 @@ def david_agent(today):
             '"advice":"עצה מעשית להיום הנובעת מן הפרק"}')
     try:
         client = anthropic.Anthropic()
-        msg = llm_create(client, model=MODEL, max_tokens=1500, temperature=0.7,
+        content = llm_json(client, lambda m: _answer_json(m, empty_ok=True), model=MODEL, max_tokens=1500, temperature=0.7,
                 system=sysmsg, messages=[{"role":"user","content":user}])
-        raw = "".join(b.text for b in msg.content if b.type=="text").strip()
-        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-        try:
-            content = json.loads(raw)
-        except Exception:
-            i, j = raw.find("{"), raw.rfind("}")
-            content = json.loads(raw[i:j+1]) if (i!=-1 and j>i) else {}
     except Exception as ex:
         content = {"title": f"תהילים פרק {psalm_no}", "_error": str(ex)[:200]}
     rec = {"date": today.isoformat(),
@@ -721,15 +715,8 @@ def shlomo_agent(today):
             '"reflection":"שאלה למחשבה לעצמך"}')
     try:
         client = anthropic.Anthropic()
-        msg = llm_create(client, model=MODEL, max_tokens=1500, temperature=0.5,
+        content = llm_json(client, lambda m: _answer_json(m, empty_ok=True), model=MODEL, max_tokens=1500, temperature=0.5,
                 system=sysmsg, messages=[{"role":"user","content":user}])
-        raw = "".join(b.text for b in msg.content if b.type=="text").strip()
-        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-        try:
-            content = json.loads(raw)
-        except Exception:
-            i, j = raw.find("{"), raw.rfind("}")
-            content = json.loads(raw[i:j+1]) if (i!=-1 and j>i) else {}
     except Exception as ex:
         content = {"title": f"{book_he} פרק {chapter}", "_error": str(ex)[:200]}
     rec = {"date": today.isoformat(),
@@ -1137,15 +1124,8 @@ def answer_question(question, mode="full"):
         max_tok = 6000
     lesson = {}
     try:
-        msg = llm_create(client, model=MODEL, max_tokens=max_tok, temperature=0.5,
+        lesson = llm_json(client, lambda m: _answer_json(m, empty_ok=True), model=MODEL, max_tokens=max_tok, temperature=0.5,
                 system=sysmsg, messages=[{"role":"user","content":user}])
-        raw = "".join(b.text for b in msg.content if b.type=="text").strip()
-        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-        try:
-            lesson = json.loads(raw)
-        except Exception:
-            i, j = raw.find("{"), raw.rfind("}")
-            lesson = json.loads(raw[i:j+1]) if (i!=-1 and j>i) else {}
     except Exception as ex:
         print("⚠️ יצירת התשובה נכשלה:", ex)
         lesson = {"title": question[:60], "question": question,
