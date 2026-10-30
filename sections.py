@@ -93,9 +93,9 @@ def read_batch(create, model, batch):
     body = "\n\n".join("[[%s]]\n%s" % (lab, txt) for lab, txt in batch)
     user = ("להלן קטעים, כל אחד תחת כותרתו בסוגריים מרובעים כפולים. עבור כל קטע החזר הערה.\n\n" + body +
             "\n\nהחזר JSON תקין בלבד: {\"notes\":[{\"label\":\"הכותרת בדיוק כפי שניתנה\",\"points\":\"2-5 משפטים: מה בקטע, המונחים והמחלוקות, תרגום ארמית\"}]} — פריט אחד לכל קטע, בלי להחסיר אף קטע.")
-    last = None
+    last, ask = None, user
     for attempt in (1, 2):
-        msg = create(model=model, max_tokens=2500, temperature=0.2, system=MAP_SYSTEM, messages=[{"role": "user", "content": user}])
+        msg = create(model=model, max_tokens=2500, temperature=0.2, system=MAP_SYSTEM, messages=[{"role": "user", "content": ask}])
         raw = "".join(b.text for b in msg.content if b.type == "text")
         try:
             notes = _parse(raw).get("notes", [])
@@ -106,6 +106,7 @@ def read_batch(create, model, batch):
             last = "missing notes for: " + "; ".join(missing)[:200]
         except Exception as ex:           # noqa: BLE001
             last = "unparseable answer: %s" % ex
+            ask = user + "\n\nReturn ONLY valid JSON"     # R1533: the second attempt asks for JSON only
     raise RuntimeError("section reading failed after 2 attempts (%s)" % last)
 
 
