@@ -542,16 +542,64 @@ def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn,
 # רבי נחמן מברסלב · הבן איש חי · דוד המלך · שלמה המלך
 # ============================================================
 
-def _save_archive(path, record, cap=400):
-    """שמירה לארכיון מצטבר עם dedup לפי תאריך (יום)."""
+# texts the engine used to save in place of real content (R1549/R1553): a record carrying one is a stub, never an entry
+PLACEHOLDER_MARKERS = LS.PLACEHOLDER_MARKERS + ("תיווצר שוב בקרוב",)
+
+
+def _blank(v):
+    return v is None or (isinstance(v, str) and not v.strip()) or (isinstance(v, (list, dict)) and not v)
+
+
+def incomplete_content(record):
+    """R1553: an archive record is complete only with a non-empty content dict, no _error, no blank top-level field and no
+    placeholder text (every complete record in the 7 archives on 2026-10-30 meets this). -> None, or the reason."""
+    c = record.get("content")
+    if not isinstance(c, dict) or not c:
+        return "empty content"
+    if c.get("_error"):
+        return "stub: " + str(c["_error"])[:160]
+    blank = [k for k, v in c.items() if _blank(v)]
+    if blank:
+        return "blank field(s): " + ", ".join(blank)
+    text = json.dumps(record, ensure_ascii=False)
+    for m in PLACEHOLDER_MARKERS:
+        if m in text:
+            return "placeholder text: " + m
+    return None
+
+
+def incomplete_yerushalmi(record):
+    """a Yerushalmi archive record (no content dict): its text, reference and summary must be real (commentaries may be empty)"""
+    blank = [k for k in ("he_ref", "hebrew", "summary") if _blank(record.get(k))]
+    if blank:
+        return "blank field(s): " + ", ".join(blank)
+    text = json.dumps(record, ensure_ascii=False)
+    return next(("placeholder text: " + m for m in PLACEHOLDER_MARKERS if m in text), None)
+
+
+def incomplete_chok(record):
+    """a Chok archive record (no content dict): all 8 categories with text and an overview"""
+    secs = record.get("sections") or {}
+    missing = [k for k in CHOK_CATEGORIES if _blank((secs.get(k) or {}).get("text"))]
+    if missing:
+        return "no text for: " + ", ".join(missing)
+    if _blank(record.get("overview")):
+        return "blank overview"
+    text = json.dumps(record, ensure_ascii=False)
+    return next(("placeholder text: " + m for m in PLACEHOLDER_MARKERS if m in text), None)
+
+
+def _save_archive(path, record, cap=400, check=None):
+    """שמירה לארכיון מצטבר עם dedup לפי תאריך (יום). Complete-or-nothing per record (R1553): an incomplete record is a FAILURE.
+    `check` = the record's completeness rule (default: the agents' content-dict rule)."""
+    why = (check or incomplete_content)(record)
+    if why:
+        note_failure("archive " + path, why)
+        return False
     data = []
     if os.path.exists(path):
         try: data = json.load(open(path, encoding="utf-8"))
         except Exception: data = []
-    c = record.get("content")
-    if isinstance(c, dict) and c.get("_error"):          # a failed generation is a FAILURE, not an archive entry
-        note_failure("archive " + path, c["_error"])
-        return False
     today_key = record.get("date")
     data = [r for r in data if r.get("date") != today_key]
     data.insert(0, record)
@@ -611,7 +659,8 @@ def breslov_agent(today):
            "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
            "torah_no": torah_no, "torah_ref": torah_ref,
            "advice_topic": topic, "content": content}
-    _save_archive(BRESLOV_OUT, rec)
+    if not _save_archive(BRESLOV_OUT, rec):
+        return None
     return rec
 
 # ---------- סוכן הלכות הבן איש חי ----------
@@ -671,7 +720,8 @@ def benishchai_agent(today, parasha_name):
     rec = {"date": today.isoformat(),
            "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
            "parasha": parasha_name, "ref": ref, "content": content}
-    _save_archive(BIC_OUT, rec)
+    if not _save_archive(BIC_OUT, rec):
+        return None
     return rec
 
 # ---------- סוכן דוד המלך — תהילים, ברכה ועצה יומית ----------
@@ -707,7 +757,8 @@ def david_agent(today):
     rec = {"date": today.isoformat(),
            "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
            "psalm_no": psalm_no, "content": content}
-    _save_archive(DAVID_OUT, rec)
+    if not _save_archive(DAVID_OUT, rec):
+        return None
     return rec
 
 # ---------- סוכן שלמה המלך — חכמה ועצה מן משלי/קהלת/שיר השירים ----------
@@ -754,7 +805,8 @@ def shlomo_agent(today):
     rec = {"date": today.isoformat(),
            "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
            "book": book_he, "book_en": book, "chapter": chapter, "content": content}
-    _save_archive(SHLOMO_OUT, rec)
+    if not _save_archive(SHLOMO_OUT, rec):
+        return None
     return rec
 
 # ---------- סוכן שניים מקרא ואחד תרגום ----------
@@ -820,7 +872,8 @@ def shnayim_agent(today, parasha_name, parasha_ref):
            "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
            "parasha": parasha_name, "day": he_day_names[he_day],
            "content": content}
-    _save_archive(SHNAYIM_OUT, rec)
+    if not _save_archive(SHNAYIM_OUT, rec):
+        return None
     return rec
 
 # ---------- סוכן דף יומי ירושלמי ----------
@@ -871,7 +924,7 @@ def yerushalmi_agent(today):
            "hebrew": daf["hebrew"][:5000],
            "summary": summary,
            "commentaries": comms_short}
-    if not _save_archive(YERUSHALMI_OUT, rec):
+    if not _save_archive(YERUSHALMI_OUT, rec, check=incomplete_yerushalmi):
         return None
     return rec
 
@@ -949,7 +1002,8 @@ def hilulot_agent(today):
                                 else f"היום, {key}, יום ההילולא של:"}
             rec = {"date": iso, "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
                    "date_he": key, "tzaddikim": rec_list, "content": content}
-            _save_archive(HILULOT_OUT, rec, cap=400)
+            if not _save_archive(HILULOT_OUT, rec, cap=400):
+                return None
             return rec
     except Exception:
         pass
@@ -957,7 +1011,8 @@ def hilulot_agent(today):
     rec = {"date": today.isoformat(),
            "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
            "tzaddikim": [], "content": {"intro": "אין הילולא של צדיק מהמאגר ליום זה."}}
-    _save_archive(HILULOT_OUT, rec, cap=400)
+    if not _save_archive(HILULOT_OUT, rec, cap=400):
+        return None
     return rec
 
 # ---------- סוכן חוק לישראל — לימוד יומי משולב (תורה/נביאים/כתובים/משנה/גמרא/זוהר/הלכה/מוסר) ----------
@@ -1085,7 +1140,7 @@ def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
            "parasha": parasha_name,
            "overview": overview,
            "sections": sections}
-    if not _save_archive(CHOK_OUT, rec, cap=200):
+    if not _save_archive(CHOK_OUT, rec, cap=200, check=incomplete_chok):
         return None
     return rec
 
@@ -1106,9 +1161,31 @@ def save(record):
 
 # ---------- שו"ת: שיעור לפי שאלה (סוכן על-פי שאילתא) ----------
 QA_OUT = "qa.json"
+QA_REQUIRED = {"short": ("title", "summary", "key_sources", "bottom_line", "disclaimer"),
+               "full": ("title", "question", "intro", "sources", "discussion", "deep_dive", "conclusion", "practical", "disclaimer")}
+
+
+def incomplete_qa(record):
+    """R1553: a QA answer is saved only with every field its mode's prompt asks for, none blank, and no placeholder text. -> None or why"""
+    L = record.get("lesson")
+    if not isinstance(L, dict) or not L:
+        return "empty answer"
+    if L.get("_error"):
+        return "stub: " + str(L["_error"])[:160]
+    blank = [k for k in QA_REQUIRED.get(record.get("mode"), QA_REQUIRED["full"]) if _blank(L.get(k))]
+    if blank:
+        return "missing or blank field(s): " + ", ".join(blank)
+    text = json.dumps(L, ensure_ascii=False)
+    for m in PLACEHOLDER_MARKERS:
+        if m in text:
+            return "placeholder text: " + m
+    return None
+
+
 def save_qa(record):
-    if isinstance(record.get("lesson"), dict) and record["lesson"].get("_error"):
-        note_failure("qa answer", record["lesson"]["_error"])
+    why = incomplete_qa(record)
+    if why:
+        note_failure("qa answer", why)
         return False
     data = []
     if os.path.exists(QA_OUT):
@@ -1116,6 +1193,7 @@ def save_qa(record):
         except Exception: data = []
     data.insert(0, record)
     json.dump(data[:300], open(QA_OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    return True
 
 def answer_question(question, mode="full"):
     question = (question or "").strip()
@@ -1182,8 +1260,8 @@ def answer_question(question, mode="full"):
         print("התשובה נחסמה."); return
     rec = {"ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
            "question": question, "mode": mode, "lesson": lesson}
-    save_qa(rec)
-    print("✅ נשמרה תשובה לשו\"ת:", lesson.get("title",""))
+    if save_qa(rec):
+        print("✅ נשמרה תשובה לשו\"ת:", lesson.get("title",""))
 
 # ---------- main ----------
 def generate_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, prior, shared):
