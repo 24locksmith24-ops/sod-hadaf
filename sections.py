@@ -7,8 +7,9 @@ No source text is cut; a batch that comes back without a note for every section 
 
 Pure functions + an injected `create` callable, so the tests run offline with a fake model.
 """
-import json
 import re
+
+import model_json as MJ
 
 SECTION_CHARS = 2800     # one section of one source (split on sentence/segment boundaries)
 BATCH_CHARS = 6500       # sections packed into one model call
@@ -78,14 +79,7 @@ MAP_SYSTEM = ("אתה לומד תורני. אתה קורא קטעים מתוך �
 
 
 def _parse(raw):
-    raw = (raw or "").strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-    try:
-        return json.loads(raw)
-    except Exception:
-        i, j = raw.find("{"), raw.rfind("}")
-        if i != -1 and j > i:
-            return json.loads(raw[i:j + 1])
-        raise
+    return MJ.parse_model_json(raw)
 
 
 def read_batch(create, model, batch):
@@ -93,10 +87,10 @@ def read_batch(create, model, batch):
     body = "\n\n".join("[[%s]]\n%s" % (lab, txt) for lab, txt in batch)
     user = ("להלן קטעים, כל אחד תחת כותרתו בסוגריים מרובעים כפולים. עבור כל קטע החזר הערה.\n\n" + body +
             "\n\nהחזר JSON תקין בלבד: {\"notes\":[{\"label\":\"הכותרת בדיוק כפי שניתנה\",\"points\":\"2-5 משפטים: מה בקטע, המונחים והמחלוקות, תרגום ארמית\"}]} — פריט אחד לכל קטע, בלי להחסיר אף קטע.")
-    last = None
+    last, ask = None, user
     for attempt in (1, 2):
-        msg = create(model=model, max_tokens=2500, temperature=0.2, system=MAP_SYSTEM, messages=[{"role": "user", "content": user}])
-        raw = "".join(b.text for b in msg.content if b.type == "text")
+        msg = create(model=model, max_tokens=2500, temperature=0.2, system=MAP_SYSTEM, messages=[{"role": "user", "content": ask}])
+        raw = MJ.answer_text(msg)
         try:
             notes = _parse(raw).get("notes", [])
             got = {n.get("label"): (n.get("points") or "").strip() for n in notes if isinstance(n, dict)}
@@ -106,6 +100,7 @@ def read_batch(create, model, batch):
             last = "missing notes for: " + "; ".join(missing)[:200]
         except Exception as ex:           # noqa: BLE001
             last = "unparseable answer: %s" % ex
+            ask = user + "\n\n" + MJ.REASK     # the second attempt asks for JSON only (R1526)
     raise RuntimeError("section reading failed after 2 attempts (%s)" % last)
 
 
