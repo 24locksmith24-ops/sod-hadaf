@@ -1,10 +1,18 @@
 name: Sod HaDaf - Backfill lessons
 
-# Manual only. Writes the lessons that are missing or are stubs into Sifria (lessons/) and the by-date view (discoveries.json).
-# Default is a DRY RUN (no model call). Costs money when dry_run = no: about 7 model calls per lesson.
+# Manual only. kind=lessons: writes the lessons that are missing or are stubs into Sifria (lessons/) and the by-date view
+# (discoveries.json). kind=records (R1552): regenerates COMPLETE the incomplete archive records (stub / placeholder / blank /
+# a Chok without every category) of breslov, benishchai, david, shlomo, shnayim, hilulot, yerushalmi, chok -- never deletes.
+# Default is a DRY RUN (no model call). Costs money when dry_run = no: about 7 model calls per lesson, about 1 per record.
 on:
   workflow_dispatch:
     inputs:
+      kind:
+        description: 'What to backfill: lessons or records'
+        required: true
+        default: 'lessons'
+        type: choice
+        options: ['lessons', 'records']
       dry_run:
         description: 'List only, no model call (yes/no)'
         required: true
@@ -53,7 +61,13 @@ jobs:
           if [ "${{ github.event.inputs.dry_run }}" = "yes" ]; then ARGS="$ARGS --dry-run"; fi
           if [ -n "${{ github.event.inputs.date_from }}" ]; then ARGS="$ARGS --from ${{ github.event.inputs.date_from }}"; fi
           if [ -n "${{ github.event.inputs.date_to }}" ]; then ARGS="$ARGS --to ${{ github.event.inputs.date_to }}"; fi
-          python backfill_lessons.py $ARGS
+          if [ "${{ github.event.inputs.kind }}" = "records" ]; then
+            ARGS="$(echo "$ARGS" | sed 's/ --dry-run//')"
+            if [ "${{ github.event.inputs.dry_run }}" = "no" ]; then ARGS="$ARGS --apply"; fi
+            python backfill_records.py $ARGS
+          else
+            python backfill_lessons.py $ARGS
+          fi
 
       - name: Commit and push (with race-condition protection)
         run: |
@@ -75,7 +89,7 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Backfill lessons (R1116)"
+          git commit -m "Backfill ${{ github.event.inputs.kind }} (R1116/R1552)"
 
           # Retry push up to 5 times with rebase
           for attempt in 1 2 3 4 5; do

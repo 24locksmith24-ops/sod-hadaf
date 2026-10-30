@@ -603,6 +603,8 @@ def _save_archive(path, record, cap=400, check=None):
     today_key = record.get("date")
     data = [r for r in data if r.get("date") != today_key]
     data.insert(0, record)
+    # newest date first, always: a backfilled OLD date (R1552) must not become data[0], the entry the page shows as today's
+    data.sort(key=lambda r: r.get("date") or "", reverse=True)
     json.dump(data[:cap], open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     return True
 
@@ -878,9 +880,9 @@ def shnayim_agent(today, parasha_name, parasha_ref):
 
 # ---------- סוכן דף יומי ירושלמי ----------
 YERUSHALMI_OUT = "yerushalmi.json"
-def yerushalmi_agent(today):
-    """מביא את הדף היומי הירושלמי (לפי המחזור) + מקורות אם זמינים."""
-    items = daily_items()
+def yerushalmi_agent(today, items=None):
+    """מביא את הדף היומי הירושלמי (לפי המחזור) + מקורות אם זמינים. `items` = that date's calendar (the backfill, R1552); default today's."""
+    items = items if items is not None else daily_items()
     yer = items.get("Daf Yomi Yerushalmi") or items.get("Daf Yerushalmi") or items.get("Yerushalmi Yomi")
     if not yer or not yer.get("ref"):
         return None
@@ -1022,7 +1024,7 @@ DUTIES_OF_THE_HEART_TREATISES = ("First Treatise on Unity", "Second Treatise on 
                                  "Fourth Treatise on Trust", "Fifth Treatise on Devotion", "Sixth Treatise on Submission",
                                  "Seventh Treatise on Repentance", "Eighth Treatise on Examining the Soul", "Ninth Treatise on Abstinence",
                                  "Tenth Treatise on Devotion to God")
-def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
+def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref, items=None):
     """מאסף 8 קטגוריות לימוד יומיות לפי מנהג עדות־המזרח (חוק לישראל)."""
     day_of_year = today.timetuple().tm_yday
     weekday = (today.weekday() + 1) % 7  # Sun=0..Shabbat=6
@@ -1063,7 +1065,7 @@ def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
 
     # 4. משנה — משנה יומית (אם קיימת)
     try:
-        items = daily_items()
+        items = items if items is not None else daily_items()     # `items` = that date's calendar (the backfill, R1552)
         my = daily_mishnah_item(items)
         if my and my.get("ref"):
             t = get_text(my["ref"])
