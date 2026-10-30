@@ -16,7 +16,9 @@ import backfill_lessons as B  # noqa: E402
 
 
 def full(title="כותרת"):
-    return {"title": title, "intro": "פתיחה " * 100, "daf": {"teaching": "הוראה " * 100}, "takeaway": "לקח"}
+    # the fields every real permanent lesson carries (R1549/PR8: completeness is checked field by field, not by length alone)
+    return {"title": title, "intro": "פתיחה " * 100, "daf": {"teaching": "הוראה " * 100}, "mishnayot": [],
+            "connections": [{"a": "דף", "b": "משנה", "point": "קשר"}], "gematria_note": "גימטריה", "question": "שאלה", "takeaway": "לקח"}
 
 
 def rec(date="2026-10-21", ref="Bekhorot 33", he="בכורות ל״ג", lesson=None):

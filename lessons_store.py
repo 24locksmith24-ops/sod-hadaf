@@ -42,8 +42,42 @@ def path_for(ref, revision=1, root=ROOT):
     return os.path.join(root, mas, name)
 
 
+# R1549 (Codex PR8 P1-1): "full" is a real completeness check, not only "no _error and long enough".
+# The required fields are the ones EVERY permanent lesson on disk carries (54/54 on 2026-10-30); `aramaic`, `method`, `commentators`,
+# `deep_dive`, `halacha` and `codes` are optional (one early lesson lacks them; `aramaic` may legitimately be empty).
+REQUIRED_TEXT = ("title", "intro", "gematria_note", "question", "takeaway")
+REQUIRED_NONEMPTY_LIST = ("connections",)
+PLACEHOLDER_MARKERS = ("בריצה הבאה",)          # the stub texts the engine wrote: 'תקציר ייווצר/יתווסף בריצה הבאה', 'השיעור ייכתב בריצה הבאה'
+
+
+def incomplete_reason(lesson):
+    """None when the lesson is complete, else why not (the first problem found)"""
+    if not isinstance(lesson, dict):
+        return "not a lesson object"
+    if lesson.get("_error"):
+        return "stub: " + str(lesson["_error"])[:160]
+    for k in REQUIRED_TEXT:
+        if not isinstance(lesson.get(k), str) or not lesson[k].strip():
+            return "missing or empty field: " + k
+    daf = lesson.get("daf")
+    if not isinstance(daf, dict) or not isinstance(daf.get("teaching"), str) or not daf["teaching"].strip():
+        return "missing or empty field: daf.teaching"
+    if not isinstance(lesson.get("mishnayot"), list):
+        return "missing field: mishnayot"
+    for k in REQUIRED_NONEMPTY_LIST:
+        if not isinstance(lesson.get(k), list) or not lesson[k]:
+            return "missing or empty list: " + k
+    text = json.dumps(lesson, ensure_ascii=False)
+    for m in PLACEHOLDER_MARKERS:
+        if m in text:
+            return "placeholder text: " + m
+    if len(text) <= 1000:
+        return "too short"
+    return None
+
+
 def is_full(lesson):
-    return isinstance(lesson, dict) and not lesson.get("_error") and len(json.dumps(lesson, ensure_ascii=False)) > 1000
+    return incomplete_reason(lesson) is None
 
 
 def exists(ref, root=ROOT):
@@ -68,7 +102,7 @@ def save_lesson(record, root=ROOT, revise=False):
     """record = the discoveries.json entry {date, ref, he_ref, lesson, theme, shared_words, codes_raw, sources_used, policy}.
     -> ('created'|'exists'|'revision', path). Never overwrites a lesson file. Raises StubRefused for a stub."""
     if not is_full(record.get("lesson")):
-        raise StubRefused("not a full lesson: %s" % ((record.get("lesson") or {}).get("_error") or "too short"))
+        raise StubRefused("not a full lesson: %s" % incomplete_reason(record.get("lesson")))
     first = path_for(record["ref"], 1, root)
     rev = 1
     if os.path.exists(first):

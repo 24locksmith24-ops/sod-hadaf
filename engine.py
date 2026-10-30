@@ -26,6 +26,46 @@ SEF = "https://www.sefaria.org/api"
 HEBCAL = "https://www.hebcal.com/hebcal"
 OUT = "discoveries.json"
 
+
+class SefariaUnavailable(RuntimeError):
+    """Sefaria answered nothing usable (empty body, a non-JSON page, a 5xx, or no answer) after every attempt"""
+
+
+_sleep = __import__("time").sleep     # tests replace it
+
+
+def sef_json(url, timeout=25, params=None, attempts=4):
+    """the ONLY Sefaria GET. Retry policy (Codex PR8 P2-3), and nothing else is retried:
+      RETRIED  -- a timeout or a connection error, a 5xx, an empty body, a non-JSON page (seen 2026-10-22: /links answered "", and
+                  .json() crashed the run), up to `attempts` times;
+      NEVER    -- a 4xx: its JSON body (Sefaria's {"error": ...} for an unknown ref) is returned at once, a non-JSON 4xx raises at once;
+                  any other requests error (bad URL, too many redirects, ...) raises at once.
+    Every give-up is SefariaUnavailable, which run_daily() records as a failure (the run turns red)."""
+    last = None
+    for attempt in range(1, attempts + 1):
+        try:
+            r = requests.get(url, timeout=timeout, params=params)
+        except (requests.Timeout, requests.ConnectionError) as ex:
+            last = ex
+        except requests.RequestException as ex:
+            raise SefariaUnavailable("%s: %s" % (url, ex))
+        else:
+            if 400 <= r.status_code < 500:
+                try:
+                    return r.json()
+                except ValueError:
+                    raise SefariaUnavailable("%s: HTTP %s, not JSON (a 4xx is never retried)" % (url, r.status_code))
+            if r.status_code >= 500 or not (r.text or "").strip():
+                last = SefariaUnavailable("HTTP %s, %d bytes" % (r.status_code, len(r.text or "")))
+            else:
+                try:
+                    return r.json()
+                except ValueError as ex:
+                    last = ex
+        if attempt < attempts:
+            _sleep(2 * attempt)
+    raise SefariaUnavailable("%s: %s" % (url, last))
+
 # ---------- כשלים בקול רם: שום "שיעור ריק" לא נשמר ולא נחשב הצלחה ----------
 FAILURES = []   # every model/stub failure of this run; the process exits non-zero at the end if any
 
@@ -266,19 +306,17 @@ def _clean(x):
         elif v: out.append(re.sub(r"\s+"," ", re.sub(r"<[^>]+>"," ", v)).strip())
     walk(x); return [s for s in out if s]
 
+def daily_mishnah_item(items):
+    """the day's Mishnah from the calendar: Sefaria's title is "Daily Mishnah"; the code asked for "Mishnah Yomi", which the calendar
+    never returns, so the lesson's mishnayot and Chok's 'משנה' were always empty (R1549/R1552). The old key stays as a fallback."""
+    return items.get("Daily Mishnah") or items.get("Mishnah Yomi")
+
+
 def daily_items(on=None):
     """Sefaria's calendar for today (or for the day `on`). Retried: the API sometimes answers a non-JSON page under load."""
-    import time
     params = {"year": on.year, "month": on.month, "day": on.day} if on else None
-    last = None
-    for attempt in (1, 2, 3, 4):
-        try:
-            items = requests.get(f"{SEF}/calendars", timeout=25, params=params).json().get("calendar_items", [])
-            return {(i.get("title") or {}).get("en"): i for i in items}
-        except Exception as ex:           # noqa: BLE001
-            last = ex
-            time.sleep(2 * attempt)
-    raise last
+    items = sef_json(f"{SEF}/calendars", timeout=25, params=params).get("calendar_items", [])
+    return {(i.get("title") or {}).get("en"): i for i in items}
 
 TORAH_BOOKS = ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy"]
 def fetch_full_torah():
@@ -286,23 +324,20 @@ def fetch_full_torah():
     parts = []
     for b in TORAH_BOOKS:
         try:
-            d = requests.get(f"{SEF}/texts/{b}", timeout=90,
-                             params={"context":0,"pad":0}).json()
+            d = sef_json(f"{SEF}/texts/{b}", timeout=90, params={"context":0,"pad":0})
             parts.append(" ".join(_clean(d.get("he", []))))
         except Exception:
             pass
     return " ".join(parts)
 
 def get_text(ref):
-    d = requests.get(f"{SEF}/texts/{requests.utils.quote(ref)}", timeout=25,
-                     params={"context":0,"pad":0}).json()
+    d = sef_json(f"{SEF}/texts/{requests.utils.quote(ref)}", timeout=25, params={"context":0,"pad":0})
     segs = _clean(d.get("he", []))
     return {"ref": d.get("ref", ref), "he_ref": d.get("heRef", ref),
             "hebrew": " ".join(segs), "segments": segs}
 
 def get_commentaries(ref, cap=10):
-    links = requests.get(f"{SEF}/links/{requests.utils.quote(ref)}", timeout=25,
-                         params={"with_text":1}).json()
+    links = sef_json(f"{SEF}/links/{requests.utils.quote(ref)}", timeout=25, params={"with_text":1})
     out, seen = [], set()
     for ln in links:
         cat = ln.get("category")
@@ -535,8 +570,7 @@ def breslov_agent(today):
     torah_text = ""
     torah_ref = f"Likutei Moharan, Part I.{torah_no}.1"
     try:
-        d = requests.get(f"{SEF}/texts/{requests.utils.quote(torah_ref)}", timeout=25,
-                         params={"context":0,"pad":0}).json()
+        d = sef_json(f"{SEF}/texts/{requests.utils.quote(torah_ref)}", timeout=25, params={"context":0,"pad":0})
         segs = _clean(d.get("he", []))
         torah_text = " ".join(segs)[:2500]
     except Exception:
@@ -547,8 +581,7 @@ def breslov_agent(today):
     topic = advice_topics[day_of_year % len(advice_topics)]
     advice_text = ""
     try:
-        d = requests.get(f"{SEF}/texts/Likutei%20Etzot,%20{topic}.1", timeout=25,
-                         params={"context":0,"pad":0}).json()
+        d = sef_json(f"{SEF}/texts/Likutei%20Etzot,%20{topic}.1", timeout=25, params={"context":0,"pad":0})
         segs = _clean(d.get("he", []))
         advice_text = " ".join(segs)[:1500]
     except Exception:
@@ -609,8 +642,7 @@ def benishchai_agent(today, parasha_name):
     text = ""
     ref = f"Ben Ish Hai, Halachot 1st Year, {en}"
     try:
-        d = requests.get(f"{SEF}/texts/{requests.utils.quote(ref)}", timeout=25,
-                         params={"context":0,"pad":0}).json()
+        d = sef_json(f"{SEF}/texts/{requests.utils.quote(ref)}", timeout=25, params={"context":0,"pad":0})
         segs = _clean(d.get("he", []))
         text = " ".join(segs)[:4000]
     except Exception:
@@ -743,8 +775,7 @@ def shnayim_agent(today, parasha_name, parasha_ref):
     parasha_text = ""
     onkelos_text = ""
     try:
-        d = requests.get(f"{SEF}/texts/{requests.utils.quote(parasha_ref)}", timeout=25,
-                         params={"context":0,"pad":0}).json()
+        d = sef_json(f"{SEF}/texts/{requests.utils.quote(parasha_ref)}", timeout=25, params={"context":0,"pad":0})
         segs = _clean(d.get("he", []))
         parasha_text = " ".join(segs)
     except Exception:
@@ -754,8 +785,7 @@ def shnayim_agent(today, parasha_name, parasha_ref):
     try:
         # parasha_ref כמו "Genesis 1:1-6:8" — אונקלוס באותו פורמט עם prefix
         onk_ref = f"Onkelos {parasha_ref}"
-        d = requests.get(f"{SEF}/texts/{requests.utils.quote(onk_ref)}", timeout=25,
-                         params={"context":0,"pad":0}).json()
+        d = sef_json(f"{SEF}/texts/{requests.utils.quote(onk_ref)}", timeout=25, params={"context":0,"pad":0})
         # אונקלוס יחזור בשדה he או text
         segs = _clean(d.get("he", []) or d.get("text", []))
         onkelos_text = " ".join(segs)
@@ -803,9 +833,13 @@ def yerushalmi_agent(today):
         return None
     try:
         daf = get_text(yer["ref"])
-    except Exception:
+    except Exception as ex:
+        note_failure("yerushalmi text " + yer["ref"], ex)
         return None
-    if not daf.get("hebrew") or forbidden_hit(daf["hebrew"]):
+    if not daf.get("hebrew"):
+        note_failure("yerushalmi text " + yer["ref"], "Sefaria returned no Hebrew text")
+        return None
+    if forbidden_hit(daf["hebrew"]):
         return None
     # מפרשים זמינים (קצר)
     comms_short = []
@@ -827,14 +861,18 @@ def yerushalmi_agent(today):
         summary = "".join(b.text for b in msg.content if b.type=="text").strip()
     except Exception as ex:
         note_failure("yerushalmi summary", ex)
-        summary = ""
+        return None                        # R1549: no summary = no save (never an empty record)
+    if not summary:
+        note_failure("yerushalmi summary", "the model answered no text")
+        return None
     rec = {"date": today.isoformat(),
            "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
            "he_ref": daf["he_ref"], "ref": daf["ref"],
            "hebrew": daf["hebrew"][:5000],
            "summary": summary,
            "commentaries": comms_short}
-    _save_archive(YERUSHALMI_OUT, rec)
+    if not _save_archive(YERUSHALMI_OUT, rec):
+        return None
     return rec
 
 # ---------- סוכן הילולות צדיקים ----------
@@ -924,6 +962,11 @@ def hilulot_agent(today):
 
 # ---------- סוכן חוק לישראל — לימוד יומי משולב (תורה/נביאים/כתובים/משנה/גמרא/זוהר/הלכה/מוסר) ----------
 CHOK_OUT = "chok.json"
+CHOK_CATEGORIES = ("תורה", "נביאים", "כתובים", "משנה", "גמרא", "זוהר", "הלכה", "מוסר")
+DUTIES_OF_THE_HEART_TREATISES = ("First Treatise on Unity", "Second Treatise on Examination", "Third Treatise on Service of God",
+                                 "Fourth Treatise on Trust", "Fifth Treatise on Devotion", "Sixth Treatise on Submission",
+                                 "Seventh Treatise on Repentance", "Eighth Treatise on Examining the Soul", "Ninth Treatise on Abstinence",
+                                 "Tenth Treatise on Devotion to God")
 def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
     """מאסף 8 קטגוריות לימוד יומיות לפי מנהג עדות־המזרח (חוק לישראל)."""
     day_of_year = today.timetuple().tm_yday
@@ -933,8 +976,7 @@ def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
     # 1. תורה — חלקו של היום מפרשת השבוע
     if parasha_ref:
         try:
-            d = requests.get(f"{SEF}/texts/{requests.utils.quote(parasha_ref)}", timeout=20,
-                             params={"context":0,"pad":0}).json()
+            d = sef_json(f"{SEF}/texts/{requests.utils.quote(parasha_ref)}", timeout=20, params={"context":0,"pad":0})
             segs = _clean(d.get("he", []))
             full = " ".join(segs)
             chunk = max(1, len(full) // 7)
@@ -950,8 +992,7 @@ def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
     nb = neviim[day_of_year % len(neviim)]
     try:
         # מביא פרק 1 (פשוט, אפשר להחליף ברוטציה מורכבת)
-        d = requests.get(f"{SEF}/texts/{requests.utils.quote(nb)} 1", timeout=20,
-                         params={"context":0,"pad":0}).json()
+        d = sef_json(f"{SEF}/texts/{requests.utils.quote(nb)} 1", timeout=20, params={"context":0,"pad":0})
         segs = _clean(d.get("he", []))
         sections["נביאים"] = {"ref": f"{nb} פרק א", "text": (" ".join(segs))[:900]}
     except Exception:
@@ -968,7 +1009,7 @@ def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
     # 4. משנה — משנה יומית (אם קיימת)
     try:
         items = daily_items()
-        my = items.get("Mishnah Yomi")
+        my = daily_mishnah_item(items)
         if my and my.get("ref"):
             t = get_text(my["ref"])
             sections["משנה"] = {"ref": t.get("he_ref",""), "text": t.get("hebrew","")[:900]}
@@ -984,8 +1025,7 @@ def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
                      "Vayeshev","Miketz","Vayigash","Vayechi","Shemot","Vaera","Bo","Beshalach"]
     zp = zohar_parshas[day_of_year % len(zohar_parshas)]
     try:
-        d = requests.get(f"{SEF}/texts/Zohar, {zp}.1", timeout=20,
-                         params={"context":0,"pad":0}).json()
+        d = sef_json(f"{SEF}/texts/Zohar, {zp}.1", timeout=20, params={"context":0,"pad":0})
         segs = _clean(d.get("he", []))
         sections["זוהר"] = {"ref": f"זוהר, {zp}", "text": (" ".join(segs))[:900]}
     except Exception:
@@ -994,29 +1034,31 @@ def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
     # 7. הלכה — שו"ע אורח חיים (סימן יומי לפי תור)
     sa_siman = (day_of_year % 697) + 1  # או"ח 1-697
     try:
-        d = requests.get(f"{SEF}/texts/Shulchan Arukh, Orach Chayim.{sa_siman}.1", timeout=20,
-                         params={"context":0,"pad":0}).json()
+        d = sef_json(f"{SEF}/texts/Shulchan Arukh, Orach Chayim.{sa_siman}.1", timeout=20, params={"context":0,"pad":0})
         segs = _clean(d.get("he", []))
         sections["הלכה"] = {"ref": f"שו\"ע או\"ח סימן {sa_siman}", "text": (" ".join(segs))[:800]}
     except Exception:
         pass
 
     # 8. מוסר — מסילת ישרים / חובת הלבבות / שערי תשובה — רוטציה
-    mussar_books = [("Mesillat Yesharim", "מסילת ישרים"),
-                    ("Duties of the Heart", "חובת הלבבות"),
-                    ("Shaarei Teshuvah", "שערי תשובה"),
-                    ("Pirkei Avot", "פרקי אבות")]
-    mb_en, mb_he = mussar_books[day_of_year % len(mussar_books)]
+    # (Sefaria ref, Hebrew label): only refs that exist -- Shaarei Teshuvah has 4 gates, Pirkei Avot 6 chapters, and
+    # Duties of the Heart is addressed by treatise ("Duties of the Heart.3" is HTTP 400); the old .{1..8} gave empty texts
+    mussar_refs = ([(f"Mesillat Yesharim.{c}", f"מסילת ישרים פרק {c}") for c in range(1, 9)] +
+                   [(f"Duties of the Heart, {t}.1", f"חובת הלבבות שער {i}") for i, t in enumerate(DUTIES_OF_THE_HEART_TREATISES, 1)] +
+                   [(f"Shaarei Teshuvah.{c}", f"שערי תשובה שער {c}") for c in range(1, 5)] +
+                   [(f"Pirkei Avot.{c}", f"פרקי אבות פרק {c}") for c in range(1, 7)])
+    mb_ref, mb_he = mussar_refs[day_of_year % len(mussar_refs)]
     try:
-        chap = (day_of_year % 8) + 1
-        d = requests.get(f"{SEF}/texts/{requests.utils.quote(mb_en)}.{chap}", timeout=20,
-                         params={"context":0,"pad":0}).json()
+        d = sef_json(f"{SEF}/texts/{requests.utils.quote(mb_ref)}", timeout=20, params={"context":0,"pad":0})
         segs = _clean(d.get("he", []))
-        sections["מוסר"] = {"ref": f"{mb_he} פרק {chap}", "text": (" ".join(segs))[:800]}
+        sections["מוסר"] = {"ref": mb_he, "text": (" ".join(segs))[:800]}
     except Exception:
         pass
 
-    if not sections:
+    # R1549: a Chok record is saved only COMPLETE -- all 8 categories with text; anything less is a FAILURE and nothing is written
+    missing = [k for k in CHOK_CATEGORIES if not (sections.get(k) or {}).get("text", "").strip()]
+    if missing:
+        note_failure("chok", "incomplete, not saved: no text for " + ", ".join(missing))
         return None
 
     # Claude כותב תקציר משולב קצר על כל הלימוד היומי
@@ -1033,14 +1075,18 @@ def chok_agent(today, parasha_name, parasha_ref, daf_text, daf_ref):
         overview = "".join(b.text for b in msg.content if b.type=="text").strip()
     except Exception as ex:
         note_failure("chok overview", ex)
-        overview = ""
+        return None                        # R1549: no overview = no save
+    if not overview:
+        note_failure("chok overview", "the model answered no text")
+        return None
 
     rec = {"date": today.isoformat(),
            "ts": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
            "parasha": parasha_name,
            "overview": overview,
            "sections": sections}
-    _save_archive(CHOK_OUT, rec, cap=200)
+    if not _save_archive(CHOK_OUT, rec, cap=200):
+        return None
     return rec
 
 # ---------- שמירה ----------
@@ -1189,7 +1235,7 @@ def main():
 
     # שתי המשניות היומיות — בנפרד
     mishnayot = []
-    my = items.get("Mishnah Yomi")
+    my = daily_mishnah_item(items)
     if my and my.get("ref"):
         mt = get_text(my["ref"])
         if not forbidden_hit(mt["hebrew"]):
@@ -1368,7 +1414,7 @@ def main():
         if yer_rec: print("   ✅ נשמר ל-yerushalmi.json")
         else: print("   ℹ️ אין דף ירושלמי היום (סוף מסכת או מנוחה)")
     except Exception as ex:
-        print("   ⚠️ סוכן דף ירושלמי נכשל:", ex)
+        note_failure("yerushalmi", ex)
     try:
         print("✨ סוכן הילולות צדיקים…")
         hilulot_rec = hilulot_agent(today)
@@ -1388,7 +1434,7 @@ def main():
                               daf.get("he_ref","") if daf else "")
         if chok_rec: print(f"   ✅ נשמר ל-chok.json ({len(chok_rec.get('sections',{}))} קטגוריות)")
     except Exception as ex:
-        print("   ⚠️ סוכן חוק לישראל נכשל:", ex)
+        note_failure("chok", ex)
 
     # יומן הסוכנים — תיעוד מלא של מה שכל סוכן עשה בריצה הזו
     try:
@@ -1431,6 +1477,15 @@ def main():
 
     print("✅ נשמר השיעור:", lesson.get("title",""))
 
+def run_daily():
+    """the daily run: Sefaria unusable after every retry -> a recorded failure and a red run, never a traceback (2026-10-22: an empty
+    /links answer crashed main at get_commentaries); nothing is saved after the point it stops"""
+    try:
+        main()
+    except SefariaUnavailable as ex:
+        note_failure("sefaria", ex)
+
+
 def finish():
     """exit code of the run: 1 if ANY model call / stub failed (workflow turns red), else 0"""
     if not FAILURES:
@@ -1450,5 +1505,5 @@ if __name__ == "__main__":
         _mode = "short" if ("[[short]]" in _body or "תמצית" in _body) else "full"
         answer_question(_q, _mode)
     else:
-        main()
+        run_daily()
     sys.exit(finish())
