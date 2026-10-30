@@ -11,6 +11,9 @@ import uuid
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 sys.path.insert(0, ROOT)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _anthropic_stub  # noqa: E402
+_anthropic_stub.install()                  # offline stand-in only when the real SDK is not installed
 import model_json as MJ  # noqa: E402
 import sections as SEC  # noqa: E402
 import engine as E  # noqa: E402
@@ -56,11 +59,16 @@ class TheLoggedFailures(unittest.TestCase):
         self.assertIn('שו"ע', out["links"][-1]["point"])
         self.assertEqual(out["thread"], "הכל מתחבר.")
 
-    def test_connector_cut_off_answer_keeps_only_complete_values(self):         # #320: cut off at max_tokens
-        out = MJ.parse_model_json(BY_RUN["320"]["raw"])
-        self.assertEqual(out["theme"][:5], "הבכור")
-        self.assertNotIn("הוא ש", json.dumps(out, ensure_ascii=False))     # the cut-off text is dropped, never completed
-        self.assertNotIn("thread", out)                                     # nothing is invented
+    def test_connector_cut_off_answer_is_refused_not_trimmed(self):            # #320: cut off at max_tokens
+        with self.assertRaises(MJ.ModelJSONError) as cm:
+            MJ.parse_model_json(BY_RUN["320"]["raw"])
+        self.assertIn("cut off", str(cm.exception))
+
+    def test_cut_off_answer_is_re_asked_and_the_full_answer_is_used(self):
+        create = Scripted(BY_RUN["320"]["raw"], GOOD)
+        out = MJ.ask_json(create, model="m", max_tokens=5, messages=[{"role": "user", "content": "q"}])
+        self.assertEqual(out["thread"], "ח")
+        self.assertEqual(len(create.calls), 2)
 
     def test_empty_answer_is_not_parsed(self):                                   # #306/#307 shape
         with self.assertRaises(MJ.ModelJSONError):
@@ -70,6 +78,26 @@ class TheLoggedFailures(unittest.TestCase):
 class Parser(unittest.TestCase):
     def test_fences_and_prose_around_the_object(self):
         self.assertEqual(MJ.parse_model_json('Here it is:\n```json\n{"a": [1, 2]}\n```\nThanks')["a"], [1, 2])
+
+    def test_missing_commas_are_inserted(self):
+        self.assertEqual(MJ.parse_model_json('{"a":1 "b":2}'), {"a": 1, "b": 2})
+        self.assertEqual(MJ.parse_model_json('{"a":"x" "b":"y"}'), {"a": "x", "b": "y"})
+        self.assertEqual(MJ.parse_model_json('[{"a":1} {"b":2}]'), [{"a": 1}, {"b": 2}])
+        self.assertEqual(MJ.parse_model_json('{"a":[1 2], "b":true "c":null}'), {"a": [1, 2], "b": True, "c": None})
+
+    def test_more_than_one_json_value_is_refused(self):
+        for bad in ('prefix {"chosen":1} prose {"other":2}', '{"a":1}{"b":2}', '[1] and [2]', '{"a":"x"} see [note]'):
+            with self.subTest(bad=bad):
+                with self.assertRaises(MJ.ModelJSONError) as cm:
+                    MJ.parse_model_json(bad)
+                self.assertIn("more than one JSON value", str(cm.exception))
+
+    def test_cut_off_anywhere_is_refused(self):
+        for bad in ('{"a":"complete","b":"cut', '{"a":"complete","b":', '{"a":[1,2', '{"notes":[{"label":"x","points":"p"}'):
+            with self.subTest(bad=bad):
+                with self.assertRaises(MJ.ModelJSONError) as cm:
+                    MJ.parse_model_json(bad)
+                self.assertIn("cut off", str(cm.exception))
 
     def test_trailing_commas(self):
         self.assertEqual(MJ.parse_model_json('{"a": [1, 2,], "b": {"c": "d",},}'), {"a": [1, 2], "b": {"c": "d"}})
@@ -122,11 +150,13 @@ class Sections(unittest.TestCase):
         self.assertNotIn(MJ.REASK, create.calls[0]["messages"][-1]["content"])
         self.assertTrue(create.calls[1]["messages"][-1]["content"].endswith(MJ.REASK))
 
-    def test_a_cut_off_answer_that_lost_notes_still_fails_the_batch(self):
-        cut = '{"notes":[{"label":"A","points":"א"},{"label":"B","po'           # repaired to A only -> B is missing
+    def test_a_cut_off_answer_fails_the_batch_after_the_re_ask(self):
+        cut = '{"notes":[{"label":"A","points":"א"},{"label":"B","po'           # cut off: refused, never trimmed to A only
+        create = Scripted(cut, cut)
         with self.assertRaises(RuntimeError) as cm:
-            SEC.read_batch(Scripted(cut, cut), "m", [("A", "x"), ("B", "y")])
-        self.assertIn("missing notes for: B", str(cm.exception))
+            SEC.read_batch(create, "m", [("A", "x"), ("B", "y")])
+        self.assertIn("cut off", str(cm.exception))
+        self.assertTrue(create.calls[1]["messages"][-1]["content"].endswith(MJ.REASK))
 
     def test_garbage_twice_still_fails_the_batch(self):
         with self.assertRaises(RuntimeError) as cm:
@@ -160,8 +190,22 @@ class Agents(unittest.TestCase):
         create = self.fake("prose", "")
         out = self.conn()
         self.assertEqual(out["links"], [])
+        self.assertTrue(out["_error"])
         self.assertEqual(len(create.calls), 2)
         self.assertEqual(E.FAILURES[0]["where"], "connector_agent")
+
+    def test_a_failed_connector_blocks_the_lesson_and_its_save(self):          # Codex REV1 P1
+        notes = json.dumps({"notes": [{"label": "Bekhorot 33", "points": "נקודה"}]}, ensure_ascii=False)
+        create = self.fake(notes, "prose", "")          # sections OK, connector unparseable twice, nothing left for write_lesson
+        real_units = E.SEC.make_units
+        E.SEC.make_units = lambda daf, mishnayot, comms: [("Bekhorot 33", "טקסט")]
+        try:
+            lesson, conn = E.generate_lesson({"he_ref": "בכורות לג", "ref": "Bekhorot 33"}, [], [], None, [], [], {}, [], [])
+        finally:
+            E.SEC.make_units = real_units
+        self.assertIn("connector_agent", lesson["_error"])
+        self.assertEqual(len(create.calls), 3)          # write_lesson was never called
+        self.assertFalse(E.save({"date": "2026-10-30", "ref": "Bekhorot 33", "he_ref": "x", "lesson": lesson}))
 
     def test_write_lesson_garbage_raises_for_the_caller(self):
         self.fake("prose", "more prose")

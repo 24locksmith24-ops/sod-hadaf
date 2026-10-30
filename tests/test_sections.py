@@ -8,6 +8,9 @@ import unittest
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 sys.path.insert(0, ROOT)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import _anthropic_stub  # noqa: E402
+_anthropic_stub.install()                  # offline stand-in only when the real SDK is not installed (R1526)
 import sections as S  # noqa: E402
 import engine as E  # noqa: E402
 

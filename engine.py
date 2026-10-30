@@ -414,7 +414,7 @@ def connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior, notes
                 system=sysmsg, messages=[{"role":"user","content":user}])
     except Exception as ex:
         note_failure("connector_agent", ex)
-        return {"theme":"", "method":"", "aramaic":"", "links":[], "thread":""}
+        return {"theme":"", "method":"", "aramaic":"", "links":[], "thread":"", "_error": str(ex)[:180]}
 
 # ---------- סוכן מגיד (Claude): כותב את השיעור ----------
 def write_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, conn, prior, notes):
@@ -1128,6 +1128,8 @@ def generate_lesson(daf, mishnayot, comms, parasha, extras, gem_lines, codes, pr
 
     print("🔗 סוכן מקשר מחפש קשרים…")
     conn = connector_agent(daf, mishnayot, comms, parasha, extras, shared, prior, notes)
+    if conn.get("_error"):                       # the lesson is built on the connector: no connector, no lesson (R1526)
+        return {"title": f"שיעור {daf['he_ref']}", "_error": "connector_agent: " + conn["_error"]}, conn
 
     print("📖 סוכן מגיד כותב שיעור עבור", daf["he_ref"], "…")
     try:
