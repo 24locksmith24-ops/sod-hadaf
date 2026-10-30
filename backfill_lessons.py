@@ -58,7 +58,7 @@ def prepare(d, items, torah_text):
         return ("BLOCKED", hit)
     comms = E.get_commentaries(daf_item["ref"], cap=12)
     mishnayot = []
-    my = items.get("Mishnah Yomi")
+    my = E.daily_mishnah_item(items)              # "Daily Mishnah" (R1552); "Mishnah Yomi" never came back
     if my and my.get("ref"):
         mt = E.get_text(my["ref"])
         if not E.forbidden_hit(mt["hebrew"]):
