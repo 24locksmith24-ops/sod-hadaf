@@ -113,6 +113,7 @@ def main(argv=None):
     after = incomplete(names, a.first, a.last)
     print("AFTER: incomplete records per archive:", json.dumps(counts(after)), "total", sum(counts(after).values()))
     print("backfill_records result: regenerated=%d failed=%d (limit %d)" % (len(done), len(failed), a.limit))
+    print(E.usage_summary())
     return 1 if (failed or E.FAILURES) else 0
 
 

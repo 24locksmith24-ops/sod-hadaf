@@ -136,6 +136,7 @@ def main(argv=None):
         else:
             failed.append((d.isoformat(), ref, "generation failed"))
     print("backfill result: written=%d blocked=%d failed=%d skipped=%d" % (len(done), len(blocked), len(failed), len(skipped)))
+    print(E.usage_summary())
     for x in blocked:
         print("  BLOCKED", *x)
     for x in failed:
