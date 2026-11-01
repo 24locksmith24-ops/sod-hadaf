@@ -97,6 +97,23 @@ def llm_create(client, **kw):
 
 
 REASK = "Return ONLY valid JSON"
+# R1601: a model answer that copies Hebrew from its source puts bare " characters inside a JSON string, which ends the string early
+# ("Expecting ',' delimiter"): abbreviations (ע"י, ז"ל, חז"ל -- Ben Ish Chai Shoftim has 39 in the 4000 chars sent) and quoted titles
+# (ב"שמחת יום טוב" in the same source). Such a " sits inside Hebrew prose, never where JSON puts a structural quote (next to : , { } [ ]
+# or a line's indentation), so on a FAILED parse it is read as the Hebrew gershayim U+05F4 and the parse is tried again. A valid answer
+# is never touched.
+_HEB_QUOTE_RULES = (
+    re.compile(r'(?<=[א-ת])"(?=[א-ת])'),                    # abbreviation: ע"י  ז"ל  חז"ל
+    re.compile(r'(?<=[א-ת])"(?=(?: [א-ת]|[.;!?)]))'),       # closing a quoted phrase: טוב" כיצד
+    re.compile(r'(?<=[א-ת.)] )"(?=[א-ת])'),                 # opening a quoted phrase: הרב "שמחת
+)
+
+
+def _repair_hebrew_quotes(raw):
+    """R1601: every bare " inside Hebrew prose (never a JSON structural position) -> U+05F4"""
+    for rule in _HEB_QUOTE_RULES:
+        raw = rule.sub("״", raw)
+    return raw
 
 
 def _answer_json(msg, extract=True, empty_ok=False):
@@ -106,6 +123,12 @@ def _answer_json(msg, extract=True, empty_ok=False):
     try:
         return json.loads(raw)
     except json.JSONDecodeError:
+        fixed = _repair_hebrew_quotes(raw)                       # R1601: only after a failed parse, only " inside Hebrew prose
+        if fixed != raw:
+            try:
+                return json.loads(fixed)
+            except json.JSONDecodeError:
+                raw = fixed                                       # the slice below then works on the repaired text
         i, j = raw.find("{"), raw.rfind("}")
         if extract and i != -1 and j > i:
             return json.loads(raw[i:j+1])
@@ -120,7 +143,14 @@ def llm_json(client, parse, **kw):
         return parse(llm_create(client, **kw))
     except json.JSONDecodeError:
         last = dict(kw["messages"][-1], content=kw["messages"][-1]["content"] + "\n\n" + REASK)
-        return parse(llm_create(client, **dict(kw, messages=kw["messages"][:-1] + [last])))
+        msg = llm_create(client, **dict(kw, messages=kw["messages"][:-1] + [last]))
+        try:
+            return parse(msg)
+        except json.JSONDecodeError:
+            # R1601: keep the evidence -- the raw answer that could not be parsed twice (the engine kept only the error before)
+            raw = "".join(b.text for b in msg.content if b.type == "text")
+            print("UNPARSEABLE_MODEL_JSON (first 800 chars): " + raw[:800].replace("\n", "\\n"))
+            raise
 
 
 # ---------- גימטריה (חישוב ודאי) ----------

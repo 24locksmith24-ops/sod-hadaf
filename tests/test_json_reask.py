@@ -16,7 +16,10 @@ import engine as E  # noqa: E402
 import sections as SEC  # noqa: E402
 
 GOOD = '{"theme":"ת","method":"מ","aramaic":"","links":[],"thread":"ח"}'
-BAD = '{"theme":"ר"ל"}'          # the logged shape: a quote inside a Hebrew abbreviation -> JSONDecodeError
+# R1601: the original sample here was '{"theme":"ר"ל"}' (a quote inside a Hebrew abbreviation). The engine now reads that shape
+# (the abbreviation " becomes U+05F4, tests/test_bic_hebrew_quotes_r1601.py), so the re-ask path is exercised with an answer the
+# repair cannot fix: a bare quote in Latin text.
+BAD = '{"theme":"he said "x" then"}'   # still a JSONDecodeError after the Hebrew-quote repair
 
 
 def reply(text):
