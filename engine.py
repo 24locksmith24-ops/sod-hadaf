@@ -118,23 +118,17 @@ def usage_summary():
 
 
 REASK = "Return ONLY valid JSON"
-# R1601: a model answer that copies Hebrew from its source puts bare " characters inside a JSON string, which ends the string early
-# ("Expecting ',' delimiter"): abbreviations (ע"י, ז"ל, חז"ל -- Ben Ish Chai Shoftim has 39 in the 4000 chars sent) and quoted titles
-# (ב"שמחת יום טוב" in the same source). Such a " sits inside Hebrew prose, never where JSON puts a structural quote (next to : , { } [ ]
-# or a line's indentation), so on a FAILED parse it is read as the Hebrew gershayim U+05F4 and the parse is tried again. A valid answer
-# is never touched.
-_HEB_QUOTE_RULES = (
-    re.compile(r'(?<=[א-ת])"(?=[א-ת])'),                    # abbreviation: ע"י  ז"ל  חז"ל
-    re.compile(r'(?<=[א-ת])"(?=(?: [א-ת]|[.;!?)]))'),       # closing a quoted phrase: טוב" כיצד
-    re.compile(r'(?<=[א-ת.)] )"(?=[א-ת])'),                 # opening a quoted phrase: הרב "שמחת
-)
+# R1601: a model answer that copies a Hebrew abbreviation from its source puts a bare " inside a JSON string, which ends the string
+# early ("Expecting ',' delimiter"). Measured on the REAL answers (capture run 41269616920, Ben Ish Chai Shoftim 2026-08-09..13, 10 of 10
+# unparseable on main): every failure was an abbreviation -- הרמב"ם in all 10, זצ"ל once. A " between two Hebrew letters is never a JSON
+# structural quote (those touch : , { } [ ] or whitespace), so on a FAILED parse it is read as the Hebrew gershayim U+05F4 (the correct
+# character for an abbreviation) and the parse is tried again. A valid answer is never touched.
+_HEB_ABBREV_QUOTE = re.compile(r'(?<=[א-ת])"(?=[א-ת])')
 
 
 def _repair_hebrew_quotes(raw):
-    """R1601: every bare " inside Hebrew prose (never a JSON structural position) -> U+05F4"""
-    for rule in _HEB_QUOTE_RULES:
-        raw = rule.sub("״", raw)
-    return raw
+    """R1601: a bare " between two Hebrew letters (an abbreviation, never a JSON structural position) -> U+05F4"""
+    return _HEB_ABBREV_QUOTE.sub("״", raw)
 
 
 def _answer_json(msg, extract=True, empty_ok=False):
@@ -144,7 +138,7 @@ def _answer_json(msg, extract=True, empty_ok=False):
     try:
         return json.loads(raw)
     except json.JSONDecodeError:
-        fixed = _repair_hebrew_quotes(raw)                       # R1601: only after a failed parse, only " inside Hebrew prose
+        fixed = _repair_hebrew_quotes(raw)                       # R1601: only after a failed parse, only " between Hebrew letters
         if fixed != raw:
             try:
                 return json.loads(fixed)
