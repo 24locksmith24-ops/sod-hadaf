@@ -68,6 +68,8 @@ def sef_json(url, timeout=25, params=None, attempts=4):
 
 # ---------- כשלים בקול רם: שום "שיעור ריק" לא נשמר ולא נחשב הצלחה ----------
 FAILURES = []   # every model/stub failure of this run; the process exits non-zero at the end if any
+USAGE = {"calls": 0, "input_tokens": 0, "output_tokens": 0}   # R1583: measured tokens of this run (from each answer's usage)
+PRICE_PER_MTOK = {"input": 3.0, "output": 15.0}               # claude-sonnet-4-6 list price, USD per million tokens
 
 
 def note_failure(where, err):
@@ -90,10 +92,29 @@ def preflight_sdk():
 def llm_create(client, **kw):
     """the ONLY place a model call is made; a failure is recorded (and re-raised for the caller's own handling)"""
     try:
-        return client.messages.create(**kw)
+        msg = client.messages.create(**kw)
     except Exception as ex:
         note_failure("model call (max_tokens=%s)" % kw.get("max_tokens"), ex)
         raise
+    record_usage(msg, kw.get("model"))
+    return msg
+
+
+def record_usage(msg, model=None):
+    """R1583: add one answer's measured token usage to USAGE and print it (a missing usage block counts the call, 0 tokens)"""
+    u = getattr(msg, "usage", None)
+    tin, tout = int(getattr(u, "input_tokens", 0) or 0), int(getattr(u, "output_tokens", 0) or 0)
+    USAGE["calls"] += 1
+    USAGE["input_tokens"] += tin
+    USAGE["output_tokens"] += tout
+    print("USAGE model=%s input_tokens=%d output_tokens=%d" % (model, tin, tout))
+
+
+def usage_summary():
+    """one line: calls, tokens in/out and the dollars at PRICE_PER_MTOK"""
+    usd = USAGE["input_tokens"] / 1e6 * PRICE_PER_MTOK["input"] + USAGE["output_tokens"] / 1e6 * PRICE_PER_MTOK["output"]
+    return "USAGE TOTAL calls=%d input_tokens=%d output_tokens=%d usd=%.4f (at $%g/$%g per MTok)" % (
+        USAGE["calls"], USAGE["input_tokens"], USAGE["output_tokens"], usd, PRICE_PER_MTOK["input"], PRICE_PER_MTOK["output"])
 
 
 REASK = "Return ONLY valid JSON"
