@@ -12,7 +12,7 @@ on:
         required: true
         default: 'lessons'
         type: choice
-        options: ['lessons', 'records']
+        options: ['lessons', 'records', 'capture']   # capture: THIS UNMERGED BRANCH ONLY (R1601): raw answers, no save, no commit
       dry_run:
         description: 'List only, no model call (yes/no)'
         required: true
@@ -61,7 +61,9 @@ jobs:
           if [ "${{ github.event.inputs.dry_run }}" = "yes" ]; then ARGS="$ARGS --dry-run"; fi
           if [ -n "${{ github.event.inputs.date_from }}" ]; then ARGS="$ARGS --from ${{ github.event.inputs.date_from }}"; fi
           if [ -n "${{ github.event.inputs.date_to }}" ]; then ARGS="$ARGS --to ${{ github.event.inputs.date_to }}"; fi
-          if [ "${{ github.event.inputs.kind }}" = "records" ]; then
+          if [ "${{ github.event.inputs.kind }}" = "capture" ]; then
+            python capture_bic_raw.py
+          elif [ "${{ github.event.inputs.kind }}" = "records" ]; then
             ARGS="$(echo "$ARGS" | sed 's/ --dry-run//')"
             if [ "${{ github.event.inputs.dry_run }}" = "no" ]; then ARGS="$ARGS --apply"; fi
             python backfill_records.py $ARGS
@@ -69,7 +71,15 @@ jobs:
             python backfill_lessons.py $ARGS
           fi
 
+      - name: Upload the raw captures (capture only)
+        if: github.event.inputs.kind == 'capture'
+        uses: actions/upload-artifact@v4
+        with:
+          name: bic-raw-captures-r1601
+          path: bic_raw_captures.json
+
       - name: Commit and push (with race-condition protection)
+        if: github.event.inputs.kind != 'capture'
         run: |
           set +e
 
