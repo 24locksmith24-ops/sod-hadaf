@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "generated_utc": "2026-10-29T04:18:29Z",
+  "generated_utc": "2026-11-05T12:05:55Z",
   "masechtot": {
     "Bekhorot": {
       "he": "בכורות",
-      "count": 5,
+      "count": 6,
       "dafim": {
         "5": {
           "file": "lessons/Bekhorot/005.json",
@@ -39,6 +39,13 @@
           "date": "2026-10-29",
           "title": "היכן נמצא הפגם? — על מומים נסתרים ונגלים, בבהמה ובנפש",
           "he_ref": "בכורות מ״א",
+          "revisions": []
+        },
+        "48": {
+          "file": "lessons/Bekhorot/048.json",
+          "date": "2026-11-05",
+          "title": "חמש שלמות — על הספק, הערבות והחיוב שאינו מת",
+          "he_ref": "בכורות מ״ח",
           "revisions": []
         }
       }
