@@ -1,26 +1,26 @@
 [
   {
-    "name": "ביאור שטיינזלץ",
-    "category": "Commentary",
-    "ref": "Steinsaltz on Chullin 27a:1",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-11-08",
-    "count": 185,
-    "from": [
-      "בכורות מ״ו",
-      "בכורות ל״ג",
-      "בכורות נ״א",
-      "בכורות מ״ד",
-      "בכורות כ״ד",
-      "בכורות מ״ז",
-      "בכורות מ״ה",
-      "בכורות מ״ח"
-    ]
-  },
-  {
     "name": "רש\"י",
     "category": "Commentary",
     "ref": "Rashi on Chullin 27a:1:1",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-11-09",
+    "count": 186,
+    "from": [
+      "בכורות מ״ה",
+      "בכורות מ״ו",
+      "בכורות ל״ג",
+      "בכורות מ״ד",
+      "בכורות כ״ד",
+      "בכורות נ״ב",
+      "בכורות נ״א",
+      "בכורות מ״ז"
+    ]
+  },
+  {
+    "name": "ביאור שטיינזלץ",
+    "category": "Commentary",
+    "ref": "Steinsaltz on Chullin 27a:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-08",
     "count": 185,
@@ -40,8 +40,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-11-08",
-    "count": 183,
+    "last_seen": "2026-11-09",
+    "count": 184,
     "from": [
       "תפילות"
     ]
@@ -51,8 +51,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-11-08",
-    "count": 183,
+    "last_seen": "2026-11-09",
+    "count": 184,
     "from": [
       "תפילות"
     ]
@@ -62,8 +62,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-11-08",
-    "count": 183,
+    "last_seen": "2026-11-09",
+    "count": 184,
     "from": [
       "תפילות"
     ]
@@ -73,8 +73,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-11-08",
-    "count": 183,
+    "last_seen": "2026-11-09",
+    "count": 184,
     "from": [
       "תפילות"
     ]
@@ -84,8 +84,8 @@
     "category": "תפילה (מקור)",
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-11-08",
-    "count": 183,
+    "last_seen": "2026-11-09",
+    "count": 184,
     "from": [
       "תפילות"
     ]
@@ -95,8 +95,8 @@
     "category": "תפילה (מקור)",
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-11-08",
-    "count": 183,
+    "last_seen": "2026-11-09",
+    "count": 184,
     "from": [
       "תפילות"
     ]
@@ -106,8 +106,8 @@
     "category": "תפילה (מקור)",
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-11-08",
-    "count": 183,
+    "last_seen": "2026-11-09",
+    "count": 184,
     "from": [
       "תפילות"
     ]
@@ -117,8 +117,8 @@
     "category": "תפילה (מקור)",
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-11-08",
-    "count": 183,
+    "last_seen": "2026-11-09",
+    "count": 184,
     "from": [
       "תפילות"
     ]
@@ -128,8 +128,8 @@
     "category": "תפילה (מקור)",
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-11-08",
-    "count": 183,
+    "last_seen": "2026-11-09",
+    "count": 184,
     "from": [
       "תפילות"
     ]
@@ -139,8 +139,8 @@
     "category": "תפילה (מקור)",
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-11-08",
-    "count": 183,
+    "last_seen": "2026-11-09",
+    "count": 184,
     "from": [
       "תפילות"
     ]
@@ -150,8 +150,8 @@
     "category": "תפילה (מקור)",
     "ref": "Psalms 126",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-11-08",
-    "count": 183,
+    "last_seen": "2026-11-09",
+    "count": 184,
     "from": [
       "תפילות"
     ]
@@ -161,8 +161,8 @@
     "category": "תפילה (מקור)",
     "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-11-08",
-    "count": 182,
+    "last_seen": "2026-11-09",
+    "count": 183,
     "from": [
       "תפילות"
     ]
@@ -226,17 +226,17 @@
     "category": "Halakhah",
     "ref": "Tur, Yoreh De'ah 21",
     "first_seen": "2026-05-27",
-    "last_seen": "2026-11-03",
-    "count": 48,
+    "last_seen": "2026-11-09",
+    "count": 49,
     "from": [
-      "בכורות מ״ו",
-      "חולין קל״ז",
       "בכורות מ״ה",
-      "חולין צ״א",
-      "חולין מ״ו",
+      "בכורות מ״ו",
+      "בכורות נ״ב",
       "בכורות כ״ד",
       "חולין ק״י",
-      "חולין נ״ט"
+      "חולין קל״ז",
+      "חולין מ״ו",
+      "חולין צ״א"
     ]
   },
   {
@@ -384,6 +384,28 @@
     ]
   },
   {
+    "name": "ברכי נפשי — תהילים ק״ד",
+    "category": "תפילה (מקור)",
+    "ref": "Psalms 104",
+    "first_seen": "2026-10-21",
+    "last_seen": "2026-11-09",
+    "count": 24,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "יושב בסתר (למנצח) — תהילים צ״א",
+    "category": "תפילה (מקור)",
+    "ref": "Psalms 91",
+    "first_seen": "2026-10-21",
+    "last_seen": "2026-11-09",
+    "count": 24,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
     "name": "ספר הערוך",
     "category": "Reference",
     "ref": "Sefer HeArukh, Letter Yod 61",
@@ -399,28 +421,6 @@
       "בכורות מ״ד",
       "בכורות ל״ט",
       "בכורות מ״א"
-    ]
-  },
-  {
-    "name": "ברכי נפשי — תהילים ק״ד",
-    "category": "תפילה (מקור)",
-    "ref": "Psalms 104",
-    "first_seen": "2026-10-21",
-    "last_seen": "2026-11-08",
-    "count": 23,
-    "from": [
-      "תפילות"
-    ]
-  },
-  {
-    "name": "יושב בסתר (למנצח) — תהילים צ״א",
-    "category": "תפילה (מקור)",
-    "ref": "Psalms 91",
-    "first_seen": "2026-10-21",
-    "last_seen": "2026-11-08",
-    "count": 23,
-    "from": [
-      "תפילות"
     ]
   },
   {
@@ -478,6 +478,24 @@
     ]
   },
   {
+    "name": "חידושי הלכות",
+    "category": "Commentary",
+    "ref": "Chidushei Halachot on Bekhorot 4a:1",
+    "first_seen": "2026-09-22",
+    "last_seen": "2026-11-09",
+    "count": 19,
+    "from": [
+      "בכורות מ״ה",
+      "בכורות מ״א",
+      "בכורות ל״ג",
+      "בכורות מ״ד",
+      "בכורות נ״ב",
+      "בכורות כ״ו",
+      "בכורות ד׳",
+      "בכורות י״ט"
+    ]
+  },
+  {
     "name": "רי\"ף",
     "category": "Commentary",
     "ref": "Rif Chullin 8b:1",
@@ -529,24 +547,6 @@
       "חולין ל״ד",
       "חולין פ״א",
       "חולין קל״ט"
-    ]
-  },
-  {
-    "name": "חידושי הלכות",
-    "category": "Commentary",
-    "ref": "Chidushei Halachot on Bekhorot 4a:1",
-    "first_seen": "2026-09-22",
-    "last_seen": "2026-11-03",
-    "count": 18,
-    "from": [
-      "בכורות י״ט",
-      "בכורות כ״ו",
-      "בכורות מ״ה",
-      "בכורות מ״ד",
-      "בכורות ל״ג",
-      "בכורות ד׳",
-      "בכורות י״ח",
-      "בכורות מ״א"
     ]
   },
   {
@@ -1037,6 +1037,21 @@
     ]
   },
   {
+    "name": "תשובות מהר\"ם",
+    "category": "Responsa",
+    "ref": "Teshuvot Maharam, Lemberg Edition 324:1",
+    "first_seen": "2026-06-16",
+    "last_seen": "2026-11-09",
+    "count": 9,
+    "from": [
+      "בכורות נ״ב",
+      "בכורות כ״ד",
+      "חולין קי״א",
+      "בכורות מ״ח",
+      "חולין מ״ז"
+    ]
+  },
+  {
     "name": "Genesis 6:9-11:32",
     "category": "פרשת השבוע",
     "ref": "Genesis 6:9-11:32",
@@ -1162,20 +1177,6 @@
       "חולין קל״ט",
       "חולין מ״ז",
       "חולין מ״ו"
-    ]
-  },
-  {
-    "name": "תשובות מהר\"ם",
-    "category": "Responsa",
-    "ref": "Teshuvot Maharam, Lemberg Edition 324:1",
-    "first_seen": "2026-06-16",
-    "last_seen": "2026-11-05",
-    "count": 8,
-    "from": [
-      "חולין מ״ז",
-      "בכורות כ״ד",
-      "בכורות מ״ח",
-      "חולין קי״א"
     ]
   },
   {
@@ -2410,6 +2411,18 @@
     ]
   },
   {
+    "name": "Genesis 25:19-28:9",
+    "category": "פרשת השבוע",
+    "ref": "Genesis 25:19-28:9",
+    "first_seen": "2026-11-08",
+    "last_seen": "2026-11-09",
+    "count": 3,
+    "from": [
+      "בכורות נ״ב",
+      "בכורות נ״א"
+    ]
+  },
+  {
     "name": "Numbers 4:21-7:89",
     "category": "פרשת השבוע",
     "ref": "Numbers 4:21-7:89",
@@ -2464,17 +2477,6 @@
     "from": [
       "בכורות מ״ה",
       "בכורות מ״ו"
-    ]
-  },
-  {
-    "name": "Genesis 25:19-28:9",
-    "category": "פרשת השבוע",
-    "ref": "Genesis 25:19-28:9",
-    "first_seen": "2026-11-08",
-    "last_seen": "2026-11-08",
-    "count": 2,
-    "from": [
-      "בכורות נ״א"
     ]
   },
   {
@@ -4216,6 +4218,17 @@
     ]
   },
   {
+    "name": "משנה אהלות ט״ז:ד׳-ה׳",
+    "category": "משנה",
+    "ref": "",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "count": 2,
+    "from": [
+      "בכורות נ״ב"
+    ]
+  },
+  {
     "name": "משנה טבול יום",
     "category": "Mishnah",
     "ref": "Mishnah Tevul Yom 2:1",
@@ -5426,6 +5439,17 @@
     ]
   },
   {
+    "name": "בכורות נ״ב",
+    "category": "דף יומי",
+    "ref": "Bekhorot 52",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "count": 1,
+    "from": [
+      "בכורות נ״ב"
+    ]
+  },
+  {
     "name": "חולין כ״ח",
     "category": "דף יומי",
     "ref": "Chullin 28",
@@ -5569,6 +5593,17 @@
     ]
   },
   {
+    "name": "משנה תורה, הלכות אישות",
+    "category": "Halakhah",
+    "ref": "Mishneh Torah, Marriage 16:5",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "count": 1,
+    "from": [
+      "בכורות נ״ב"
+    ]
+  },
+  {
     "name": "סוטה",
     "category": "Talmud",
     "ref": "Sotah 30a:6-7",
@@ -5588,6 +5623,28 @@
     "count": 1,
     "from": [
       "חולין מ״ב"
+    ]
+  },
+  {
+    "name": "פסקי הרא\"ש על בבא בתרא",
+    "category": "Quoting Commentary",
+    "ref": "Rosh on Bava Batra 8:11:1",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "count": 1,
+    "from": [
+      "בכורות נ״ב"
+    ]
+  },
+  {
+    "name": "פסקי הרא\"ש על בבא מציעא",
+    "category": "Quoting Commentary",
+    "ref": "Rosh on Bava Metzia 1:39:1",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "count": 1,
+    "from": [
+      "בכורות נ״ב"
     ]
   },
   {
@@ -5624,6 +5681,39 @@
     ]
   },
   {
+    "name": "שולחן ערוך, אבן העזר",
+    "category": "Halakhah",
+    "ref": "Shulchan Arukh, Even HaEzer 100:2",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "count": 1,
+    "from": [
+      "בכורות נ״ב"
+    ]
+  },
+  {
+    "name": "שפתי כהן על שולחן ערוך חושן משפט",
+    "category": "Quoting Commentary",
+    "ref": "Siftei Kohen on Shulchan Arukh, Choshen Mishpat 115:32:1",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "count": 1,
+    "from": [
+      "בכורות נ״ב"
+    ]
+  },
+  {
+    "name": "תהילים ט׳",
+    "category": "תוספת לימוד",
+    "ref": "",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "count": 1,
+    "from": [
+      "בכורות נ״ב"
+    ]
+  },
+  {
     "name": "תהילים כ״א",
     "category": "תוספת לימוד",
     "ref": "",
@@ -5654,6 +5744,39 @@
     "count": 1,
     "from": [
       "חולין קי״ט"
+    ]
+  },
+  {
+    "name": "תוספות על בבא בתרא",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot on Bava Batra 125b:7:1",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "count": 1,
+    "from": [
+      "בכורות נ״ב"
+    ]
+  },
+  {
+    "name": "תוספות על בבא מציעא",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot on Bava Metzia 15a:16:1",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "count": 1,
+    "from": [
+      "בכורות נ״ב"
+    ]
+  },
+  {
+    "name": "תוספות על בבא קמא",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot on Bava Kamma 96a:1:1",
+    "first_seen": "2026-11-09",
+    "last_seen": "2026-11-09",
+    "count": 1,
+    "from": [
+      "בכורות נ״ב"
     ]
   },
   {
