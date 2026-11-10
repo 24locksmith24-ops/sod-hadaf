@@ -5,16 +5,16 @@
     "ref": "Rashi on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-10",
-    "count": 188,
+    "count": 189,
     "from": [
-      "בכורות מ״ו",
-      "בכורות מ״ה",
-      "בכורות ל״ג",
-      "בכורות מ״ז",
       "בכורות מ״ד",
-      "בכורות נ״ב",
+      "בכורות מ״ז",
+      "בכורות ל״ג",
+      "בכורות מ״ה",
       "בכורות נ״ג",
-      "בכורות נ״א"
+      "בכורות נ״א",
+      "בכורות נ״ב",
+      "בכורות מ״ו"
     ]
   },
   {
@@ -23,7 +23,7 @@
     "ref": "Psalms 145",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-10",
-    "count": 186,
+    "count": 187,
     "from": [
       "תפילות"
     ]
@@ -34,7 +34,7 @@
     "ref": "Psalms 93",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-10",
-    "count": 186,
+    "count": 187,
     "from": [
       "תפילות"
     ]
@@ -45,7 +45,7 @@
     "ref": "Psalms 150",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-10",
-    "count": 186,
+    "count": 187,
     "from": [
       "תפילות"
     ]
@@ -56,7 +56,7 @@
     "ref": "Psalms 92",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-10",
-    "count": 186,
+    "count": 187,
     "from": [
       "תפילות"
     ]
@@ -67,7 +67,7 @@
     "ref": "Exodus 20:1-14",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-10",
-    "count": 186,
+    "count": 187,
     "from": [
       "תפילות"
     ]
@@ -78,7 +78,7 @@
     "ref": "Genesis 22:1-19",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-10",
-    "count": 186,
+    "count": 187,
     "from": [
       "תפילות"
     ]
@@ -89,7 +89,7 @@
     "ref": "Numbers 28:1-8",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-10",
-    "count": 186,
+    "count": 187,
     "from": [
       "תפילות"
     ]
@@ -100,7 +100,7 @@
     "ref": "Numbers 15:37-41",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-10",
-    "count": 186,
+    "count": 187,
     "from": [
       "תפילות"
     ]
@@ -111,7 +111,7 @@
     "ref": "Deuteronomy 6:4-9",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-10",
-    "count": 186,
+    "count": 187,
     "from": [
       "תפילות"
     ]
@@ -122,7 +122,7 @@
     "ref": "Deuteronomy 11:13-21",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-10",
-    "count": 186,
+    "count": 187,
     "from": [
       "תפילות"
     ]
@@ -131,6 +131,17 @@
     "name": "שיר המעלות (לפני ברכת המזון) — תהילים קכ״ו",
     "category": "תפילה (מקור)",
     "ref": "Psalms 126",
+    "first_seen": "2026-05-27",
+    "last_seen": "2026-11-10",
+    "count": 187,
+    "from": [
+      "תפילות"
+    ]
+  },
+  {
+    "name": "וידוי / י\"ג מידות — שמות ל״ד:ו׳-ז׳",
+    "category": "תפילה (מקור)",
+    "ref": "Exodus 34:6-7",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-10",
     "count": 186,
@@ -157,14 +168,21 @@
     ]
   },
   {
-    "name": "וידוי / י\"ג מידות — שמות ל״ד:ו׳-ז׳",
-    "category": "תפילה (מקור)",
-    "ref": "Exodus 34:6-7",
+    "name": "תוספות",
+    "category": "Commentary",
+    "ref": "Tosafot on Chullin 27a:1:1",
     "first_seen": "2026-05-27",
     "last_seen": "2026-11-10",
-    "count": 185,
+    "count": 118,
     "from": [
-      "תפילות"
+      "בכורות מ״ד",
+      "בכורות ל״ז",
+      "בכורות ל״ג",
+      "בכורות נ״ג",
+      "בכורות כ״ו",
+      "בכורות ל׳",
+      "בכורות כ״ד",
+      "בכורות מ״ו"
     ]
   },
   {
@@ -183,24 +201,6 @@
       "בכורות מ״ז",
       "בכורות מ״ה",
       "בכורות מ״ח"
-    ]
-  },
-  {
-    "name": "תוספות",
-    "category": "Commentary",
-    "ref": "Tosafot on Chullin 27a:1:1",
-    "first_seen": "2026-05-27",
-    "last_seen": "2026-11-10",
-    "count": 117,
-    "from": [
-      "בכורות ל׳",
-      "בכורות מ״ו",
-      "בכורות ל״ז",
-      "בכורות נ״ג",
-      "בכורות ל״ג",
-      "בכורות כ״ו",
-      "בכורות מ״ד",
-      "בכורות כ״ד"
     ]
   },
   {
@@ -389,7 +389,7 @@
     "ref": "Psalms 104",
     "first_seen": "2026-10-21",
     "last_seen": "2026-11-10",
-    "count": 26,
+    "count": 27,
     "from": [
       "תפילות"
     ]
@@ -400,7 +400,7 @@
     "ref": "Psalms 91",
     "first_seen": "2026-10-21",
     "last_seen": "2026-11-10",
-    "count": 26,
+    "count": 27,
     "from": [
       "תפילות"
     ]
@@ -429,16 +429,16 @@
     "ref": "Sifra, Emor, Section 8 3",
     "first_seen": "2026-06-07",
     "last_seen": "2026-11-10",
-    "count": 22,
+    "count": 23,
     "from": [
-      "חולין ס״ח",
-      "בכורות מ״ה",
-      "בכורות נ״ג",
       "בכורות מ״ד",
-      "בכורות ל״ט",
-      "חולין פ״ח",
+      "חולין קי״ח",
+      "חולין ס״ח",
       "חולין נ״ה",
-      "חולין קי״ח"
+      "חולין פ״ח",
+      "בכורות נ״ג",
+      "בכורות מ״ה",
+      "בכורות ל״ט"
     ]
   },
   {
@@ -478,6 +478,24 @@
     ]
   },
   {
+    "name": "ביאור על ספר המצוות לרס\"ג",
+    "category": "Quoting Commentary",
+    "ref": "Commentary on Sefer Hamitzvot of Rasag, Negative Commandments 76:58",
+    "first_seen": "2026-06-03",
+    "last_seen": "2026-11-10",
+    "count": 20,
+    "from": [
+      "חולין ל״ד",
+      "חולין ל״ה",
+      "חולין קל״ט",
+      "בכורות נ״ג",
+      "בכורות נ״א",
+      "חולין ס״א",
+      "חולין קט״ו",
+      "חולין קט״ז"
+    ]
+  },
+  {
     "name": "חידושי הלכות",
     "category": "Commentary",
     "ref": "Chidushei Halachot on Bekhorot 4a:1",
@@ -493,24 +511,6 @@
       "בכורות כ״ו",
       "בכורות מ״א",
       "בכורות מ״ד"
-    ]
-  },
-  {
-    "name": "ביאור על ספר המצוות לרס\"ג",
-    "category": "Quoting Commentary",
-    "ref": "Commentary on Sefer Hamitzvot of Rasag, Negative Commandments 76:58",
-    "first_seen": "2026-06-03",
-    "last_seen": "2026-11-10",
-    "count": 19,
-    "from": [
-      "חולין קל״ט",
-      "חולין קט״ו",
-      "חולין ל״ה",
-      "בכורות נ״ג",
-      "חולין ל״ד",
-      "חולין קט״ז",
-      "בכורות נ״א",
-      "חולין ס״א"
     ]
   },
   {
@@ -555,16 +555,34 @@
     "ref": "Chullin 36b:10",
     "first_seen": "2026-06-02",
     "last_seen": "2026-11-10",
-    "count": 16,
+    "count": 17,
     "from": [
-      "חולין קל״ט",
-      "חולין ע״ג",
-      "בכורות ל׳",
-      "חולין קט״ו",
-      "חולין ל״ג",
-      "בכורות נ״ג",
       "בכורות י״ח",
-      "חולין ע״ד"
+      "חולין ל״ג",
+      "חולין ע״ג",
+      "חולין קל״ט",
+      "בכורות נ״ג",
+      "חולין קט״ו",
+      "חולין ע״ד",
+      "בכורות ל׳"
+    ]
+  },
+  {
+    "name": "משנה חולין",
+    "category": "Mishnah",
+    "ref": "Mishnah Chullin 2:6",
+    "first_seen": "2026-06-07",
+    "last_seen": "2026-11-10",
+    "count": 17,
+    "from": [
+      "חולין ע״ג",
+      "חולין ק״ד",
+      "חולין ל״ח",
+      "בכורות נ״ג",
+      "חולין קי״ז",
+      "חולין מ׳",
+      "חולין קט״ז",
+      "חולין קכ״ה"
     ]
   },
   {
@@ -583,24 +601,6 @@
       "חולין קט״ו",
       "חולין ס״ח",
       "חולין ל״ט"
-    ]
-  },
-  {
-    "name": "משנה חולין",
-    "category": "Mishnah",
-    "ref": "Mishnah Chullin 2:6",
-    "first_seen": "2026-06-07",
-    "last_seen": "2026-11-10",
-    "count": 16,
-    "from": [
-      "חולין ע״ג",
-      "חולין מ׳",
-      "בכורות נ״ג",
-      "חולין ק״ד",
-      "חולין קכ״ה",
-      "חולין קט״ז",
-      "חולין ל״ח",
-      "חולין קי״ז"
     ]
   },
   {
@@ -810,6 +810,22 @@
     ]
   },
   {
+    "name": "תשובות מהר\"ם",
+    "category": "Responsa",
+    "ref": "Teshuvot Maharam, Lemberg Edition 324:1",
+    "first_seen": "2026-06-16",
+    "last_seen": "2026-11-10",
+    "count": 12,
+    "from": [
+      "בכורות מ״ח",
+      "בכורות נ״ג",
+      "חולין מ״ז",
+      "חולין קי״א",
+      "בכורות כ״ד",
+      "בכורות נ״ב"
+    ]
+  },
+  {
     "name": "שמות",
     "category": "Tanakh",
     "ref": "Exodus 13:2",
@@ -823,22 +839,6 @@
       "חולין ע׳",
       "חולין ע״ז",
       "חולין קט״ו"
-    ]
-  },
-  {
-    "name": "תשובות מהר\"ם",
-    "category": "Responsa",
-    "ref": "Teshuvot Maharam, Lemberg Edition 324:1",
-    "first_seen": "2026-06-16",
-    "last_seen": "2026-11-10",
-    "count": 11,
-    "from": [
-      "בכורות מ״ח",
-      "בכורות נ״ג",
-      "חולין קי״א",
-      "בכורות נ״ב",
-      "בכורות כ״ד",
-      "חולין מ״ז"
     ]
   },
   {
@@ -1181,6 +1181,21 @@
     ]
   },
   {
+    "name": "תהילים י׳",
+    "category": "תוספת לימוד",
+    "ref": "",
+    "first_seen": "2026-06-10",
+    "last_seen": "2026-11-10",
+    "count": 8,
+    "from": [
+      "חולין ק״ב",
+      "בכורות נ״ג",
+      "חולין קל״ג",
+      "חולין מ׳",
+      "חולין מ״א"
+    ]
+  },
+  {
     "name": "מלבי\"ם על ויקרא",
     "category": "Quoting Commentary",
     "ref": "Malbim on Leviticus, Shmini 174:1",
@@ -1224,21 +1239,6 @@
     ]
   },
   {
-    "name": "תהילים י׳",
-    "category": "תוספת לימוד",
-    "ref": "",
-    "first_seen": "2026-06-10",
-    "last_seen": "2026-11-10",
-    "count": 7,
-    "from": [
-      "חולין קל״ג",
-      "חולין מ׳",
-      "בכורות נ״ג",
-      "חולין ק״ב",
-      "חולין מ״א"
-    ]
-  },
-  {
     "name": "Deuteronomy 3:23-7:11",
     "category": "פרשת השבוע",
     "ref": "Deuteronomy 3:23-7:11",
@@ -1249,6 +1249,19 @@
       "חולין פ״א",
       "חולין פ׳",
       "חולין פ״ב"
+    ]
+  },
+  {
+    "name": "Genesis 25:19-28:9",
+    "category": "פרשת השבוע",
+    "ref": "Genesis 25:19-28:9",
+    "first_seen": "2026-11-08",
+    "last_seen": "2026-11-10",
+    "count": 6,
+    "from": [
+      "בכורות נ״א",
+      "בכורות נ״ג",
+      "בכורות נ״ב"
     ]
   },
   {
@@ -1685,19 +1698,6 @@
     ]
   },
   {
-    "name": "Genesis 25:19-28:9",
-    "category": "פרשת השבוע",
-    "ref": "Genesis 25:19-28:9",
-    "first_seen": "2026-11-08",
-    "last_seen": "2026-11-10",
-    "count": 5,
-    "from": [
-      "בכורות נ״ב",
-      "בכורות נ״ג",
-      "בכורות נ״א"
-    ]
-  },
-  {
     "name": "משפטי עוזיאל",
     "category": "Responsa",
     "ref": "Mishpetei Uziel, Volume V, Even HaEzer 79:52",
@@ -1868,6 +1868,18 @@
     ]
   },
   {
+    "name": "לחם משנה על משנה תורה, הלכות מאכלות אסורות",
+    "category": "Quoting Commentary",
+    "ref": "Lechem Mishneh on Mishneh Torah, Forbidden Foods 5:5:2",
+    "first_seen": "2026-08-11",
+    "last_seen": "2026-11-10",
+    "count": 4,
+    "from": [
+      "חולין ק״ג",
+      "בכורות נ״ג"
+    ]
+  },
+  {
     "name": "מבואות לספרות האמוראים",
     "category": "Talmud",
     "ref": "Introductions to Amoraic Literature, Part I (Introductions to Tractates of the Babli), Bekhorot 112",
@@ -1913,6 +1925,18 @@
     "from": [
       "בכורות מ״ד",
       "בכורות ל״ח"
+    ]
+  },
+  {
+    "name": "מלאכת שלמה על משנה תרומות",
+    "category": "Quoting Commentary",
+    "ref": "Melekhet Shelomoh on Mishnah Terumot 5:2:2",
+    "first_seen": "2026-10-11",
+    "last_seen": "2026-11-10",
+    "count": 4,
+    "from": [
+      "בכורות כ״ג",
+      "בכורות נ״ג"
     ]
   },
   {
@@ -2041,6 +2065,17 @@
     ]
   },
   {
+    "name": "משנה אהלות י״ז:א׳-ב׳",
+    "category": "משנה",
+    "ref": "",
+    "first_seen": "2026-11-10",
+    "last_seen": "2026-11-10",
+    "count": 4,
+    "from": [
+      "בכורות נ״ג"
+    ]
+  },
+  {
     "name": "משנה כלים",
     "category": "Mishnah",
     "ref": "Mishnah Kelim 2:2",
@@ -2125,6 +2160,18 @@
     ]
   },
   {
+    "name": "ספר החינוך",
+    "category": "Halakhah",
+    "ref": "Sefer HaChinukh 21:4",
+    "first_seen": "2026-07-26",
+    "last_seen": "2026-11-10",
+    "count": 4,
+    "from": [
+      "חולין פ״ז",
+      "בכורות נ״ג"
+    ]
+  },
+  {
     "name": "פירוש שלמה סיריליו על תלמוד ירושלמי תרומות",
     "category": "Quoting Commentary",
     "ref": "Sirilio on Jerusalem Talmud Terumot 10:6:1:9",
@@ -2134,6 +2181,18 @@
     "from": [
       "בכורות כ״ג",
       "חולין קי״א"
+    ]
+  },
+  {
+    "name": "פסקי הרא\"ש על בכורות",
+    "category": "Quoting Commentary",
+    "ref": "Rosh on Bekhorot 3:2:1",
+    "first_seen": "2026-10-12",
+    "last_seen": "2026-11-10",
+    "count": 4,
+    "from": [
+      "בכורות כ״ד",
+      "בכורות נ״ג"
     ]
   },
   {
@@ -2341,6 +2400,18 @@
     ]
   },
   {
+    "name": "תוספות על בכורות",
+    "category": "Quoting Commentary",
+    "ref": "Tosafot on Bekhorot 47b:16:1",
+    "first_seen": "2026-10-07",
+    "last_seen": "2026-11-10",
+    "count": 4,
+    "from": [
+      "בכורות י״ט",
+      "בכורות נ״ג"
+    ]
+  },
+  {
     "name": "תוספות על זבחים",
     "category": "Quoting Commentary",
     "ref": "Tosafot on Zevachim 82b:8:1",
@@ -2460,30 +2531,6 @@
     ]
   },
   {
-    "name": "לחם משנה על משנה תורה, הלכות מאכלות אסורות",
-    "category": "Quoting Commentary",
-    "ref": "Lechem Mishneh on Mishneh Torah, Forbidden Foods 5:5:2",
-    "first_seen": "2026-08-11",
-    "last_seen": "2026-11-10",
-    "count": 3,
-    "from": [
-      "בכורות נ״ג",
-      "חולין ק״ג"
-    ]
-  },
-  {
-    "name": "מלאכת שלמה על משנה תרומות",
-    "category": "Quoting Commentary",
-    "ref": "Melekhet Shelomoh on Mishnah Terumot 5:2:2",
-    "first_seen": "2026-10-11",
-    "last_seen": "2026-11-10",
-    "count": 3,
-    "from": [
-      "בכורות נ״ג",
-      "בכורות כ״ג"
-    ]
-  },
-  {
     "name": "משנה תורה, הלכות פרה אדומה",
     "category": "Halakhah",
     "ref": "Mishneh Torah, Red Heifer 4:18",
@@ -2492,18 +2539,6 @@
     "count": 3,
     "from": [
       "חולין ל״ב"
-    ]
-  },
-  {
-    "name": "ספר החינוך",
-    "category": "Halakhah",
-    "ref": "Sefer HaChinukh 21:4",
-    "first_seen": "2026-07-26",
-    "last_seen": "2026-11-10",
-    "count": 3,
-    "from": [
-      "חולין פ״ז",
-      "בכורות נ״ג"
     ]
   },
   {
@@ -2518,18 +2553,6 @@
     ]
   },
   {
-    "name": "פסקי הרא\"ש על בכורות",
-    "category": "Quoting Commentary",
-    "ref": "Rosh on Bekhorot 3:2:1",
-    "first_seen": "2026-10-12",
-    "last_seen": "2026-11-10",
-    "count": 3,
-    "from": [
-      "בכורות כ״ד",
-      "בכורות נ״ג"
-    ]
-  },
-  {
     "name": "תהילים ג׳",
     "category": "תוספת לימוד",
     "ref": "",
@@ -2539,18 +2562,6 @@
     "from": [
       "בכורות מ״ה",
       "בכורות מ״ו"
-    ]
-  },
-  {
-    "name": "תוספות על בכורות",
-    "category": "Quoting Commentary",
-    "ref": "Tosafot on Bekhorot 47b:16:1",
-    "first_seen": "2026-10-07",
-    "last_seen": "2026-11-10",
-    "count": 3,
-    "from": [
-      "בכורות י״ט",
-      "בכורות נ״ג"
     ]
   },
   {
@@ -2936,6 +2947,17 @@
     "count": 2,
     "from": [
       "בכורות נ״ב"
+    ]
+  },
+  {
+    "name": "בכורות נ״ג",
+    "category": "דף יומי",
+    "ref": "Bekhorot 53",
+    "first_seen": "2026-11-10",
+    "last_seen": "2026-11-10",
+    "count": 2,
+    "from": [
+      "בכורות נ״ג"
     ]
   },
   {
@@ -4281,17 +4303,6 @@
     ]
   },
   {
-    "name": "משנה אהלות י״ז:א׳-ב׳",
-    "category": "משנה",
-    "ref": "",
-    "first_seen": "2026-11-10",
-    "last_seen": "2026-11-10",
-    "count": 2,
-    "from": [
-      "בכורות נ״ג"
-    ]
-  },
-  {
     "name": "משנה טבול יום",
     "category": "Mishnah",
     "ref": "Mishnah Tevul Yom 2:1",
@@ -5565,17 +5576,6 @@
     "count": 1,
     "from": [
       "חולין קט״ו"
-    ]
-  },
-  {
-    "name": "בכורות נ״ג",
-    "category": "דף יומי",
-    "ref": "Bekhorot 53",
-    "first_seen": "2026-11-10",
-    "last_seen": "2026-11-10",
-    "count": 1,
-    "from": [
-      "בכורות נ״ג"
     ]
   },
   {
