@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-05T12:05:55Z",
+  "generated_utc": "2026-11-11T04:17:24Z",
   "masechtot": {
     "Bekhorot": {
       "he": "בכורות",
-      "count": 6,
+      "count": 7,
       "dafim": {
         "5": {
           "file": "lessons/Bekhorot/005.json",
@@ -46,6 +46,13 @@
           "date": "2026-11-05",
           "title": "חמש שלמות — על הספק, הערבות והחיוב שאינו מת",
           "he_ref": "בכורות מ״ח",
+          "revisions": []
+        },
+        "54": {
+          "file": "lessons/Bekhorot/054.json",
+          "date": "2026-11-11",
+          "title": "כל אחד בפני עצמו — גבולות הצירוף ועין הרועה",
+          "he_ref": "בכורות נ״ד",
           "revisions": []
         }
       }
