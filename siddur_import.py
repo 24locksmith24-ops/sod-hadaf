@@ -1,13 +1,17 @@
-"""Build the three siddur pages (shacharit.json, mincha.json, arvit.json) from the FULL text of Sefaria's "Siddur Edot HaMizrach" (R1116).
+"""Build the siddur pages from the FULL text of Sefaria's "Siddur Edot HaMizrach" (R1116; all parts R2066).
 
-    python siddur_import.py            fetch from the Sefaria API and (re)write the three JSON files
-    python siddur_import.py --check    fetch again and compare with the published files; exit 1 on any difference (the completeness check)
+    python siddur_import.py                    fetch from the Sefaria API and (re)write every page + siddur/index.json
+    python siddur_import.py --only a,b         (re)write only the named page keys (+ siddur/index.json)
+    python siddur_import.py --check            fetch again and compare with the published files; exit 1 on any difference (the completeness check)
+    python siddur_import.py --snapshot         rewrite tests/fixtures/siddur_expected.json from the published files (no network)
 
-Every leaf of Sefaria's Weekday Shacharit / Weekday Mincha / Weekday Arvit becomes one page section, in Sefaria's order, with its own Sefaria ref.
+    SIDDUR_RAW_DIR=dir   save every raw Sefaria API answer in dir (a pinned fixture);  SIDDUR_OFFLINE=1  read them back instead of the network
+
+The three weekday pages keep their files (shacharit.json, mincha.json, arvit.json); every other top-level part of the Sefaria index is written to
+siddur/<key>.json and listed, with the weekday pages, in siddur/index.json, which the page reads to build its menu.
+Every leaf of a part becomes one page section, in Sefaria's order, with its own Sefaria ref.
 Nothing is shortened: the whole Hebrew text of the leaf is kept (segments joined by newlines, HTML tags removed, text HTML-escaped because the page writes it
 with innerHTML). Each section carries: n (Hebrew title), t (text), ref, segments, words, sha256 (of the text), so the page and the tests can prove completeness.
-
-The previous pages were hand-written abridgments (placeholders such as "see the full text in the prayers card"); that text is replaced.
 """
 import datetime
 import hashlib
@@ -27,16 +31,45 @@ PAGES = {
     "mincha": ("Weekday Mincha", "סֵדֶר תְּפִלַּת מִנְחָה", "מנחה"),
     "arvit": ("Weekday Arvit", "סֵדֶר תְּפִלַּת עַרְבִית", "ערבית"),
 }
+# key -> (Sefaria top-level node, menu group).  The page title is the node's own Hebrew title from Sefaria.  Order = Sefaria's order.
+PARTS = {
+    # R2066 batch 1: Shabbat
+    "shabbat_candles": ("Shabbat Candle Lighting", "shabbat"),
+    "shir_hashirim": ("Song of Songs", "shabbat"),
+    "kabbalat_shabbat": ("Kabbalat Shabbat", "shabbat"),
+    "shabbat_arvit": ("Shabbat Arvit", "shabbat"),
+    "shabbat_evening": ("Shabbat Evening", "shabbat"),
+    "shabbat_shacharit": ("Shabbat Shacharit", "shabbat"),
+    "shabbat_mussaf": ("Shabbat Mussaf", "shabbat"),
+    "shabbat_day_meal": ("Daytime Meal", "shabbat"),
+    "shabbat_mincha": ("Shabbat Mincha", "shabbat"),
+    "seuda_shlishit": ("Third Meal", "shabbat"),
+    "havdalah": ("Havdalah", "shabbat"),
+}
+GROUPS = {"weekday": "ימי חול", "shabbat": "שבת", "blessings": "ברכות", "festivals": "ראש חודש ומועדים", "study": "לימוד"}
 _NIK = re.compile(r"[֑-ׇ]")
 
 
+def _raw_path(url, params):
+    key = url + "?" + json.dumps(params or {}, sort_keys=True)
+    return os.path.join(os.environ["SIDDUR_RAW_DIR"], hashlib.sha256(key.encode("utf-8")).hexdigest()[:24] + ".json")
+
+
 def get_json(url, params=None, tries=4):
+    if os.environ.get("SIDDUR_RAW_DIR") and os.environ.get("SIDDUR_OFFLINE") == "1":
+        with open(_raw_path(url, params), encoding="utf-8") as f:
+            return json.load(f)["answer"]
     last = None
     for i in range(1, tries + 1):
         try:
             r = requests.get(url, params=params, timeout=60, headers={"User-Agent": "sod-hadaf-siddur-import"})
             r.raise_for_status()
-            return r.json()
+            data = r.json()
+            if os.environ.get("SIDDUR_RAW_DIR"):
+                os.makedirs(os.environ["SIDDUR_RAW_DIR"], exist_ok=True)
+                with open(_raw_path(url, params), "w", encoding="utf-8", newline="\n") as f:
+                    json.dump({"url": url, "params": params, "answer": data}, f, ensure_ascii=False)
+            return data
         except Exception as ex:                      # noqa: BLE001
             last = ex
             time.sleep(2 * i)
@@ -99,10 +132,28 @@ def words(text):
     return len(re.findall(r"[א-ת]+", _NIK.sub("", text)))
 
 
+def all_keys():
+    return list(PAGES) + list(PARTS)
+
+
+def path_of(key):
+    """the published file of a page key: the weekday pages stay at the root, every other part lives in siddur/"""
+    return key + ".json" if key in PAGES else os.path.join("siddur", key + ".json")
+
+
+def _he_title(node):
+    return next((x.get("text") for x in node.get("titles", []) if x.get("lang") == "he" and x.get("primary")), None) or node.get("heTitle") or node.get("title")
+
+
 def fetch_page(key):
-    top_title, he_title, he_name = PAGES[key]
     idx = get_json("%s/index/%s" % (SEF, WORK.replace(" ", "_")))
-    top = next(n for n in idx["schema"]["nodes"] if n.get("title") == top_title)
+    if key in PAGES:
+        top_title, he_title, he_name = PAGES[key]
+        top = next(n for n in idx["schema"]["nodes"] if n.get("title") == top_title)
+    else:
+        top_title = PARTS[key][0]
+        top = next(n for n in idx["schema"]["nodes"] if n.get("title") == top_title)
+        he_title = _he_title(top)
     sections, versions = [], None
     for en, he, path in leaves(top):
         ref = "%s, %s" % (WORK, ", ".join(path))
@@ -113,14 +164,15 @@ def fetch_page(key):
         if versions is None:
             versions = d.get("versions") or []
         raw_text = text
-        sections.append({"n": "%d. %s" % (len(sections) + 1, he), "t": html.escape(raw_text, quote=False), "ref": ref,
+        sections.append({"n": "%d. %s" % (len(sections) + 1, html.escape(he, quote=False)), "t": html.escape(raw_text, quote=False), "ref": ref,
                          "segments": len([l for l in raw_text.split("\n") if l.strip()]), "words": words(raw_text),
                          "sha256": hashlib.sha256(raw_text.encode("utf-8")).hexdigest()})
-        time.sleep(0.25)
+        if os.environ.get("SIDDUR_OFFLINE") != "1":
+            time.sleep(0.25)
     he_ver = next((v for v in (versions or []) if v.get("language") == "he"), {})
     he_ver = {k: (v.strip() if isinstance(v, str) else v) for k, v in he_ver.items()}
     return {
-        "title": he_title,
+        "title": html.escape(he_title, quote=False),
         "subtitle": "נוסח עדות־המזרח · מלא, מתוך ספריא",
         "attribution": "%s · %s%s" % (WORK, he_ver.get("versionTitle", "Sefaria"), (" · " + he_ver["license"]) if he_ver.get("license") else ""),
         "note": "הטקסט המלא של הסידור מתוך ספריא, כל חלק עם הציון שלו (ref). נוסחי עדות שונים נבדלים — יש לבדוק מול סידור הקהילה.",
@@ -130,15 +182,50 @@ def fetch_page(key):
     }
 
 
-def write(key, page):
-    with open(key + ".json", "w", encoding="utf-8", newline="\n") as f:
-        json.dump(page, f, ensure_ascii=False, indent=1)
+def _dump(path, obj):
+    d = os.path.dirname(path)
+    if d:
+        os.makedirs(d, exist_ok=True)
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(obj, f, ensure_ascii=False, indent=1)
         f.write("\n")
+
+
+def write(key, page):
+    _dump(path_of(key), page)
+
+
+def load_published(key):
+    with open(path_of(key), encoding="utf-8") as f:
+        return json.load(f)
+
+
+def write_index():
+    """siddur/index.json: the menu the page builds - every published part, in Sefaria order, with its file and group (built from the files, no network)"""
+    parts = []
+    for key in all_keys():
+        page = load_published(key)
+        parts.append({"key": key, "file": path_of(key).replace(os.sep, "/")[:-len(".json")], "title": page["title"],
+                      "group": "weekday" if key in PAGES else PARTS[key][1], "node": page["source"]["node"],
+                      "sections": len(page["sections"]), "words": sum(s["words"] for s in page["sections"])})
+    _dump(os.path.join("siddur", "index.json"), {"schema": 1, "work": WORK, "groups": GROUPS, "parts": parts})
+
+
+def write_snapshot():
+    """tests/fixtures/siddur_expected.json from the published files (refs, words, segments, hashes) - the offline completeness snapshot"""
+    exp = {}
+    for key in all_keys():
+        page = load_published(key)
+        exp[key] = {"source": page["source"].get("version"),
+                    "sections": [{"ref": s["ref"], "words": s["words"], "segments": s["segments"], "sha256": s["sha256"]} for s in page["sections"]]}
+    _dump(os.path.join("tests", "fixtures", "siddur_expected.json"), exp)
 
 
 def compare(key, fresh):
     """-> list of differences between the published file and a fresh Sefaria fetch (empty = complete and identical)"""
-    pub = json.load(open(key + ".json", encoding="utf-8"))
+    if not os.path.exists(path_of(key)):
+        return ["%s is missing" % path_of(key)]
+    pub = load_published(key)
     diffs = []
     p_refs = [s.get("ref") for s in pub["sections"]]
     f_refs = [s["ref"] for s in fresh["sections"]]
@@ -151,8 +238,19 @@ def compare(key, fresh):
 
 
 def main(argv):
+    if "--snapshot" in argv:
+        write_snapshot()
+        print("wrote tests/fixtures/siddur_expected.json for %d pages" % len(all_keys()))
+        return 0
+    keys = all_keys()
+    if "--only" in argv:
+        keys = [k for k in argv[argv.index("--only") + 1].split(",") if k]
+        unknown = [k for k in keys if k not in all_keys()]
+        if unknown:
+            print("unknown page keys:", unknown)
+            return 2
     rc = 0
-    for key in PAGES:
+    for key in keys:
         page = fetch_page(key)
         if "--check" in argv:
             d = compare(key, page)
@@ -162,7 +260,10 @@ def main(argv):
             rc = rc or (1 if d else 0)
         else:
             write(key, page)
-            print("wrote %s.json: %d sections, %d words" % (key, len(page["sections"]), sum(s["words"] for s in page["sections"])))
+            print("wrote %s: %d sections, %d words" % (path_of(key), len(page["sections"]), sum(s["words"] for s in page["sections"])))
+    if "--check" not in argv:
+        write_index()
+        print("wrote siddur/index.json")
     return rc
 
 
