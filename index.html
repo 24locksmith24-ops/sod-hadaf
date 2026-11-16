@@ -2982,7 +2982,7 @@ function setupSiddurTabs(){
       const groups = ix.groups || {};
       const byGroup = {};
       ix.parts.filter(p=>p.group!=="weekday").forEach(p=>{ (byGroup[p.group] = byGroup[p.group] || []).push(p); });
-      Object.keys(byGroup).forEach(g=>{
+      Object.keys(groups).concat(Object.keys(byGroup).filter(g=>!(g in groups))).filter(g=>byGroup[g]).forEach(g=>{
         const og = document.createElement("optgroup");
         og.label = groups[g] || g;
         byGroup[g].forEach(p=>{

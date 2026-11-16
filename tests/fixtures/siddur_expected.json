@@ -170,6 +170,102 @@
    }
   ]
  },
+ "hashkamat_haboker": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Preparatory Prayers, Modeh Ani",
+    "words": 23,
+    "segments": 4,
+    "sha256": "15646ecb4c7f2e007bc33c04a349a46a155bab1fb8a3013364fafdaed73e3e2b"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Preparatory Prayers, Morning Blessings",
+    "words": 455,
+    "segments": 27,
+    "sha256": "908fb527b83bc1a2de6a191bfb8310329753a193fb631201b300863047988636"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Preparatory Prayers, Torah Blessings",
+    "words": 97,
+    "segments": 5,
+    "sha256": "1659a9354914f3d7a4a976a174bf2c7ebe748f62ab75c9f87fbf3c8278651ffb"
+   }
+  ]
+ },
+ "tikkun_chatzot": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, The Midnight Rite, LeShem Yichud",
+    "words": 306,
+    "segments": 5,
+    "sha256": "2297b8872bc05291dae03f3ee3cda939710f02b8fa0d8b4ea888a528b198c960"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, The Midnight Rite, Tikkun Rachel",
+    "words": 607,
+    "segments": 10,
+    "sha256": "29a740dd15cbfb3edc4ea41577a169067f6e591c38a39fa0a0c3141502a64fa4"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, The Midnight Rite, Tikkun Leah",
+    "words": 748,
+    "segments": 16,
+    "sha256": "b6552c48d341065117bf12b53018a195fafbc31dea2fa094e6e4147b4b470514"
+   }
+  ]
+ },
+ "shacharit_additions": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Additions for Shacharit, Thirteen Principles of Faith",
+    "words": 107,
+    "segments": 3,
+    "sha256": "c4d361b439299a23c3af6b83c6bc0a5a5860fd2033ff1b44ee0447c59f0e7838"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Additions for Shacharit, Ten Remembrances",
+    "words": 1751,
+    "segments": 31,
+    "sha256": "13c10fd8c1c86ecf7614f0be2ac84fa35347231ab37cc3109dd9889002b25323"
+   }
+  ]
+ },
+ "sefirat_haomer": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Counting of the Omer",
+    "words": 1647,
+    "segments": 168,
+    "sha256": "3725e7400e18310422e4038cd762eb1eac5303852c370ea6f2dddcb00d5085ab"
+   }
+  ]
+ },
+ "birkat_halevana": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Blessing of the Moon",
+    "words": 740,
+    "segments": 27,
+    "sha256": "416a8c9e122967a27c8034361107dcbd88d590e83743e301b8f0e1fd1ea55758"
+   }
+  ]
+ },
+ "kriat_shema_al_hamita": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Bedtime Shema",
+    "words": 913,
+    "segments": 30,
+    "sha256": "30e5daaf7c9df85bc6a47086faa870449fb6b67853f4f8870be7421a1a551594"
+   }
+  ]
+ },
  "shabbat_candles": {
   "source": "Shaliehsaboo Edition",
   "sections": [
@@ -480,6 +576,355 @@
     "words": 148,
     "segments": 6,
     "sha256": "77025ad57bcff59f0fbc61b48062e2efbcbdccc6e2a9774e4100c8cb2d8dda0b"
+   }
+  ]
+ },
+ "birkat_hamazon": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Post Meal Blessing",
+    "words": 1414,
+    "segments": 65,
+    "sha256": "ee9b22a832e81f3f665bb49431b78c6342d8dd16a52638518eba105976cceb40"
+   }
+  ]
+ },
+ "al_hamichya": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Al Hamihya",
+    "words": 224,
+    "segments": 21,
+    "sha256": "b99bc02dfe52344c4beac7eed885673b839757e214714732d2311e9cf7a1c98c"
+   }
+  ]
+ },
+ "birkot_hanehenin": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Blessings on Enjoyments",
+    "words": 286,
+    "segments": 21,
+    "sha256": "a4264dfd7994edd36dd91359152753b45793c52b32d7415f18e90f79e6ea4ac4"
+   }
+  ]
+ },
+ "rosh_chodesh": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Rosh Hodesh, Rosh Hodesh",
+    "words": 155,
+    "segments": 3,
+    "sha256": "d8775159879a94f2066b9bc69ca7dd1e06f11beb39d7801240289bbf1eecd5e2"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Rosh Hodesh, Hallel",
+    "words": 1457,
+    "segments": 49,
+    "sha256": "b1f6e3650e8030800f64d4300e6d95cfb41e2742c2484eaa04e78ba41b5509b8"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Rosh Hodesh, Uva LeSion",
+    "words": 399,
+    "segments": 5,
+    "sha256": "7ec7dd40460d0e3915bf6cf19388cda1d7c0de8252e345c358aa10f22a5b73e5"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Rosh Hodesh, Song of the Day",
+    "words": 939,
+    "segments": 20,
+    "sha256": "4c3cb033a5bc568f0a8592a9b9ecebcb615c593536559b278b586c6b2cdc1a03"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Rosh Hodesh, Mussaf",
+    "words": 1134,
+    "segments": 52,
+    "sha256": "9174b48749fe301873b3b3bde90c28396122a58f704546b710ca89e3ca3d9da5"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Rosh Hodesh, Barchi Nafshi",
+    "words": 343,
+    "segments": 7,
+    "sha256": "6d6be7d7d807b14eaa5893a09003386d925bdbc44536d11a0fc709f35e3e2860"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Rosh Hodesh, Kaveh",
+    "words": 79,
+    "segments": 3,
+    "sha256": "682ffd757f6ffb974f3e3fe8870f2e315a861098ed02c775ebd26b2701c33fed"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Rosh Hodesh, Incense Offering",
+    "words": 608,
+    "segments": 17,
+    "sha256": "b61d2f011245ba988baa4a991dc2c51dd792061ad131f8ac5de137f3b26b036b"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Rosh Hodesh, Alenu",
+    "words": 173,
+    "segments": 4,
+    "sha256": "374f556e7bc36231e70cdb208dc609a98efc7400fa918426abcf3e2317ec0209"
+   }
+  ]
+ },
+ "shalosh_regalim": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Prayers for Three Festivals, Prayers for Three Festivals",
+    "words": 25,
+    "segments": 2,
+    "sha256": "cb420ad332b8366789792f149e28a0c1aaa0f83b95e87b37f329bb29925183ac"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Prayers for Three Festivals, Song for Passover",
+    "words": 266,
+    "segments": 3,
+    "sha256": "f91f8aee5c41761983d607ab2ca9decb7caaf575bfa629f02e06c5889610cafd"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Prayers for Three Festivals, Song for Shavuot",
+    "words": 298,
+    "segments": 2,
+    "sha256": "010000f211c8a64d2773fb4d001ee7dba994660dcb99457e704dd966b3d1954e"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Prayers for Three Festivals, Song for Sukkot",
+    "words": 125,
+    "segments": 3,
+    "sha256": "e1a1f401924e0e89e51017f1b5d68e795d98419e79ad62c937a897ec9110550b"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Prayers for Three Festivals, Song for Shemini Atzeret",
+    "words": 165,
+    "segments": 6,
+    "sha256": "fb1ee99f4997ce6fc7c113f7b0aa61698b3cf604c42f80a8af2aa9dd2c5e986f"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Prayers for Three Festivals, Amidah",
+    "words": 1668,
+    "segments": 81,
+    "sha256": "4dc95a2ea886bd68a22a5501f1c243604307a1124b0a53b13e39f58ce7223242"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Prayers for Three Festivals, Mussaf",
+    "words": 6905,
+    "segments": 303,
+    "sha256": "fdbbef923c814bf818f780e487dea7799acbc7f6df4e115365e90437f38392ba"
+   }
+  ]
+ },
+ "chanukah": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Hanukkah, Menorah Lighting",
+    "words": 534,
+    "segments": 21,
+    "sha256": "fb6bebd9e0ba00d572a68eb21bc482da9a094a35cdb30191272e3d42b9714832"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Hanukkah, Shacharit",
+    "words": 1443,
+    "segments": 28,
+    "sha256": "810098d5c34be7c7b013d0f49de623fd2bd6e071c660b1dff48526f595bb637a"
+   }
+  ]
+ },
+ "purim": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Purim, Shabbat Zachor",
+    "words": 1482,
+    "segments": 92,
+    "sha256": "67e15f02118f85561ba685e8a86cf04611de1328097961d7fcacaf17121c1de4"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Purim, Megillah Reading",
+    "words": 216,
+    "segments": 15,
+    "sha256": "5dc499dca7da10d02994b0f24097615a1cef1ae155ee0fd59aa535c907ba9835"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Purim, Purim Day",
+    "words": 382,
+    "segments": 10,
+    "sha256": "97eac45194cd86cf52c4aa56e0d4e0f3635ff2bc7046708a154372c64f7893fc"
+   }
+  ]
+ },
+ "nissan": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Nissan, Blessing of the Trees",
+    "words": 861,
+    "segments": 15,
+    "sha256": "96a93c755e51dd98fa31b87e8b3d461665269ab76699eb701e1ab853fea93fcb"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Nissan, Learning of the Day",
+    "words": 5687,
+    "segments": 88,
+    "sha256": "8418fac1de2d3386fd7d317cbc82a7a17ab89947ec5caafbf692b3fefdc9d519"
+   }
+  ]
+ },
+ "brachot_shonot": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Assorted Blessings and Prayers, Marriage",
+    "words": 73,
+    "segments": 8,
+    "sha256": "777ee939c245ffd30fe46736b382c0d4ee3be9845de6f2b15e8d98998509a8d6"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Assorted Blessings and Prayers, Sheva Berachot",
+    "words": 161,
+    "segments": 13,
+    "sha256": "4e825975ba23880a7edbcbed3ea9d3a91f6b4ea42b3fbcd778883794b3cf3132"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Assorted Blessings and Prayers, Brit Mila",
+    "words": 738,
+    "segments": 44,
+    "sha256": "8f69e3b81d3d166eebd228c565b436ec081d194e19e47ee1214e665fee59bfb9"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Assorted Blessings and Prayers, Redeeming the First Born",
+    "words": 372,
+    "segments": 16,
+    "sha256": "e9a66fa1e9926025253fc4b3685f432159b021c4f654485f91b82e62f3d6f21b"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Assorted Blessings and Prayers, Mezuza",
+    "words": 104,
+    "segments": 6,
+    "sha256": "9ef8e54f2ed30cf52e2bf16e328ae8735efbdc30c1b44f552100c4855f10fef2"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Assorted Blessings and Prayers, Building a Fence",
+    "words": 97,
+    "segments": 4,
+    "sha256": "b6e66ce6142e4dbe1aee9b7545782b2def13ed70f121238da7d07809c48d27c4"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Assorted Blessings and Prayers, Separating Hallah",
+    "words": 109,
+    "segments": 10,
+    "sha256": "3038c309afcc0675ebeaf5bb3707ec1363820f4dd16456fe03f6ec1f9930c965"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Assorted Blessings and Prayers, Tevillat Kelim",
+    "words": 45,
+    "segments": 4,
+    "sha256": "8f5e45dc7df9c7330d429f5ca067be3ceaf8200d44b92d673d0392f0770fd04a"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Assorted Blessings and Prayers, Separating Tithes",
+    "words": 443,
+    "segments": 22,
+    "sha256": "5f57129aa559f4a5afd89eeb18fa07282fd0dd8a22c9ec56b5a59f30f3740ef6"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Assorted Blessings and Prayers, Rainbow",
+    "words": 26,
+    "segments": 3,
+    "sha256": "e5b421fe00a2219f821311271d1118295068d81af7dbb3bf5fa38feb48e40d2c"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Assorted Blessings and Prayers, Blessings on Lighting and Thunder",
+    "words": 33,
+    "segments": 6,
+    "sha256": "5b4404e76db7e53a85b47cc965414ec304947bf58330d000ce4bcab82df09ec2"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Assorted Blessings and Prayers, Prayer for Taking Medicine",
+    "words": 26,
+    "segments": 3,
+    "sha256": "3bfd227bd8c5c15533c57e8ee0a73a3ba9388b589078fc4c5aa4d436b0a2a0ec"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Assorted Blessings and Prayers, Traveler's Prayer",
+    "words": 163,
+    "segments": 9,
+    "sha256": "cc42c7a4df61f5ddc448b0221187b67265d55556d30a157e2891501881d2fe87"
+   }
+  ]
+ },
+ "taaniyot_vaavelut": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Fast Days and Mourning, Fast of Gedalya",
+    "words": 1646,
+    "segments": 30,
+    "sha256": "8ce661c3f9cfb65660716cd3ea4dceb050cddd9941e6948ef13b3b5617c36a52"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Fast Days and Mourning, Tenth of Tevet",
+    "words": 2145,
+    "segments": 37,
+    "sha256": "6eb53d63e89cc3846cc4b59eb7b2c9f87ec21f12bf148836799ef4cab5360f56"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Fast Days and Mourning, Fast of Esther",
+    "words": 2174,
+    "segments": 35,
+    "sha256": "e974ff627e3cbcac366a4f9f62bd646734eac77e904da3082a329204214e273c"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Fast Days and Mourning, Seventeenth of Tammuz",
+    "words": 2304,
+    "segments": 40,
+    "sha256": "3a6143e323a899d5ba9987121bd00395edf5ca04a1644e5470336475b6fbf80a"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Fast Days and Mourning, Mourning",
+    "words": 1108,
+    "segments": 39,
+    "sha256": "1f83461baeb502cdb825e547116720241598e787f42706fe37d8830e10e23424"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Fast Days and Mourning, Torah Reading for Fast Days",
+    "words": 219,
+    "segments": 2,
+    "sha256": "0b1c475210f717529ee965e46fc25f42d537f68faae1d600dc6fc5f0847d43f9"
+   }
+  ]
+ },
+ "mishnayot_leshabbat": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Mishna Study for Shabbat, First Meal",
+    "words": 2066,
+    "segments": 10,
+    "sha256": "36558d840edbfb78792cbb5356fe553798b342d25ee2c04202f5e5b51c0c4ec0"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Mishna Study for Shabbat, Second Meal",
+    "words": 1816,
+    "segments": 9,
+    "sha256": "57998fc94f7ac11d211a1aca4bc59b0a76f7ad8b5d090ace2b75318cddf2b10c"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Mishna Study for Shabbat, Third Meal",
+    "words": 1626,
+    "segments": 9,
+    "sha256": "c1c4e24f90115a291470bb51fc4062f5f3c1107cd15868d28bc1d4f40af66279"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Mishna Study for Shabbat, Pirkei Avot",
+    "words": 4673,
+    "segments": 142,
+    "sha256": "ea125b9730a3df16b2f5abe66992ed5ba59f1d3869fbc9dab551a1bc1a4aa901"
    }
   ]
  }
