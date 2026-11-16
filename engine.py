@@ -466,6 +466,42 @@ PRAYER_SOURCES = {
     "פרשת הקרבנות (פתיחה)": ["Numbers 28:1-8"],
     "וידוי / י\"ג מידות": ["Exodus 34:6-7"],
 }
+# R2059 F3: the prayer cards showed Sefaria's markup damage: _clean() turns EVERY tag into a space, so the large letters of the Shema
+# (<big>ע</big>, <big>ד</big>) and of Exodus 34:7 (<big>נֹ</big>) were split off their words; the parasha markers {ס}/{פ}, the Yemenite-
+# scroll footnotes ("* (בספרי תימן ...)") and &nbsp;/&thinsp; entities stayed in the prayer text. This cleaner is used ONLY for the
+# prayer cards (prayers_audit); the daf/commentary text keeps _clean() exactly as before.
+_P_FOOTNOTE = re.compile(r'<sup class="footnote-marker">.*?</sup>\s*<i class="footnote">.*?</i>|<i class="footnote">.*?</i>', re.S)
+_P_PARASHA = re.compile(r'<span class="mam-spi-[a-z-]+">\s*\{[^}]{1,3}\}\s*</span>|\{[ספ]\}')
+_P_INLINE = re.compile(r"</?(?:big|small|b|i|u|span)(?:\s[^>]*)?>")
+
+
+def _clean_prayer(x):
+    import html as _html
+    out = []
+
+    def walk(v):
+        if isinstance(v, list):
+            for e in v:
+                walk(e)
+        elif v:
+            s = _P_FOOTNOTE.sub("", v)
+            s = _P_PARASHA.sub("", s)
+            s = _P_INLINE.sub("", s)                      # unwrap letter-level markup WITHOUT a space (keeps words whole)
+            s = re.sub(r"<br\s*/?>|<[^>]+>", " ", s)      # any other tag still becomes a space, as before
+            s = _html.unescape(s).replace("\u00a0", " ").replace("\u2009", " ")
+            s = re.sub(r"\s+", " ", s).strip()
+            if s:
+                out.append(s)
+    walk(x)
+    return out
+
+
+def get_prayer_text(ref):
+    d = sef_json(f"{SEF}/texts/{requests.utils.quote(ref)}", timeout=25, params={"context": 0, "pad": 0})
+    segs = _clean_prayer(d.get("he", []))
+    return {"ref": d.get("ref", ref), "he_ref": d.get("heRef", ref), "hebrew": " ".join(segs), "segments": segs}
+
+
 PRAYERS_OUT = "prayers_audit.json"
 def prayers_audit():
     out = {}
@@ -473,7 +509,7 @@ def prayers_audit():
         parts = []
         for rf in refs:
             try:
-                t = get_text(rf)
+                t = get_prayer_text(rf)      # R2059 F3
                 if t["hebrew"] and not forbidden_hit(t["hebrew"]):
                     parts.append({"ref": rf, "he_ref": t["he_ref"], "text": t["hebrew"]})
             except Exception:
