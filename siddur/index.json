@@ -3,6 +3,7 @@
  "work": "Siddur Edot HaMizrach",
  "groups": {
   "weekday": "ימי חול",
+  "weekday_more": "ימי חול — עוד",
   "shabbat": "שבת",
   "blessings": "ברכות",
   "festivals": "ראש חודש ומועדים",
@@ -35,6 +36,60 @@
    "node": "Weekday Arvit",
    "sections": 4,
    "words": 3633
+  },
+  {
+   "key": "hashkamat_haboker",
+   "file": "siddur/hashkamat_haboker",
+   "title": "סדר השכמת הבוקר",
+   "group": "weekday_more",
+   "node": "Preparatory Prayers",
+   "sections": 3,
+   "words": 575
+  },
+  {
+   "key": "tikkun_chatzot",
+   "file": "siddur/tikkun_chatzot",
+   "title": "סדר תיקון חצות",
+   "group": "weekday_more",
+   "node": "The Midnight Rite",
+   "sections": 3,
+   "words": 1661
+  },
+  {
+   "key": "shacharit_additions",
+   "file": "siddur/shacharit_additions",
+   "title": "תוספות לשחרית",
+   "group": "weekday_more",
+   "node": "Additions for Shacharit",
+   "sections": 2,
+   "words": 1858
+  },
+  {
+   "key": "sefirat_haomer",
+   "file": "siddur/sefirat_haomer",
+   "title": "ספירת העומר",
+   "group": "festivals",
+   "node": "Counting of the Omer",
+   "sections": 1,
+   "words": 1647
+  },
+  {
+   "key": "birkat_halevana",
+   "file": "siddur/birkat_halevana",
+   "title": "ברכת הלבנה",
+   "group": "weekday_more",
+   "node": "Blessing of the Moon",
+   "sections": 1,
+   "words": 740
+  },
+  {
+   "key": "kriat_shema_al_hamita",
+   "file": "siddur/kriat_shema_al_hamita",
+   "title": "קריאת שמע שעל המיטה",
+   "group": "weekday_more",
+   "node": "Bedtime Shema",
+   "sections": 1,
+   "words": 913
   },
   {
    "key": "shabbat_candles",
@@ -134,6 +189,105 @@
    "node": "Havdalah",
    "sections": 5,
    "words": 2989
+  },
+  {
+   "key": "birkat_hamazon",
+   "file": "siddur/birkat_hamazon",
+   "title": "ברכת המזון",
+   "group": "blessings",
+   "node": "Post Meal Blessing",
+   "sections": 1,
+   "words": 1414
+  },
+  {
+   "key": "al_hamichya",
+   "file": "siddur/al_hamichya",
+   "title": "ברכת מעין שלוש",
+   "group": "blessings",
+   "node": "Al Hamihya",
+   "sections": 1,
+   "words": 224
+  },
+  {
+   "key": "birkot_hanehenin",
+   "file": "siddur/birkot_hanehenin",
+   "title": "ברכות הנהנין",
+   "group": "blessings",
+   "node": "Blessings on Enjoyments",
+   "sections": 1,
+   "words": 286
+  },
+  {
+   "key": "rosh_chodesh",
+   "file": "siddur/rosh_chodesh",
+   "title": "סדר ראש חודש",
+   "group": "festivals",
+   "node": "Rosh Hodesh",
+   "sections": 9,
+   "words": 5287
+  },
+  {
+   "key": "shalosh_regalim",
+   "file": "siddur/shalosh_regalim",
+   "title": "תפילה לשלש רגלים",
+   "group": "festivals",
+   "node": "Prayers for Three Festivals",
+   "sections": 7,
+   "words": 9452
+  },
+  {
+   "key": "chanukah",
+   "file": "siddur/chanukah",
+   "title": "חנוכה",
+   "group": "festivals",
+   "node": "Hanukkah",
+   "sections": 2,
+   "words": 1977
+  },
+  {
+   "key": "purim",
+   "file": "siddur/purim",
+   "title": "פורים",
+   "group": "festivals",
+   "node": "Purim",
+   "sections": 3,
+   "words": 2080
+  },
+  {
+   "key": "nissan",
+   "file": "siddur/nissan",
+   "title": "חודש ניסן",
+   "group": "festivals",
+   "node": "Nissan",
+   "sections": 2,
+   "words": 6548
+  },
+  {
+   "key": "brachot_shonot",
+   "file": "siddur/brachot_shonot",
+   "title": "ברכות ותפילות שונות",
+   "group": "blessings",
+   "node": "Assorted Blessings and Prayers",
+   "sections": 13,
+   "words": 2390
+  },
+  {
+   "key": "taaniyot_vaavelut",
+   "file": "siddur/taaniyot_vaavelut",
+   "title": "תעניות ואבילות",
+   "group": "festivals",
+   "node": "Fast Days and Mourning",
+   "sections": 6,
+   "words": 9596
+  },
+  {
+   "key": "mishnayot_leshabbat",
+   "file": "siddur/mishnayot_leshabbat",
+   "title": "משניות לשבת",
+   "group": "study",
+   "node": "Mishna Study for Shabbat",
+   "sections": 4,
+   "words": 10181
   }
  ]
 }

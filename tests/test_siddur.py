@@ -68,7 +68,7 @@ class Published(unittest.TestCase):
 
 
 class IndexAndMenu(unittest.TestCase):
-    """siddur/index.json lists every published page, in Sefaria order, and the page builds its menu from it (R2066)"""
+    """siddur/index.json lists every published page and the page builds its menu from it (R2066)"""
 
     def test_index_lists_every_page_with_matching_counts(self):
         self.assertEqual([p["key"] for p in INDEX["parts"]], SI.all_keys())
@@ -82,7 +82,7 @@ class IndexAndMenu(unittest.TestCase):
                 self.assertIn(p["group"], INDEX["groups"])
                 self.assertEqual(p["node"], page["source"]["node"])
 
-    def test_parts_are_in_sefaria_order_and_never_duplicated(self):
+    def test_parts_are_never_duplicated_and_have_a_known_group(self):
         nodes = [p["node"] for p in INDEX["parts"]]
         self.assertEqual(len(nodes), len(set(nodes)))
         for key, (node, group) in SI.PARTS.items():

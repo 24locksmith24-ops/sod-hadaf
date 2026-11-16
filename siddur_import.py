@@ -33,6 +33,13 @@ PAGES = {
 }
 # key -> (Sefaria top-level node, menu group).  The page title is the node's own Hebrew title from Sefaria.  Order = Sefaria's order.
 PARTS = {
+    # R2066 batch 2: weekday additions, blessings, festivals, study
+    "hashkamat_haboker": ("Preparatory Prayers", "weekday_more"),
+    "tikkun_chatzot": ("The Midnight Rite", "weekday_more"),
+    "shacharit_additions": ("Additions for Shacharit", "weekday_more"),
+    "sefirat_haomer": ("Counting of the Omer", "festivals"),
+    "birkat_halevana": ("Blessing of the Moon", "weekday_more"),
+    "kriat_shema_al_hamita": ("Bedtime Shema", "weekday_more"),
     # R2066 batch 1: Shabbat
     "shabbat_candles": ("Shabbat Candle Lighting", "shabbat"),
     "shir_hashirim": ("Song of Songs", "shabbat"),
@@ -45,8 +52,20 @@ PARTS = {
     "shabbat_mincha": ("Shabbat Mincha", "shabbat"),
     "seuda_shlishit": ("Third Meal", "shabbat"),
     "havdalah": ("Havdalah", "shabbat"),
+    # R2066 batch 2 (continued)
+    "birkat_hamazon": ("Post Meal Blessing", "blessings"),
+    "al_hamichya": ("Al Hamihya", "blessings"),
+    "birkot_hanehenin": ("Blessings on Enjoyments", "blessings"),
+    "rosh_chodesh": ("Rosh Hodesh", "festivals"),
+    "shalosh_regalim": ("Prayers for Three Festivals", "festivals"),
+    "chanukah": ("Hanukkah", "festivals"),
+    "purim": ("Purim", "festivals"),
+    "nissan": ("Nissan", "festivals"),
+    "brachot_shonot": ("Assorted Blessings and Prayers", "blessings"),
+    "taaniyot_vaavelut": ("Fast Days and Mourning", "festivals"),
+    "mishnayot_leshabbat": ("Mishna Study for Shabbat", "study"),
 }
-GROUPS = {"weekday": "ימי חול", "shabbat": "שבת", "blessings": "ברכות", "festivals": "ראש חודש ומועדים", "study": "לימוד"}
+GROUPS = {"weekday": "ימי חול", "weekday_more": "ימי חול — עוד", "shabbat": "שבת", "blessings": "ברכות", "festivals": "ראש חודש ומועדים", "study": "לימוד"}
 _NIK = re.compile(r"[֑-ׇ]")
 
 
@@ -201,7 +220,7 @@ def load_published(key):
 
 
 def write_index():
-    """siddur/index.json: the menu the page builds - every published part, in Sefaria order, with its file and group (built from the files, no network)"""
+    """siddur/index.json: the menu the page builds - every published part (Sefaria order within each group; menu groups in GROUPS order), with its file and group (built from the files, no network)"""
     parts = []
     for key in all_keys():
         page = load_published(key)
