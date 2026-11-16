@@ -77,15 +77,37 @@ MAP_SYSTEM = ("אתה לומד תורני. אתה קורא קטעים מתוך �
               "לכל קטע כתוב הערה נאמנה לטקסט: מה נאמר, המונחים והמחלוקות המרכזיים, ביטויים בארמית מתורגמים. אל תמציא ציטוטים ואל תוסיף דבר שאינו בקטע.")
 
 
+# R2059 F1: the two failure shapes measured in the Daily Agent logs 2026-11-08..15 (every failed run, step read_in_sections):
+#   "Expecting ',' delimiter"  -- a Hebrew abbreviation copied from the source puts a bare " inside a JSON string (the R1601 class,
+#                                 already repaired in engine._answer_json, but this module had its own parser without the repair);
+#   "Invalid \\escape"          -- a backslash the model copied/typed that is not a JSON escape.
+# Both repairs run ONLY after a failed parse, in this order, and a valid answer is never touched.
+_HEB_ABBREV_QUOTE = re.compile(r'(?<=[\u05d0-\u05ea])"(?=[\u05d0-\u05ea])')
+_BAD_ESCAPE = re.compile(r'\\(?!["\\/bfnrtu])')
+
+
+def _candidates(raw):
+    yield raw
+    q = _HEB_ABBREV_QUOTE.sub("\u05f4", raw)
+    if q != raw:
+        yield q
+    e = _BAD_ESCAPE.sub(r"\\\\", q)
+    if e != q:
+        yield e
+
+
 def _parse(raw):
     raw = (raw or "").strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
-    try:
-        return json.loads(raw)
-    except Exception:
-        i, j = raw.find("{"), raw.rfind("}")
-        if i != -1 and j > i:
-            return json.loads(raw[i:j + 1])
-        raise
+    first = None
+    for cand in _candidates(raw):
+        for text in (cand, cand[cand.find("{"):cand.rfind("}") + 1] if cand.find("{") != -1 and cand.rfind("}") > cand.find("{") else None):
+            if text is None:
+                continue
+            try:
+                return json.loads(text)
+            except Exception as ex:      # noqa: BLE001
+                first = first or ex
+    raise first
 
 
 def read_batch(create, model, batch):
@@ -106,6 +128,7 @@ def read_batch(create, model, batch):
             last = "missing notes for: " + "; ".join(missing)[:200]
         except Exception as ex:           # noqa: BLE001
             last = "unparseable answer: %s" % ex
+            print("UNPARSEABLE_SECTION_JSON attempt %d (first 800 chars): %s" % (attempt, raw[:800].replace("\n", "\\n")))      # R2059: keep the evidence
             ask = user + "\n\nReturn ONLY valid JSON"     # R1533: the second attempt asks for JSON only
     raise RuntimeError("section reading failed after 2 attempts (%s)" % last)
 

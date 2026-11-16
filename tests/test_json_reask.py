@@ -103,7 +103,7 @@ class Sections(unittest.TestCase):
     NOTES = json.dumps({"notes": [{"label": "A", "points": "נקודה"}]}, ensure_ascii=False)
 
     def test_invalid_then_valid_second_attempt_asks_for_json_only(self):
-        m = Model('{"notes":[{"label":"A","points":"ר"ל"}]}', self.NOTES)
+        m = Model('{"notes":[{"label":"A","points":', self.NOTES)      # R2059 F1: a bare Hebrew-abbreviation quote is now repaired without a re-ask, so a truncated answer is the invalid case
         self.assertEqual(SEC.read_batch(m.create, "m", [("A", "x")]), {"A": "נקודה"})
         self.assertEqual(len(m.calls), 2)
         self.assertTrue(m.calls[1]["messages"][-1]["content"].endswith("\n\nReturn ONLY valid JSON"))
