@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-11T04:17:24Z",
+  "generated_utc": "2026-11-16T14:25:08Z",
   "masechtot": {
     "Bekhorot": {
       "he": "בכורות",
-      "count": 7,
+      "count": 8,
       "dafim": {
         "5": {
           "file": "lessons/Bekhorot/005.json",
@@ -53,6 +53,13 @@
           "date": "2026-11-11",
           "title": "כל אחד בפני עצמו — גבולות הצירוף ועין הרועה",
           "he_ref": "בכורות נ״ד",
+          "revisions": []
+        },
+        "59": {
+          "file": "lessons/Bekhorot/059.json",
+          "date": "2026-11-16",
+          "title": "עשירי מאליו קדוש — על הקדושה שבאה ממניין אמת",
+          "he_ref": "בכורות נ״ט",
           "revisions": []
         }
       }
