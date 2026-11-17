@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-16T14:25:08Z",
+  "generated_utc": "2026-11-17T04:19:17Z",
   "masechtot": {
     "Bekhorot": {
       "he": "בכורות",
-      "count": 8,
+      "count": 9,
       "dafim": {
         "5": {
           "file": "lessons/Bekhorot/005.json",
@@ -60,6 +60,13 @@
           "date": "2026-11-16",
           "title": "עשירי מאליו קדוש — על הקדושה שבאה ממניין אמת",
           "he_ref": "בכורות נ״ט",
+          "revisions": []
+        },
+        "60": {
+          "file": "lessons/Bekhorot/060.json",
+          "date": "2026-11-17",
+          "title": "העשירי קדוש — על הספירה, הכוונה והאמת שבמניין",
+          "he_ref": "בכורות ס׳",
           "revisions": []
         }
       }
