@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-17T04:19:17Z",
+  "generated_utc": "2026-11-18T04:20:43Z",
   "masechtot": {
     "Bekhorot": {
       "he": "בכורות",
-      "count": 9,
+      "count": 10,
       "dafim": {
         "5": {
           "file": "lessons/Bekhorot/005.json",
@@ -67,6 +67,13 @@
           "date": "2026-11-17",
           "title": "העשירי קדוש — על הספירה, הכוונה והאמת שבמניין",
           "he_ref": "בכורות ס׳",
+          "revisions": []
+        },
+        "61": {
+          "file": "lessons/Bekhorot/061.json",
+          "date": "2026-11-18",
+          "title": "לתקן שלחתיך ולא לקלקל — על שליחות, אמת ואחריות",
+          "he_ref": "בכורות ס״א א",
           "revisions": []
         }
       }
