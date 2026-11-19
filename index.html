@@ -3666,11 +3666,12 @@ async function askWorker(mode){
     saveQALocal();        // נשמר מיד מקומית — לא ייעלם לעולם
     renderQAList();
     // שמירה קבועה לשרת — עם אותה חותמת זמן (מונע כפילות) + משוב גלוי
-    if(full && full.length > 10){
+    // R2069: the archive accepts saves only with the access code; without it the answer stays in this browser's own archive
+    if(full && full.length > 10 && pass){
       try{
         const sr = await fetch(QA_WORKER_URL + "/qa-save", {
           method:"POST", headers:{"content-type":"application/json"},
-          body: JSON.stringify({ question:q, mode, full, ts: nowTs })
+          body: JSON.stringify({ question:q, mode, full, ts: nowTs, password: pass })
         });
         const sj = await sr.json().catch(()=>({}));
         if(sj && sj.ok){
