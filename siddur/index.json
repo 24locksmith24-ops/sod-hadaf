@@ -1,0 +1,139 @@
+{
+ "schema": 1,
+ "work": "Siddur Edot HaMizrach",
+ "groups": {
+  "weekday": "ימי חול",
+  "shabbat": "שבת",
+  "blessings": "ברכות",
+  "festivals": "ראש חודש ומועדים",
+  "study": "לימוד"
+ },
+ "parts": [
+  {
+   "key": "shacharit",
+   "file": "shacharit",
+   "title": "סֵדֶר תְּפִלַּת שַׁחֲרִית",
+   "group": "weekday",
+   "node": "Weekday Shacharit",
+   "sections": 18,
+   "words": 15722
+  },
+  {
+   "key": "mincha",
+   "file": "mincha",
+   "title": "סֵדֶר תְּפִלַּת מִנְחָה",
+   "group": "weekday",
+   "node": "Weekday Mincha",
+   "sections": 4,
+   "words": 4355
+  },
+  {
+   "key": "arvit",
+   "file": "arvit",
+   "title": "סֵדֶר תְּפִלַּת עַרְבִית",
+   "group": "weekday",
+   "node": "Weekday Arvit",
+   "sections": 4,
+   "words": 3633
+  },
+  {
+   "key": "shabbat_candles",
+   "file": "siddur/shabbat_candles",
+   "title": "סדר הדלקת נרות שבת",
+   "group": "shabbat",
+   "node": "Shabbat Candle Lighting",
+   "sections": 1,
+   "words": 318
+  },
+  {
+   "key": "shir_hashirim",
+   "file": "siddur/shir_hashirim",
+   "title": "שיר השירים",
+   "group": "shabbat",
+   "node": "Song of Songs",
+   "sections": 1,
+   "words": 1500
+  },
+  {
+   "key": "kabbalat_shabbat",
+   "file": "siddur/kabbalat_shabbat",
+   "title": "קבלת שבת",
+   "group": "shabbat",
+   "node": "Kabbalat Shabbat",
+   "sections": 1,
+   "words": 1493
+  },
+  {
+   "key": "shabbat_arvit",
+   "file": "siddur/shabbat_arvit",
+   "title": "ערבית של שבת",
+   "group": "shabbat",
+   "node": "Shabbat Arvit",
+   "sections": 4,
+   "words": 2481
+  },
+  {
+   "key": "shabbat_evening",
+   "file": "siddur/shabbat_evening",
+   "title": "סדר ליל שבת",
+   "group": "shabbat",
+   "node": "Shabbat Evening",
+   "sections": 8,
+   "words": 4657
+  },
+  {
+   "key": "shabbat_shacharit",
+   "file": "siddur/shabbat_shacharit",
+   "title": "שחרית של שבת",
+   "group": "shabbat",
+   "node": "Shabbat Shacharit",
+   "sections": 13,
+   "words": 8069
+  },
+  {
+   "key": "shabbat_mussaf",
+   "file": "siddur/shabbat_mussaf",
+   "title": "מוסף של שבת",
+   "group": "shabbat",
+   "node": "Shabbat Mussaf",
+   "sections": 3,
+   "words": 2797
+  },
+  {
+   "key": "shabbat_day_meal",
+   "file": "siddur/shabbat_day_meal",
+   "title": "סדר סעודה שניה",
+   "group": "shabbat",
+   "node": "Daytime Meal",
+   "sections": 2,
+   "words": 1250
+  },
+  {
+   "key": "shabbat_mincha",
+   "file": "siddur/shabbat_mincha",
+   "title": "מנחה של שבת",
+   "group": "shabbat",
+   "node": "Shabbat Mincha",
+   "sections": 4,
+   "words": 3162
+  },
+  {
+   "key": "seuda_shlishit",
+   "file": "siddur/seuda_shlishit",
+   "title": "סעודה שלישית",
+   "group": "shabbat",
+   "node": "Third Meal",
+   "sections": 1,
+   "words": 737
+  },
+  {
+   "key": "havdalah",
+   "file": "siddur/havdalah",
+   "title": "מוצאי שבת",
+   "group": "shabbat",
+   "node": "Havdalah",
+   "sections": 5,
+   "words": 2989
+  }
+ ]
+}

@@ -169,5 +169,318 @@
     "sha256": "374f556e7bc36231e70cdb208dc609a98efc7400fa918426abcf3e2317ec0209"
    }
   ]
+ },
+ "shabbat_candles": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Candle Lighting",
+    "words": 318,
+    "segments": 13,
+    "sha256": "a4843d4ac8ea7dab54db215771cbb41756b966db8172b860868c43f715a3448f"
+   }
+  ]
+ },
+ "shir_hashirim": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Song of Songs",
+    "words": 1500,
+    "segments": 27,
+    "sha256": "f32f6ef193e22d5715b76c48948da54cb2b07fc782d2dc8718962040af62c668"
+   }
+  ]
+ },
+ "kabbalat_shabbat": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Kabbalat Shabbat",
+    "words": 1493,
+    "segments": 45,
+    "sha256": "570305a880efad92ae61224c143136c333941331117ef66f09272c28a4f1e8b8"
+   }
+  ]
+ },
+ "shabbat_arvit": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Arvit, Barchu",
+    "words": 193,
+    "segments": 8,
+    "sha256": "a8528f8522b6d74d6f31b3c42793a71c8090768df31d8c25de074747031a089f"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Arvit, The Shema",
+    "words": 713,
+    "segments": 15,
+    "sha256": "d299bc04ce122fb22d16128b335d34541de6eed5c2a079d2ed65b9a56ded1648"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Arvit, Magen Avot",
+    "words": 1277,
+    "segments": 51,
+    "sha256": "994f52e44d4924f4aa19a60dff94f44a0a714621191ddc78dd8ef3438e50d266"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Arvit, Alenu",
+    "words": 298,
+    "segments": 19,
+    "sha256": "2621f688be0d531a477d139c52d5b1bdbbbb3e9575553542df135e2b95cfe4df"
+   }
+  ]
+ },
+ "shabbat_evening": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Evening, Shalom Alekhem",
+    "words": 302,
+    "segments": 10,
+    "sha256": "3738787fddaf227df774b8b60cd1b3e5c6e48f92fc786fcfaee34ffaf6bbbe54"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Evening, Eshet Hayil",
+    "words": 157,
+    "segments": 3,
+    "sha256": "b2a3164c4f3d3047183a92007a54394224995ba4365d730493e556db486a1559"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Evening, Atkenu Seudata",
+    "words": 491,
+    "segments": 29,
+    "sha256": "aaca13aff826df0ee150244e5dea94daf2a8d1f26851185e6aef7c37f605b23b"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Evening, Kiddush",
+    "words": 572,
+    "segments": 16,
+    "sha256": "2715078ea7ef629b62d2e7a21b4c476f958bba917d8205267a5c59d5e58bc74f"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Evening, Blessing of Children",
+    "words": 67,
+    "segments": 6,
+    "sha256": "1930ed35c5c25977b9206150ff054824f8c7fdf6cdd5dfa96899dde7402a2036"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Evening, First Meal",
+    "words": 295,
+    "segments": 11,
+    "sha256": "5a7e1b3b9de91fa50f94c75100b454301a0d14aa12e1db8cddd0eb96fe378f93"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Evening, Zohar",
+    "words": 504,
+    "segments": 15,
+    "sha256": "5e278b52984ef635427c439183a89908e6f9deba8e7b93127d92a497f4dddd4f"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Evening, Songs for Shabbat",
+    "words": 2269,
+    "segments": 148,
+    "sha256": "fef3d0094cc4bac0bac160f25b6497c334383d06a27fb3e9c0571fff909ba8d3"
+   }
+  ]
+ },
+ "shabbat_shacharit": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Shacharit, Psalms for Shabbat",
+    "words": 1261,
+    "segments": 40,
+    "sha256": "a30f8427faee607dcfc7c3f71555820f66b9d9613deb3a872f9f3109c152f34d"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Shacharit, Pesukei D'Zimra",
+    "words": 1962,
+    "segments": 40,
+    "sha256": "fad5602d6933511994f23e8d54e6a2d46f7995b3434e92e43891cc2c614cf15a"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Shacharit, The Shema",
+    "words": 1324,
+    "segments": 26,
+    "sha256": "61e39d86020987398b883112a2907665a504bf9231975cd332861ae61c5cb314"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Shacharit, Amidah",
+    "words": 1620,
+    "segments": 93,
+    "sha256": "2664401c4d7a7079fe1c5774250edad03b265a7903fd674dbd2b44b8bed0d68f"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Shacharit, Torah Reading",
+    "words": 460,
+    "segments": 28,
+    "sha256": "8a12a451eec6d63e8e0422925e7f4d17318e231b9ffd2eb791de4b1f24f4b8b3"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Shacharit, HaGomel",
+    "words": 106,
+    "segments": 11,
+    "sha256": "c798ff5eddef9c86fe7a4dbda369fa6dfebdfc4354a3f64a5160c889bdbeb101"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Shacharit, Zeved HaBat",
+    "words": 66,
+    "segments": 3,
+    "sha256": "b4bd890089e74fd238cf819e4c98df1b7dc116c36db5aec22e36b052b472978c"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Shacharit, Shabbat Chatan",
+    "words": 313,
+    "segments": 20,
+    "sha256": "405bb54ae500cf8809ee61bcf46c75522fea22bfa83006c47f6f8cf83e7bf28e"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Shacharit, Haftarah",
+    "words": 190,
+    "segments": 10,
+    "sha256": "c7417344088f39b93a8191741ac26dc89a0a0d50c07e3aa70e5d067ac472cf9d"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Shacharit, Birkat HaChodesh",
+    "words": 174,
+    "segments": 7,
+    "sha256": "ad62b6fe5ee1d350ace1f1ba592fa8c5669654ec429a912df56867cdd771c78d"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Shacharit, Announcement of Fast",
+    "words": 74,
+    "segments": 3,
+    "sha256": "23855b170e42abecb4ac1cf711ac2eda676789c656733dfc7f1f7b1bcbef6ca4"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Shacharit, Mi Sheberach",
+    "words": 106,
+    "segments": 3,
+    "sha256": "5b5f938f6a0c36f684ab1a9279b21fdb20b3ecee4466260543d2c30a2f3c1f1c"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Shacharit, Ashrei",
+    "words": 413,
+    "segments": 11,
+    "sha256": "ca0597c971e7a11fb31fdd9776bcb2f4e7670055b360e55c40e5ab913b0b510c"
+   }
+  ]
+ },
+ "shabbat_mussaf": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Mussaf, Amida",
+    "words": 1918,
+    "segments": 72,
+    "sha256": "3025bc68d0295dd9c3ab3f2cebfbabdcd08c675a71f4e528720a1adfa911436f"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Mussaf, Incense Offering",
+    "words": 608,
+    "segments": 17,
+    "sha256": "98cb0e9ce18151b9c09e2131e2d098083ab0bf50c8fdd20985f4684b1ba0a1fc"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Mussaf, Alenu",
+    "words": 271,
+    "segments": 4,
+    "sha256": "a09efe94fe04f34a71c0622532af52464a1903556e631d3083ba61dc8a7a1bf7"
+   }
+  ]
+ },
+ "shabbat_day_meal": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Daytime Meal, Daytime Meal",
+    "words": 972,
+    "segments": 28,
+    "sha256": "a045ff311e6f2d036e9693d7ff97e251d5a72c262f2720fc436b93e68d522b70"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Daytime Meal, Kiddush",
+    "words": 278,
+    "segments": 12,
+    "sha256": "b7de0340bad1fb738df3d88d403baad9dfafda730f6430504fdeda8c7d6e362d"
+   }
+  ]
+ },
+ "shabbat_mincha": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Mincha, Offerings",
+    "words": 776,
+    "segments": 13,
+    "sha256": "32488434f22d8064efd65a31f085009f31ff997cfcdfd261de911f68f1bf538a"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Mincha, Uva LeSion",
+    "words": 878,
+    "segments": 23,
+    "sha256": "e6437aad5e5ddae631c4bddd59f8d05d3137fe34482c4cd38a6e6c57bac4dc93"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Mincha, Amida",
+    "words": 1346,
+    "segments": 52,
+    "sha256": "63f0a02e945749ee67b6ba69e5a6cbe57eee0059af1dbd591b59eb9d04488747"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Shabbat Mincha, Alenu",
+    "words": 162,
+    "segments": 3,
+    "sha256": "a0a0f04afd930d04a5014d21e73a14e60cab3a50650a30ec1e5ce08cebbe18b8"
+   }
+  ]
+ },
+ "seuda_shlishit": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Third Meal",
+    "words": 737,
+    "segments": 35,
+    "sha256": "493c2f38fde22cab042178c500277f3f949608b3df22d3ae42d564d2b0764114"
+   }
+  ]
+ },
+ "havdalah": {
+  "source": "Shaliehsaboo Edition",
+  "sections": [
+   {
+    "ref": "Siddur Edot HaMizrach, Havdalah, Before Havdalah",
+    "words": 691,
+    "segments": 21,
+    "sha256": "e5ca7f34a2de3d854c11eb5d975736c39ee748f9d1268a18498dd6346ee09d9b"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Havdalah, Havdala",
+    "words": 354,
+    "segments": 21,
+    "sha256": "05df94b557cf3b1e4d8396eb745bbfe6f793d3b206984ea1a3f3af3ce9f5c3e6"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Havdalah, Motzei Shabbat Songs",
+    "words": 795,
+    "segments": 69,
+    "sha256": "ced1baba91149c08d707e66167d64100b34dc1b9042113b19ae00cafd2e09c37"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Havdalah, Veyiten Lecha",
+    "words": 1001,
+    "segments": 20,
+    "sha256": "2e225706190069ed9c3e08819be5f02a625abf29b360f48c5b08e5e608a64471"
+   },
+   {
+    "ref": "Siddur Edot HaMizrach, Havdalah, Fourth Meal",
+    "words": 148,
+    "segments": 6,
+    "sha256": "77025ad57bcff59f0fbc61b48062e2efbcbdccc6e2a9774e4100c8cb2d8dda0b"
+   }
+  ]
  }
 }
