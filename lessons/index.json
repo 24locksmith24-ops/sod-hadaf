@@ -1,7 +1,20 @@
 {
   "schema": 1,
-  "generated_utc": "2026-11-18T04:20:43Z",
+  "generated_utc": "2026-11-19T04:18:24Z",
   "masechtot": {
+    "Arakhin": {
+      "he": "ערכין",
+      "count": 1,
+      "dafim": {
+        "2": {
+          "file": "lessons/Arakhin/002.json",
+          "date": "2026-11-19",
+          "title": "הכל — כשכולם שייכים: שיעור ליום פתיחת מסכת ערכין",
+          "he_ref": "ערכין ב׳",
+          "revisions": []
+        }
+      }
+    },
     "Bekhorot": {
       "he": "בכורות",
       "count": 10,
