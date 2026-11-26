@@ -1,4 +1,4 @@
-"""The three siddur pages are the FULL Sefaria text, one section per Sefaria node, with a ref per section.
+"""The siddur pages (the three weekday pages + every other part in siddur/, R2066) are the FULL Sefaria text, one section per Sefaria node, with a ref per section.
 
 Offline (always): the published files match the snapshot taken at import (same refs, same order, same words, same hashes), nothing is a placeholder,
 nothing is shortened, the text is HTML-safe (the page writes it with innerHTML).
@@ -17,7 +17,8 @@ sys.path.insert(0, ROOT)
 import siddur_import as SI  # noqa: E402
 
 EXP = json.load(open(os.path.join(ROOT, "tests", "fixtures", "siddur_expected.json"), encoding="utf-8"))
-PAGES = {k: json.load(open(os.path.join(ROOT, k + ".json"), encoding="utf-8")) for k in ("shacharit", "mincha", "arvit")}
+PAGES = {k: json.load(open(os.path.join(ROOT, SI.path_of(k)), encoding="utf-8")) for k in SI.all_keys()}
+INDEX = json.load(open(os.path.join(ROOT, "siddur", "index.json"), encoding="utf-8"))
 NIK = re.compile(r"[֑-ׇ]")
 
 
@@ -25,7 +26,7 @@ class Published(unittest.TestCase):
     def test_every_section_has_a_ref_and_a_proof(self):
         for key, page in PAGES.items():
             with self.subTest(key):
-                self.assertGreaterEqual(len(page["sections"]), 4)
+                self.assertGreaterEqual(len(page["sections"]), 4 if key in SI.PAGES else 1)
                 for s in page["sections"]:
                     self.assertTrue(s["ref"].startswith(SI.WORK + ", "), s["ref"])
                     self.assertTrue(s["n"].strip() and s["t"].strip(), s["ref"])
@@ -45,7 +46,7 @@ class Published(unittest.TestCase):
         floor = {"shacharit": 15000, "mincha": 4000, "arvit": 3300}      # the hand-written pages had ~2,400 / ~1,600 / ~1,900 words
         for key, page in PAGES.items():
             with self.subTest(key):
-                self.assertGreaterEqual(sum(s["words"] for s in page["sections"]), floor[key])
+                self.assertGreaterEqual(sum(s["words"] for s in page["sections"]), floor.get(key, 100))
                 for s in page["sections"]:
                     t = html.unescape(s["t"])
                     for bad in ("ראה בכרטיס", "ראה את הברכות המלאות", "הטקסט המלא בתהילים", "אומרים את שאר פסוקי דזמרא"):    # phrases of the old hand-written abridgments
@@ -64,6 +65,36 @@ class Published(unittest.TestCase):
             self.assertTrue(all("n" in s and "t" in s for s in page["sections"]))
             self.assertEqual(page["source"]["work"], SI.WORK)
             self.assertTrue(page["source"]["license"])
+
+
+class IndexAndMenu(unittest.TestCase):
+    """siddur/index.json lists every published page, in Sefaria order, and the page builds its menu from it (R2066)"""
+
+    def test_index_lists_every_page_with_matching_counts(self):
+        self.assertEqual([p["key"] for p in INDEX["parts"]], SI.all_keys())
+        for p in INDEX["parts"]:
+            with self.subTest(p["key"]):
+                page = PAGES[p["key"]]
+                self.assertEqual(p["file"] + ".json", SI.path_of(p["key"]).replace(os.sep, "/"))
+                self.assertTrue(os.path.exists(os.path.join(ROOT, p["file"] + ".json")))
+                self.assertEqual(p["sections"], len(page["sections"]))
+                self.assertEqual(p["words"], sum(s["words"] for s in page["sections"]))
+                self.assertIn(p["group"], INDEX["groups"])
+                self.assertEqual(p["node"], page["source"]["node"])
+
+    def test_parts_are_in_sefaria_order_and_never_duplicated(self):
+        nodes = [p["node"] for p in INDEX["parts"]]
+        self.assertEqual(len(nodes), len(set(nodes)))
+        for key, (node, group) in SI.PARTS.items():
+            self.assertNotIn(node, [v[0] for v in SI.PAGES.values()])
+            self.assertIn(group, SI.GROUPS)
+
+    def test_the_page_reads_the_index_for_its_menu(self):
+        h = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
+        self.assertIn('id="siddurMore"', h)
+        self.assertIn("./siddur/index.json", h)
+        for k in SI.PAGES:
+            self.assertIn('data-tab="%s"' % k, h)
 
 
 class Cleaning(unittest.TestCase):

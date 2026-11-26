@@ -162,6 +162,8 @@
 
   /* Siddur tabs */
   .siddur-tabs{display:flex;gap:8px;margin:14px 0 18px;flex-wrap:wrap}
+  .siddur-more{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:-8px 0 16px}
+  .siddur-more select{max-width:100%}
   .siddur-tab{font-family:'Assistant',sans-serif;font-size:.95rem;font-weight:600;padding:10px 18px;
     border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.55);color:var(--ink);
     cursor:pointer;transition:.2s}
@@ -1408,11 +1410,15 @@
   <!-- 📿 סידור עדות־המזרח: שחרית · מנחה · ערבית -->
   <section class="card siddur-card" id="siddurCard" data-category="prayers">
     <h2><span class="glyph">📿</span> סידור עדות־המזרח</h2>
-    <div class="sub">שחרית · מנחה · ערבית — קרוב לסידור בן איש חי הבגדאדי</div>
+    <div class="sub">שחרית · מנחה · ערבית · שבת ועוד — קרוב לסידור בן איש חי הבגדאדי</div>
     <div class="siddur-tabs">
       <button class="siddur-tab active" data-tab="shacharit">🌅 שחרית</button>
       <button class="siddur-tab" data-tab="mincha">🕯️ מנחה</button>
       <button class="siddur-tab" data-tab="arvit">🌃 ערבית</button>
+    </div>
+    <div class="siddur-more" id="siddurMoreWrap" style="display:none">
+      <label class="tool-label" for="siddurMore">עוד מהסידור:</label>
+      <select id="siddurMore" class="tool-input"><option value="">— בחרו חלק —</option></select>
     </div>
     <div id="siddurStatus" class="status"><span class="spinner"></span> טוען…</div>
     <div id="siddurBody" style="display:none;margin-top:8px"></div>
@@ -2960,13 +2966,41 @@ async function loadSiddurTab(name){
 }
 function setupSiddurTabs(){
   const tabs = document.querySelectorAll(".siddur-tab");
+  const more = document.getElementById("siddurMore");
   tabs.forEach(t=>{
     t.addEventListener("click", ()=>{
       tabs.forEach(x=>x.classList.remove("active"));
       t.classList.add("active");
+      if(more) more.value = "";
       loadSiddurTab(t.dataset.tab);
     });
   });
+  // R2066: every other part of the siddur (Shabbat and the rest) comes from siddur/index.json, grouped as the importer wrote it
+  if(more){
+    fetch("./siddur/index.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(ix=>{
+      if(!ix || !Array.isArray(ix.parts)) return;
+      const groups = ix.groups || {};
+      const byGroup = {};
+      ix.parts.filter(p=>p.group!=="weekday").forEach(p=>{ (byGroup[p.group] = byGroup[p.group] || []).push(p); });
+      Object.keys(byGroup).forEach(g=>{
+        const og = document.createElement("optgroup");
+        og.label = groups[g] || g;
+        byGroup[g].forEach(p=>{
+          const o = document.createElement("option");
+          o.value = p.file;
+          o.textContent = p.title;
+          og.appendChild(o);
+        });
+        more.appendChild(og);
+      });
+      if(Object.keys(byGroup).length) document.getElementById("siddurMoreWrap").style.display = "block";
+    }).catch(()=>{});
+    more.addEventListener("change", ()=>{
+      if(!more.value) return;
+      tabs.forEach(x=>x.classList.remove("active"));
+      loadSiddurTab(more.value);
+    });
+  }
   // טען שחרית בהתחלה
   loadSiddurTab("shacharit");
 }
